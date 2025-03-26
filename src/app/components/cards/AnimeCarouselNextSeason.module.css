@@ -1,0 +1,48 @@
+.anime-carousel-lancamentos {
+  padding: 0 20px; 
+  text-align: center; 
+}
+
+.titulo {
+  font-size: 1.74rem;
+  margin-bottom: 9px;
+  color: #fff;
+  padding-left: 62px;
+}
+
+.subtitulo {
+  font-size: 0.97rem;
+  margin-bottom: 20px;
+  color: #ccc;
+  padding-left: 62px;
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 768px) {
+  .anime-carousel-lancamentos {
+    padding: 0 20px; 
+    text-align: center;
+  }
+  
+  .titulo {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #fff;
+    padding-left: 20px;
+  }
+  
+  
+  .subtitulo {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    color: #ccc;
+    padding-left: 20px;
+  }
+}
+
+/* Responsividade para dispositivos muito pequenos */
+@media (max-width: 480px) {
+  .carouselContainer {
+    padding-bottom: 20px;
+  }
+}

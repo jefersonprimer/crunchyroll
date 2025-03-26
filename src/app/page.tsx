@@ -1,103 +1,129 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import "./globals.css";
+import { FavoritesProvider } from "./contexts/FavoritesContext";
+import { ListsProvider } from "./contexts/ListsContext";
+
+import AnimeCarouselFullScreen from "./components/cards/AnimeCarouselFullScreen";
+import AnimeCarouselLancamentos from './components/cards/AnimeCarouselLancamentos';
+import AnimeCarouselByDay from "./components/cards/AnimeCarouselByDay";
+import AnimeCarouselDub from "./components/cards/AnimeCarouselDub";
+import AnimeCarouselNextSeason from "./components/cards/AnimeCarouselNextSeason";
+import AnimeCarouselPopular from "./components/cards/AnimeCarouselPopular";
+import AnimeCarouselPopularSeason from "./components/cards/AnimeCarouselPopularSeason";
+import MovieCard from "./components/cards/MovieCard";
+
+import Episodios from "./components/cards/Episodios";
+import OutdoorCard from "./components/cards/OutdoorCard"; 
+import Outdoor from "./components/cards/Outdoor";
+import FavoritesCarousel from "./components/cards/FavoritesCarousel";
+
+import { useFavorites } from "./contexts/FavoritesContext";
+import HistoryCarousel from "./components/cards/HistoryCarousel";
+import { HistoryProvider, useHistory } from "./contexts/HistoryContext"; 
+
+const HomePage = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em] text-red-800">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <FavoritesProvider>
+      <ListsProvider>
+        <div className="home-container">
+          <AnimeCarouselFullScreen />
+          <AnimeCarouselLancamentos className="anime-carousel-lancamentos" />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+          <HistoryProvider>
+            <HistorySection />
+          </HistoryProvider>
+
+           {/* OutdoorCard Component */}
+           <div className="outdoor-container">
+            <OutdoorCard
+              link="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
+              imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          </div>
+
+          <AnimeCarouselByDay className="anime-carousel-by-day"/>
+          <AnimeCarouselPopularSeason className="anime-carousel-popular-season"/>
+          <AnimeCarouselPopular className="anime-carousel-popular" />
+          <AnimeCarouselNextSeason className="anime-carousel-next-season"/>
+          <AnimeCarouselDub className="anime-carousel-dub"/>
+          <MovieCard className="movie-card"/>
+
+          {/* Outdoor Component */}
+          <Outdoor 
+            imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/HeadhuntedToAnotherWorld-S1C1-KV2-Banner-2100x700-PT.png"
+            title="Dr. Stone"
+            audiotype="Dub | Leg"
+            description="Milhares de anos após um misterioso fenômeno transformar a humanidade inteira em pedra, desperta um garoto extraordinariamente inteligente e motivado pela ciência - Senku Ishigami. Diante de um mundo de pedra e do colapso generalizado da civilização, Senku decide usar sua..."
+            buttonLink="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
+            addToQueueLink="#"
+          />
+
+          <div className="favorites-section">
+            <FavoritesSection /> 
+          </div>
+
+          <div className="episodios-card">
+            <Episodios/>
+          </div>
+
+          {/* OutdoorCard Component */}
+          <div className="outdoor-container">
+            <OutdoorCard
+              link="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
+              imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/HeadhuntedToAnotherWorld-S1C1-KV2-Banner-2100x700-PT.png"
+            />
+          </div>
+
+        </div>
+      </ListsProvider>
+
+      <div className="container--cq5XE">
+        <div className="erc-view-all-feed-section">
+          <img 
+            className="view-all-feed-image" 
+            src="https://www.crunchyroll.com/build/assets/img/home/yuzu.png" 
+            srcSet="https://www.crunchyroll.com/build/assets/img/home/yuzu@2x.png 2x" 
+            alt="Yuzu." 
+          />
+          <h3 className="heading">
+            Ainda está procurando algo pra assistir? <br/>
+            Confira o nosso acervo completo
+          </h3>
+          <a 
+            className="button" 
+            data-t="view-all-btn" 
+            href="/videos/popular"
           >
-            Read our docs
+            <span className="viewAll">
+              VER TUDO
+            </span>
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+    </FavoritesProvider>
   );
-}
+};
+
+// Verifica o histórico antes de renderizar o componente
+const HistorySection = () => {
+  const { history } = useHistory(); // Pega o histórico do contexto
+
+  if (history.length === 0) {
+    return null; // Não renderiza o HistoryCarousel se não houver episódios no histórico
+  }
+
+  return <HistoryCarousel />;
+};
+
+const FavoritesSection = () => {
+  const { favorites } = useFavorites(); // Agora está dentro do provider, funciona corretamente
+
+  return (
+    <>
+      {favorites.length > 0 && <FavoritesCarousel />}
+    </>
+  );
+};
+
+export default HomePage;

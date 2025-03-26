@@ -1,0 +1,164 @@
+/* Container para a grid de resultados */
+.resultsContainer {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  width: 100%;
+  max-width: 90%; 
+  padding: 0 1.25rem;
+}
+
+/* Outros estilos da página */
+.searchPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #141519;
+  padding-top: 1.25rem;
+}
+
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 60%; /* Substitui 800px */
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.searchInput {
+  color: white;
+  width: 100%;
+  padding: 0.625rem;
+  margin-bottom: 0.625rem;
+  border: none;
+  font-size: 2rem; 
+  background-color: #141519;
+  border-bottom: 1px solid gray;
+}
+
+.searchInput:focus {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid orangered;
+}
+
+/* Estilos do botão de pesquisa */
+.searchButton {
+  background-color: #0070f3;
+  color: white;
+  padding: 0.625rem 1.25rem; 
+  border: none;
+  border-radius: 0.25rem; 
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.searchButton:hover {
+  background-color: #005bb5;
+}
+
+/* Estilos para os itens de resultado */
+.results {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+}
+
+.resultItem {
+  display: flex;
+  align-items: center;
+  padding: 0.625rem;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.resultItem:hover {
+  background-color: #f0f0f0;
+}
+
+.resultContent {
+  display: flex;
+  align-items: center;
+}
+
+.resultImage {
+  border-radius: 0.5rem; 
+  margin-right: 0.625rem; 
+}
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.resultName {
+  font-weight: bold;
+}
+
+.resultScore {
+  font-size: 0.875rem; 
+  color: #555;
+}
+
+.loading {
+  text-align: center;
+  color: #888;
+  font-size: 1rem; 
+}
+
+/* Media Queries para telas menores */
+@media (max-width: 768px) {
+  .resultsContainer {
+    gap: 0.75rem; 
+    padding: 0 1rem;
+  }
+
+  .searchContainer {
+    padding: 1rem; 
+  }
+
+  .searchInput {
+    font-size: 1.5rem;
+  }
+
+  .searchButton {
+    padding: 0.5rem 1rem; 
+    font-size: 0.875rem;
+  }
+
+  .resultItem {
+    padding: 0.5rem; 
+  }
+
+  .resultImage {
+    margin-right: 0.5rem;
+  }
+}
+
+/* Media Queries para telas muito pequenas (ex: 400px) */
+@media (max-width: 400px) {
+  .searchInput {
+    font-size: 1.25rem; 
+  }
+
+  .searchButton {
+    padding: 0.4rem 0.8rem; 
+    font-size: 0.75rem; 
+  }
+
+  .resultItem {
+    padding: 0.4rem; 
+  }
+
+  .resultImage {
+    margin-right: 0.4rem;
+  }
+
+  .resultScore {
+    font-size: 0.75rem; 
+  }
+}

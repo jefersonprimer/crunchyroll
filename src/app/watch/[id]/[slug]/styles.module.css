@@ -1,0 +1,174 @@
+.episodePage {
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+}
+
+.videoPlayerSection {
+  width: 1200px; 
+  padding: 10px;
+}
+
+/* Botões de navegação (anterior, detalhes e próximo) */
+.episodeNavigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Espaçamento entre os botões */
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.episodeNavigation a {
+  flex: 1; /* Todos os botões ocupam o mesmo espaço proporcional */
+  text-align: center; /* Centraliza o conteúdo */
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+  background-color: #0070f3; /* Cor de fundo padrão */
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Animação suave */
+}
+
+.detailsButton {
+ 
+}
+
+.detailsButton:hover,
+.prevEpisode:hover,
+.nextEpisode:hover {
+  background-color: #005bb5; /* Cor ao passar o mouse */
+}
+
+.prevEpisode.disabled,
+.nextEpisode.disabled {
+  pointer-events: none; 
+  opacity: 0.5; /* Visual de botão desativado */
+}
+
+
+.infoBox {
+  padding: 20px;
+}
+
+.infoBox h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ .genres {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.genres a {
+  border-radius: 5px;
+  background-color: #333;
+  padding: 5px 10px;
+  margin-right: 10px;
+  text-decoration: none;
+  color: #0070f3;
+  font-size: 14px;
+}
+
+.genres a:hover {
+  text-decoration: underline;
+}
+
+.poster {
+  display: flex;
+  gap: 10px;
+}
+
+.poster img {
+  width: 140px;
+  height: 210px;
+}
+
+/* Coluna Direita: Recomendações */
+.rightColumn {
+  overflow-x: hidden;
+  width: 350px;
+  padding: 1rem;
+  color: #FFF;
+  background-color: #1c1c1c;
+}
+
+.rightColumn a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.rightColumn h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #FFFFFF;
+}
+
+.recommendationsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recommendationItem {
+  display: flex; 
+  margin-bottom: 16px;
+  overflow: hidden;
+  border-bottom: 1px solid rgb(78, 77, 77);
+}
+
+.recommendationContent {
+  display: flex;
+  align-items: flex-start; 
+  width: 100%;
+  padding: 8px;
+}
+
+.recommendationImage {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 12px;
+  flex-shrink: 0; 
+}
+
+.recommendationDetails {
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-start; 
+  align-items: flex-start;
+  flex-grow: 1;
+}
+
+.recommendationName {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #FFFFFF;
+  white-space: nowrap; 
+  overflow: hidden;    
+  text-overflow: ellipsis; 
+  max-width: 200px;
+}
+
+.recommendationName:hover {
+  color: #007acc;
+}
+
+.recommendationDate {
+  font-size: 0.85rem; 
+  color: #666;
+  margin-top: 4px;
+}
+
+.noRecommendations {
+  font-size: 1.1rem;
+  color: #FFFFFF;
+  text-align: center;
+}
+

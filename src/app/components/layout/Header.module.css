@@ -1,0 +1,634 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100% - 17px);
+  height: 60px;
+  background-color: #23252B;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 max(5%, 40px);
+  z-index: 1000;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between; 
+  width: 100%;
+  align-items: center;
+  background-color: #23252B;
+}
+
+.headerLogo {
+  display: flex;
+  align-items: center;
+  padding-right: 30px;
+}
+
+.logoContainer {
+  width: 136;
+  height: 60px; 
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 133;
+  height: 21px;
+  object-fit: cover;
+}
+
+.headerLogo .logoContainer:hover .logo {
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+
+.headerMenu {
+  display: flex;
+  align-items: center;
+  margin-left: 0; 
+  color: #FFF;
+}
+
+.hamburgerMenu {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.hamburgerHeader {
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  width: 100%;
+  padding: 0 16px; 
+}
+
+.hamburgerIcon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  z-index: 2;
+}
+
+.hamburgerIcon svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  color: #ffffff;
+}
+
+.headerLogoMobile {
+  display: none;
+  margin-left: 20px;
+}
+
+.logoMobileContainer {
+  padding: 15px;
+}
+
+.hamburgerLinks {
+  position: absolute; 
+  top: 100%;
+  left: 0;
+  width: 200px;
+  background-color: #333; 
+  color: #fff; 
+  border-radius: 4px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  z-index: 1000;
+}
+
+.hamburgerLinks a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.hamburgerLinks a:hover {
+  background-color: rgba(255, 255, 255, 0.1); 
+}
+
+.navLinks {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navLinks a {
+  color: white;            
+  text-decoration: none;   
+  display: inline-block;      
+  transition: background-color 0.3s ease; 
+}
+
+.navLinks a:hover {
+  background-color: #141519;
+}
+
+.navItem {
+  position: relative;
+}
+
+.navItem a {
+  font-family: 'Roboto', sans-serif;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  padding: 18px 14px;     
+}
+
+.titleNavegation {
+  color: #DADADA;
+}
+
+.ercHeaderSvg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  color: #FFF;
+}
+
+.iconBackground {
+  padding: 18px 18px; /* Espaçamento interno */
+  transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+}
+
+.iconBackground:hover {
+  background-color: #141519;
+}
+
+
+.dropdownMenu {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  background-color: #141519;
+  width: 850px; 
+  top: 100%;
+  left: 0;
+  padding: 0px;
+  z-index: 100;
+}
+
+/* Estilo para as colunas dentro do dropdown */
+.menuContent {
+  display: flex;
+  width: 100%;
+}
+
+/* Coluna de Categorias (Popular, Novidades, A-Z) */
+.categoriesColumn {
+  display: flex;
+  flex-direction: column;
+  /* margin-right: 20px; */
+  padding: 6px 0px;
+  width: 360px;
+}
+
+/* Estilo do link nas colunas */
+.categoriesColumn a {
+  color: #F8F8F8;
+  padding: 10px 20px;
+  text-decoration: none;
+  margin-bottom: 0px;
+  width: 100%;
+}
+
+.categoriesColumn a:hover {
+  background-color: #23252B;
+}
+
+/* Divisória entre as colunas */
+.divider {
+  border-right: 2px solid #23252B;
+  margin: 0px;
+  height: 100%;
+}
+
+/* Título "Gêneros" */
+.genresSection {
+  padding: 14px 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%; 
+}
+
+.genresTitle {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 200;
+  color: gray;
+  margin-bottom: 6px;
+  text-align: left; 
+  padding: 4px 14px;
+  font-size: 14px;
+}
+
+/* Coluna de Gêneros */
+.genresGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 15px;
+}
+
+/* Estilo do link nas colunas de Gêneros */
+.genresColumn a {
+  font-family: 'Roboto', sans-serif;
+  color: #DADADA;
+  padding: 10px 15px;
+  text-decoration: none;
+}
+
+.genresColumn a:hover {
+  background-color: #23252B;
+}
+
+.titleNews {
+  color: #DADADA;
+}
+
+.newsDropdown {
+  width: 220px;
+}
+
+
+.activeNews {
+  background-color: #141519;
+  transition: background-color 0.3s ease; /* Animação suave */
+}
+
+
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  margin-left: auto; 
+  color: #FFF;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+}
+
+.content {
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+
+
+/* Esconde o popup inicialmente */
+.ercUpsellPopup {
+  display: none;
+  position: absolute; /* Fica posicionado abaixo do botão */
+  top: 100%; /* Fica logo abaixo do botão */
+  margin-top: 10px; /* Espaço entre o botão e o popup */
+  background: #000;
+  /* border: 1px solid yellow; */
+  color: #FFF;
+  padding: 10px 20px;
+  width: 360px;
+  height: 160px;
+  z-index: 1000; /* Garante que o pop-up esteja acima de outros elementos */
+}
+
+.backgroundInner {
+  position: relative;
+}
+
+.leftUpStars, .rightUpStar, .rightBottomLinesStar, .leftBottomLines {
+  position: absolute;
+  opacity: 1; 
+  width: 44px;
+  height: 44px;
+}
+
+.leftUpStars {
+  top: -16px;
+  left: -16px;
+}
+
+.rightUpStar {
+  top: -16px;
+  right: -16px;
+}
+
+.rightBottomLinesStar {
+  top: 85px;
+  right: -18px;
+  width: 64px;
+  height: 64px;
+}
+
+.leftBottomLines {
+  top: 105px;
+  left: -18px;
+}
+
+.headerPremium {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Alinha verticalmente ao centro */
+}
+
+.headerPremiumIcon {
+  width: 24px;
+  height: 24px;
+  fill: #FFF;
+}
+
+/* Exibe o popup quando passar o mouse sobre o botão */
+.iconBackground:hover .ercUpsellPopup {
+  display: block;
+}
+
+/* Estilo do conteúdo do popup */
+.contentWrapper {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+}
+
+.heading {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.text {
+  font-size: 14px;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column; /* Empilha os textos */
+  /* align-items: center; */
+  justify-content: center;
+  text-align: left;
+  gap: 2px;
+}
+
+.headerPrimiumIcon {
+  fill: #FAB818;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.freeTrialText {
+  font-size: 10px;
+  color: #ffb300; /* Cor para o texto 'TESTE GRÁTIS' */
+}
+
+.premiumText {
+  font-size: 10px;
+  color: #DADADA; /* Cor para o texto 'Premium' */
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  /* gap: 16px; */
+}
+
+.searchButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.iconBookmark, .headerSvgIcon {
+  fill: #DADADA;
+  width: 24px;
+  height: 24px;
+  margin-left: 0px;
+  cursor: pointer;
+}
+
+/* Para telas maiores (tablet, desktop) */
+@media (max-width: 768px) {
+  .header {
+    border: none;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 0.5rem 0.2rem;
+    max-width: 100%;
+    max-height: 3.75rem;
+    background-color: #23252B;
+    color: #FFFFFF;
+  }
+  
+  #games {
+    display: none;
+  }
+
+  .textContainer {
+    display: none;
+  }
+
+
+  .container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    background-color: #23252B;
+  }
+
+  .headerLogo {
+    display: flex;
+    align-items: center;
+    margin-right: auto; 
+  }
+
+  .headerLogoMobile {
+    display: block;
+  }
+
+  .headerMenu {
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+    color: #FFF;
+  }
+
+  .navLinks {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .navItem {
+    margin-right: 20px;
+    position: relative;
+  }
+
+  .navItem a {
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  .headerActions {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    color: #FFF;
+  }
+
+  .searchContainer {
+    display: flex;
+    align-items: center;
+    /* gap: 16px;  */
+  }
+
+  .ercHeaderSvg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    color: #FFF;
+  }
+
+  .searchContainer {
+    display: flex;
+    align-items: center;
+  }
+
+  .searchButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .iconBookmark, .headerSvgIcon {
+    fill: #FFF;
+    width: 24px;
+    height: 24px;
+    margin-left: 0px;
+    cursor: pointer;
+  }
+
+  .dropdownMenu {
+    display: flex;
+    flex-direction: column; 
+    position: absolute;
+    background-color: #141519;
+    width: 100%; 
+    top: 180%;
+    left: 0;
+    padding: 0px;
+    z-index: 100;
+  }
+
+  .menuContent {
+    display: flex;
+    flex-direction: column; 
+    width: 100%;
+  }
+
+  .categoriesColumn {
+    display: flex;
+    flex-direction: column;
+    margin-right: 0; 
+    padding: 10px;
+  }
+
+  .categoryTitle {
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  .categoriesColumn a {
+    color: #fff;
+    padding: 6px;
+    text-decoration: none;
+    margin-bottom: 8px;
+  }
+
+  .categoriesColumn a:hover {
+    background-color: #23252B;
+  }
+
+  .divider {
+    border-right: none; 
+    margin: 0;
+    height: 100%;
+  }
+
+  .genresGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .genresColumn a {
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    padding: 10px 5px;
+    text-decoration: none;
+  }
+
+  .genresColumn a:hover {
+    background-color: #23252B;
+  }
+
+  .genresSection {
+    padding: 14px 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .genresTitle {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+    color: gray;
+    margin-bottom: 6px;
+    text-align: left;
+    padding: 4px 4px;
+    font-size: 14px;
+  }
+
+  .newsDropdown {
+    width: 100%;
+  }
+
+  .newsDropdown a {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .titleNavegation {
+    color: #FFF;
+  }
+
+  .titleNews {
+    color: #FFF;
+  }
+}

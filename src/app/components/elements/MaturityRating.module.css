@@ -1,0 +1,21 @@
+.maturityRating {
+  border: 1px solid #FFF;
+  display: inline-flex; 
+  border-radius: 1px;
+  color: white;
+  font-size: 10px;
+  padding: 0px 1px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -1px;
+  width: auto; 
+  height: auto;
+  transform: scale(0.9, 1.2);
+  transform-origin: center; 
+}
+
+.maturityRating span {
+  display: inline-block;
+  margin: 0; 
+}

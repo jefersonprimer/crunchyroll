@@ -1,0 +1,196 @@
+/* Estilos para o Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  background-color: #23252B;
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.renameInput {
+  outline: none;
+  width: 100%;
+  margin: 20px 0;
+  color: #FFF;
+  background-color: transparent;
+  border: none; /* Remove todas as bordas, exceto a inferior */
+  border-bottom: 2px solid #ccc; /* Borda inferior */
+}
+
+.renameInput:focus {
+  border-bottom: 2px solid #FF640A;
+}
+
+.saveRenameButton,
+.cancelButton {
+  padding: 8px 16px;
+  margin: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.saveRenameButton {
+  background-color: #FF640A;
+  color: black;
+  font-weight: bold;
+  border: none;
+}
+
+.cancelButton {
+  background-color: transparent;
+  color: #FF640A;
+  border: 1px solid #FF640A;;
+}
+
+
+.crunchyListContainer {
+  font-family: Arial, sans-serif;
+}
+
+.header {
+ padding: 30px 0px;
+}
+
+.createListBtn {
+  font-size: 0.9rem;
+  margin-right: 15px;
+  padding: 10px 14px;
+  border: 1px solid #FF640A;
+  color: #FF640A;
+  background-color: #000;
+  cursor: pointer;
+}
+
+.listLength {
+  color: #A0A0A0;
+  font-size: 1rem;
+}
+
+.listsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 2fr));
+  gap: 20px;
+}
+
+.listItem {
+  padding: 20px;
+  background-color: #141519;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.listItem:hover {
+  background-color: #23252B;
+}
+
+.listTitle {
+  font-size: 1.5rem;
+  margin: 0;
+  cursor: pointer;
+}
+
+.listInfo {
+  margin-top: 10px;
+  display: flex;
+  gap: 5px;
+  font-size: 0.9rem;
+  color: #A0A0A0;
+}
+
+.updatedAt {
+  
+}
+
+.listItems {
+  margin-top: 15px;
+}
+
+.animeItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.animeImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.removeButton {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.removeButton:hover {
+  background-color: #e63939;
+}
+
+.renameListContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.menuContainer {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.menuIcon {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #A0A0A0;
+}
+
+.menuIcon:hover {
+  color: #FFF;
+}
+
+.dropdownMenu {
+  width: 200px;
+  position: absolute;
+  top: 35px;
+  right: 0;
+  background-color: #23252B;
+  z-index: 10;
+  padding: 10px 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdownItem {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 15px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #A0A0A0;
+}
+
+.dropdownItem:hover {
+  background-color: #141519;
+  color: #FFF;
+}

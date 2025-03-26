@@ -1,0 +1,83 @@
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centraliza verticalmente */
+  align-items: center; /* Centraliza horizontalmente */
+  text-align: center; /* Centraliza o texto */
+  padding: 2rem; /* Adiciona algum espaço ao redor */
+}
+
+.mainTitle {
+  font-size: 2rem; /* Tamanho do título */
+  color: #333; /* Cor do título */
+  margin: 0; /* Remove margens extras */
+}
+
+.genreSection {
+  width: 100%;
+  max-width: 800px; /* Reduzindo a largura máxima */
+  margin-bottom: 2rem;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0 10rem;
+  gap: 10px; /* Reduz o espaço entre o título e "VER TODOS" */
+}
+
+
+.sectionTitle {
+  font-size: 1.5rem;
+  color: #666;
+  margin: 0; /* Remove margens adicionais */
+}
+
+.viewAll {
+  font-size: 1rem;
+  color: #ff640a;
+  cursor: pointer;
+  text-decoration: underline;
+  margin: 0; /* Remove margens adicionais */
+}
+
+
+
+@media (max-width: 768px) {
+  .genreSection {
+    margin: 1.5rem 0;
+  }
+
+  .genreTitle {
+    font-size: 1.75rem;
+  }
+
+  .carouselContainer {
+    margin-bottom: 1.5rem;
+  }
+
+  .carouselTitle {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .genreSection {
+    margin: 1rem 0;
+  }
+
+  .genreTitle {
+    font-size: 1.5rem;
+  }
+
+  .carouselContainer {
+    margin-bottom: 1rem;
+  }
+
+  .carouselTitle {
+    font-size: 1.1rem;
+  }
+}

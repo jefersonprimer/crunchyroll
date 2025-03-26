@@ -1,0 +1,149 @@
+.emptyListBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  padding-bottom: 60px;
+  flex-direction: column;
+  /* border: 2px dotted white; */
+}
+
+.wrapper {
+  text-align: center;
+}
+
+.image {
+  width: 100%;
+  max-width: 250px;
+}
+
+.description {
+  font-size: 1rem;
+  margin-bottom: 40px;
+  color: #DADADA;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.removeButton {
+  background-color: transparent; /* Remove o fundo branco do botão */
+  border: none; /* Remove qualquer borda */
+  padding: 0; /* Remove o padding, se necessário */
+  display: inline-flex; /* Garante que o ícone seja exibido corretamente */
+  align-items: center; /* Alinha o conteúdo no centro */
+  cursor: pointer;
+}
+
+.trashIcon {
+  display: block; /* Remove o espaço extra ao redor do SVG */
+  width: 24px; /* Ajuste o tamanho do ícone conforme necessário */
+  height: 24px; /* Ajuste o tamanho do ícone conforme necessário */
+}
+
+.trashIcon path {
+  fill: #FFF;  /* Remove qualquer preenchimento */
+  stroke: #fff;  /* Cor dos contornos (preto, pode ser alterado) */
+  stroke-width: 1;  /* Espessura do contorno */
+}
+
+
+.texts {
+  text-align: left;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+  
+
+  
+
+  
+  .button {
+    margin-top: 20px;
+    color: #000;
+  }
+  
+  .returnButton {
+    background-color: #FF640A;
+    color: #000!important;
+    font-weight: bold;
+    padding: 12px 15px;
+    text-decoration: none;
+  }
+  
+  .animeList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .animeItem {
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .animeImage {
+    width: 100%;
+    height: auto;
+  }
+  
+  .name {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+  }
+
+  .trashIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+
+  
+  @media (max-width: 1024px) {
+    .animeList {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .animeList {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .animeList {
+      grid-template-columns: 1fr;
+    }
+  }
+  

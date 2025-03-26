@@ -1,0 +1,429 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap; /* Permite que os elementos se movam para a linha seguinte em telas pequenas */
+}
+
+.leftColumn {
+  flex: 1;
+  text-align: center;
+}
+
+.sheader {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.sheader .blur {
+  position: relative;
+  flex: 1;
+  justify-content: center;
+}
+
+.poster img {
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.mtipoEstrelas {
+  position: absolute;
+  top: 10px;
+  left: 45%;
+  transform: translateX(-99%);
+  font-size: 0.6rem;
+  color: #fff;
+  background-color: #F1C40F;
+  border-radius: 2px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.mtipoEstrelas i {
+  margin-right: 5px;
+}
+
+.data h1 {
+  margin-top: 1rem;
+  font-size: 2rem;
+  color: #fff;
+}
+
+/* Container dos gêneros */
+.genresContainer {
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.genreItem {
+  gap: 10px;
+  padding: 5px 10px;
+  background-color: #333;
+  border-radius: 2px;
+  font-size: 14px;
+  color: #fff;
+  margin: 2px 0;
+  transition: background-color 0.3s;
+}
+
+.genreItem:hover {
+  background-color: #007acc;
+}
+
+.extra {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #ccc;
+}
+
+/* Botões container */
+.buttonsContainer {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.actionButton {
+  flex: 1;
+  padding: 10px;
+  background-color: #007acc;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+}
+
+.actionButton:hover {
+  background-color: #005fa3;
+}
+
+/* Barra de pesquisa */
+.searchContainer {
+  margin-bottom: 20px;
+}
+
+.searchInput {
+  width: 98%;
+  padding: 10px;
+  border: 0;
+  border-radius: 4px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* episódios container */
+.episodesContainer {
+  padding: 20px;
+  background-color: #1b1b1b;
+  border-radius: 8px;
+}
+
+.episodesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.episodeItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid rgb(78, 77, 77);
+}
+
+.episodeItem:last-child {
+  margin-bottom: 0;
+}
+
+.imageContainer {
+  flex-shrink: 0;
+  width: 150px;
+  height: 90px;
+  margin-right: 10px;
+}
+
+.episodeImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.episodeDetails {
+  display: flex;
+  text-align: left;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.episodeTitle {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.episodeTitle:hover {
+  text-decoration: underline;
+}
+
+.releaseDate {
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+}
+
+.noEpisodes {
+  color: red;
+  font-size: 14px;
+}
+
+/* Coluna Direita: Recomendações */
+.rightColumn {
+  overflow-x: hidden;
+  width: 350px;
+  padding: 1rem;
+  color: #FFF;
+  background-color: #1c1c1c;
+}
+
+.rightColumn a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.rightColumn h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #FFFFFF;
+}
+
+.recommendationsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recommendationItem {
+  display: flex;
+  margin-bottom: 16px;
+  overflow: hidden;
+  border-bottom: 1px solid rgb(78, 77, 77);
+}
+
+.recommendationContent {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  padding: 8px;
+}
+
+.recommendationImage {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.recommendationDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-grow: 1;
+}
+
+.recommendationName {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #FFFFFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.recommendationName:hover {
+  color: #007acc;
+}
+
+.recommendationDate {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+.noRecommendations {
+  font-size: 1.1rem;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .leftColumn {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .sheader {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .poster img {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .mtipoEstrelas {
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+  }
+
+  .data h1 {
+    font-size: 1.5rem;
+  }
+
+  .genresContainer {
+    justify-content: center;
+  }
+
+  .genreItem {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .extra {
+    font-size: 1rem;
+  }
+
+  .buttonsContainer {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .actionButton {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .searchInput {
+    width: 100%;
+  }
+
+  .episodesContainer {
+    padding: 15px;
+  }
+
+  .imageContainer {
+    width: 120px;
+    height: 70px;
+  }
+
+  .episodeTitle {
+    font-size: 14px;
+  }
+
+  .releaseDate {
+    font-size: 11px;
+  }
+
+  .rightColumn {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .recommendationImage {
+    width: 60px;
+    height: 80px;
+  }
+
+  .recommendationName {
+    font-size: 0.9rem;
+  }
+
+  .recommendationDate {
+    font-size: 0.75rem;
+  }
+}
+
+/* Responsividade para telas muito pequenas */
+@media (max-width: 480px) {
+  .mtipoEstrelas {
+    font-size: 1.1rem;
+  }
+
+  .poster img {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .data h1 {
+    font-size: 1.3rem;
+  }
+
+  .genreItem {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+
+  .extra {
+    font-size: 0.95rem;
+  }
+
+  .actionButton {
+    font-size: 14px;
+  }
+
+  .episodesContainer {
+    padding: 10px;
+  }
+
+  .episodeTitle {
+    font-size: 12px;
+  }
+
+  .releaseDate {
+    font-size: 10px;
+  }
+
+  .rightColumn {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .recommendationImage {
+    width: 50px;
+    height: 70px;
+  }
+
+  .recommendationName {
+    font-size: 0.85rem;
+  }
+
+  .recommendationDate {
+    font-size: 0.7rem;
+  }
+}
