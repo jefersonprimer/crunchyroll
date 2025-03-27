@@ -1,26 +1,37 @@
-'use client';
+//  style={{ backgroundImage: `url(${anime.image})` }}
 
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
-import styles from './styles.module.css';
-import Link from 'next/link';
 
-import { Anime } from '@/types/anime';
-import { Episode } from '@/types/episode';
-import useFetchAnimes from '../../../hooks/useFetchAnimes'; // Importando o hook de animes
-import useFetchEpisodes from '../../../hooks/useFetchEpisodes'; // Importando o hook de episódios
-import Image from 'next/image';
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import styles from "./styles.module.css";
+import { Anime } from "@/types/anime";
+import { Episode } from "@/types/episode";
+import useFetchAnimes from "../../../hooks/useFetchAnimes";
+import useFetchEpisodes from "../../../hooks/useFetchEpisodes";
+import { FavoritesProvider } from "@/app/contexts/FavoritesContext";
+import AnimeCarousel from "../../../components/cards/AnimeCarousel";
+import { EpisodesSection } from "./components/EpisodesSection";
+import MaturityRating from "@/app/components/elements/MaturityRating";
 
 const Page = () => {
   const { slug } = useParams();
   const [anime, setAnime] = useState<Anime | null>(null);
   const [episodes, setEpisodes] = useState<Episode[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
   const [recommendations, setRecommendations] = useState<Anime[]>([]);
+  const [expandedSynopsis, setExpandedSynopsis] = useState(false);
 
-  // Usando os hooks para obter dados da API
-  const { animes, loading: loadingAnimes, error: errorAnimes } = useFetchAnimes();
-  const { episodes: allEpisodes, loading: loadingEpisodes, error: errorEpisodes } = useFetchEpisodes();
+  const {
+    animes,
+    loading: loadingAnimes,
+    error: errorAnimes,
+  } = useFetchAnimes();
+  const {
+    episodes: allEpisodes,
+    loading: loadingEpisodes,
+    error: errorEpisodes,
+  } = useFetchEpisodes();
 
   useEffect(() => {
     if (slug) {
@@ -44,13 +55,9 @@ const Page = () => {
     }
   }, [slug, animes, allEpisodes]);
 
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value.toLowerCase());
+  const toggleSynopsis = () => {
+    setExpandedSynopsis(!expandedSynopsis);
   };
-
-  const filteredEpisodes = episodes.filter((episode) =>
-    episode.title.toLowerCase().includes(searchQuery)
-  );
 
   if (loadingAnimes || loadingEpisodes) {
     return <p>Carregando...</p>;
@@ -66,109 +73,81 @@ const Page = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.leftColumn}>
-        <div className={styles.sheader}>
-          <div className={styles.blur}>
-            <div className={styles.poster}>
-              <img src={anime.image} alt={anime.name} />
-              <span className={styles.mtipoEstrelas}>
-                <i className="fas fa-star"></i>
-                <span>{anime.score}</span>
-              </span>
-            </div>
-            <div className={styles.data}>
-              <h1>{anime.name}</h1>
-              <div className={styles.genresContainer}>
-                {anime.genres.map((genre) => (
-                  <span key={genre} className={styles.genreItem}>
-                    {genre}
+      {/* Seção Superior - Cabeçalho do Anime */}
+      <div
+        className={`${styles.heroSection} ${
+          expandedSynopsis ? styles.heroSectionExpanded : ""
+        }`}
+      >
+        <div
+          className={styles.heroImage}
+          style={{
+            backgroundImage: "url(https://placewaifu.com/image/1200/364)",
+          }}
+        >
+          <div className={styles.heroContent}>
+            <div className={styles.heroContent}>
+              <div className={styles.heroText}>
+                <h1 className={styles.name}>{anime.name}</h1>
+                <div className={styles.metaInfoContainer}>
+                  <span className={styles.metaItem}>
+                    {" "}
+                    <MaturityRating rating={anime.rating} />
                   </span>
-                ))}
-              </div>
-              <div className={styles.extra}>
-                <h2>Sinopse...</h2>
-                <span>{anime.synopsis}</span>
+                  <span className={styles.metaItem}>{anime.audioType}</span>
+                  <span className={styles.metaItem}></span>
+                  <div className={styles.genresList}>
+                    {anime.genres.map((genre, index) => (
+                      <React.Fragment key={genre}>
+                        <span className={styles.genreName}>{genre}</span>
+                        {index < anime.genres.length - 1 && (
+                          <span className={styles.comma}>,</span>
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className={styles.buttonsContainer}>
-          <button className={styles.actionButton}>Assistir primeiro episódio</button>
-          <button className={styles.actionButton}>Assistir último episódio</button>
-        </div>
-        <div className={styles.searchContainer}>
-          <form style={{ position: 'relative' }}>
-            <input
-              type="text"
-              placeholder="Pesquisar episódio..."
-              onChange={handleSearch}
-              className={styles.searchInput}
-            />
-          </form>
-        </div>
-
-        <div className={styles.episodesContainer}>
-          {filteredEpisodes.length > 0 ? (
-            <ul className={styles.episodesList}>
-              {filteredEpisodes.map((episode) => (
-                <li key={episode.id} className={styles.episodeItem}>
-                  <div className={styles.imageContainer}>
-                    <img
-                      src={episode.image}
-                      alt={`Episódio ${episode.id}`}
-                      className={styles.episodeImage}
-                    />
-                  </div>
-                  <div className={styles.episodeDetails}>
-                    <Link
-                      className={styles.episodeTitle}
-                      href={`/watch/${episode.id}/${episode.slug}`}
-                    >
-                      {episode.title}
-                    </Link>
-                    <span className={styles.releaseDate}>
-                      {episode.releaseDate}
-                    </span>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className={styles.noEpisodes}>Nenhum episódio encontrado.</p>
-          )}
+        {/* Seção de Sinopse */}
+        <div className={styles.synopsisContainer}>
+          <div
+            className={`${styles.synopsisWrapper} ${
+              expandedSynopsis ? styles.expanded : ""
+            }`}
+          >
+            <div className={styles.synopsisColumns}>
+              <div className={styles.synopsisColumn}>
+                <p>{anime.synopsis}</p>
+              </div>
+              <div className={styles.synopsisColumn}>
+                <p>{anime.synopsis}</p>
+              </div>
+            </div>
+          </div>
+          <div className={styles.buttonContainer}>
+            <button
+              onClick={toggleSynopsis}
+              className={styles.moreDetailsButton}
+            >
+              {expandedSynopsis ? "MENOS DETALHES" : "MAIS DETALHES"}
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className={styles.rightColumn}>
+      {/* Seção de Episódios */}
+      <EpisodesSection episodes={episodes} />
+
+      {/* Seção de Recomendações */}
+      <div className={styles.recommendationsSection}>
         <h2>Veja também!</h2>
-        <ul className={styles.recommendationsList}>
-          {recommendations.length > 0 ? (
-            recommendations.map((recommendation) => (
-              <li key={recommendation.id} className={styles.recommendationItem}>
-                <Link href={`/series/${recommendation.id}/${recommendation.slug}`}>
-                  <div className={styles.recommendationContent}>
-                    <img
-                      src={recommendation.image}
-                      alt={recommendation.name}
-                      className={styles.recommendationImage}
-                    />
-                    <div className={styles.recommendationDetails}>
-                      <h3 className={styles.recommendationName}>{recommendation.name}</h3>
-                      <span className={styles.recommendationDate}>
-                        {recommendation.releaseYear}
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              </li>
-            ))
-          ) : (
-            <p className={styles.noRecommendations}>
-              Nenhuma recomendação encontrada.
-            </p>
-          )}
-        </ul>
+        <FavoritesProvider>
+          <AnimeCarousel animes={recommendations} />
+        </FavoritesProvider>
       </div>
     </div>
   );
