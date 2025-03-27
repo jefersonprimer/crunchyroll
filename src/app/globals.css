@@ -4,11 +4,15 @@
   --card-spacing-vertical: 10px 0px;
 }
 
-* {
+
+
+
+
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+} */
 
 #root, html, body {
   height: 100%;
@@ -18,13 +22,18 @@
   overflow-x: hidden;
 }
 
+
+
+
+
+
 body {
   color: #FFFFFF;
   background-color: #000000;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  padding-top: 60px;
+ 
 }
 
 /* Scrollbar para navegadores como Firefox */
@@ -53,7 +62,7 @@ html {
 .home-container {
   display: flex;
   flex-direction: column;
- 
+  padding-top: 60px;
 }
 
 /* .anime-carousel-fullscreen {

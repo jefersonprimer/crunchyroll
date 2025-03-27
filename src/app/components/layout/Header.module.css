@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 max(5%, 40px);
-  z-index: 1000;
+  z-index: 999;
 }
 
 .container {

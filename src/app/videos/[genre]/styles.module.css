@@ -6,6 +6,7 @@
   align-items: center; /* Centraliza horizontalmente */
   text-align: center; /* Centraliza o texto */
   padding: 2rem; /* Adiciona algum espaço ao redor */
+  padding-top: 60px;
 }
 
 .mainTitle {

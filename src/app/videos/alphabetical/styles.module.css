@@ -175,6 +175,7 @@
 
 .svgBtn {
   padding: 0.1rem;
+   display: flex;
 }
 
 .svgBtn:hover {

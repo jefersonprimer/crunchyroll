@@ -252,7 +252,7 @@ export default function Header() {
               <div ref={dropdownNewsRef} className={`${styles.dropdownMenu} ${styles.newsDropdown}`}>
                 <div className={styles.menuContent}>
                   <div className={styles.categoriesColumn}>
-                    <Link href="/news/popular">Todas as Notícias</Link>
+                    <Link href="/news">Todas as Notícias</Link>
                     <Link href="/news/new">Anime Awards</Link>
                     <Link href="/news/alphabetical">Evento & Experiências</Link>
                   </div>
