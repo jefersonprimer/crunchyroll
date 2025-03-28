@@ -14,6 +14,8 @@ import { FavoritesProvider } from "@/app/contexts/FavoritesContext";
 import AnimeCarousel from "../../../components/cards/AnimeCarousel";
 import { EpisodesSection } from "./components/EpisodesSection";
 import MaturityRating from "@/app/components/elements/MaturityRating";
+import { ClientMetadata } from "./components/ClientMetadata";
+import PremiumUpsell from "./components/PremiumUpsell";
 
 const Page = () => {
   const { slug } = useParams();
@@ -71,8 +73,19 @@ const Page = () => {
     return <p>Anime não encontrado.</p>;
   }
 
+  
   return (
     <div className={styles.container}>
+      {anime && (
+        <ClientMetadata
+          title={`Assistir ${anime.name}`}
+          description={`Assista ${anime.name}: ${anime.synopsis.substring(
+            0,
+            160
+          )}...`}
+        />
+      )}
+
       {/* Seção Superior - Cabeçalho do Anime */}
       <div
         className={`${styles.heroSection} ${
@@ -139,12 +152,14 @@ const Page = () => {
         </div>
       </div>
 
+      <PremiumUpsell />
+
       {/* Seção de Episódios */}
-      <EpisodesSection episodes={episodes} />
+      <EpisodesSection episodes={episodes} animeName={anime.name} />
 
       {/* Seção de Recomendações */}
       <div className={styles.recommendationsSection}>
-        <h2>Veja também!</h2>
+        <h2>More Like This</h2>
         <FavoritesProvider>
           <AnimeCarousel animes={recommendations} />
         </FavoritesProvider>

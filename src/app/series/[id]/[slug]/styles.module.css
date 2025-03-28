@@ -1,6 +1,5 @@
 .container {
   width: 100%;
-  
   margin: 0 auto;
   padding: 20px;
 }
@@ -13,7 +12,7 @@
 
 .heroImage {
   width: 100%;
-  height: 364px;
+  height: 564px;
   background-size: cover;
   background-position: center;
   position: relative;
@@ -32,8 +31,7 @@
 
 .heroText h1 {
   color: white;
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+  font-size: 16px;
 }
 
 .name {
@@ -179,8 +177,23 @@
 }
 
 /* Seção Recomendações */
+/* No seu arquivo de estilos (ex: styles.module.css) */
 .recommendationsSection {
-  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza horizontalmente */
+  justify-content: center; /* Centraliza verticalmente (opcional) */
+  text-align: center; /* Centraliza o texto do título */
+  max-width: 1200px; /* Defina um máximo conforme necessário */
+  margin: 0 auto; /* Centraliza o container */
+  padding: 20px;
+}
+
+.recommendationsSection h2 {
+  align-items: left;
+  margin-bottom: 20px; /* Espaçamento abaixo do título */
+  font-size: 1.5rem;
+  color: #fff; /* Ou a cor do seu tema */
 }
 
 /* Adicione estas classes ao seu arquivo CSS */
@@ -198,10 +211,10 @@
 /* Container principal da sinopse */
 .synopsisContainer {
   background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 8px;
   padding: 20px;
   margin: 20px 0;
   position: relative; /* Adicionado */
+  border-bottom: 1px solid #23252B;
 }
 
 /* Wrapper que controla a altura */

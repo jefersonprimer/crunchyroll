@@ -14,15 +14,73 @@ interface Episode {
 
 interface EpisodesSectionProps {
   episodes: Episode[];
+  animeName: string;
 }
 
-export const EpisodesSection = ({ episodes }: EpisodesSectionProps) => {
+export const EpisodesSection = ({ episodes, animeName }: EpisodesSectionProps) => {
   return (
     <div className={styles.episodesContainer}>
-      <div className={styles.episodesSection}>
-     
-        <h2>Episódios</h2>
+      {/* Controles acima dos episódios */}
+      <div className={styles.topControls}>
+        {/* Título da temporada (ESQUERDA) */}
+        <div className={styles.seasonTitle}>
+          <h4>{animeName}</h4>
+        </div>
 
+        {/* Botões (DIREITA) */}
+        <div className={styles.controlsRight}>
+          {/* Botão "Oldest" (CANTO DIREITO) */}
+          <div className={styles.dropdown} data-t="episode-sort-select">
+            <button
+              className={styles.dropdownTrigger}
+              role="button"
+              tabIndex="0"
+            >
+              <svg
+                className={styles.dropdownIcon}
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                data-t="sort-svg"
+                aria-labelledby="sort-svg"
+                aria-hidden="true"
+                role="img"
+                fill="white"
+              >
+                <title id="sort-svg">Sort</title>
+                <path d="M9 18a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h6zM21 4a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h18zm-6 7a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h12z"></path>
+              </svg>
+              <span>Oldest</span>
+            </button>
+          </div>
+
+          {/* Botão "Options" (CANTO DIREITO) */}
+          <div className={styles.dropdown} data-t="episode-sort-select">
+            <button
+              className={styles.dropdownTrigger}
+              role="button"
+              tabIndex="0"
+            >
+              <svg
+                className={styles.dropdownIcon}
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 12 24"
+                data-t="more-svg"
+                aria-labelledby="more-svg"
+                aria-hidden="true"
+                role="img"
+                fill="white"
+              >
+                <title id="more-svg">More actions</title>
+                <path d="M6 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-2 4c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2zm2 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
+              </svg>
+              <span>Options</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Seção de episódios */}
+      <div className={styles.episodesSection}>
         <div className={styles.episodesGrid}>
           {episodes.length > 0 ? (
             episodes.map((episode) => (
