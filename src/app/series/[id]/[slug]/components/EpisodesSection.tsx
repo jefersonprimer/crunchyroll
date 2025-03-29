@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
+import { EpisodeCard } from "./EpisodeCard";
 import styles from "./EpisodesSection.module.css";
 
 interface Episode {
@@ -10,6 +10,12 @@ interface Episode {
   image: string;
   slug: string;
   releaseDate: string;
+  animeName: string;
+  episodeNumber: string;
+  audioType: string;
+  duration: string;
+  rating: number;
+  synopsis: string;
 }
 
 interface EpisodesSectionProps {
@@ -17,7 +23,10 @@ interface EpisodesSectionProps {
   animeName: string;
 }
 
-export const EpisodesSection = ({ episodes, animeName }: EpisodesSectionProps) => {
+export const EpisodesSection = ({
+  episodes,
+  animeName,
+}: EpisodesSectionProps) => {
   return (
     <div className={styles.episodesContainer}>
       {/* Controles acima dos episódios */}
@@ -34,7 +43,7 @@ export const EpisodesSection = ({ episodes, animeName }: EpisodesSectionProps) =
             <button
               className={styles.dropdownTrigger}
               role="button"
-              tabIndex="0"
+              tabIndex={0}
             >
               <svg
                 className={styles.dropdownIcon}
@@ -58,7 +67,7 @@ export const EpisodesSection = ({ episodes, animeName }: EpisodesSectionProps) =
             <button
               className={styles.dropdownTrigger}
               role="button"
-              tabIndex="0"
+              tabIndex={0}
             >
               <svg
                 className={styles.dropdownIcon}
@@ -84,19 +93,10 @@ export const EpisodesSection = ({ episodes, animeName }: EpisodesSectionProps) =
         <div className={styles.episodesGrid}>
           {episodes.length > 0 ? (
             episodes.map((episode) => (
-              <div key={episode.id} className={styles.episodeCard}>
-                <img
-                  src={episode.image}
-                  alt={`Episódio ${episode.id}`}
-                  className={styles.episodeImage}
-                />
-                <div className={styles.episodeInfo}>
-                  <Link href={`/watch/${episode.id}/${episode.slug}`}>
-                    {episode.title}
-                  </Link>
-                  <span>{episode.releaseDate}</span>
-                </div>
-              </div>
+              <EpisodeCard
+                key={episode.id}
+                episode={{ ...episode, animeName }}
+              />
             ))
           ) : (
             <p>Nenhum episódio encontrado.</p>
