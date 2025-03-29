@@ -3,42 +3,26 @@
 import React from "react";
 import { EpisodeCard } from "./EpisodeCard";
 import styles from "./EpisodesSection.module.css";
-
-interface Episode {
-  id: string;
-  title: string;
-  image: string;
-  slug: string;
-  releaseDate: string;
-  animeName: string;
-  episodeNumber: string;
-  audioType: string;
-  duration: string;
-  rating: number;
-  synopsis: string;
-}
+import { Anime } from "@/types/anime";
+import { Episode } from "@/types/episode"; // Importando o tipo Episode definido
 
 interface EpisodesSectionProps {
-  episodes: Episode[];
-  animeName: string;
+  episodes: Episode[]; // Usando o tipo Episode importado
+  anime: Anime; // Anime é obrigatório agora
 }
 
-export const EpisodesSection = ({
-  episodes,
-  animeName,
-}: EpisodesSectionProps) => {
+export const EpisodesSection = ({ episodes, anime }: EpisodesSectionProps) => {
   return (
     <div className={styles.episodesContainer}>
       {/* Controles acima dos episódios */}
       <div className={styles.topControls}>
-        {/* Título da temporada (ESQUERDA) */}
+        {/* Título da temporada */}
         <div className={styles.seasonTitle}>
-          <h4>{animeName}</h4>
+          <h4>{anime.name}</h4> {/* Usando anime.name diretamente */}
         </div>
 
-        {/* Botões (DIREITA) */}
+        {/* Botões */}
         <div className={styles.controlsRight}>
-          {/* Botão "Oldest" (CANTO DIREITO) */}
           <div className={styles.dropdown} data-t="episode-sort-select">
             <button
               className={styles.dropdownTrigger}
@@ -50,19 +34,17 @@ export const EpisodesSection = ({
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 data-t="sort-svg"
-                aria-labelledby="sort-svg"
                 aria-hidden="true"
                 role="img"
                 fill="white"
               >
-                <title id="sort-svg">Sort</title>
+                <title>Sort</title>
                 <path d="M9 18a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h6zM21 4a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h18zm-6 7a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h12z"></path>
               </svg>
               <span>Oldest</span>
             </button>
           </div>
 
-          {/* Botão "Options" (CANTO DIREITO) */}
           <div className={styles.dropdown} data-t="episode-sort-select">
             <button
               className={styles.dropdownTrigger}
@@ -74,12 +56,11 @@ export const EpisodesSection = ({
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 12 24"
                 data-t="more-svg"
-                aria-labelledby="more-svg"
                 aria-hidden="true"
                 role="img"
                 fill="white"
               >
-                <title id="more-svg">More actions</title>
+                <title>More actions</title>
                 <path d="M6 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-2 4c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2zm2 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
               </svg>
               <span>Options</span>
@@ -95,7 +76,8 @@ export const EpisodesSection = ({
             episodes.map((episode) => (
               <EpisodeCard
                 key={episode.id}
-                episode={{ ...episode, animeName }}
+                episode={episode} // Passando o episódio completo
+                anime={anime} // Passando o anime completo
               />
             ))
           ) : (

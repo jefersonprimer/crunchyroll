@@ -3,7 +3,9 @@ export interface Episode {
   animeId: string;
   season: number;
   title: string;
-  slug: string,  
+  slug: string;
+  duration: string;
+  synopsis: string;
   image: string;
   videoUrl: string;
   releaseDate: string;

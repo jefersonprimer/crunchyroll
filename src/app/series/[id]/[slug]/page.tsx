@@ -1,6 +1,3 @@
-//  style={{ backgroundImage: `url(${anime.image})` }}
-
-
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -36,23 +33,40 @@ const Page = () => {
   } = useFetchEpisodes();
 
   useEffect(() => {
-    if (slug) {
+    if (slug && animes.length > 0 && allEpisodes.length > 0) {
       const foundAnime = animes.find((anime) => anime.slug === slug);
       if (foundAnime) {
-        setAnime(foundAnime);
+        // Normalizar os dados do anime
+        const normalizedAnime = {
+          ...foundAnime,
+          subtitles: Array.isArray(foundAnime.subtitles)
+            ? foundAnime.subtitles
+            : typeof foundAnime.subtitles === "string"
+            ? foundAnime.subtitles.split(", ")
+            : [],
+          contentAdvisory: Array.isArray(foundAnime.contentAdvisory)
+            ? foundAnime.contentAdvisory
+            : typeof foundAnime.contentAdvisory === "string"
+            ? foundAnime.contentAdvisory.split(", ")
+            : [],
+        };
+
+        setAnime(normalizedAnime);
 
         const relatedEpisodes = allEpisodes.filter(
           (episode) => episode.animeId === foundAnime.id
         );
         setEpisodes(relatedEpisodes);
 
-        const filteredRecommendations = animes.filter(
-          (recAnime) =>
-            recAnime.id !== foundAnime.id &&
-            recAnime.genres.some((genre) => foundAnime.genres.includes(genre))
-        );
+        const filteredRecommendations = animes
+          .filter(
+            (recAnime) =>
+              recAnime.id !== foundAnime.id &&
+              recAnime.genres.some((genre) => foundAnime.genres.includes(genre))
+          )
+          .slice(0, 5);
 
-        setRecommendations(filteredRecommendations.slice(0, 5));
+        setRecommendations(filteredRecommendations);
       }
     }
   }, [slug, animes, allEpisodes]);
@@ -62,29 +76,32 @@ const Page = () => {
   };
 
   if (loadingAnimes || loadingEpisodes) {
-    return <p>Carregando...</p>;
+    return <div className={styles.loadingContainer}>Carregando...</div>;
   }
 
   if (errorAnimes || errorEpisodes) {
-    return <p>Erro ao carregar dados: {errorAnimes || errorEpisodes}</p>;
+    return (
+      <div className={styles.errorContainer}>
+        Erro ao carregar dados: {errorAnimes || errorEpisodes}
+      </div>
+    );
   }
 
   if (!anime) {
-    return <p>Anime não encontrado.</p>;
+    return (
+      <div className={styles.notFoundContainer}>Anime não encontrado.</div>
+    );
   }
 
-  
   return (
     <div className={styles.container}>
-      {anime && (
-        <ClientMetadata
-          title={`Assistir ${anime.name}`}
-          description={`Assista ${anime.name}: ${anime.synopsis.substring(
-            0,
-            160
-          )}...`}
-        />
-      )}
+      <ClientMetadata
+        title={`Assistir ${anime.name}`}
+        description={`Assista ${anime.name}: ${anime.synopsis.substring(
+          0,
+          160
+        )}...`}
+      />
 
       {/* Seção Superior - Cabeçalho do Anime */}
       <div
@@ -95,30 +112,26 @@ const Page = () => {
         <div
           className={styles.heroImage}
           style={{
-            backgroundImage: "url(https://placewaifu.com/image/1200/364)",
+            backgroundImage: `url(${anime.imageDesktop || anime.image})`,
           }}
         >
           <div className={styles.heroContent}>
-            <div className={styles.heroContent}>
-              <div className={styles.heroText}>
-                <h1 className={styles.name}>{anime.name}</h1>
-                <div className={styles.metaInfoContainer}>
-                  <span className={styles.metaItem}>
-                    {" "}
-                    <MaturityRating rating={anime.rating} />
-                  </span>
-                  <span className={styles.metaItem}>{anime.audioType}</span>
-                  <span className={styles.metaItem}></span>
-                  <div className={styles.genresList}>
-                    {anime.genres.map((genre, index) => (
-                      <React.Fragment key={genre}>
-                        <span className={styles.genreName}>{genre}</span>
-                        {index < anime.genres.length - 1 && (
-                          <span className={styles.comma}>,</span>
-                        )}
-                      </React.Fragment>
-                    ))}
-                  </div>
+            <div className={styles.heroText}>
+              <h1 className={styles.name}>{anime.name}</h1>
+              <div className={styles.metaInfoContainer}>
+                <span className={styles.metaItem}>
+                  <MaturityRating rating={anime.rating} />
+                </span>
+                <span className={styles.metaItem}>{anime.audioType}</span>
+                <div className={styles.genresList}>
+                  {anime.genres.map((genre, index) => (
+                    <React.Fragment key={genre}>
+                      <span className={styles.genreName}>{genre}</span>
+                      {index < anime.genres.length - 1 && (
+                        <span className={styles.comma}>,</span>
+                      )}
+                    </React.Fragment>
+                  ))}
                 </div>
               </div>
             </div>
@@ -137,7 +150,58 @@ const Page = () => {
                 <p>{anime.synopsis}</p>
               </div>
               <div className={styles.synopsisColumn}>
-                <p>{anime.synopsis}</p>
+                <div className={styles.metadata}>
+                  {/* Áudio */}
+                  <div className={styles.metadataItem}>
+                      <strong>Áudio:</strong>
+                    <span>
+                      {anime.audio}
+                    </span>
+                  </div>
+
+                  {/* Legendas */}
+                  <div className={styles.metadataItem}>
+                      <strong>Legendas:</strong>
+                    <span>
+                      {anime.subtitles && anime.subtitles.length > 0
+                        ? anime.subtitles.join(", ")
+                        : "Não disponível"}
+                    </span>
+                  </div>
+
+                  {/* Classificação */}
+                  <div className={styles.metadataItem}>
+                      <strong>Classificação:</strong>
+                    <span>
+                      {anime.rating}+
+                      {anime.contentAdvisory && anime.contentAdvisory.length > 0
+                        ? ` (${anime.contentAdvisory.join(", ")})`
+                        : ""}
+                    </span>
+                  </div>
+
+                  {/* Gêneros */}
+                  <div className={styles.metadataItem}>
+                      <strong>Gêneros:</strong>
+                    <span>
+                      {" "}
+                      {anime.genres.join(", ")}
+                    </span>
+                  </div>
+
+                  {/* Baseado em */}
+                  <div className={styles.metadataItem}>
+                      <strong>Baseado em:</strong>
+                    <span>
+                      {anime.based.source === "original"
+                        ? "Obra original"
+                        : `${anime.based.source} "${anime.based.title}"`}
+                      {anime.based.authors && anime.based.authors.length > 0
+                        ? ` por ${anime.based.authors.join(", ")}`
+                        : ""}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -145,6 +209,7 @@ const Page = () => {
             <button
               onClick={toggleSynopsis}
               className={styles.moreDetailsButton}
+              aria-expanded={expandedSynopsis}
             >
               {expandedSynopsis ? "MENOS DETALHES" : "MAIS DETALHES"}
             </button>
@@ -155,7 +220,7 @@ const Page = () => {
       <PremiumUpsell />
 
       {/* Seção de Episódios */}
-      <EpisodesSection episodes={episodes} animeName={anime.name} />
+      <EpisodesSection episodes={episodes} anime={anime} />
 
       {/* Seção de Recomendações */}
       <div className={styles.recommendationsSection}>

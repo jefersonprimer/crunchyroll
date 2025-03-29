@@ -3,21 +3,28 @@
 import React from "react";
 import Link from "next/link";
 import styles from "./EpisodeCard.module.css";
+import MaturityRating from "@/app/components/elements/MaturityRating";
+import { Anime } from "@/types/anime";
+import { Episode } from "@/types/episode";
 
-interface Episode {
-  id: string;
-  title: string;
-  image: string;
-  slug: string;
-  animeName: string;
-  episodeNumber: string;
-  audioType: string;
-  duration: string;
-  rating: number;
-  synopsis: string;
+interface EpisodeCardProps {
+  episode: Episode;
+  anime: Anime;
 }
 
-export const EpisodeCard: React.FC<{ episode: Episode }> = ({ episode }) => {
+export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime }) => {
+  const formatReleaseDate = (dateString: string) => {
+    if (!dateString) return "";
+
+    try {
+      const [year, month, day] = dateString.split("-");
+      return `${day}/${month}/${year}`;
+    } catch (error) {
+      console.error("Error formatting date:", error);
+      return dateString;
+    }
+  };
+
   return (
     <div className={styles.cardContainer}>
       <Link href={`/watch/${episode.id}/${episode.slug}`}>
@@ -27,10 +34,12 @@ export const EpisodeCard: React.FC<{ episode: Episode }> = ({ episode }) => {
             <div
               className={styles.image}
               style={{
-                backgroundImage: "url(https://placewaifu.com/image/1200/364)",
+                backgroundImage: `url(${
+                  episode.image || "https://placewaifu.com/image/1200/364"
+                })`,
               }}
             >
-              {/* Play Button (SEMPRE visível) */}
+              {/* Play Button */}
               <div className={styles.playButton}>
                 <svg viewBox="0 0 24 24" fill="white">
                   <path d="M8 5v14l11-7z" />
@@ -38,25 +47,31 @@ export const EpisodeCard: React.FC<{ episode: Episode }> = ({ episode }) => {
               </div>
 
               {/* Rating e Duração */}
-              <div className={styles.rating}>{episode.rating || 4.5} ★</div>
-              <div className={styles.duration}>{episode.duration || "23m"}</div>
+              <div className={styles.rating}>
+                <MaturityRating rating={anime.rating} />
+              </div>
+              <div className={styles.duration}>{episode.duration}</div>
             </div>
           </div>
 
-          {/* Overlay (agora no mesmo nível do imageWrapper) */}
+          {/* Overlay */}
           <div className={styles.overlay}>
-            <h3>{episode.animeName}</h3>
+            <h3>{anime.name}</h3>
             <p className={styles.slug}>{episode.title}</p>
+            <div className={styles.ratingAndDate}>
+              <MaturityRating rating={anime.rating} />
+              <span className={styles.releaseDate}>
+                {formatReleaseDate(episode.releaseDate)}
+              </span>
+            </div>
             <p className={styles.synopsis}>
               {episode.synopsis || "Sinopse não disponível."}
             </p>
-
             <Link
               href={`/watch/${episode.id}/${episode.slug}`}
               className={styles.watchButton}
             >
               <div className={styles.playableCardHoverFooter}>
-                {/* Botão de Play */}
                 <div className={styles.playableCardHoverPlay}>
                   <svg
                     className={styles.playableCardHoverPlayIcon}
@@ -72,7 +87,6 @@ export const EpisodeCard: React.FC<{ episode: Episode }> = ({ episode }) => {
                   <span className={styles.callToAction}>PLAY</span>
                 </div>
 
-                {/* Botão de Mais Opções */}
                 <div
                   className={styles.moreOptionsButton}
                   role="button"
@@ -97,17 +111,11 @@ export const EpisodeCard: React.FC<{ episode: Episode }> = ({ episode }) => {
           {/* Informações do Episódio */}
           <div className={styles.infoContainer}>
             <div className={styles.info}>
-              <h4 className={styles.name}>{episode.animeName}</h4>
+              <h4 className={styles.name}>{anime.name}</h4>
               <p className={styles.slug}>{episode.title}</p>
-
-              {/* Container alinhado horizontalmente */}
               <div className={styles.audioContainer}>
-                {/* AudioType alinhado à esquerda */}
-                <p className={styles.audio}>
-                  {episode.audioType || "Legendado"}
-                </p>
+                <p className={styles.audio}>{anime.audioType || "Legendado"}</p>
 
-                {/* Botão de Mais Opções alinhado à direita */}
                 <div
                   className={styles.moreOptionsButton}
                   role="button"
