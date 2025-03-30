@@ -47,6 +47,7 @@ export interface Anime {
   slug: string;
   name: string;
   releaseYear: string;
+  releaseDate: string;
 
   // Imagens
   image: string; // Imagem para mobile

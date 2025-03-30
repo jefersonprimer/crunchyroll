@@ -1,20 +1,45 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import styles from "./VideoPlayer.module.css";
 
 interface VideoPlayerProps {
   videoUrl: string;
-  posterImage?: string; 
+  posterImage?: string;
 }
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, posterImage }) => {
+  const [showPreview, setShowPreview] = useState(!!posterImage);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handlePlayClick = () => {
+    setShowPreview(false);
+    // Forçar recarregamento do iframe
+    if (iframeRef.current) {
+      iframeRef.current.src = videoUrl;
+    }
+  };
+
   return (
-    <div className={styles.videoContainer}>
+    <div className={styles.videoContainer} ref={containerRef}>
+      {showPreview && posterImage && (
+        <div className={styles.previewContainer} onClick={handlePlayClick}>
+          <img
+            src={posterImage}
+            alt="Preview"
+            className={styles.previewImage}
+          />
+          <button className={styles.playButton} aria-label="Play video">
+            ▶
+          </button>
+        </div>
+      )}
       <iframe
-        className={styles.videoIframe}
-        src={videoUrl}
+        ref={iframeRef}
+        className={`${styles.videoIframe} ${showPreview ? styles.hidden : ""}`}
+        src={showPreview ? "" : videoUrl}
         frameBorder="0"
         scrolling="no"
-        allow="autoplay; encrypted-media"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
         title="Video Player"
       />

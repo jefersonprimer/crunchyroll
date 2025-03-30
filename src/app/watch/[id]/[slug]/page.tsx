@@ -1,135 +1,95 @@
-'use client'
+"use client";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useParams } from "next/navigation";
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTh, faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import animesData from "../../../../data/animes.json"; // Caminho para o arquivo JSON de animes
-import episodesData from "../../../../data/episodes.json"; // Caminho para o arquivo JSON de episódios
-import VideoPlayer from "../../../components/video/VideoPlayer";
-
+import useFetchAnimes from "../../../hooks/useFetchAnimes";
+import useFetchEpisodes from "../../../hooks/useFetchEpisodes";
+import { extractEpisodeNumber, safeJoin } from "./utils/utils";
+import { Anime, Episode, EpisodePageProps } from "./types/types";
+import EpisodeHeader from "./components/EpisodeHeader";
+import EpisodeVideoPlayer from "./components/EpisodeVideoPlayer";
+import EpisodeSynopsis from "./components/EpisodeSynopsis";
+import EpisodeNavigation from "./components/EpisodeNavigation";
+import EpisodesModal from "./components/EpisodesModal";
 import styles from "./styles.module.css";
 
-import { Anime } from "@/types/anime";
-import { Episode } from "@/types/episode";
-
 const EpisodePage: FC = () => {
-  const { id, slug } = useParams(); // Obtendo os parâmetros da URL
+  const { id, slug } = useParams();
+  const [expandedSynopsis, setExpandedSynopsis] = useState(false);
+  const [showEpisodesModal, setShowEpisodesModal] = useState(false);
 
-  if (!id || !slug) return <div>Carregando...</div>;
+  const { animes, loading: animesLoading } = useFetchAnimes();
+  const { episodes, loading: episodesLoading } = useFetchEpisodes();
 
-  // Encontrar o episódio pelo ID
-  const episode = episodesData.episodes.find((ep: Episode) => ep.id === id);
-  if (!episode) return <div>Episódio não encontrado.</div>;
+  if (!id || !slug || animesLoading || episodesLoading) {
+    return <div className={styles.loadingContainer}>Carregando...</div>;
+  }
 
-  // Encontrar o anime correspondente usando o animeId do episódio
-  const anime = animesData.animes.find((anime) => anime.id === episode.animeId);
-  if (!anime) return <div>Anime não encontrado.</div>;
+  const episode = episodes.find((ep: Episode) => ep.id === id);
+  if (!episode) {
+    return (
+      <div className={styles.errorContainer}>Episódio não encontrado.</div>
+    );
+  }
 
-  // Encontrar o índice do episódio para navegação
-  const episodeIndex = episodesData.episodes.findIndex((ep: Episode) => ep.id === episode.id);
+  const anime = animes.find((anime: Anime) => anime.id === episode.animeId);
+  if (!anime) {
+    return <div className={styles.errorContainer}>Anime não encontrado.</div>;
+  }
 
-  // Episódios anterior e próximo do mesmo anime
-  const prevEpisode =
-    episodeIndex > 0 && episodesData.episodes[episodeIndex - 1].animeId === episode.animeId
-      ? episodesData.episodes[episodeIndex - 1]
-      : null;
+  const animeEpisodes = episodes
+    .filter((ep: Episode) => ep.animeId === anime.id)
+    .sort((a: Episode, b: Episode) => {
+      const aNum = extractEpisodeNumber(a.title);
+      const bNum = extractEpisodeNumber(b.title);
+      return aNum - bNum;
+    });
 
+  const episodeIndex = animeEpisodes.findIndex(
+    (ep: Episode) => ep.id === episode.id
+  );
+
+  const prevEpisode = episodeIndex > 0 ? animeEpisodes[episodeIndex - 1] : null;
   const nextEpisode =
-    episodeIndex < episodesData.episodes.length - 1 &&
-    episodesData.episodes[episodeIndex + 1].animeId === episode.animeId
-      ? episodesData.episodes[episodeIndex + 1]
+    episodeIndex < animeEpisodes.length - 1
+      ? animeEpisodes[episodeIndex + 1]
       : null;
 
-  const suggestedAnimes = animesData.animes.filter(
-    (suggestedAnime: Anime) =>
-      suggestedAnime.genres.some((genre) => anime.genres.includes(genre)) &&
-      suggestedAnime.slug !== anime.slug
-  ).slice(0, 5);
+  const toggleSynopsis = () => setExpandedSynopsis(!expandedSynopsis);
+  const toggleEpisodesModal = () => setShowEpisodesModal(!showEpisodesModal);
 
   return (
     <div className={styles.episodePage}>
-      <div className={styles.content}>
-        {/* Seção do Player de Vídeo */}
-        <div className={styles.videoPlayerSection}>
-          <div className={styles.episodeNavigation}>
-            <Link
-              href={prevEpisode ? `/watch/${prevEpisode.id}/${prevEpisode.slug}` : "#"}
-              className={`${styles.prevEpisode} ${!prevEpisode ? styles.disabled : ""}`}
-            >
-              <FontAwesomeIcon icon={faChevronLeft} /> Anterior
-            </Link>
-            <Link href={`/series/${anime.id}/${anime.slug}`} className={styles.detailsButton}>
-              <FontAwesomeIcon icon={faTh} size="lg" />
-            </Link>
-            <Link
-              href={nextEpisode ? `/watch/${nextEpisode.id}/${nextEpisode.slug}` : "#"}
-              className={`${styles.nextEpisode} ${!nextEpisode ? styles.disabled : ""}`}
-            >
-              Próximo <FontAwesomeIcon icon={faChevronRight} />
-            </Link>
-          </div>
+      <EpisodeVideoPlayer episode={episode} />
 
-          {/* Passando o videoUrl do JSON para o VideoPlayer */}
-          <VideoPlayer videoUrl={episode.videoUrl} posterImage={episode.image} />
+      <div className={styles.contentColumns}>
+        <div className={styles.leftColumn}>
+          <EpisodeHeader anime={anime} episode={episode} />
 
-          <div className={styles.infoBox}>
-            <h1>
-              {anime.name} - {episode.title} - Animes Online
-            </h1>
-            <h3>
-              <strong>
-                Assista {anime.name} - {episode.title} legendado em português.
-              </strong>
-            </h3>
-            <div className={styles.genres}>
-              {anime.genres.map((genre) => (
-                <Link key={genre} href={`/g/${genre.toLowerCase()}`} rel="tag">
-                  {genre}
-                </Link>
-              ))}
-            </div>
-            <div className={styles.poster}>
-              <img src={anime.image} alt={anime.name} />
-              <div className={styles.synopsis}>
-                <strong>Sinopse:</strong>
-                <p>{anime.synopsis}</p>
-              </div>
-            </div>
-          </div>
+          <EpisodeSynopsis
+            episode={episode}
+            anime={anime}
+            expanded={expandedSynopsis}
+            onToggle={toggleSynopsis}
+          />
         </div>
 
-        {/* Coluna Direita: Recomendações */}
         <div className={styles.rightColumn}>
-          <h2>Veja também!</h2>
-          <ul className={styles.recommendationsList}>
-            {suggestedAnimes.length > 0 ? (
-              suggestedAnimes.map((recommendation: Anime) => (
-                <li key={recommendation.id} className={styles.recommendationItem}>
-                  <Link href={`/series/${recommendation.id}/${recommendation.slug}`}>
-                    <div className={styles.recommendationContent}>
-                      <img
-                        src={recommendation.image}
-                        alt={recommendation.name}
-                        className={styles.recommendationImage}
-                      />
-                      <div className={styles.recommendationDetails}>
-                        <h3 className={styles.recommendationName}>{recommendation.name}</h3>
-                        <span className={styles.recommendationDate}>
-                          {recommendation.releaseYear}
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                </li>
-              ))
-            ) : (
-              <p className={styles.noRecommendations}>Nenhuma recomendação encontrada.</p>
-            )}
-          </ul>
+          <EpisodeNavigation
+            prevEpisode={prevEpisode}
+            nextEpisode={nextEpisode}
+            onShowAllEpisodes={toggleEpisodesModal}
+          />
         </div>
       </div>
+
+      {showEpisodesModal && (
+        <EpisodesModal
+          episodes={animeEpisodes}
+          currentEpisodeId={episode.id}
+          onClose={toggleEpisodesModal}
+        />
+      )}
     </div>
   );
 };
