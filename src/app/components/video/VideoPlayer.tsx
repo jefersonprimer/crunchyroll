@@ -1,3 +1,5 @@
+""
+
 import React, { useState, useRef } from "react";
 import styles from "./VideoPlayer.module.css";
 
@@ -33,16 +35,19 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, posterImage }) => {
           </button>
         </div>
       )}
-      <iframe
-        ref={iframeRef}
-        className={`${styles.videoIframe} ${showPreview ? styles.hidden : ""}`}
-        src={showPreview ? "" : videoUrl}
-        frameBorder="0"
-        scrolling="no"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        title="Video Player"
-      />
+      {/* O erro está aqui - não devemos usar string vazia "" como src */}
+      {!showPreview && (
+        <iframe
+          ref={iframeRef}
+          className={styles.videoIframe}
+          src={videoUrl}
+          frameBorder="0"
+          scrolling="no"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          title="Video Player"
+        />
+      )}
     </div>
   );
 };

@@ -1,3 +1,140 @@
+/* Adicione ao seu arquivo de estilos existente */
+
+.episodeNavigation {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: rgba(20, 20, 30, 0.8);
+  border-radius: 8px;
+}
+
+.currentSeasonInfo {
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.currentSeasonInfo h3 {
+  font-size: 1.2rem;
+  color: #fff;
+  margin: 0;
+}
+
+.episodeSection {
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+}
+
+.previousEpisode .sectionTitle::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-right: 8px solid #ccc;
+  border-bottom: 5px solid transparent;
+  margin-right: 8px;
+}
+
+.nextEpisode .sectionTitle::after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-left: 8px solid #ccc;
+  border-bottom: 5px solid transparent;
+  margin-left: 8px;
+}
+
+.episodeCard {
+  transition: transform 0.2s ease;
+}
+
+.episodeCard:hover {
+  transform: translateY(-5px);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.episodeImage {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+.textContent {
+  padding: 0.75rem;
+  background-color: rgba(30, 30, 40, 0.9);
+}
+
+.episodeTitle {
+  font-size: 0.95rem;
+  margin: 0 0 0.5rem 0;
+  color: white;
+}
+
+.audioType {
+  font-size: 0.8rem;
+  color: #aaa;
+  display: block;
+}
+
+.seasonInfo {
+  font-size: 0.8rem;
+  color: #88a;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.watchButton {
+  text-decoration: none;
+  display: block;
+}
+
+.noEpisodes {
+  padding: 1rem;
+  background-color: rgba(30, 30, 40, 0.5);
+  border-radius: 6px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.noEpisodes p {
+  color: #aaa;
+  margin: 0;
+  font-style: italic;
+}
+
+.seeAllButton {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: rgba(40, 80, 120, 0.8);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: 500;
+}
+
+.seeAllButton:hover {
+  background-color: rgba(50, 100, 150, 0.9);
+}
+
 .imageContainer {
   position: relative;
   flex-shrink: 0;
