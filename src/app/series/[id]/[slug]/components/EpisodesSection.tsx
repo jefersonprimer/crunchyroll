@@ -36,12 +36,12 @@ export const EpisodesSection = ({ episodes, anime }: EpisodesSectionProps) => {
                 data-t="sort-svg"
                 aria-hidden="true"
                 role="img"
-                fill="white"
+                fill="#A0A0A0"
               >
                 <title>Sort</title>
                 <path d="M9 18a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h6zM21 4a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h18zm-6 7a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h12z"></path>
               </svg>
-              <span>Oldest</span>
+              <span className={styles.btnOldest}>Oldest</span>
             </button>
           </div>
 
@@ -58,12 +58,12 @@ export const EpisodesSection = ({ episodes, anime }: EpisodesSectionProps) => {
                 data-t="more-svg"
                 aria-hidden="true"
                 role="img"
-                fill="white"
+                fill="#A0A0A0"
               >
                 <title>More actions</title>
                 <path d="M6 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-2 4c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2zm2 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
               </svg>
-              <span>Options</span>
+              <span className={styles.btnOptions}>Options</span>
             </button>
           </div>
         </div>

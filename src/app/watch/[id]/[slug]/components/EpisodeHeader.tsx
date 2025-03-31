@@ -1,6 +1,7 @@
 import { Anime, Episode } from "../types/types";
 import MaturityRating from "@/app/components/elements/MaturityRating";
 import styles from "../styles.module.css";
+import Link from "next/link";
 
 interface EpisodeHeaderProps {
   anime: Anime;
@@ -11,7 +12,12 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ anime, episode }) => {
   return (
     <div className={styles.headerContainer}>
       <div className={styles.titleContainer}>
-        <h1 className={styles.animeTitle}>{anime.name}</h1>
+        <Link
+          href={`/series/${anime.id}/${anime.slug}`}
+          key={anime.id}
+        >
+          <h1 className={styles.animeTitle}>{anime.name}</h1>
+        </Link>
         {anime.score && (
           <span className={styles.animeScore}>{anime.score}</span>
         )}

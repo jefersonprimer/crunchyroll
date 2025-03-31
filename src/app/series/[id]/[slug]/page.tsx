@@ -220,15 +220,19 @@ const Page = () => {
       <PremiumUpsell />
 
       {/* Seção de Episódios */}
-      <EpisodesSection episodes={episodes} anime={anime} />
+      <div className={styles.epidodesSection}>
+        <EpisodesSection episodes={episodes} anime={anime} />
+      </div>
 
       {/* Seção de Recomendações */}
-      <div className={styles.recommendationsSection}>
-        <h2>More Like This</h2>
-        <FavoritesProvider>
-          <AnimeCarousel animes={recommendations} />
-        </FavoritesProvider>
-      </div>
+        <div>
+          <h2 className={styles.recommendationsTitle}>More Like This</h2>
+            <div className={styles.recommendationsSection}>
+              <FavoritesProvider>
+                <AnimeCarousel animes={recommendations} />
+              </FavoritesProvider>
+            </div>
+        </div>
     </div>
   );
 };

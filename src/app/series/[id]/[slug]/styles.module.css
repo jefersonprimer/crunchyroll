@@ -201,6 +201,16 @@
   color: #FFF;
 }
 
+.epidodesSection {
+  padding: 0px 40px;
+}
+
+.recommendationsTitle {
+  font-size: 1.5rem;
+  color: #fff; 
+ padding-left: 30px;
+}
+
 .recommendationsSection {
   display: flex;
   flex-direction: column;

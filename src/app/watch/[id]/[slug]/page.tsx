@@ -78,6 +78,7 @@ const EpisodePage: FC = () => {
           <EpisodeNavigation
             prevEpisode={prevEpisode}
             nextEpisode={nextEpisode}
+            anime={anime} // Não esqueça de passar o anime
             onShowAllEpisodes={toggleEpisodesModal}
           />
         </div>

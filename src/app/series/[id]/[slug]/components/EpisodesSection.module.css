@@ -35,7 +35,6 @@
   cursor: pointer;
   font-size: 14px;
   padding: 5px 10px;
-  border-radius: 4px;
   transition: background-color 0.2s;
 }
 
@@ -46,6 +45,22 @@
 .dropdownIcon {
   width: 16px;
   height: 16px;
+}
+
+.btnOldest {
+  color: #A0A0A0;
+}
+
+.btnOldest:hover {
+  color: white;
+}
+
+.btnOptions {
+  color: #A0A0A0;
+}
+
+.btnOptions:hover {
+  color: white;
 }
 
 .episodesSection {

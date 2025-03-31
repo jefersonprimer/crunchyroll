@@ -67,6 +67,11 @@ export interface Anime {
   episodes: number;
   season: number;
 
+  // Novos campos para múltiplas temporadas
+  seasonNames: Record<number, string>; // Nomes das temporadas
+  seasonYears?: Record<number, string>; // Anos de lançamento (opcional)
+  seasonEpisodes?: Record<number, number>; // Quantidade de eps por temporada (opcional)
+
   // Áudio e legendas
   audioType: AudioType;
   audio: string; // Idioma original
