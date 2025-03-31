@@ -1,41 +1,44 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import AnimeGrid from "../../components/cards/AnimeGrid"; // Importando o novo componente
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import AnimeGrid from "../../components/cards/AnimeGrid";
 import { Anime } from "@/types/anime";
-
-// Dados importados de JSON ou pode ser via API
-import animesData from "@/data/animes.json"; 
-import styles from './styles.module.css';
+import useFetchAnimes from "../../hooks/useFetchAnimes"; 
+import styles from "./styles.module.css";
 
 export default function PopularPage() {
   const [filteredAnimes, setFilteredAnimes] = useState<Anime[]>([]);
-  const [showFilterOptions, setShowFilterOptions] = useState(false); // Controla a exibição dos filtros
+  const [showFilterOptions, setShowFilterOptions] = useState(false);
   const router = useRouter();
+  const { animes, loading, error } = useFetchAnimes(); // Usando o hook
 
   useEffect(() => {
-    // Inicializando com todos os animes populares
-    setFilteredAnimes(animesData.animes.filter((anime: Anime) => anime.isPopular === true));
-  }, []);
+    if (animes.length > 0) {
+      setFilteredAnimes(
+        animes.filter((anime: Anime) => anime.isPopular === true)
+      );
+    }
+  }, [animes]);
 
-  // Função para ativar/desativar o menu de filtros
   const toggleFilterOptions = () => {
     setShowFilterOptions(!showFilterOptions);
   };
 
-  // Funções para navegação por filtros
   const goToPopular = () => {
-    router.push('/videos/popular');
+    router.push("/videos/popular");
   };
 
   const goToNewReleases = () => {
-    router.push('/videos/new');
+    router.push("/videos/new");
   };
 
   const goToAlphabeticOrder = () => {
-    router.push('/videos/alphabetical');
+    router.push("/videos/alphabetical");
   };
+
+  if (loading) return <div className={styles.loading}>Carregando...</div>;
+  if (error) return <div className={styles.error}>{error}</div>;
 
   return (
     <div className={styles.popularContainer}>
@@ -43,12 +46,12 @@ export default function PopularPage() {
         <h1 className={styles.title}>Animes Mais Populares</h1>
         <div className={styles.filters}>
           <div onClick={toggleFilterOptions} className={styles.svgBtn}>
-            <svg 
+            <svg
               className={styles.svgIcon}
-              xmlns="http://www.w3.org/2000/svg" 
-              viewBox="0 0 24 24" 
-              aria-labelledby="sort-svg" 
-              aria-hidden="true" 
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              aria-labelledby="sort-svg"
+              aria-hidden="true"
               role="img"
             >
               <title id="sort-svg">Ordenar</title>
@@ -56,19 +59,23 @@ export default function PopularPage() {
             </svg>
             <span className={styles.maisPopulares}>MAIS POPULARES</span>
           </div>
-          
-          {/* Filtro de opções que aparece sobre o botão */}
+
           {showFilterOptions && (
             <div className={styles.filterOptions}>
-              <div onClick={goToPopular} className={styles.item}>Mais Populares</div>
-              <div onClick={goToNewReleases} className={styles.item}>Mais Recentes</div>
-              <div onClick={goToAlphabeticOrder} className={styles.item}>Ordem Alfabética</div>
+              <div onClick={goToPopular} className={styles.item}>
+                Mais Populares
+              </div>
+              <div onClick={goToNewReleases} className={styles.item}>
+                Mais Recentes
+              </div>
+              <div onClick={goToAlphabeticOrder} className={styles.item}>
+                Ordem Alfabética
+              </div>
             </div>
           )}
         </div>
       </div>
 
-      {/* Grade de Animes Populares */}
       <div className={styles.gridPopular}>
         <h1 className={styles.popularTitle}>Populares</h1>
         <div>
