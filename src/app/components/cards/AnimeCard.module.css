@@ -193,21 +193,30 @@
   width: 1.5rem;
 }
 
+/* REMOVA qualquer estilo genérico que afete .iconBookmark */
 .iconBookmark {
   width: 24px;
   height: 24px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  /* --- RESET TOTAL --- */
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  appearance: none !important;
 }
 
-.iconBookmark.filled {
-  color: #FF640A;
+/* Estado "filled" (ícone preenchido) */
+.iconBookmark.filled path {
+  fill: #FF640A; /* Preenche o SVG */
+  stroke: none; /* Remove contorno */
 }
 
-.iconBookmark.outline {
-  color: transparent;
-  stroke: #FF640A;
-  stroke-width: 2px;
+/* Estado "outline" (apenas contorno) */
+.iconBookmark.outline path {
+  fill: transparent !important; /* SEM preenchimento */
+  stroke: #FF640A !important; /* Apenas contorno */
+  stroke-width: 2px !important;
 }
 
 /* Tornar os botões visíveis quando o card for hover */

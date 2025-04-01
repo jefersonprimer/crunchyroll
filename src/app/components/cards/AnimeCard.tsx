@@ -25,15 +25,14 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime }) => {
   const [showModal, setShowModal] = useState(false);
   const isFavorited = favorites.some((fav) => fav.id === anime.id);
   
-  const [firstEpisode, setFirstEpisode] = useState<Episode | null>(null); // Primeiro episódio do anime
-  const { episodes, isLoading } = useFetchEpisodes(); // Busca de episódios
+  const [firstEpisode, setFirstEpisode] = useState<Episode | null>(null);
+  const { episodes, isLoading } = useFetchEpisodes(); 
 
   useEffect(() => {
     if (!isLoading && episodes) {
-      // Filtra os episódios do anime atual
       const animeEpisodes = episodes.filter((ep) => ep.animeId === anime.id);
       if (animeEpisodes.length > 0) {
-        setFirstEpisode(animeEpisodes[0]); // Seleciona o primeiro episódio
+        setFirstEpisode(animeEpisodes[0]); 
       }
     }
   }, [episodes, isLoading, anime.id]);
@@ -51,33 +50,31 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime }) => {
     <div className={styles.card}>
       <Link href={`/series/${anime.id}/${anime.slug}`} key={anime.id} className={styles.animeLink}>
         <img src={anime.image} alt={anime.name} className={styles.animeImage} />
-      
-      
-      <div className={styles.nomeDataContainer}>
-        <p className={styles.nome}>{anime.name}</p>
-        <p className={styles.data}>{anime.audioType}</p>
-      </div>
-
-      <div className={styles.cardInfo}>
-        <h3 className={styles.name}>{anime.name}</h3>
-        <div className={styles.flexContainer2}>
-          <MaturityRating rating={anime.rating} />
-          <span className={styles.score}>
-            {anime.score}
-            <FontAwesomeIcon icon={faStar} className={styles.iconStar} />
-          </span>
+        
+        <div className={styles.nomeDataContainer}>
+          <p className={styles.nome}>{anime.name}</p>
+          <p className={styles.data}>{anime.audioType}</p>
         </div>
-        <p className={`${styles.infoText} ${styles.seasonText}`}>
-          Temporada: {anime.season}
-        </p>
-        <p className={`${styles.infoText} ${styles.episodesText}`}>
-          Episódios: {anime.episodes}
-        </p>
-        <p className={`${styles.infoText} ${styles.synopsis}`}>{anime.synopsis}</p>
-      </div>
-      </Link>
-      
-      <div className={styles.playButton}>
+
+        <div className={styles.cardInfo}>
+          <h3 className={styles.name}>{anime.name}</h3>
+          <div className={styles.flexContainer2}>
+            <MaturityRating rating={anime.rating} />
+            <span className={styles.score}>
+              {anime.score}
+              <FontAwesomeIcon icon={faStar} className={styles.iconStar} />
+            </span>
+          </div>
+          <p className={`${styles.infoText} ${styles.seasonText}`}>
+            Temporada: {anime.season}
+          </p>
+          <p className={`${styles.infoText} ${styles.episodesText}`}>
+            Episódios: {anime.episodes}
+          </p>
+          <p className={`${styles.infoText} ${styles.synopsis}`}>{anime.synopsis}</p>
+        </div>
+        </Link>      
+        <div className={styles.playButton}>
 
         <div className={styles.tooltip}>
             <span className={styles.tooltipText}>Play</span>
