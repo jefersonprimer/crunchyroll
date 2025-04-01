@@ -1,22 +1,50 @@
+/* css default page */
 .container {
   width: 100%;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* Seção Hero */
+.epidodesSection {
+  padding: 0px 40px;
+}
+
+.recommendationsTitle {
+  font-size: 1.5rem;
+  color: #fff; 
+ padding-left: 30px;
+}
+
+.recommendationsSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.recommendationsSection h2 {
+  align-items: left;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #fff; 
+}
+
+
+
+/* HeroSection.tsx */
 .heroSection {
   width: 100%;
   margin-bottom: 30px;
-}
-
-.heroSection {
   transition: height 0.3s ease;
   overflow: hidden;
 }
 
 .heroSectionExpanded {
-  height: auto; /* Ou um valor específico se preferir */
+  height: auto; 
 }
 
 .heroImage {
@@ -54,19 +82,17 @@
   row-gap: 8px;
 }
 
-/* Estilo base para cada item de metadata */
 .metaItem {
   display: flex;
   align-items: center;
   font-size: 0.9rem;
   position: relative;
-  padding-left: 14px; /* Espaço para o diamante */
+  padding-left: 14px;
 }
 
-/* Diamante separador */
 .metaItem:not(:first-child)::before {
-  content: "◆"; /* Símbolo de diamante */
-  color: #DADADA; /* Cor laranja com transparência */
+  content: "◆";
+  color: #DADADA; 
   font-size: 0.6rem;
   position: absolute;
   left: 4px;
@@ -75,7 +101,6 @@
   margin-right: 8px;
 }
 
-/* Ajustes para responsividade */
 @media (max-width: 600px) {
   .metaItem {
     padding-left: 12px;
@@ -103,6 +128,142 @@
 
 .comma {
   margin-right: 4px;
+}
+
+.ratingContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.starIcon {
+  width: 16px;
+  height: 16px;
+  fill: #ffc107;
+}
+
+.scoreText {
+  font-size: 0.9rem;
+  color: #ddd; 
+}
+
+.seriesHeroActionsWrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px; 
+  margin-top: 16px;
+  flex-wrap: wrap; 
+}
+
+.buttonPrimary {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  white-space: nowrap; 
+}
+
+.buttonSecondary {
+  background-color: var(--secondary-color);
+  padding: 8px 16px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.callToAction {
+  display: flex;
+}
+
+.playIcon, .watchlistIcon, .actionIcon, .moreIcon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.tooltipContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.buttonSecondary {
+  background-color: var(--secondary-color);
+  padding: 8px 16px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buttonSecondary:hover {
+  background-color: var(--secondary-hover-color);
+}
+
+.tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tooltipText {
+  visibility: hidden;
+  width: max-content;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 4px 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.tooltip:hover .tooltipText {
+  visibility: visible;
+  opacity: 1;
+}
+
+.iconBookmark {
+  width: 20px;
+  height: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.actionTooltip {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionIcon, .moreIcon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
 }
 
 .synopsisContainer {
@@ -142,17 +303,6 @@
   border-radius: 8px;
 }
 
-/* styles.module.css */
-
-.synopsisColumns {
-  display: flex;
-  gap: 2rem;
-}
-
-.synopsisColumn {
-  flex: 1;
-}
-
 .metadata {
   display: flex;
   flex-direction: column;
@@ -169,7 +319,7 @@
 }
 
 .metadataItem strong {
-  color: #FFFFFF; /* Laranja do Crunchyroll */
+  color: #FFFFFF; 
   font-size: 0.9rem;
 }
 
@@ -200,32 +350,3 @@
 .moreDetailsButton:hover {
   color: #FFF;
 }
-
-.epidodesSection {
-  padding: 0px 40px;
-}
-
-.recommendationsTitle {
-  font-size: 1.5rem;
-  color: #fff; 
- padding-left: 30px;
-}
-
-.recommendationsSection {
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
-  justify-content: center; 
-  text-align: center; 
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.recommendationsSection h2 {
-  align-items: left;
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-  color: #fff; 
-}
-

@@ -33,7 +33,9 @@ export default function RootLayout({
       </head>
       <body >
         <Header />
-        <ListsProvider>{children}</ListsProvider>
+        <div className="pt-[60px]">
+          <ListsProvider>{children}</ListsProvider>
+        </div>
       </body>
     </html>
   );

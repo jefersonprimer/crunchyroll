@@ -29,7 +29,7 @@ const HomePage = () => {
     <FavoritesProvider>
       <ListsProvider>
       
-        <div className="flex flex-col pt-[60px]">
+         
           <AnimeCarouselFullScreen />
           <AnimeCarouselLancamentos className="anime-carousel-lancamentos" />
 
@@ -77,7 +77,7 @@ const HomePage = () => {
               imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/HeadhuntedToAnotherWorld-S1C1-KV2-Banner-2100x700-PT.png"
             />
           </div>
-        </div>
+        
       </ListsProvider>
 
       <div className="container--cq5XE">

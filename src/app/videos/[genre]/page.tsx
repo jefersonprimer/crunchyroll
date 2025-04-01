@@ -1,8 +1,10 @@
-import React from 'react';
-import { Anime } from '@/types/anime';
-import animesData from '@/data/animes.json';
-import AnimeCarouselGenre from '../../components/cards/AnimeCarouselGenre';
-import styles from './styles.module.css'
+"use client"
+
+import React from "react";
+import { Anime } from "@/types/anime";
+import useFetchAnimes from "../../hooks/useFetchAnimes";
+import AnimeCarouselGenre from "../../components/cards/AnimeCarouselGenre";
+import styles from "./styles.module.css";
 
 const genreMapping: Record<string, string> = {
   action: "Ação",
@@ -24,13 +26,17 @@ interface GenrePageProps {
 const GenrePage: React.FC<GenrePageProps> = ({ params }) => {
   const genre = params.genre;
   const genreInPortuguese = genreMapping[genre];
+  const { animes, loading, error } = useFetchAnimes();
 
   if (!genreInPortuguese) {
     return <p>Gênero "{genre}" não encontrado.</p>;
   }
 
+  if (loading) return <p>Carregando...</p>;
+  if (error) return <p>Ocorreu um erro: {error}</p>;
+
   // Filtra os animes pelo gênero selecionado
-  const filteredAnimes = animesData.animes.filter((anime: Anime) =>
+  const filteredAnimes = animes.filter((anime: Anime) =>
     anime.genres.includes(genreInPortuguese)
   );
 
@@ -42,7 +48,7 @@ const GenrePage: React.FC<GenrePageProps> = ({ params }) => {
   const otherGenresAnimes = Object.entries(genreMapping)
     .filter(([key]) => key !== params.genre)
     .map(([key, value]) => {
-      const otherGenreAnimes = animesData.animes.filter((anime) =>
+      const otherGenreAnimes = animes.filter((anime) =>
         anime.genres.includes(value)
       );
       return { genre: value, animes: otherGenreAnimes };

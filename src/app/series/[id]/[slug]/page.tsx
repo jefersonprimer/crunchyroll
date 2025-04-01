@@ -13,6 +13,7 @@ import { EpisodesSection } from "./components/EpisodesSection";
 import MaturityRating from "@/app/components/elements/MaturityRating";
 import { ClientMetadata } from "./components/ClientMetadata";
 import PremiumUpsell from "./components/PremiumUpsell";
+import HeroSection from "./components/HeroSection";
 
 const Page = () => {
   const { slug } = useParams();
@@ -104,118 +105,14 @@ const Page = () => {
       />
 
       {/* Seção Superior - Cabeçalho do Anime */}
-      <div
-        className={`${styles.heroSection} ${
-          expandedSynopsis ? styles.heroSectionExpanded : ""
-        }`}
-      >
-        <div
-          className={styles.heroImage}
-          style={{
-            backgroundImage: `url(${anime.imageDesktop || anime.image})`,
-          }}
-        >
-          <div className={styles.heroContent}>
-            <div className={styles.heroText}>
-              <h1 className={styles.name}>{anime.name}</h1>
-              <div className={styles.metaInfoContainer}>
-                <span className={styles.metaItem}>
-                  <MaturityRating rating={anime.rating} />
-                </span>
-                <span className={styles.metaItem}>{anime.audioType}</span>
-                <div className={styles.genresList}>
-                  {anime.genres.map((genre, index) => (
-                    <React.Fragment key={genre}>
-                      <span className={styles.genreName}>{genre}</span>
-                      {index < anime.genres.length - 1 && (
-                        <span className={styles.comma}>,</span>
-                      )}
-                    </React.Fragment>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Seção de Sinopse */}
-        <div className={styles.synopsisContainer}>
-          <div
-            className={`${styles.synopsisWrapper} ${
-              expandedSynopsis ? styles.expanded : ""
-            }`}
-          >
-            <div className={styles.synopsisColumns}>
-              <div className={styles.synopsisColumn}>
-                <p>{anime.synopsis}</p>
-              </div>
-              <div className={styles.synopsisColumn}>
-                <div className={styles.metadata}>
-                  {/* Áudio */}
-                  <div className={styles.metadataItem}>
-                      <strong>Áudio:</strong>
-                    <span>
-                      {anime.audio}
-                    </span>
-                  </div>
-
-                  {/* Legendas */}
-                  <div className={styles.metadataItem}>
-                      <strong>Legendas:</strong>
-                    <span>
-                      {anime.subtitles && anime.subtitles.length > 0
-                        ? anime.subtitles.join(", ")
-                        : "Não disponível"}
-                    </span>
-                  </div>
-
-                  {/* Classificação */}
-                  <div className={styles.metadataItem}>
-                      <strong>Classificação:</strong>
-                    <span>
-                      {anime.rating}+
-                      {anime.contentAdvisory && anime.contentAdvisory.length > 0
-                        ? ` (${anime.contentAdvisory.join(", ")})`
-                        : ""}
-                    </span>
-                  </div>
-
-                  {/* Gêneros */}
-                  <div className={styles.metadataItem}>
-                      <strong>Gêneros:</strong>
-                    <span>
-                      {" "}
-                      {anime.genres.join(", ")}
-                    </span>
-                  </div>
-
-                  {/* Baseado em */}
-                  <div className={styles.metadataItem}>
-                      <strong>Baseado em:</strong>
-                    <span>
-                      {anime.based.source === "original"
-                        ? "Obra original"
-                        : `${anime.based.source} "${anime.based.title}"`}
-                      {anime.based.authors && anime.based.authors.length > 0
-                        ? ` por ${anime.based.authors.join(", ")}`
-                        : ""}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className={styles.buttonContainer}>
-            <button
-              onClick={toggleSynopsis}
-              className={styles.moreDetailsButton}
-              aria-expanded={expandedSynopsis}
-            >
-              {expandedSynopsis ? "MENOS DETALHES" : "MAIS DETALHES"}
-            </button>
-          </div>
-        </div>
-      </div>
+      <FavoritesProvider>
+        <HeroSection
+          anime={anime}
+          expandedSynopsis={expandedSynopsis}
+          toggleSynopsis={toggleSynopsis}
+        />
+      </FavoritesProvider>
 
       <PremiumUpsell />
 
@@ -225,14 +122,14 @@ const Page = () => {
       </div>
 
       {/* Seção de Recomendações */}
-        <div>
-          <h2 className={styles.recommendationsTitle}>More Like This</h2>
-            <div className={styles.recommendationsSection}>
-              <FavoritesProvider>
-                <AnimeCarousel animes={recommendations} />
-              </FavoritesProvider>
-            </div>
+      <div>
+        <h2 className={styles.recommendationsTitle}>More Like This</h2>
+        <div className={styles.recommendationsSection}>
+          <FavoritesProvider>
+            <AnimeCarousel animes={recommendations} />
+          </FavoritesProvider>
         </div>
+      </div>
     </div>
   );
 };
