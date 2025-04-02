@@ -1,5 +1,5 @@
 import { Episode } from "@/types/episode";
-import styles from "../styles.module.css";
+import styles from "./EpisodeVideoPlayer.module.css";
 import VideoPlayer from "@/app/components/video/VideoPlayer";
 
 interface EpisodeVideoPlayerProps {

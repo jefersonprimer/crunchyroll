@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../styles.module.css";
+import styles from "./HeroSection.module.css";
 import MaturityRating from "@/app/components/elements/MaturityRating";
 import { Anime } from "@/types/anime";
 import { faBookmark as bookmarkSolid } from "@fortawesome/free-solid-svg-icons";

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Episode, Anime } from "../types/types";
-import styles from "../styles.module.css";
+import styles from "./EpisodeNavigation.module.css";
 
 interface EpisodeNavigationProps {
   currentEpisode: Episode;

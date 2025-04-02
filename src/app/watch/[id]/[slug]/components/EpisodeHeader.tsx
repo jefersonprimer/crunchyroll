@@ -1,6 +1,6 @@
 import { Anime, Episode } from "../types/types";
 import MaturityRating from "@/app/components/elements/MaturityRating";
-import styles from "../styles.module.css";
+import styles from "./EpisodeHeader.module.css";
 import Link from "next/link";
 
 interface EpisodeHeaderProps {

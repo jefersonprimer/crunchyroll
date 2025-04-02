@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Episode } from "../types/types";
 import { extractEpisodeNumber } from "../utils/utils";
-import styles from "../styles.module.css";
+import styles from "./EpisodesModal.module.css";
 
 interface EpisodesModalProps {
   episodes: Episode[];

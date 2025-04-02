@@ -1,7 +1,7 @@
 import { Anime, Episode } from "../types/types";
 import { safeJoin } from "../utils/utils";
 import MaturityRating from "@/app/components/elements/MaturityRating";
-import styles from "../styles.module.css";
+import styles from "./EpisodeSynopsis.module.css";
 
 interface EpisodeSynopsisProps {
   episode: Episode;

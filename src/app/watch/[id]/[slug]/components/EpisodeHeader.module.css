@@ -1,0 +1,65 @@
+.headerContainer {
+  /* display: flex;
+  flex-direction: column;
+  align-items: flex-start; */
+}
+
+.titleContainer {
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem; */
+}
+
+.animeTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.animeScore {
+  /* font-size: 1.2rem;
+  color: #3498db; */
+}
+
+.episodeTitle {
+  font-size: 0.95rem;
+  margin: 0 0 0.5rem 0;
+  color: white;
+
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.metaInfo {
+  /* display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem; */
+}
+
+.ratingBadge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2px 6px;
+  border-radius: 4px;
+  backdrop-filter: blur(2px);
+}
+
+.audioType {
+  font-size: 0.8rem;
+  color: #aaa;
+  display: block;
+}
+
+.audioType {
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.releaseDate {
+  font-size: 0.8rem;
+  color: #aaa;
+}
