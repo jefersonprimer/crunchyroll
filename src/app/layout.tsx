@@ -36,6 +36,7 @@ export default function RootLayout({
         <div className="pt-[60px]">
           <ListsProvider>{children}</ListsProvider>
         </div>
+        <Footer />
       </body>
     </html>
   );

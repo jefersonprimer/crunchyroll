@@ -1,201 +1,161 @@
-.episodeCard {
+.container {
   width: 100%;
-  background: var(--card-bg);
-  border-radius: 8px;
-  transition: transform 0.2s ease;
-  overflow: hidden;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
-.episodeCard:hover {
-  transform: translateY(-5px);
+.seasonHeader {
+  margin-bottom: 1.5rem;
 }
 
-.watchButton {
-  text-decoration: none;
-  display: block;
-  align-self: flex-start;
-  padding: 0.3rem 0.8rem;
-  background: var(--accent-color);
-  color: white;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-top: 0.5rem;
+.seasonHeader h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
 }
 
-.watchButton:hover {
-  background: var(--accent-hover);
-}
-
-
-.cardContent {
-  gap: 1rem;
-  align-items: flex-start;
+.episodesContainer {
   display: flex;
   flex-direction: column;
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  gap: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-.episodeImage {
-  aspect-ratio: 16/9;
-  object-fit: cover;
+.navigationCard {
+  overflow: hidden;
+}
 
-  width: 150px;
-  height: 85px;
-  object-fit: cover;
-  border-radius: 4px;
+.cardLabel {
+  font-size: 0.875rem;
+  color: #FFFFFF;
+  margin: 0;
+  padding-bottom: 1rem;
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.cardContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 160px;
+  min-width: 160px;
+  height: 90px;
+  overflow: hidden;
   flex-shrink: 0;
 }
 
+.episodeImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.cardLink:hover .episodeImage {
+  transform: scale(1.03);
+}
+
+/* Badges */
+.ratingBadge {
+  position: absolute;
+  top: 2px;
+  left: 4px;
+}
+
+.durationBadge {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.75rem;
+}
+
+/* Play button */
+.playButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.playIcon {
+  color: #000;
+  font-size: 0.875rem;
+  margin-left: 2px;
+}
+
+.cardLink:hover .playButton {
+  opacity: 1;
+}
+
+/* Text content */
 .textContent {
-  padding: 0.75rem;
-  background-color: rgba(30, 30, 40, 0.9);
-   display: flex;
+  display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  flex-grow: 1;
+  justify-content: center;
 }
 
 .episodeTitle {
-  font-size: 1rem;
   margin: 0;
-  color: white;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 0.5rem;
 }
 
 .audioType {
-  font-size: 0.8rem;
-  color: #88a;
-  display: block;
-  margin-top: 0.25rem;
-}
-
-.seasonInfo {
-  font-size: 0.8rem;
-  color: #88a;
-  display: block;
-  margin-top: 0.25rem;
-}
-
-.episodeNavigation {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 1rem auto;
-  max-width: 1200px;
-  padding: 0.5rem 0;
-  margin-top: 2rem;
-  padding: 1rem;
-  background-color: rgba(20, 20, 30, 0.8);
-  border-radius: 8px;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.currentSeasonInfo {
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.currentSeasonInfo h3 {
-  font-size: 1.2rem;
-  color: #fff;
-  margin: 0;
-}
-
-.episodeSection {
-  margin-bottom: 1.5rem;
-  background: var(--card-bg);
-  border-radius: 8px;
-  padding: 1rem;
-}
-
-.previousEpisode {
-  border-left: 4px solid var(--accent-color);
-}
-
-.nextEpisode {
-  border-right: 4px solid var(--accent-color);
-}
-
-.nextEpisodeSection {
-  background-color: #000000;
-  border-radius: 8px;
-  padding: 1rem;
-}
-
-.nextEpisodeSection h2 {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  color: #2c3e50;
-}
-
-.sectionTitle {
-  gap: 0.5rem;
-  font-size: 1rem;
-  color: #ccc;
-  margin-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-}
-
-.previousEpisode .sectionTitle::before {
-  content: "";
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border-top: 5px solid transparent;
-  border-right: 8px solid #ccc;
-  border-bottom: 5px solid transparent;
-  margin-right: 8px;
-}
-
-.nextEpisode .sectionTitle::after {
-  content: "";
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border-top: 5px solid transparent;
-  border-left: 8px solid #ccc;
-  border-bottom: 5px solid transparent;
-  margin-left: 8px;
-}
-
-.noEpisodes {
-  padding: 1rem;
-  background-color: rgba(30, 30, 40, 0.5);
-  border-radius: 6px;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.noEpisodes p {
+  font-size: 0.875rem;
   color: #aaa;
-  margin: 0;
-  font-style: italic;
 }
 
-.seeAllButton {
-  display: block;
-  width: 100%;
-  padding: 0.75rem;
-  background-color: rgba(40, 80, 120, 0.8);
-  color: white;
-  border: none;
-  border-radius: 6px;
+/* Empty state */
+.emptyCard {
+  padding: 2rem 1rem;
+  text-align: center;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  color: #666;
+}
+
+/* All episodes button */
+.allEpisodesButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 12px;
+  color: #fff;
+  border: 1px solid #FFFFFF;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.2s;
-  font-weight: 500;
+  transition: background-color 0.2s ease;
 }
 
-.seeAllButton:hover {
-  background-color: rgba(50, 100, 150, 0.9);
+.allEpisodesButton:hover {
+  background-color: #444;
+}
+
+.btnMoreContentIcon {
+  width: 24px;  /* Ajuste o tamanho do SVG */
+  height: 24px;
+  vertical-align: middle;
 }

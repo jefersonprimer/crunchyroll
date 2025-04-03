@@ -1,18 +1,21 @@
-import Link from "next/link";
 import { useState } from "react";
 import { Episode } from "../types/types";
+import { Anime } from "@/types/anime";
 import { extractEpisodeNumber } from "../utils/utils";
 import styles from "./EpisodesModal.module.css";
+import { EpisodeCard } from "@/app/series/[id]/[slug]/components/EpisodeCard";
 
 interface EpisodesModalProps {
   episodes: Episode[];
   currentEpisodeId: string;
+  anime: Anime; // Adicionando o anime como propriedade necessária
   onClose: () => void;
 }
 
 const EpisodesModal: React.FC<EpisodesModalProps> = ({
   episodes,
   currentEpisodeId,
+  anime, // Recebendo o anime como prop
   onClose,
 }) => {
   // Get all unique seasons from episodes
@@ -78,36 +81,15 @@ const EpisodesModal: React.FC<EpisodesModalProps> = ({
 
           <div className={styles.episodesGrid}>
             {filteredEpisodes.map((episode) => (
-              <Link
+              <div
                 key={episode.id}
-                href={`/watch/${episode.id}/${episode.slug}`}
                 className={`${styles.episodeGridItem} ${
                   episode.id === currentEpisodeId ? styles.currentEpisode : ""
                 }`}
               >
-                <div className={styles.episodeGridCard}>
-                  <img
-                    src={episode.image || "https://via.placeholder.com/300x169"}
-                    alt={episode.title}
-                    className={styles.episodeGridImage}
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src =
-                        "https://via.placeholder.com/300x169";
-                    }}
-                  />
-                  <div className={styles.episodeGridInfo}>
-                    <span className={styles.episodeNumber}>
-                      Ep {extractEpisodeNumber(episode.title)}
-                    </span>
-                    {allSeasons.length > 1 && (
-                      <span className={styles.episodeSeason}>
-                        Temp. {episode.season}
-                      </span>
-                    )}
-                    <h3>{episode.title}</h3>
-                  </div>
-                </div>
-              </Link>
+                {/* Substituindo o card anterior pelo EpisodeCard */}
+                <EpisodeCard episode={episode} anime={anime} />
+              </div>
             ))}
           </div>
         </div>

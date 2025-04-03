@@ -1,7 +1,6 @@
 .synopsisContainer {
   background-color: #000000;
   border-radius: 8px;
-  padding: 1rem;
   margin-bottom: 1.5rem;
 }
 
@@ -38,13 +37,13 @@
 
 .metadataItem {
   display: flex;
-  flex-direction: column;
-  margin-bottom: 0.5rem;
+  justify-content: space-between;
+  padding: 10px 0px;
+  border-bottom: 1px solid #454852;
 }
 
 .metadataItem strong {
-  margin-right: 0.5rem;
-  color: #3498db;
+  color: #FFFFFF;
 }
 
 .moreDetailsButton {
@@ -53,5 +52,4 @@
   color: #3498db;
   cursor: pointer;
   font-weight: bold;
-  padding: 0.5rem 1rem;
 }

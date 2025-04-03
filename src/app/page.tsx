@@ -97,7 +97,7 @@ const HomePage = () => {
           </a>
         </div>
       </div>
-      <Footer />
+     
     </FavoritesProvider>
   );
 };

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { FC, useState } from "react";
 import { useParams } from "next/navigation";
@@ -13,6 +13,7 @@ import EpisodeNavigation from "./components/EpisodeNavigation";
 import EpisodesModal from "./components/EpisodesModal";
 import styles from "./styles.module.css";
 import { ClientMetadata } from "@/app/series/[id]/[slug]/components/ClientMetadata";
+import { FavoritesProvider } from "@/app/contexts/FavoritesContext";
 
 const EpisodePage: FC = () => {
   const { id, slug } = useParams();
@@ -61,27 +62,33 @@ const EpisodePage: FC = () => {
         )}...`}
       />
 
-      <EpisodeVideoPlayer episode={currentEpisode} />
+      <div className={styles.videoPlayerContainer}>
+        <EpisodeVideoPlayer episode={currentEpisode} />
+      </div>
 
-      <div className={styles.contentColumns}>
-        <div className={styles.leftColumn}>
-          <EpisodeHeader anime={anime} episode={currentEpisode} />
+      <div className={styles.mainContent}>
+        <div className={styles.contentColumns}>
+          <div className={styles.leftColumn}>
+            <FavoritesProvider>
+              <EpisodeHeader anime={anime} episode={currentEpisode} />
+            </FavoritesProvider>
 
-          <EpisodeSynopsis
-            episode={currentEpisode}
-            anime={anime}
-            expanded={expandedSynopsis}
-            onToggle={toggleSynopsis}
-          />
-        </div>
+            <EpisodeSynopsis
+              episode={currentEpisode}
+              anime={anime}
+              expanded={expandedSynopsis}
+              onToggle={toggleSynopsis}
+            />
+          </div>
 
-        <div className={styles.rightColumn}>
-          <EpisodeNavigation
-            currentEpisode={currentEpisode}
-            allEpisodes={allEpisodes}
-            anime={anime}
-            onShowAllEpisodes={toggleEpisodesModal}
-          />
+          <div className={styles.rightColumn}>
+            <EpisodeNavigation
+              currentEpisode={currentEpisode}
+              allEpisodes={allEpisodes}
+              anime={anime}
+              onShowAllEpisodes={toggleEpisodesModal}
+            />
+          </div>
         </div>
       </div>
 
@@ -89,6 +96,7 @@ const EpisodePage: FC = () => {
         <EpisodesModal
           episodes={allEpisodes}
           currentEpisodeId={currentEpisode.id}
+          anime={anime} // Adicionando o prop anime aqui
           onClose={toggleEpisodesModal}
         />
       )}
