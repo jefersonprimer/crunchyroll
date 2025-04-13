@@ -1,57 +1,27 @@
-'use client'
+"use client";
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
+import React from "react";
+import { useRouter } from "next/navigation";
 
 const NotFound: React.FC = () => {
   const router = useRouter();
 
   const handleGoBack = () => {
-    router.push('/');
+    router.push("/");
   };
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>404</h1>
-      <p style={styles.message}>Página não encontrada.</p>
-      <button style={styles.button} onClick={handleGoBack}>
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 text-center">
+      <h1 className="text-6xl text-blue-500 font-bold">404</h1>
+      <p className="text-xl text-gray-700 mt-4">Página não encontrada.</p>
+      <button
+        className="mt-6 px-6 py-3 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition"
+        onClick={handleGoBack}
+      >
         Voltar para a página inicial
       </button>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column' as const,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
-    backgroundColor: '#f9f9f9',
-    textAlign: 'center' as const,
-  },
-  title: {
-    fontSize: '6rem',
-    color: '#0070f3',
-    margin: 0,
-  },
-  message: {
-    fontSize: '1.5rem',
-    color: '#333',
-    margin: '1rem 0',
-  },
-  button: {
-    marginTop: '1.5rem',
-    padding: '0.75rem 1.5rem',
-    fontSize: '1rem',
-    color: '#fff',
-    backgroundColor: '#0070f3',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
-  },
 };
 
 export default NotFound;

@@ -1,7 +1,4 @@
-""
-
 import React, { useState, useRef } from "react";
-import styles from "./VideoPlayer.module.css";
 
 interface VideoPlayerProps {
   videoUrl: string;
@@ -15,31 +12,38 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, posterImage }) => {
 
   const handlePlayClick = () => {
     setShowPreview(false);
-    // Forçar recarregamento do iframe
     if (iframeRef.current) {
       iframeRef.current.src = videoUrl;
     }
   };
 
   return (
-    <div className={styles.videoContainer} ref={containerRef}>
+    <div
+      className="relative w-full h-0 pb-[56.25%] bg-black"
+      ref={containerRef}
+    >
       {showPreview && posterImage && (
-        <div className={styles.previewContainer} onClick={handlePlayClick}>
+        <div
+          className="absolute top-0 left-0 w-full h-full flex items-center justify-center cursor-pointer"
+          onClick={handlePlayClick}
+        >
           <img
             src={posterImage}
             alt="Preview"
-            className={styles.previewImage}
+            className="w-full h-full object-cover"
           />
-          <button className={styles.playButton} aria-label="Play video">
+          <button
+            className="absolute w-20 h-20 flex items-center justify-center bg-black bg-opacity-70 text-white text-3xl rounded-full transition-transform duration-200 hover:scale-110 hover:bg-white hover:bg-opacity-20"
+            aria-label="Play video"
+          >
             ▶
           </button>
         </div>
       )}
-      {/* O erro está aqui - não devemos usar string vazia "" como src */}
       {!showPreview && (
         <iframe
           ref={iframeRef}
-          className={styles.videoIframe}
+          className="absolute top-0 left-0 w-full h-full border-none"
           src={videoUrl}
           frameBorder="0"
           scrolling="no"

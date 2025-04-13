@@ -1,22 +1,39 @@
 import React from "react";
-import styles from "./OutdoorCard.module.css";
+import Link from "next/link";
+import Image from "next/image";
 
 interface OutdoorCardProps {
-  link: string; // URL para onde o card deve redirecionar
-  imageUrl: string; // URL da imagem a ser exibida
-  altText?: string; // Texto alternativo da imagem (opcional)
+  link: string;
+  imageUrl: string;
+  altText?: string;
 }
 
-const OutdoorCard: React.FC<OutdoorCardProps> = ({ link, imageUrl, altText = "Outdoor do Anime" }) => {
+const OutdoorCard: React.FC<OutdoorCardProps> = ({
+  link,
+  imageUrl,
+  altText = "Outdoor do Anime",
+}) => {
   return (
-    <a
+    <Link
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className={styles.outdoorCard}
+      className="block relative 
+        w-[1350px] h-[450px] 
+        max-[1536px]:w-[1200px] max-[1536px]:h-[400px]
+        max-[1280px]:w-[1000px] max-[1280px]:h-[350px]
+        max-[1024px]:w-[800px] max-[1024px]:h-[300px]
+        max-[768px]:w-[600px] max-[768px]:h-[250px]
+        max-[640px]:w-[371px] max-[640px]:h-[166px]
+        overflow-hidden no-underline"
     >
-      <img src={imageUrl} alt={altText} className={styles.image} />
-    </a>
+      <Image
+        src={imageUrl}
+        alt={altText}
+        className="w-full h-full object-cover"
+        fill
+      />
+    </Link>
   );
 };
 

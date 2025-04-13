@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import { useLists } from '../../contexts/ListsContext';
-import { Anime } from '@/types/anime';
-import styles from './AddToListModal.module.css';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import { useLists } from "../../contexts/ListsContext";
+import { Anime } from "@/types/anime";
 
 interface AddToListModalProps {
   anime: Anime;
@@ -11,11 +10,11 @@ interface AddToListModalProps {
 
 const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose }) => {
   const { lists, addItemToList, removeItemFromList, createList } = useLists();
-  const [newListName, setNewListName] = useState('');
+  const [newListName, setNewListName] = useState("");
 
   const handleCreateList = () => {
     createList(newListName);
-    setNewListName(''); 
+    setNewListName("");
   };
 
   const handleAddToList = (listId: string) => {
@@ -26,7 +25,6 @@ const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose }) => {
     removeItemFromList(listId, anime.id);
   };
 
-  // Função para verificar se o anime já está na lista
   const isAnimeInList = (listId: string) => {
     const list = lists.find((list) => list.id === listId);
     return list?.items.some((item) => item.id === anime.id) ?? false;
@@ -39,42 +37,58 @@ const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose }) => {
   };
 
   const modalContent = (
-    <div className={styles.overlay} onClick={handleOverlayClick}>
-      <div className={styles.modalContent}>
-        <button className={styles.closeButton} onClick={onClose}>X</button>
-        <h3 className={styles.title}>Adicionar à Crunchylista</h3>
+    <div
+      className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-[1000] bg-black/50"
+      onClick={handleOverlayClick}
+    >
+      <div className="bg-[#23252B] p-5 max-w-lg w-[90%] relative">
+        <button
+          className="absolute top-2 right-2 bg-transparent border-none text-2xl cursor-pointer text-white"
+          onClick={onClose}
+        >
+          X
+        </button>
+        <h3 className="text-xl text-center mt-5">Adicionar à Crunchylista</h3>
 
-        <div className={styles.listsContainer}>
-          <div className={styles.createListContainer}>
+        <div className="mt-5 p-2 max-h-[300px] overflow-y-auto">
+          <div className="flex flex-col gap-2">
             <input
               type="text"
               value={newListName}
               onChange={(e) => setNewListName(e.target.value)}
               placeholder="Nome da nova lista"
-              className={styles.createListInput}
+              className="text-white border-b border-gray-500 bg-transparent p-2 outline-none transition duration-300 focus:border-orange-500"
             />
 
-            <div className={styles.header}>
+            <div className="flex justify-between items-center py-5 border-b border-gray-500">
               <span>{lists.length}/10 listas</span>
-              <button onClick={handleCreateList} className={styles.btnCreate}>CRIAR NOVA LISTA</button>
+              <button
+                onClick={handleCreateList}
+                className="bg-transparent border-none cursor-pointer text-gray-500 hover:text-white"
+              >
+                CRIAR NOVA LISTA
+              </button>
             </div>
           </div>
 
           {lists.map((list) => (
-            <div key={list.id} className={styles.listItem}>
-              <div className={styles.textListItem}>
-                <p>{list.name}</p>
+            <div
+              key={list.id}
+              className="flex justify-between p-2 border-b border-gray-500 hover:bg-[#141519]"
+            >
+              <div>
+                <p className="pb-2">{list.name}</p>
                 <span>{list.items.length} itens</span>
               </div>
               <button
-                onClick={() => 
+                onClick={() =>
                   isAnimeInList(list.id)
                     ? handleRemoveFromList(list.id)
                     : handleAddToList(list.id)
                 }
-                className={styles.btnRemoveOrAdd}
+                className="text-orange-600 cursor-pointer p-1 text-2xl bg-transparent border-none"
               >
-                {isAnimeInList(list.id) ? '-' : '+'}
+                {isAnimeInList(list.id) ? "-" : "+"}
               </button>
             </div>
           ))}

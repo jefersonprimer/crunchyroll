@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    domains: ["imgsrv.crunchyroll.com"], 
     remotePatterns: [
       {
         protocol: "https",

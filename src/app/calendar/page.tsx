@@ -1,11 +1,9 @@
 "use client";
 
-import styles from "./calendar.module.css";
-
 import { useEffect, useState } from "react";
-import useFetchAnimes from "@/app/hooks/useFetchAnimes"; 
+import useFetchAnimes from "@/app/hooks/useFetchAnimes";
 import { Anime } from "@/types/anime";
-import OldAnimeCarousel from "../components/cards/OldAnimeCarousel"; 
+import OldAnimeCarousel from "../components/cards/OldAnimeCarousel";
 
 const CalendarPage = () => {
   const { animes, loading, error } = useFetchAnimes();
@@ -61,13 +59,13 @@ const CalendarPage = () => {
   ];
 
   return (
-    <div className={styles.calendar}>
-      <h1 className={styles.title}>Calendário</h1>
+    <div className="flex flex-col items-center justify-center p-4 min-h-screen text-center box-border">
+      <h1 className="p-2 text-2xl md:text-xl sm:text-lg">Calendário</h1>
       {orderedDays.map((day) => {
         const dayAnimes = groupedAnimes[day] || [];
         return (
-          <div key={day} className={styles.dayContainer}>
-            <h2 className={styles.dayTitle}>{day}</h2>
+          <div key={day} className="mb-4 w-11/12 md:w-full sm:mb-3 xs:mb-2">
+            <h2 className="p-2 text-lg md:text-base sm:text-sm">{day}</h2>
             <OldAnimeCarousel animes={dayAnimes} itemsPerPage={5} />
           </div>
         );

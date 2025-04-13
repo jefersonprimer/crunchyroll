@@ -12,6 +12,7 @@ import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons
 
 interface AnimeCarouselProps {
   animes: Anime[];
+  itemsPerPage?: number;
 }
 
 const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes }) => {

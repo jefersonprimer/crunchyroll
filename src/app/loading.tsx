@@ -1,14 +1,16 @@
-import React from 'react';
+"use client";
+
+import React from "react";
 
 const Loading: React.FC = () => {
   return (
-    <div style={styles.container}>
+    <div className="flex items-center justify-center h-screen w-screen fixed top-0 left-0 bg-transparent z-[9999]">
       <svg
         width="80"
         height="80"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
-        style={styles.svg}
+        className="fill-orange-500"
       >
         <style>
           {`.spinner_ajPY { 
@@ -30,24 +32,6 @@ const Loading: React.FC = () => {
       </svg>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
-    width: '100vw',
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    backgroundColor: 'transparent', 
-    zIndex: 9999,
-  },
-  svg: {
-    fill: '#FF640A', 
-  },
 };
 
 export default Loading;
