@@ -1,7 +1,10 @@
 "use client";
 
-import { FavoritesProvider } from "./contexts/FavoritesContext";
+import dynamic from "next/dynamic";
+
+import { FavoritesProvider, useFavorites } from "./contexts/FavoritesContext";
 import { ListsProvider } from "./contexts/ListsContext";
+import { HistoryProvider, useHistory } from "./contexts/HistoryContext";
 
 import AnimeCarouselFullScreen from "./components/cards/AnimeCarouselFullScreen";
 import AnimeCarouselLancamentos from "./components/cards/AnimeCarouselLancamentos";
@@ -11,19 +14,41 @@ import AnimeCarouselNextSeason from "./components/cards/AnimeCarouselNextSeason"
 import AnimeCarouselPopular from "./components/cards/AnimeCarouselPopular";
 import AnimeCarouselPopularSeason from "./components/cards/AnimeCarouselPopularSeason";
 import MovieCard from "./components/cards/MovieCard";
-
 import Episodios from "./components/cards/Episodios";
 import OutdoorCard from "./components/cards/OutdoorCard";
 import Outdoor from "./components/cards/Outdoor";
 import FavoritesCarousel from "./components/cards/FavoritesCarousel";
-
-import { useFavorites } from "./contexts/FavoritesContext";
 import HistoryCarousel from "./components/cards/HistoryCarousel";
-import { HistoryProvider, useHistory } from "./contexts/HistoryContext";
+import { ApolloProvider } from "@apollo/client";
+import client from "@/lib/apollo-client";
 
+// Importa o componente dinamicamente sem SSR
+const AnimeListComponentWithNoSSR = dynamic(() => import("./components/AnimeList"), {
+  ssr: false,
+});
+
+// Componentes auxiliares
+const HistorySection = () => {
+  const { history } = useHistory();
+
+  if (history.length === 0) {
+    return null;
+  }
+
+  return <HistoryCarousel />;
+};
+
+const FavoritesSection = () => {
+  const { favorites } = useFavorites();
+
+  return <>{favorites.length > 0 && <FavoritesCarousel />}</>;
+};
+
+// Componente principal
 const HomePage = () => {
   return (
-    <FavoritesProvider>
+    <ApolloProvider client={client}>
+      <FavoritesProvider>
       <ListsProvider>
         <AnimeCarouselFullScreen />
         <AnimeCarouselLancamentos className="relative z-[2] mt-[-25vh] backdrop-blur-sm" />
@@ -31,6 +56,8 @@ const HomePage = () => {
         <HistoryProvider>
           <HistorySection />
         </HistoryProvider>
+
+        <AnimeListComponentWithNoSSR />
 
         <div className="flex justify-center items-center text-center flex-col my-[10px]">
           <OutdoorCard
@@ -52,7 +79,7 @@ const HomePage = () => {
           description="Milhares de anos após um misterioso fenômeno transformar a humanidade inteira em pedra, desperta um garoto extraordinariamente inteligente e motivado pela ciência - Senku Ishigami. Diante de um mundo de pedra e do colapso generalizado da civilização, Senku decide usar sua..."
           buttonLink="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
           addToQueueLink="#"
-          title={"The Apothecary Diaries"}
+          title="The Apothecary Diaries"
         />
 
         <div className="my-[10px]">
@@ -95,24 +122,8 @@ const HomePage = () => {
         </div>
       </div>
     </FavoritesProvider>
+    </ApolloProvider>
   );
-};
-
-// Componentes auxiliares permanecem iguais
-const HistorySection = () => {
-  const { history } = useHistory();
-
-  if (history.length === 0) {
-    return null;
-  }
-
-  return <HistoryCarousel />;
-};
-
-const FavoritesSection = () => {
-  const { favorites } = useFavorites();
-
-  return <>{favorites.length > 0 && <FavoritesCarousel />}</>;
 };
 
 export default HomePage;
