@@ -5,7 +5,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 interface Favorite {
   id: string;
   name: string;
-  image: string;
+  imagePoster: string;
   audioType: string;
 }
 

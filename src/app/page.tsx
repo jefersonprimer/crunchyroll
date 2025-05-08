@@ -1,7 +1,5 @@
 "use client";
 
-import dynamic from "next/dynamic";
-
 import { FavoritesProvider, useFavorites } from "./contexts/FavoritesContext";
 import { ListsProvider } from "./contexts/ListsContext";
 import { HistoryProvider, useHistory } from "./contexts/HistoryContext";
@@ -21,11 +19,6 @@ import FavoritesCarousel from "./components/cards/FavoritesCarousel";
 import HistoryCarousel from "./components/cards/HistoryCarousel";
 import { ApolloProvider } from "@apollo/client";
 import client from "@/lib/apollo-client";
-
-// Importa o componente dinamicamente sem SSR
-const AnimeListComponentWithNoSSR = dynamic(() => import("./components/AnimeList"), {
-  ssr: false,
-});
 
 // Componentes auxiliares
 const HistorySection = () => {
@@ -56,8 +49,6 @@ const HomePage = () => {
         <HistoryProvider>
           <HistorySection />
         </HistoryProvider>
-
-        <AnimeListComponentWithNoSSR />
 
         <div className="flex justify-center items-center text-center flex-col my-[10px]">
           <OutdoorCard

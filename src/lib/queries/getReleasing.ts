@@ -1,0 +1,21 @@
+import { gql } from "@apollo/client";
+
+// is_releasing
+export const GET_RELEASING_ANIMES = gql`
+  query ReleasingAnimes {
+    releasingAnimes {
+      id
+      slug
+      name
+      audioType
+      imagePoster
+      synopsis
+      rating
+      score
+      totalEpisodes
+      seasons{
+        seasonNumber
+      }
+    }
+  }
+`;

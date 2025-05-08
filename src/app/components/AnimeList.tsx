@@ -9,14 +9,15 @@ const AnimeList: React.FC = () => {
 
   return (
     <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
-      {data?.animes.map((anime: { id: string; name: string; imagePoster: string }) => (
+      {data?.animes.map((anime: { id: string; name: string; imagePoster: string; audioType: string }) => (
         <li key={anime.id} className="bg-white rounded shadow p-2 text-center">
           <img
             src={anime.imagePoster}
             alt={anime.name}
             className="w-full h-auto object-cover rounded"
           />
-          <p className="mt-2 text-sm font-medium">{anime.name}</p>
+          <p className="mt-2 text-sm font-medium text-[#000000]">{anime.name}</p>
+          <p className="mt-2 text-sm font-medium text-[#000000]">{anime.audioType}</p>
         </li>
       ))}
     </ul>

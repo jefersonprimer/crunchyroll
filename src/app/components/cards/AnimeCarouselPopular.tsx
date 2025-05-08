@@ -1,40 +1,33 @@
 "use client";
 
 import Loading from "@/app/loading";
-import useFetchAnimes from "@/app/hooks/useFetchAnimes"; 
+import { useQuery } from '@apollo/client';
+import { GET_POPULAR_ANIMES } from '@/lib/queries/getPopularAnimes';
+
 import { Anime } from "@/types/anime";
 import AnimeCarousel from "./AnimeCarousel";
 import styles from "./AnimeCarouselPopular.module.css";
 
-import { useState, useEffect } from "react";
-
-interface AnimeCarousePopularProps {
+interface AnimeCarouselPopularProps {
   itemsPerPage?: number;
   className?: string; // Propriedade opcional
 }
 
-const AnimeCarousePopular: React.FC<AnimeCarousePopularProps> = ({
+const AnimeCarouselPopular: React.FC<AnimeCarouselPopularProps> = ({
   itemsPerPage = 5,
 }) => {
-  const { animes, loading, error } = useFetchAnimes(); 
-  const [popular, setPopular] = useState<Anime[]>([]);
-
-  useEffect(() => {
-    if (animes) {
-      const filteredAnimes = animes.filter((anime) => anime.isPopular);
-      setPopular(filteredAnimes);
-    }
-  }, [animes]);
+  const { loading, error, data } = useQuery(GET_POPULAR_ANIMES);
+  const popularAnimes = data?.popularAnimes || [];
 
   if (loading) {
     return <Loading />;
   }
 
   if (error) {
-    return <div>Erro ao carregar os dados: {error}</div>;
+    return <div>Erro ao carregar os dados: {error.message}</div>;
   }
 
-  if (popular.length === 0) {
+  if (popularAnimes.length === 0) {
     return <div>Nenhum anime popular disponível no momento.</div>;
   }
 
@@ -47,9 +40,9 @@ const AnimeCarousePopular: React.FC<AnimeCarousePopularProps> = ({
         Assista os três primeiros episódios desses simulcasts de outubro de
         2024 de graça!
       </p>
-      <AnimeCarousel animes={popular} itemsPerPage={itemsPerPage} />
+      <AnimeCarousel animes={popularAnimes} itemsPerPage={itemsPerPage} />
     </div>
   );
 };
 
-export default AnimeCarousePopular;
+export default AnimeCarouselPopular;

@@ -4,16 +4,18 @@ import Loading from "../../../app/loading";
 import styles from "./AnimeCarouselFullScreen.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-
-import useFetchAnimes from "@/app/hooks/useFetchAnimes";
-import useFetchEpisodes from '@/app/hooks/useFetchEpisodes';
-import { Anime } from "@/types/anime";
-import { Episode } from '@/types/episode';
-
+import { useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-
 import MaturityRating from "../elements/MaturityRating";
+
+// GraphQL query to fetch animes with thumbnails
+import { GET_HAS_THUMBNAIL } from "../../../lib/queries/getHasThumbnail";
+import { GET_EPISODES } from "../../../lib/queries/getEpisodes";
+
+import { Anime } from "@/types/anime";
+import { Episode } from "@/types/episode";
 
 interface AnimeCarouselFullScreenProps {
   className?: string;
@@ -22,30 +24,42 @@ interface AnimeCarouselFullScreenProps {
 const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
   className = "",
 }) => {
-  const { animes, loading, error } = useFetchAnimes();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [thumbnailAnimes, setThumbnailAnimes] = useState<Anime[]>([]);
   const [isMobile, setIsMobile] = useState(false);
-
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [touchEndX, setTouchEndX] = useState<number | null>(null);
+  const [firstEpisode, setFirstEpisode] = useState<Episode | null>(null);
 
-  const [firstEpisode, setFirstEpisode] = useState<Episode | null>(null); // Primeiro episódio do anime
-  const { episodes, isLoading } = useFetchEpisodes(); // Busca de episódios
+  // Fetch animes with thumbnails using GraphQL
+  const { 
+    data: animesData, 
+    loading: animesLoading, 
+    error: animesError 
+  } = useQuery(GET_HAS_THUMBNAIL);
 
+  // Fetch episodes using GraphQL
+  const { 
+    data: episodesData, 
+    loading: episodesLoading 
+  } = useQuery(GET_EPISODES);
+
+  // Get the thumbnailAnimes from the query result
+  const thumbnailAnimes = animesData?.hasThumbnail || [];
+  const episodes = episodesData?.episodes || [];
 
   useEffect(() => {
-    if (!isLoading && episodes && thumbnailAnimes.length > 0) {
-      const currentAnime = thumbnailAnimes[currentIndex]; // Obtém o anime atual
+    if (!episodesLoading && episodes && thumbnailAnimes.length > 0) {
+      const currentAnime = thumbnailAnimes[currentIndex];
       if (currentAnime) {
-        const animeEpisodes = episodes.filter((ep) => ep.animeId === currentAnime.id);
+        const animeEpisodes = episodes.filter((ep: Episode) => ep.animeId === currentAnime.id);
         if (animeEpisodes.length > 0) {
           setFirstEpisode(animeEpisodes[0]);
+        } else {
+          setFirstEpisode(null);
         }
       }
     }
-  }, [episodes, isLoading, thumbnailAnimes, currentIndex]);
-  
+  }, [episodes, episodesLoading, thumbnailAnimes, currentIndex]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -57,13 +71,6 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  useEffect(() => {
-    if (animes) {
-      const filteredAnimes = animes.filter((anime) => anime.isThumbnail);
-      setThumbnailAnimes(filteredAnimes);
-    }
-  }, [animes]);
 
   useEffect(() => {
     if (thumbnailAnimes.length > 0) {
@@ -90,7 +97,7 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
     setCurrentIndex(index);
   };
 
-  // Eventos de toque
+  // Touch events
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStartX(e.touches[0].clientX);
   };
@@ -105,27 +112,29 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
     const touchDistance = touchStartX - touchEndX;
 
     if (touchDistance > 50) {
-      nextPage(); // Swipe para a esquerda
+      nextPage(); // Swipe left
     } else if (touchDistance < -50) {
-      prevPage(); // Swipe para a direita
+      prevPage(); // Swipe right
     }
 
-    // Resetar os valores de toque
+    // Reset touch values
     setTouchStartX(null);
     setTouchEndX(null);
   };
 
-  if (loading) {
+  if (animesLoading) {
     return <Loading />;
   }
 
-  if (error) {
-    return <div>Erro ao carregar os dados: {error}</div>;
+  if (animesError) {
+    return <div>Erro ao carregar os dados: {animesError.message}</div>;
   }
 
   if (!thumbnailAnimes || thumbnailAnimes.length === 0) {
     return <div>Nenhum anime disponível.</div>;
   }
+
+  const currentAnime = thumbnailAnimes[currentIndex];
 
   return (
     <div
@@ -137,8 +146,8 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
       <img
         className={styles.backgroundImage}
         src={isMobile
-          ? thumbnailAnimes[currentIndex].image
-          : thumbnailAnimes[currentIndex].thumbnailImage}
+          ? currentAnime.imagePoster
+          : currentAnime.imageThumbnail}
         alt="Background"
       />
 
@@ -148,27 +157,25 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
           <div className={styles.logoAnime}>
             <img
               className={styles.logoAnime}
-              src={thumbnailAnimes[currentIndex].logoAnime}
-              alt=""
+              src={currentAnime.imageLogo}
+              alt={currentAnime.name}
             />
           </div>
           <div className={styles.leftColumn}>
             <div className={styles.ratingAndAudioType}>
-              <MaturityRating rating={thumbnailAnimes[currentIndex].rating} />
+              <MaturityRating rating={currentAnime.rating} />
               <p className={styles.audioType}>
-                {thumbnailAnimes[currentIndex].audioType}
+                {currentAnime.audioType}
               </p>
             </div>
-            {/* <p className={styles.name}>{thumbnailAnimes[currentIndex].name}</p> */}
             <p className={styles.synopsis}>
-              {thumbnailAnimes[currentIndex].synopsis}
+              {currentAnime.synopsis}
             </p>
 
             <div className={styles.buttonsContainer}>
               <div className={styles.playButton}>
-
-              <div className={styles.tooltip}>
-                <span className={styles.tooltipText}>Play</span>
+                <div className={styles.tooltip}>
+                  <span className={styles.tooltipText}>Play</span>
                   {firstEpisode ? (
                     <Link href={`/watch/${firstEpisode.id}/${firstEpisode.slug}`}>
                       <svg
@@ -184,19 +191,21 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
                       </svg>
                     </Link>
                   ) : (
-                    <span> <svg
-                    className={styles.iconPlay}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    aria-labelledby="play-svg"
-                    aria-hidden="false"
-                    role="img"
-                  >
-                    <title id="play-svg">Play</title>
-                    <path d="M5.944 3C5.385 3 5 3.445 5 4.22v16.018c0 .771.384 1.22.945 1.22.234 0 .499-.078.779-.243l13.553-7.972c.949-.558.952-1.468 0-2.028L6.724 3.243C6.444 3.078 6.178 3 5.944 3m1.057 2.726l11.054 6.503L7 18.732l.001-13.006" />
-                  </svg></span> // Placeholder enquanto carrega
+                    <span>
+                      <svg
+                        className={styles.iconPlay}
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        aria-labelledby="play-svg"
+                        aria-hidden="false"
+                        role="img"
+                      >
+                        <title id="play-svg">Play</title>
+                        <path d="M5.944 3C5.385 3 5 3.445 5 4.22v16.018c0 .771.384 1.22.945 1.22.234 0 .499-.078.779-.243l13.553-7.972c.949-.558.952-1.468 0-2.028L6.724 3.243C6.444 3.078 6.178 3 5.944 3m1.057 2.726l11.054 6.503L7 18.732l.001-13.006" />
+                      </svg>
+                    </span>
                   )}
-              </div>
+                </div>
                 <span className={styles.titleName}>COMEÇAR A ASSISTIR E1</span>
               </div>
 
@@ -219,7 +228,7 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
           </div>
 
           <div className={styles.pageIndicator}>
-            {thumbnailAnimes.map((anime, index) => (
+            {thumbnailAnimes.map((anime: Anime, index: number) => (
               <button
                 key={anime.id}
                 className={`${styles.pageDot} ${

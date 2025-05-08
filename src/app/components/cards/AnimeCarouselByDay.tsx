@@ -1,69 +1,65 @@
 "use client";
 
-import useFetchAnimes from "@/app/hooks/useFetchAnimes";
-import { Anime } from "../../../types/anime";
+import Loading from "@/app/loading";
+import { useQuery } from "@apollo/client";
+import { GET_ANIME_OF_DAY } from "@/lib/queries/getAnimeOfTheDay";
+import { Anime } from "@/types/anime";
 import AnimeCarousel from "./AnimeCarousel";
 import styles from "./AnimeCarouselByDay.module.css";
 
-import { useEffect, useState } from "react";
-import Loading from "@/app/loading";
-
-interface AnimeCarouselByDayProps {
+interface AnimeOfTheDayProps {
   itemsPerPage?: number;
   className?: string;
 }
 
-const AnimeCarouselByDay: React.FC<AnimeCarouselByDayProps> = ({
+interface GetAnimeOfTheDayData {
+  animeOfTheDay: Anime | Anime[]; // Pode ser um único anime ou um array
+}
+
+const AnimeOfTheDay: React.FC<AnimeOfTheDayProps> = ({
   itemsPerPage = 5,
+  className = "",
 }) => {
-  const { animes, loading, error } = useFetchAnimes();
-  const [currentDay, setCurrentDay] = useState<string>("");
-
-  // Define o dia atual ao carregar o componente
-  useEffect(() => {
-    const currentDate = new Date();
-    const daysOfWeek = [
-      "Domingo",
-      "Segunda-feira",
-      "Terça-feira",
-      "Quarta-feira",
-      "Quinta-feira",
-      "Sexta-feira",
-      "Sábado",
-    ];
-    const currentDayIndex = currentDate.getDay();
-    setCurrentDay(daysOfWeek[currentDayIndex]);
-  }, []);
-
-  // Filtrar os animes pelo dia atual
-  const todaysAnimes: Anime[] =
-    animes?.filter((anime) => anime.airingDay === currentDay) || [];
-
+  const { loading, error, data } = useQuery<GetAnimeOfTheDayData>(GET_ANIME_OF_DAY);
+  
   if (loading) {
     return <Loading />;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div>Erro ao carregar os dados: {error.message}</div>;
   }
 
-  if (!currentDay) {
-    return <Loading />;
+  if (!data?.animeOfTheDay) {
+    return <div className={styles.noAnimes}>Nenhum anime programado para hoje.</div>;
   }
+
+  // Normaliza os dados para sempre trabalhar com um array
+  const animes: Anime[] = Array.isArray(data.animeOfTheDay) 
+    ? data.animeOfTheDay 
+    : [data.animeOfTheDay];
+
+  if (animes.length === 0) {
+    return <div className={styles.noAnimes}>Nenhum anime programado para hoje.</div>;
+  }
+
+  // Verifica o dia a partir do primeiro anime (assumindo que todos têm o mesmo airingDay)
+  const airingDay = animes[0].airingDay;
+
+  // Texto condicional baseado na quantidade de animes
+  const titleText = animes.length === 1 
+    ? `Anime de Hoje (${airingDay})` 
+    : `Animes de Hoje (${airingDay})`;
 
   return (
-    <div className={`${styles.dayContainer} anime-carousel-by-day`}>
-      <h1 className={styles.titulo}>Animes de Hoje ({currentDay})</h1>
+    <div className={`${styles.dayContainer} ${className}`}>
+      <h1 className={styles.titulo}>{titleText}</h1>
       <p className={styles.subtitulo}>
-        Confira os animes que estão sendo exibidos hoje!
+        Confira {animes.length === 1 ? "o anime" : "os animes"} que {animes.length === 1 ? "está" : "estão"} sendo exibido{animes.length === 1 ? "" : "s"} hoje!
       </p>
-      {todaysAnimes.length > 0 ? (
-        <AnimeCarousel animes={todaysAnimes} itemsPerPage={itemsPerPage} />
-      ) : (
-        <p className={styles.noAnimes}>Nenhum anime programado para hoje.</p>
-      )}
+      <AnimeCarousel animes={animes} itemsPerPage={itemsPerPage} />
     </div>
   );
 };
 
-export default AnimeCarouselByDay;
+export default AnimeOfTheDay;

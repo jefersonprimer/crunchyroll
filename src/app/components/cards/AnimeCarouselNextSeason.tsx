@@ -1,37 +1,29 @@
 "use client";
 
-import useFetchAnimes from "@/app/hooks/useFetchAnimes"; 
-import { Anime } from "@/types/anime"; 
-import AnimeCarousel from "./AnimeCarousel"; 
+import { useQuery } from '@apollo/client';
+import { GET_HAS_NEXT_SEASON } from '@/lib/queries/getHasNextSeason';
+import { Anime } from "@/types/anime";
+import AnimeCarousel from "./AnimeCarousel";
 import styles from "./AnimeCarouselNextSeason.module.css";
-
-import { useState, useEffect } from "react";
 import Loading from "@/app/loading";
 
 interface AnimeCarouselNextSeasonProps {
-  itemsPerPage?: number; // Número de itens por página (opcional)
-  className?: string; // Classe CSS adicional (opcional)
+  itemsPerPage?: number;
+  className?: string;
 }
 
 const AnimeCarouselNextSeason: React.FC<AnimeCarouselNextSeasonProps> = ({
   itemsPerPage = 5,
 }) => {
-  const { animes, loading, error } = useFetchAnimes(); 
-  const [nextSeasonAnimes, setNextSeasonAnimes] = useState<Anime[]>([]);
-
-  useEffect(() => {
-    if (animes) {
-      const filteredAnimes = animes.filter((anime) => anime.isNextSeason);
-      setNextSeasonAnimes(filteredAnimes);
-    }
-  }, [animes]);
+  const { loading, error, data } = useQuery(GET_HAS_NEXT_SEASON);
+  const nextSeasonAnimes = data?.nextSeasonAnimes || [];
 
   if (loading) {
-    return <Loading/>;
+    return <Loading />;
   }
 
   if (error) {
-    return <div>Erro ao carregar os dados: {error}</div>;
+    return <div>Erro ao carregar os dados: {error.message}</div>;
   }
 
   if (nextSeasonAnimes.length === 0) {

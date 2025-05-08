@@ -1,12 +1,12 @@
 "use client";
 
 import Loading from "@/app/loading";
-import useFetchAnimes from "@/app/hooks/useFetchAnimes"; 
+import { useQuery } from '@apollo/client';
+import { GET_SEASON_POPULAR_ANIMES } from '@/lib/queries/getSeasonPopularAnimes';
+
 import AnimeCarousel from "./AnimeCarousel";
 import styles from "./AnimeCarouselPopularSeason.module.css";
 import { Anime } from "@/types/anime";
-
-import { useState, useEffect } from "react";
 
 interface AnimeCarouselPopularSeasonProps {
   itemsPerPage?: number;
@@ -16,25 +16,18 @@ interface AnimeCarouselPopularSeasonProps {
 const AnimeCarouselPopularSeason: React.FC<AnimeCarouselPopularSeasonProps> = ({
   itemsPerPage = 5,
 }) => {
-  const { animes, loading, error } = useFetchAnimes(); 
-  const [popularSeason, setPopularSeason] = useState<Anime[]>([]);
-
-  useEffect(() => {
-    if (animes) {
-      const filteredAnimes = animes.filter((anime) => anime.isPopularSeason);
-      setPopularSeason(filteredAnimes);
-    }
-  }, [animes]);
+  const { loading, error, data } = useQuery(GET_SEASON_POPULAR_ANIMES);
+  const seasonPopularAnimes = data?.seasonPopularAnimes || [];
 
   if (loading) {
     return <Loading />;
   }
 
   if (error) {
-    return <div>Erro ao carregar os dados: {error}</div>;
+    return <div>Erro ao carregar os dados: {error.message}</div>;
   }
 
-  if (popularSeason.length === 0) {
+  if (seasonPopularAnimes.length === 0) {
     return <div>Nenhum anime popular disponível no momento.</div>;
   }
 
@@ -46,7 +39,7 @@ const AnimeCarouselPopularSeason: React.FC<AnimeCarouselPopularSeasonProps> = ({
       <p className={styles.subtitulo}>
         Assista os três primeiros!
       </p>
-      <AnimeCarousel animes={popularSeason} itemsPerPage={itemsPerPage} />
+      <AnimeCarousel animes={seasonPopularAnimes} itemsPerPage={itemsPerPage} />
     </div>
   );
 };

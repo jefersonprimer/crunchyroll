@@ -1,12 +1,12 @@
 "use client";
 
 import Loading from "@/app/loading";
-import useFetchAnimes from "@/app/hooks/useFetchAnimes";
+import { useQuery } from '@apollo/client';
+import { GET_RELEASING_ANIMES } from '@/lib/queries/getReleasing';
+
 import { Anime } from "@/types/anime";
 import AnimeCarousel from "./AnimeCarousel";
 import styles from "./AnimeCarouselLancamentos.module.css";
-
-import { useState, useEffect } from "react";
 
 interface AnimeCarouselLancamentosProps {
   itemsPerPage?: number;
@@ -16,25 +16,19 @@ interface AnimeCarouselLancamentosProps {
 const AnimeCarouselLancamentos: React.FC<AnimeCarouselLancamentosProps> = ({
   itemsPerPage = 5,
 }) => {
-  const { animes, loading, error } = useFetchAnimes(); 
-  const [lancamentos, setLancamentos] = useState<Anime[]>([]);
+  const { loading, error, data } = useQuery(GET_RELEASING_ANIMES);
+  const releasingAnimes = data?.releasingAnimes || [];
 
-  useEffect(() => {
-    if (animes) {
-      const filteredAnimes = animes.filter((anime) => anime.isRelease);
-      setLancamentos(filteredAnimes);
-    }
-  }, [animes]);
 
   if (loading) {
     return <Loading/>;
   }
 
   if (error) {
-    return <div>Erro ao carregar os dados: {error}</div>;
+    return <div>Erro ao carregar os dados: {error.message}</div>;
   }
 
-  if (lancamentos.length === 0) {
+  if (releasingAnimes.length === 0) {
     return <div>Nenhum lançamento disponível no momento.</div>;
   }
 
@@ -46,7 +40,7 @@ const AnimeCarouselLancamentos: React.FC<AnimeCarouselLancamentosProps> = ({
       <p className={styles.subtitulo}>
        Assista os três primeiros episódios desses simulcasts da inverno 2025 de graça!
       </p>
-      <AnimeCarousel animes={lancamentos} itemsPerPage={itemsPerPage} />
+      <AnimeCarousel animes={releasingAnimes} itemsPerPage={itemsPerPage} />
     </div>
   );
 };
