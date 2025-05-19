@@ -1,8 +1,12 @@
 // src/lib/apollo-client.ts
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+
+const httpLink = createHttpLink({
+  uri: 'http://localhost:8080/graphql', // URL do seu servidor GraphQL
+});
 
 const client = new ApolloClient({
-  uri: 'https://backend-crunchyroll-production.up.railway.app/graphql',
+  link: httpLink,
   cache: new InMemoryCache(),
 });
 

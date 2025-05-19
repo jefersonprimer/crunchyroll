@@ -7,12 +7,11 @@ import { Anime } from "@/types/anime";
 import { Episode } from "@/types/episode";
 
 interface EpisodesSectionProps {
-  episodes: Episode[];
   anime: Anime;
 }
 
-export const EpisodesSection = ({ episodes, anime }: EpisodesSectionProps) => {
-  const [selectedSeason, setSelectedSeason] = useState<number>(1);
+export const EpisodesSection = ({ anime }: EpisodesSectionProps) => {
+  const [selectedSeason, setSelectedSeason] = useState<string>(anime.seasons[0]?.seasonName || "");
   const [filteredEpisodes, setFilteredEpisodes] = useState<Episode[]>([]);
   const [sortOrder, setSortOrder] = useState<"oldest" | "newest">("newest");
   const [showSortModal, setShowSortModal] = useState(false);
@@ -20,15 +19,13 @@ export const EpisodesSection = ({ episodes, anime }: EpisodesSectionProps) => {
 
   // Efeito para filtrar e ordenar os episódios
   useEffect(() => {
-    if (episodes && episodes.length > 0) {
-      let filtered = episodes.filter(
-        (episode) => episode.season === selectedSeason
-      );
+    if (anime.episodes && anime.episodes.length > 0) {
+      let filtered = anime.episodes;
 
       // Ordenar episódios
       filtered = [...filtered].sort((a, b) => {
-        const dateA = new Date(a.releaseDate).getTime();
-        const dateB = new Date(b.releaseDate).getTime();
+        const dateA = new Date(a.releaseDate || "").getTime();
+        const dateB = new Date(b.releaseDate || "").getTime();
         return sortOrder === "oldest" ? dateA - dateB : dateB - dateA;
       });
 
@@ -36,21 +33,12 @@ export const EpisodesSection = ({ episodes, anime }: EpisodesSectionProps) => {
     } else {
       setFilteredEpisodes([]);
     }
-  }, [episodes, selectedSeason, sortOrder]);
+  }, [anime.episodes, sortOrder]);
 
-  const getUniqueSeasons = () => {
-    if (!episodes || episodes.length === 0) return [1];
-    const seasons = [...new Set(episodes.map((episode) => episode.season))];
-    return seasons.sort((a, b) => a - b);
-  };
+  const hasMultipleSeasons = anime.seasons.length > 1;
 
-  const hasMultipleSeasons = getUniqueSeasons().length > 1;
-
-  const getSeasonName = (seasonNumber: number) => {
-    if (anime.seasonNames && anime.seasonNames[seasonNumber]) {
-      return anime.seasonNames[seasonNumber];
-    }
-    return `${anime.name} - Temporada ${seasonNumber}`;
+  const getSeasonName = (seasonName: string) => {
+    return `${anime.name} - ${seasonName}`;
   };
 
   const handleSortSelection = (order: "oldest" | "newest") => {
@@ -58,40 +46,27 @@ export const EpisodesSection = ({ episodes, anime }: EpisodesSectionProps) => {
     setShowSortModal(false);
   };
 
-  const markAllAsWatched = () => {
-    // Aqui você implementaria a lógica para marcar todos os episódios como assistidos
-    // Pode ser uma chamada API ou atualização de estado local
-    console.log(
-      `Marcar todos os episódios da temporada ${selectedSeason} como assistidos`
-    );
-    setShowOptionsModal(false);
-  };
-
   return (
-    <div className={styles.episodesContainer}>
-      {/* Controles acima dos episódios */}
-      <div className={styles.topControls}>
-        {/* Título da temporada com seletor de temporada */}
-        <div className={styles.seasonTitle}>
+    <div className={styles.episodesSection}>
+      <div className={styles.controls}>
+        <div className={styles.controlsLeft}>
           {hasMultipleSeasons && (
             <div className={styles.seasonSelector}>
-              <select
-                value={selectedSeason}
-                onChange={(e) => setSelectedSeason(parseInt(e.target.value))}
-                className={styles.seasonDropdown}
-              >
-                {getUniqueSeasons().map((season) => (
-                  <option key={season} value={season}>
-                    S{season}:{" "}
-                    {anime.seasonNames?.[season] || `Temporada ${season}`}
-                  </option>
-                ))}
-              </select>
+              {anime.seasons.map((season) => (
+                <button
+                  key={season.seasonName}
+                  className={`${styles.seasonButton} ${
+                    selectedSeason === season.seasonName ? styles.active : ""
+                  }`}
+                  onClick={() => setSelectedSeason(season.seasonName)}
+                >
+                  {season.seasonName}
+                </button>
+              ))}
             </div>
           )}
         </div>
 
-        {/* Botões */}
         <div className={styles.controlsRight}>
           <div className={styles.dropdown} data-t="episode-sort-select">
             <button
@@ -113,7 +88,7 @@ export const EpisodesSection = ({ episodes, anime }: EpisodesSectionProps) => {
                 <path d="M9 18a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h6zM21 4a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h18zm-6 7a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h12z"></path>
               </svg>
               <span className={styles.btnOldest}>
-                {sortOrder === "oldest" ? "Oldest" : "Newest"}
+                {sortOrder === "oldest" ? "Mais antigos" : "Mais recentes"}
               </span>
             </button>
           </div>
@@ -134,19 +109,18 @@ export const EpisodesSection = ({ episodes, anime }: EpisodesSectionProps) => {
                 role="img"
                 fill="#A0A0A0"
               >
-                <title>More actions</title>
+                <title>Mais ações</title>
                 <path d="M6 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-2 4c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2zm2 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
               </svg>
-              <span className={styles.btnOptions}>Options</span>
+              <span className={styles.btnOptions}>Opções</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Subtítulo com o nome da temporada selecionada */}
       {hasMultipleSeasons && (
         <div className={styles.seasonSubtitle}>
-          {/* <h5>{getSeasonName(selectedSeason)}</h5> */}
+          <h5>{getSeasonName(selectedSeason)}</h5>
         </div>
       )}
 
@@ -180,7 +154,7 @@ export const EpisodesSection = ({ episodes, anime }: EpisodesSectionProps) => {
                 }`}
                 onClick={() => handleSortSelection("newest")}
               >
-                Newest
+                Mais recentes
               </button>
               <button
                 className={`${styles.sortOption} ${
@@ -188,10 +162,9 @@ export const EpisodesSection = ({ episodes, anime }: EpisodesSectionProps) => {
                 }`}
                 onClick={() => handleSortSelection("oldest")}
               >
-                Oldest
+                Mais antigos
               </button>
             </div>
-           
           </div>
         </div>
       )}
@@ -207,14 +180,13 @@ export const EpisodesSection = ({ episodes, anime }: EpisodesSectionProps) => {
             onClick={(e) => e.stopPropagation()}
           >
             <div className={styles.modalOptions}>
-              <button
-                className={styles.optionButton}
-                onClick={markAllAsWatched}
-              >
-                Marcar a temporada como assistida
+              <button className={styles.optionButton}>
+                Marcar todos como assistidos
+              </button>
+              <button className={styles.optionButton}>
+                Marcar todos como não assistidos
               </button>
             </div>
-          
           </div>
         </div>
       )}

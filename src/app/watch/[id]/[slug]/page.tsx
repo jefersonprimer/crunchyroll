@@ -2,8 +2,8 @@
 
 import { FC, useState } from "react";
 import { useParams } from "next/navigation";
-import useFetchAnimes from "../../../hooks/useFetchAnimes";
-import useFetchEpisodes from "../../../hooks/useFetchEpisodes";
+import { useQuery } from "@apollo/client";
+import { GET_ANIMES } from "@/lib/queries/getAnimes";
 import { extractEpisodeNumber } from "./utils/utils";
 import { Anime, Episode } from "./types/types";
 import EpisodeHeader from "./components/EpisodeHeader";
@@ -20,34 +20,31 @@ const EpisodePage: FC = () => {
   const [expandedSynopsis, setExpandedSynopsis] = useState(false);
   const [showEpisodesModal, setShowEpisodesModal] = useState(false);
 
-  const { animes, loading: animesLoading } = useFetchAnimes();
-  const { episodes, loading: episodesLoading } = useFetchEpisodes();
+  const { data, loading } = useQuery(GET_ANIMES);
 
-  if (!id || !slug || animesLoading || episodesLoading) {
+  if (!id || !slug || loading) {
     return <div className={styles.loadingContainer}>Carregando...</div>;
   }
 
-  const currentEpisode = episodes.find((ep: Episode) => ep.id === id);
-  if (!currentEpisode) {
-    return (
-      <div className={styles.errorContainer}>Episódio não encontrado.</div>
-    );
-  }
-
-  const anime = animes.find(
-    (anime: Anime) => anime.id === currentEpisode.animeId
+  // Find the anime that contains the episode
+  const anime = data?.animes?.find((anime: Anime) => 
+    anime.episodes?.some((ep: Episode) => ep.id === id)
   );
+
   if (!anime) {
     return <div className={styles.errorContainer}>Anime não encontrado.</div>;
   }
 
-  const allEpisodes = episodes
-    .filter((ep: Episode) => ep.animeId === anime.id)
-    .sort((a: Episode, b: Episode) => {
-      const aNum = extractEpisodeNumber(a.title);
-      const bNum = extractEpisodeNumber(b.title);
-      return aNum - bNum;
-    });
+  const currentEpisode = anime.episodes?.find((ep: Episode) => ep.id === id);
+  if (!currentEpisode) {
+    return <div className={styles.errorContainer}>Episódio não encontrado.</div>;
+  }
+
+  const allEpisodes = anime.episodes?.sort((a: Episode, b: Episode) => {
+    const aNum = extractEpisodeNumber(a.title);
+    const bNum = extractEpisodeNumber(b.title);
+    return aNum - bNum;
+  }) || [];
 
   const toggleSynopsis = () => setExpandedSynopsis(!expandedSynopsis);
   const toggleEpisodesModal = () => setShowEpisodesModal(!showEpisodesModal);
@@ -56,10 +53,7 @@ const EpisodePage: FC = () => {
     <div className={styles.episodePage}>
       <ClientMetadata
         title={`Assistir ${anime.name} - ${currentEpisode.title}`}
-        description={`Assista ${anime.name}: ${anime.synopsis.substring(
-          0,
-          160
-        )}...`}
+        description={`Assista ${anime.name}: ${anime.synopsis?.substring(0, 160) || ''}...`}
       />
 
       <div className={styles.videoPlayerContainer}>
@@ -96,7 +90,7 @@ const EpisodePage: FC = () => {
         <EpisodesModal
           episodes={allEpisodes}
           currentEpisodeId={currentEpisode.id}
-          anime={anime} // Adicionando o prop anime aqui
+          anime={anime}
           onClose={toggleEpisodesModal}
         />
       )}

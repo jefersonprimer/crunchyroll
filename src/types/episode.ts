@@ -13,42 +13,22 @@ export function isValidEpisodeLanguageType(type: string): type is EpisodeLanguag
 // models.ts
 export interface EpisodeVersion {
   id: string;
-  episodeId: string;
-  languageType: EpisodeLanguageType;
+  languageType: string;
   videoUrl: string;
-  createdAt: string; // ISO string
-  updatedAt: string;
 }
 
 export interface Episode {
   id: string;
-  publicCode: string;
-  animeId: string;
-  seasonId: string;
   title: string;
   slug: string;
-  episodeNumber: number;
   duration?: string;
   synopsis?: string;
   image?: string;
-  releaseDate?: string; // ISO string
-  isPremiere: boolean;
+  videoUrl?: string;
+  versions?: EpisodeVersion[];
+  releaseDate?: string;
   createdAt: string;
   updatedAt: string;
-  versions?: EpisodeVersion[];
-}
-
-// Validações opcionais
-export function validateEpisode(e: Episode): string | null {
-  if (!e.publicCode || !e.animeId || !e.seasonId || !e.title || !e.slug) {
-    return 'public_code, anime_id, season_id, title e slug são obrigatórios';
-  }
-  return null;
-}
-
-export function validateEpisodeVersion(ev: EpisodeVersion): string | null {
-  if (!ev.episodeId || !ev.videoUrl || !isValidEpisodeLanguageType(ev.languageType)) {
-    return 'episode_id, video_url e language_type válido são obrigatórios';
-  }
-  return null;
+  season?: number;
+  animeId?: string;
 }

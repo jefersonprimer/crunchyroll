@@ -1,52 +1,55 @@
+export interface Genre {
+  id: string;
+  name: string;
+}
+
 export enum AiringDay {
-    Monday = "monday",
-    Tuesday = "tuesday",
-    Wednesday = "wednesday",
-    Thursday = "thursday",
-    Friday = "friday",
-    Saturday = "saturday",
-    Sunday = "sunday",
-  }
-  
-  export enum AnimeStatus {
-    Ongoing = "ongoing",
-    Completed = "completed",
-    Announced = "announced",
-    Cancelled = "cancelled",
-  }
-  
-  export enum AudioLanguage {
-    Portuguese = "portuguese",
-    Japanese = "japanese",
-    Chinese = "chinese",
-    Korean = "korean",
-  }
-  
-  export enum AudioType {
-    Sub = "sub",
-    Dub = "dub",
-    Both = "both",
-  }
-  
-  export enum EpisodeLanguageType {
-    Subtitled = "SUBTITLED",
-    Dubbed = "DUBBED",
-    Raw = "RAW",
-  }
-  
-  export enum SeasonEnum {
-    Winter = "winter",
-    Spring = "spring",
-    Summer = "summer",
-    Fall = "fall"
-  }
-  
-  export enum SourceType {
-    Manga = "manga",
-    LightNovel = "light_novel",
-    VisualNovel = "visual_novel",
-    Game = "game",
-    Original = "original",
-    Other = "other"
-  }
+  MONDAY = "monday",
+  TUESDAY = "tuesday",
+  WEDNESDAY = "wednesday",
+  THURSDAY = "thursday",
+  FRIDAY = "friday",
+  SATURDAY = "saturday",
+  SUNDAY = "sunday",
+}
+
+export enum AnimeStatus {
+  FINISHED = "finished",
+  RELEASING = "releasing",
+  NOT_YET_RELEASED = "not_yet_released",
+}
+
+export enum AudioLanguage {
+  Portuguese = "portuguese",
+  Japanese = "japanese",
+  Chinese = "chinese",
+  Korean = "korean",
+}
+
+export enum AudioType {
+  DUB = "dub",
+  SUB = "sub",
+}
+
+export enum EpisodeLanguageType {
+  Subtitled = "SUBTITLED",
+  Dubbed = "DUBBED",
+  Raw = "RAW",
+}
+
+export enum SeasonEnum {
+  WINTER = "winter",
+  SPRING = "spring",
+  SUMMER = "summer",
+  FALL = "fall",
+}
+
+export enum SourceType {
+  MANGA = "manga",
+  LIGHT_NOVEL = "light_novel",
+  VISUAL_NOVEL = "visual_novel",
+  VIDEO_GAME = "video_game",
+  ORIGINAL = "original",
+  OTHER = "other",
+}
   

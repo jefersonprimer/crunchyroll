@@ -5,33 +5,66 @@ export const GET_ANIMES = gql`
   query {
     animes {
       id
-      publicCode
       slug
       name
       audioType
+      imageBannerMobile
+      imageBannerDesktop
       imagePoster
+      imageLogo
       synopsis
       rating
       score
       genres {
+        id
         name
       }
       totalEpisodes
-      seasons{
-      	seasonNumber
+      seasons {
+        seasonName
+        totalEpisodes
       }
-
-      episodes{
+      episodes {
+        id
         title
+        slug
         duration
-        updatedAt
         synopsis
+        image
+        videoUrl
+        releaseDate
+        createdAt
+        updatedAt
+        versions {
+          id
+          languageType
+          videoUrl
+        }
       }
+      createdAt
+      updatedAt
+    }
+  }
+`;
 
-      contentSources {
-        authors
-        title
-        sourceType
+export const GET_EPISODES = gql`
+  query GetEpisodes($animeId: ID!) {
+    episodesByAnime(animeId: $animeId) {
+      id
+      title
+      slug
+      duration
+      synopsis
+      image
+      videoUrl
+      releaseDate
+      createdAt
+      updatedAt
+      season
+      versions {
+        id
+        languageType
+        videoUrl
       }
     }
   }
