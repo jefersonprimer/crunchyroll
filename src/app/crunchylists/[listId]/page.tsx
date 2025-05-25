@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import { useLists } from '../../contexts/ListsContext';
 import ListDetails from "./ListDetails";
 import { useState, useEffect } from 'react';
+import { FavoritesProvider } from '../../contexts/FavoritesContext';
 
 const ListDetailsHome = () => {
   const { listId } = useParams();
@@ -27,4 +28,10 @@ const ListDetailsHome = () => {
   );
 };
 
-export default ListDetailsHome;
+export default function Page() {
+  return (
+    <FavoritesProvider>
+      <ListDetailsHome />
+    </FavoritesProvider>
+  );
+}

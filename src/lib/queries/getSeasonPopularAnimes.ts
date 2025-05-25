@@ -9,6 +9,7 @@ export const GET_SEASON_POPULAR_ANIMES = gql`
         name
         audioType
         imagePoster
+        imageCardCompact
         synopsis
         rating
         score

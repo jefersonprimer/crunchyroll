@@ -10,7 +10,9 @@ import { Episode } from "./episode";
 
 // anime.ts
 export interface Season {
+  id: string;
   seasonName: string;
+  seasonNumber: number;
   totalEpisodes: number;
 }
 
@@ -19,17 +21,23 @@ export interface Anime {
   slug: string;
   name: string;
   audioType?: string;
-  imageBannerMobile?: string;
-  imageBannerDesktop?: string;
+  audioLanguages?: string[] | string;
+  subtitles?: string;
   imagePoster?: string;
+  imageCardCompact?: string;
+  imageBannerDesktop?: string;
+  imageBannerMobile?: string;
   imageLogo?: string;
-  synopsis?: string;
+  genres?: Genre[];
+  isPopular: boolean;
+  isNewRelease: boolean;
   rating?: string;
   score?: number;
-  genres?: {
-    id: string;
-    name: string;
-  }[];
+  synopsis?: string;
+  contentAdvisory?: string;
+  contentSources?: Array<{
+    copyright?: string;
+  }>;
   totalEpisodes?: number;
   seasons: Season[];
   episodes: Episode[];
@@ -50,4 +58,9 @@ export interface ContentSource {
   title?: string;
   sourceType: string;
   copyright?: string;
+}
+
+export interface Genre {
+  id: string;
+  name: string;
 }

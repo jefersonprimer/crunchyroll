@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FavoritesProvider } from '../contexts/FavoritesContext'; // Contexto de favoritos
 import Fila from '../Fila/page'; // Componente da Fila
 import CrunchyList from '../crunchylists/page'; // Componente da Crunchylist
@@ -9,6 +9,11 @@ import styles from './styles.module.css'; // Importando o arquivo de estilos
 
 const WatchlistPage = () => {
   const [selectedTab, setSelectedTab] = useState('fila'); // Estado para controlar qual aba está selecionada
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const renderContent = () => {
     switch (selectedTab) {
@@ -22,6 +27,10 @@ const WatchlistPage = () => {
         return <Fila />; // Fallback para Fila caso o valor não seja reconhecido
     }
   };
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <FavoritesProvider>
@@ -37,21 +46,18 @@ const WatchlistPage = () => {
                     <a
                       onClick={() => setSelectedTab('fila')}
                       className={`${styles.tabsItem} ${selectedTab === 'fila' ? styles.active : ''}`}
-                      href="#"
                     >
                       <span className={styles.tabsItemText}>FILA</span>
                     </a>
                     <a
                       onClick={() => setSelectedTab('crunchylist')}
                       className={`${styles.tabsItem} ${selectedTab === 'crunchylist' ? styles.active : ''}`}
-                      href="#"
                     >
                       <span className={styles.tabsItemText}>CRUNCHYLISTAS</span>
                     </a>
                     <a
                       onClick={() => setSelectedTab('historico')}
                       className={`${styles.tabsItem} ${selectedTab === 'historico' ? styles.active : ''}`}
-                      href="/history"
                     >
                       <span className={styles.tabsItemText}>HISTÓRICO</span>
                     </a>

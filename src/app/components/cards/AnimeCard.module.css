@@ -33,7 +33,7 @@
 
 .animeImage {
   width: 100%;
-  height: 88%;
+  height: 78%;
   object-fit: cover;
 }
 
@@ -68,7 +68,7 @@
   top: 50%;
   left: 0;
   right: 0;
-  transform: translateY(-50%);
+  transform: translateY(-52%);
   padding: 10px;
   color: white;
   text-align: left;
@@ -135,20 +135,23 @@
   display: -webkit-box;
   -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
-  width: 220px;
+  width: 200px;
 }
 
 /* Botão de play */
 .playButton {
   position: absolute;
-  bottom: 5px;
+  bottom: 10%;
   left: 10px;
   border-radius: 50%;
-  padding: 5px;
+  padding: 0px;
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 /* Tooltip */
@@ -185,7 +188,7 @@
 .iconBookmark,
 .iconPlus {
   align-items: center;
-  fill:#ff640a;
+  fill: #ff640a;
   display: flex;
   stroke-width: 2;
   height: 1.5rem;
@@ -222,6 +225,35 @@
 /* Tornar os botões visíveis quando o card for hover */
 .card:hover .playButton {
   opacity: 1;
+}
+
+.favoriteLabel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 36px 36px 0;
+  border-color: transparent #000000 transparent transparent;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0px;
+  color: #FF640A;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.favoriteLabel svg {
+  width: 14px;
+  height: 14px;
+  transform: translate(32px, 2px);
+}
+
+.card:hover .favoriteLabel {
+  opacity: 0;
 }
 
 @media (max-width: 768px) {
@@ -376,6 +408,9 @@
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 /* Tooltip */
@@ -442,5 +477,10 @@
   opacity: 1;
 }
 
+}
 
+/* Removendo os estilos do tooltip personalizado */
+.cardTooltip,
+.cardTooltipText {
+  display: none;
 }

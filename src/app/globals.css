@@ -69,7 +69,7 @@ html {
 
 .anime-carousel-lancamentos {
   position: relative;
-  margin-top: -25vh;
+  margin-top: -36vh;
   z-index: 2;
   backdrop-filter: blur(2px);
 }

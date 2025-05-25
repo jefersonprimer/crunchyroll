@@ -6,9 +6,10 @@ import { Anime } from "@/types/anime";
 interface AddToListModalProps {
   anime: Anime;
   onClose: () => void;
+  onAddToList?: (listId: string, anime: Anime) => void;
 }
 
-const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose }) => {
+const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose, onAddToList }) => {
   const { lists, addItemToList, removeItemFromList, createList } = useLists();
   const [newListName, setNewListName] = useState("");
 
@@ -18,7 +19,11 @@ const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose }) => {
   };
 
   const handleAddToList = (listId: string) => {
-    addItemToList(listId, anime);
+    if (onAddToList) {
+      onAddToList(listId, anime);
+    } else {
+      addItemToList(listId, anime);
+    }
   };
 
   const handleRemoveFromList = (listId: string) => {

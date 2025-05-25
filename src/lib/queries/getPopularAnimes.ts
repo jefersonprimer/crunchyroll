@@ -9,10 +9,15 @@ export const GET_POPULAR_ANIMES = gql`
       name
       audioType
       imagePoster
+      imageCardCompact
       synopsis
       rating
       score
       totalEpisodes
+      genres{
+        id
+        name	
+      }
       seasons{
         seasonNumber
       }

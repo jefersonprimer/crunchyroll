@@ -8,7 +8,7 @@ import { Anime } from "@/types/anime";
 import { Episode } from "@/types/episode";
 import { GET_ANIMES } from "@/lib/queries/getAnimes";
 import { FavoritesProvider } from "@/app/contexts/FavoritesContext";
-import AnimeCarousel from "../../../components/cards/AnimeCarousel";
+import RecommendationCarousel from "../../components/RecommendationCarousel";
 import { EpisodesSection } from "./components/EpisodesSection";
 import MaturityRating from "@/app/components/elements/MaturityRating";
 import { ClientMetadata } from "./components/ClientMetadata";
@@ -35,8 +35,8 @@ const Page = () => {
           .filter(
             (recAnime: Anime) =>
               recAnime.id !== foundAnime.id &&
-              recAnime.genres.some((genre) => 
-                foundAnime.genres.some((foundGenre: { name: string }) => foundGenre.name === genre.name)
+              recAnime.genres?.some((genre) => 
+                foundAnime.genres?.some((foundGenre: { name: string }) => foundGenre.name === genre.name)
               )
           )
           .slice(0, 5);
@@ -86,14 +86,14 @@ const Page = () => {
       <PremiumUpsell />
 
       <div className={styles.epidodesSection}>
-        <EpisodesSection episodes={episodes} anime={anime} />
+        <EpisodesSection anime={anime} />
       </div>
 
       <div>
-        <h2 className={styles.recommendationsTitle}>More Like This</h2>
+        <h2 className={styles.recommendationsTitle}>Similares a Este</h2>
         <div className={styles.recommendationsSection}>
           <FavoritesProvider>
-            <AnimeCarousel animes={recommendations} />
+            <RecommendationCarousel animes={recommendations} />
           </FavoritesProvider>
         </div>
       </div>

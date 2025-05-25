@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./HeroSection.module.css";
 import MaturityRating from "@/app/components/elements/MaturityRating";
+import SmallMaturityRating from "@/app/components/utils/elements/SmallMaturityRating";
+import ShareButton from "@/app/components/buttons/ShareButton";
 import { Anime } from "@/types/anime";
 import { faBookmark as bookmarkSolid } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark as bookmarkOutline } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFavorites } from "@/app/contexts/FavoritesContext";
 import AddToListModal from "@/app/components/modal/AddToListModal";
+import Link from "next/link";
 
 interface HeroSectionProps {
   anime: Anime;
@@ -21,7 +24,30 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 }) => {
   const { favorites, addFavorite, removeFavorite } = useFavorites();
   const [showModal, setShowModal] = useState(false);
+  const heroImageRef = useRef<HTMLDivElement>(null);
   const isFavorited = favorites.some((fav) => fav.id === anime.id);
+
+  useEffect(() => {
+    const updateBackgroundImage = () => {
+      if (heroImageRef.current) {
+        const isMobile = window.innerWidth <= 768;
+        const imageUrl = isMobile 
+          ? (anime.imageBannerMobile || anime.imagePoster)
+          : (anime.imageBannerDesktop || anime.imagePoster);
+        
+        heroImageRef.current.style.backgroundImage = `url(${imageUrl})`;
+      }
+    };
+
+    // Initial update
+    updateBackgroundImage();
+
+    // Add resize listener
+    window.addEventListener('resize', updateBackgroundImage);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', updateBackgroundImage);
+  }, [anime.imageBannerMobile, anime.imageBannerDesktop, anime.imagePoster]);
 
   const handleFavoriteClick = () => {
     if (isFavorited) {
@@ -42,17 +68,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       }`}
     >
       <div
+        ref={heroImageRef}
         className={styles.heroImage}
-        style={{
-          backgroundImage: `url(${anime.imageBannerDesktop || anime.imagePoster})`,
-        }}
       >
         <div className={styles.heroContent}>
-          <h1 className={styles.name}>{anime.name}</h1>
+          <div style={{ width: '283px', height: '151px' }}>
+            <img src={anime.imageLogo} alt={anime.name} />
+          </div>
           <div className={styles.metaInfoContainer}>
-            <span className={styles.metaItem}>
-              <MaturityRating rating={anime.rating} />
-            </span>
+           
+            <MaturityRating rating={Number(anime.rating) || 0} />
+            
             <span className={styles.metaItem}>{anime.audioType}</span>
             <span className={styles.metaItem}></span>
             <div className={styles.genresList}>
@@ -80,21 +106,73 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               ))}
             </div>
             <span className={styles.scoreText}>
-              Average Rating: {anime.score?.toFixed(1) || "N/A"}
+              {anime.score?.toFixed(1) || "N/A"}
             </span>
           </div>
 
           <div className={styles.seriesHeroActionsWrapper}>
-            <button
-              className={styles.actionButton}
-              onClick={handleFavoriteClick}
-              aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
-            >
-              <FontAwesomeIcon
-                icon={isFavorited ? bookmarkSolid : bookmarkOutline}
-                className={styles.actionIcon}
-              />
-            </button>
+            {anime.episodes && anime.episodes.length > 0 ? (
+              <Link 
+                href={`/watch/${anime.episodes[0].id}/${anime.episodes[0].slug}`}
+                className={styles.playButton}
+              >
+                <div className={styles.tooltip}>
+                  <span className={styles.tooltipText}>Play</span>
+                  <svg
+                    className={styles.iconPlay}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    aria-labelledby="play-svg"
+                    aria-hidden="false"
+                    role="img"
+                  >
+                    <title id="play-svg">Play</title>
+                    <path d="M5.944 3C5.385 3 5 3.445 5 4.22v16.018c0 .771.384 1.22.945 1.22.234 0 .499-.078.779-.243l13.553-7.972c.949-.558.952-1.468 0-2.028L6.724 3.243C6.444 3.078 6.178 3 5.944 3m1.057 2.726l11.054 6.503L7 18.732l.001-13.006" />
+                  </svg>
+                </div>
+                <span className={styles.titleName}>
+                  COMEÇAR A ASSISTIR E1
+                </span>
+              </Link>
+            ) : (
+              <div className={styles.playButton}>
+                <div className={styles.tooltip}>
+                  <span className={styles.tooltipText}>Play</span>
+                  <svg
+                    className={styles.iconPlay}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    aria-labelledby="play-svg"
+                    aria-hidden="false"
+                    role="img"
+                  >
+                    <title id="play-svg">Play</title>
+                    <path d="M5.944 3C5.385 3 5 3.445 5 4.22v16.018c0 .771.384 1.22.945 1.22.234 0 .499-.078.779-.243l13.553-7.972c.949-.558.952-1.468 0-2.028L6.724 3.243C6.444 3.078 6.178 3 5.944 3m1.057 2.726l11.054 6.503L7 18.732l.001-13.006" />
+                  </svg>
+                </div>
+                <span className={styles.titleName}>
+                  EPISÓDIO INDISPONÍVEL/
+                </span>
+              </div>
+            )}
+            <div className={styles.tooltipContainer}>
+              <button
+                className={styles.buttonBookmark}
+                onClick={handleFavoriteClick}
+                aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
+              >
+                <div className={styles.tooltip}>
+                  <span className={styles.tooltipText}>
+                    {isFavorited ? "Remover da Fila" : "Adicionar à Fila"}
+                  </span>
+                  <FontAwesomeIcon
+                    icon={isFavorited ? bookmarkSolid : bookmarkOutline}
+                    className={`${styles.iconBookmark} ${isFavorited ? "filled" : "outline"}`}
+                    style={{ color: "#FF640A" }}
+                  />
+                </div>
+              </button>
+            </div>
 
             <div className={styles.tooltipContainer}>
               <button
@@ -105,7 +183,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               >
                 <div className={styles.tooltip}>
                   <span className={styles.tooltipText}>
-                    Adicionar à Primerlist
+                    Minha Lista
                   </span>
                   <svg
                     className={styles.actionIcon}
@@ -118,24 +196,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               </button>
             </div>
 
-            <div className={styles.tooltipContainer}>
-              <button
-                tabIndex={0}
-                className={styles.actionTooltip}
-                data-t="share-btn"
-              >
-                <div className={styles.tooltip}>
-                  <span className={styles.tooltipText}>Compartilhar</span>
-                  <svg
-                    className={styles.actionIcon}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M18 2c2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.385 0-2.606-.704-3.323-1.773l-5.02 2.151c.22.496.343 1.045.343 1.622 0 .577-.122 1.126-.342 1.622l5.019 2.151C15.394 14.703 16.615 14 18 14c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4c0-.113.005-.225.014-.335L8.35 15.238C7.69 15.718 6.878 16 6 16c-2.21 0-4-1.79-4-4s1.79-4 4-4c.878 0 1.69.283 2.35.762l5.664-2.427C14.004 6.225 14 6.113 14 6c0-2.21 1.79-4 4-4zm0 14c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zM6 10c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm12-6c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2z" />
-                  </svg>
-                </div>
-              </button>
-            </div>
+            <ShareButton 
+              url={`${window.location.origin}/series/${anime.id}/${anime.slug}`}
+              title={anime.name}
+            />
 
             <div className={styles.tooltipContainer}>
               <button
@@ -173,20 +237,31 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               <div className={styles.metadata}>
                 <div className={styles.metadataItem}>
                   <strong>Áudio:</strong>
-                  <span>{anime.audioType || "Não disponível"}</span>
+                  <span>
+                    {Array.isArray(anime.audioLanguages) 
+                      ? anime.audioLanguages.join(', ')
+                      : anime.audioLanguages || "Não disponível"}
+                  </span>
+                </div>
+                <div className={styles.metadataItem}>
+                  <strong>Legendas:</strong>
+                  <span>{anime.subtitles || "Não disponível"}</span>
                 </div>
 
                 <div className={styles.metadataItem}>
-                  <strong>Classificação:</strong>
-                  <span>
-                    {anime.rating}+
-                  </span>
+                  <strong>Classificação de Conteúdo:</strong>
+                  <SmallMaturityRating rating={Number(anime.rating) || 0} /> {anime.contentAdvisory}
                 </div>
 
                 <div className={styles.metadataItem}>
                   <strong>Gêneros:</strong>
                   <span> {anime.genres?.map(g => g.name).join(", ") || "Não disponível"}</span>
                 </div>
+
+                <div className={styles.metadataItem}>
+                  <span> {anime.contentSources?.[0]?.copyright || "Não disponível"} </span>
+                </div>
+
               </div>
             </div>
           </div>

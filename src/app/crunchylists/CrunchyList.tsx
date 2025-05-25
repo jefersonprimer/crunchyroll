@@ -2,12 +2,20 @@
 
 import styles from './CrunchyList.module.css';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { useLists } from '../contexts/ListsContext';
 
 import AddToListModal from '../components/modal/AddToListModal';
+import { Anime } from '@/types/anime';
+
+interface List {
+  id: string;
+  name: string;
+  items: Anime[];
+  updatedAt: string;
+}
 
 // Componente Modal para renomear a lista
 const RenameListModal = ({
@@ -53,33 +61,50 @@ const RenameListModal = ({
 const CrunchyList = () => {
   const { lists, addItemToList, removeItemFromList, removeList, updateListName, createList } = useLists();
   const [showModal, setShowModal] = useState(false);
-  const [selectedAnime, setSelectedAnime] = useState(null);
-  const [expandedList, setExpandedList] = useState(null);
-  const [editingListId, setEditingListId] = useState(null);
+  const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
+  const [expandedList, setExpandedList] = useState<string | null>(null);
+  const [editingListId, setEditingListId] = useState<string | null>(null);
   const [newListName, setNewListName] = useState('');
-  const [visibleMenu, setVisibleMenu] = useState(null);
+  const [visibleMenu, setVisibleMenu] = useState<string | null>(null);
+  const [localLists, setLocalLists] = useState<List[]>(lists);
+
+  useEffect(() => {
+    setLocalLists(lists);
+  }, [lists]);
 
   const router = useRouter(); // Inicializa o roteador do Next.js
 
-  const handleNavigateToList = (listId) => {
+  const handleNavigateToList = (listId: string) => {
     router.push(`/crunchylists/${listId}`); // Redireciona para a página detalhada
   };
 
-  const handleRemoveItem = (listId, itemId) => {
+  const handleRemoveItem = (listId: string, itemId: string) => {
     removeItemFromList(listId, itemId);
+    setLocalLists(prevLists => 
+      prevLists.map(list => 
+        list.id === listId 
+          ? {
+              ...list,
+              items: list.items.filter(item => item.id !== itemId),
+              updatedAt: new Date().toISOString()
+            }
+          : list
+      )
+    );
   };
 
-  const handleDeleteList = (listId) => {
+  const handleDeleteList = (listId: string) => {
     removeList(listId);
+    setLocalLists(prevLists => prevLists.filter(list => list.id !== listId));
     setEditingListId(null); // Fecha o modal quando a lista for excluída
   };
 
-  const formatDate = (date) => {
-    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  const formatDate = (date: string) => {
+    const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
     return new Date(date).toLocaleDateString('pt-BR', options);
   };
 
-  const handleRenameList = (listId, currentName) => {
+  const handleRenameList = (listId: string, currentName: string) => {
     setEditingListId(listId);
     setNewListName(currentName);
   };
@@ -87,16 +112,45 @@ const CrunchyList = () => {
   const handleSaveNewName = (newName: string) => {
     if (editingListId) {
       updateListName(editingListId, newName);
+      setLocalLists(prevLists =>
+        prevLists.map(list =>
+          list.id === editingListId
+            ? { ...list, name: newName, updatedAt: new Date().toISOString() }
+            : list
+        )
+      );
       setEditingListId(null); // Fecha o modal após salvar o novo nome
     }
   };
 
   const handleCreateList = () => {
-    if (lists.length < 10) {
-      createList(`Minha Lista ${lists.length + 1}`);
+    if (localLists.length < 10) {
+      const newList: List = {
+        id: Date.now().toString(),
+        name: `Minha Lista ${localLists.length + 1}`,
+        items: [],
+        updatedAt: new Date().toISOString(),
+      };
+      createList(newList.name);
+      setLocalLists(prevLists => [...prevLists, newList]);
     } else {
       alert('Você atingiu o limite de 10 listas.');
     }
+  };
+
+  const handleAddToList = (listId: string, anime: Anime) => {
+    addItemToList(listId, anime);
+    setLocalLists(prevLists =>
+      prevLists.map(list =>
+        list.id === listId
+          ? {
+              ...list,
+              items: [...list.items, anime],
+              updatedAt: new Date().toISOString()
+            }
+          : list
+      )
+    );
   };
 
   return (
@@ -105,14 +159,14 @@ const CrunchyList = () => {
         <button onClick={handleCreateList} className={styles.createListBtn}>
           CRIAR NOVA LISTA
         </button>
-        <span className={styles.listLength}>{lists.length}/10 listas</span>
+        <span className={styles.listLength}>{localLists.length}/10 listas</span>
       </div>
 
       <div className={styles.listsContainer}>
-        {lists.length === 0 ? (
+        {localLists.length === 0 ? (
           <p>Não há listas criadas ainda.</p>
         ) : (
-          lists.map((list) => (
+          localLists.map((list) => (
             <div key={list.id} className={styles.listItem}>
               <div className={styles.listTitleContainer}>
                 <h3
@@ -138,7 +192,7 @@ const CrunchyList = () => {
                     list.items.map((anime) => (
                       <div key={anime.id} className={styles.animeItem}>
                         <img
-                          src={anime.image}
+                          src={anime.imageCardCompact} 
                           alt={anime.name}
                           className={styles.animeImage}
                         />
@@ -203,7 +257,8 @@ const CrunchyList = () => {
       {showModal && selectedAnime && (
         <AddToListModal
           anime={selectedAnime}
-          onClose={() => setShowModal(true)}
+          onClose={() => setShowModal(false)}
+          onAddToList={handleAddToList}
         />
       )}
     </div>

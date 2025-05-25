@@ -12,7 +12,10 @@ import { useFavorites } from "../../contexts/FavoritesContext";
 import { useQuery } from '@apollo/client';
 
 import AddToListModal from "../modal/AddToListModal";
-import MaturityRating from '../elements/MaturityRating';
+import MaturityRating from '../utils/elements/SmallMaturityRating';
+import PlayButton from '../buttons/PlayButton';
+import BookmarkButton from '../buttons/BookmarkButton';
+import AddButton from '../buttons/AddButton';
 import { GET_EPISODES } from "@/lib/queries/getEpisodes";
 import { Anime } from "@/types/anime";
 
@@ -43,9 +46,15 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
   };
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} title={anime.name}>
       <Link href={`/series/${anime.id}/${anime.slug}`} className={styles.animeLink}>
         <img src={anime.imagePoster} alt={anime.name} className={styles.animeImage} />
+        
+        {isFavorited && (
+          <div className={styles.favoriteLabel}>
+            <FontAwesomeIcon icon={bookmarkSolid} />
+          </div>
+        )}
         
         <div className={styles.nomeDataContainer}>
           <p className={styles.nome}>{anime.name}</p>
@@ -73,47 +82,9 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
       </Link>      
 
       <div className={styles.playButton}>
-        <div className={styles.tooltip}>
-          <span className={styles.tooltipText}>Play</span>
-          {firstEpisode ? (
-            <Link href={`/watch/${firstEpisode.id}/${firstEpisode.slug}`}>
-              <svg className={styles.iconPlay} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M5.944 3C5.385 3 5 3.445 5 4.22v16.018c0 .771.384 1.22.945 1.22.234 0 .499-.078.779-.243l13.553-7.972c.949-.558.952-1.468 0-2.028L6.724 3.243C6.444 3.078 6.178 3 5.944 3m1.057 2.726l11.054 6.503L7 18.732l.001-13.006" />
-              </svg>
-            </Link>
-          ) : (
-            <span>
-              <svg className={styles.iconPlay} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M5.944 3C5.385 3 5 3.445 5 4.22v16.018c0 .771.384 1.22.945 1.22.234 0 .499-.078.779-.243l13.553-7.972c.949-.558.952-1.468 0-2.028L6.724 3.243C6.444 3.078 6.178 3 5.944 3m1.057 2.726l11.054 6.503L7 18.732l.001-13.006" />
-              </svg>
-            </span>
-          )}
-        </div>
-
-        <div className={styles.tooltip} onClick={handleFavoriteClick}>
-          <span className={styles.tooltipText}>
-            {isFavorited ? "Remover da Fila" : "Adicionar à Fila"}
-          </span>
-          <FontAwesomeIcon
-            icon={isFavorited ? bookmarkSolid : bookmarkOutline}
-            style={{ color: "#FF640A", transition: "color 0.3s ease-in-out" }}
-            className={`${styles.iconBookmark} ${isFavorited ? "filled" : "outline"}`}
-          />
-        </div>
-
-        <div className={styles.tooltip} onClick={() => setShowModal(true)}>
-          <span className={styles.tooltipText}>Adicionar à Primerlist</span>
-          <svg
-            className={styles.iconPlus}
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            aria-labelledby="add-svg"
-            role="img"
-          >
-            <title id="add-svg">Add</title>
-            <path d="M13 3v8h8v2h-8v8h-2v-8H3v-2h8V3z" />
-          </svg>
-        </div>
+        <PlayButton firstEpisode={firstEpisode} />
+        <BookmarkButton isFavorited={isFavorited} onToggle={handleFavoriteClick} />
+        <AddButton onClick={() => setShowModal(true)} />
       </div>
 
       {showModal && <AddToListModal anime={anime} onClose={() => setShowModal(false)} />}

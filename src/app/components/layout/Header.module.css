@@ -2,7 +2,7 @@
   position: fixed; /* position: sticky;*/
   top: 0;
   left: 0;
-  width: 100%;
+  width: calc(100% - 15px);
   height: 60px;
   background-color: #23252B;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

@@ -1,77 +1,68 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Anime } from '@/types/anime';
-import useFetchAnimes from '../../../hooks/useFetchAnimes'; // Usando o hook
+import React from 'react';
+import { useParams } from 'next/navigation';
+import { useQuery } from '@apollo/client';
+import { GET_ANIMES } from '@/lib/queries/getAnimes';
 import AnimeCarouselGenre from '../../../components/cards/AnimeCarouselGenre';
+import styles from './styles.module.css';
 
-const genreMapping: Record<string, string> = {
-  action: "Ação",
-  adventure: "Aventura",
-  comedy: "Comédia",
-  drama: "Drama",
-  fantasy: "Fantasia",
-  historical: "Histórico",
-  "post-apocalyptic": "Pós-Apocalíptico",
-  "sci-fi": "Ficção Científica",
-  supernatural: "Sobrenatural",
-  thriller: "Suspense",
+interface Genre {
+  id: string;
+  name: string;
+}
+
+interface Anime {
+  id: string;
+  slug: string;
+  name: string;
+  audioType?: string;
+  imagePoster?: string;
+  imageCardCompact?: string;
+  genres?: Genre[];
+  isPopular: boolean;
+}
+
+const genreMapping: Record<string, { en: string; pt: string }> = {
+  action: { en: "Action", pt: "Ação" },
+  adventure: { en: "Adventure", pt: "Aventura" },
+  comedy: { en: "Comedy", pt: "Comédia" },
+  drama: { en: "Drama", pt: "Drama" },
+  fantasy: { en: "Fantasy", pt: "Fantasia" },
+  historical: { en: "Historical", pt: "Histórico" },
+  "post-apocalyptic": { en: "Post-Apocalyptic", pt: "Pós-Apocalíptico" },
+  "sci-fi": { en: "Sci-Fi", pt: "Ficção Científica" },
+  supernatural: { en: "Supernatural", pt: "Sobrenatural" },
+  thriller: { en: "Thriller", pt: "Suspense" },
+  romance: { en: "Romance", pt: "Romance" },
+  shonen: { en: "Shonen", pt: "Shonen" },
+  shojo: { en: "Shojo", pt: "Shojo" },
 };
 
 const GenrePopularPage: React.FC = () => {
-  const router = useRouter();
-  const [genreInPortuguese, setGenreInPortuguese] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const params = useParams();
+  const genre = params.genre as string;
+  const genreInfo = genreMapping[genre];
+  const { data, loading, error } = useQuery(GET_ANIMES);
 
-  // Chamando o hook para obter os dados dos animes
-  const { animesData, isLoading, error } = useFetchAnimes();
-
-  // Efeito para obter o gênero da URL
-  useEffect(() => {
-    if (!router.query) {
-      return; // Se router.query ainda não estiver disponível, não faz nada
-    }
-
-    const { genre } = router.query;
-
-    if (genre && typeof genre === 'string') {
-      const genreMapped = genreMapping[genre];
-      if (genreMapped) {
-        setGenreInPortuguese(genreMapped);
-      }
-    }
-
-    setLoading(false); // Fim do carregamento
-  }, [router.query]);
-
-  // Mostra a tela de carregamento se o hook estiver carregando os dados
-  if (isLoading || loading) {
-    return <p>Carregando...</p>;
+  if (!genreInfo) {
+    return <p>Gênero "{genre}" não encontrado.</p>;
   }
 
-  // Mostra mensagem de erro caso haja algum problema
-  if (error) {
-    return <p>Erro ao carregar os animes. Tente novamente mais tarde.</p>;
-  }
+  if (loading) return <p>Carregando...</p>;
+  if (error) return <p>Ocorreu um erro: {error.message}</p>;
 
-  // Caso o gênero não seja encontrado
-  if (!genreInPortuguese) {
-    return <p>Gênero não encontrado.</p>;
-  }
+  const animes = data?.animes || [];
 
-  // Filtra os animes de acordo com o gênero
-  const filteredAnimes = animesData.filter((anime: Anime) =>
-    anime.genres.includes(genreInPortuguese)
+  // Filtra os animes pelo gênero selecionado
+  const filteredAnimes = animes.filter((anime: Anime) =>
+    anime.genres?.some((g: Genre) => g.name === genreInfo.en)
   );
-
-  // Filtra os animes populares
-  const popularAnimes = filteredAnimes.filter((anime) => anime.isPopular);
 
   return (
     <div className={styles.mainContainer}>
-      <h1 className={styles.mainTitle}>Animes Populares de {genreInPortuguese}</h1>
-      <AnimeCarouselGenre animes={popularAnimes} />
+      <h1 className={styles.mainTitle}>Todos os Animes de {genreInfo.pt}</h1>
+      <AnimeCarouselGenre animes={filteredAnimes} />
     </div>
   );
 };

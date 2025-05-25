@@ -1,6 +1,6 @@
 import { Anime, Episode } from "../types/types";
 import { safeJoin } from "../utils/utils";
-import MaturityRating from "@/app/components/elements/MaturityRating";
+import MaturityRating from "@/app/components/utils/elements/SmallMaturityRating";
 import styles from "./EpisodeSynopsis.module.css";
 
 interface EpisodeSynopsisProps {
@@ -32,45 +32,25 @@ const EpisodeSynopsis: React.FC<EpisodeSynopsisProps> = ({
             <div className={styles.metadata}>
               {/* Áudio */}
               <div className={styles.metadataItem}>
-                <strong>Áudio:</strong>
-                <span>{anime.audio || "Não disponível"}</span>
+              <strong>Áudio</strong>
+                  <span>
+                    {Array.isArray(anime.audioLanguages) 
+                      ? anime.audioLanguages.join(', ')
+                      : anime.audioLanguages || "Não disponível"}
+                  </span>
               </div>
 
               {/* Legendas */}
               <div className={styles.metadataItem}>
-                <strong>Legendas:</strong>
+                <strong>Legendas</strong>
                 <span>{safeJoin(anime.subtitles)}</span>
               </div>
 
               {/* Classificação */}
               <div className={styles.metadataItem}>
-                <strong>Classificação:</strong>
+                <strong>Classificação de Conteúdo</strong>
                 <span>
-                  {anime.rating ? `${anime.rating}+` : "Não classificado"}
-                  {anime.contentAdvisory
-                    ? ` (${safeJoin(anime.contentAdvisory)})`
-                    : ""}
-                </span>
-              </div>
-
-              {/* Gêneros */}
-              <div className={styles.metadataItem}>
-                <strong>Gêneros:</strong>
-                <span>{safeJoin(anime.genres)}</span>
-              </div>
-
-              {/* Baseado em */}
-              <div className={styles.metadataItem}>
-                <strong>Baseado em:</strong>
-                <span>
-                  {anime.based?.source === "original"
-                    ? "Obra original"
-                    : anime.based?.source && anime.based?.title
-                    ? `${anime.based.source} "${anime.based.title}"`
-                    : "Não especificado"}
-                  {anime.based?.authors
-                    ? ` por ${safeJoin(anime.based.authors)}`
-                    : ""}
+                <MaturityRating rating={anime.rating} /> {anime.contentAdvisory}
                 </span>
               </div>
             </div>

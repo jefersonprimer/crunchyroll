@@ -197,13 +197,22 @@
 }
 
 .iconBookmark {
-  align-items: center;
-  fill:#ff640a;
-  display: flex;
-  stroke-width: 2;
-  height: 1.5rem;
-  justify-content: center;
-  width: 1.5rem;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.iconBookmark.filled {
+  color: #FF640A !important;
+  fill: #FF640A !important;
+  stroke: #FF640A !important;
+}
+
+.iconBookmark.outline {
+  color: transparent;
+  stroke: #FF640A;
+  stroke-width: 2px;
 }
 
 .iconPlus {
@@ -214,6 +223,35 @@
   height: 1.5rem;
   justify-content: center;
   width: 1.5rem;
+}
+
+.animeCard:hover .favoriteLabel {
+  opacity: 0;
+}
+
+.favoriteLabel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 36px 36px 0;
+  border-color: transparent #000000 transparent transparent;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0px;
+  color: #FF640A;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.favoriteLabel svg {
+  width: 14px;
+  height: 14px;
+  transform: translate(32px, 2px);
 }
 
 @media (max-width: 1200px) {

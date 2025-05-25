@@ -112,7 +112,7 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ anime, episode }) => {
 
         {episode.releaseDate && (
           <div className={styles.releaseDate}>
-            Released on {formatDate(episode.releaseDate)}
+            Lançado em {formatDate(episode.releaseDate)}
           </div>
         )}
       </div>

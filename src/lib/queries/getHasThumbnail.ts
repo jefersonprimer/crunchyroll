@@ -11,12 +11,30 @@ export const GET_HAS_THUMBNAIL = gql`
       imagePoster
       imageLogo
       imageThumbnail
+      imageCardCompact
       synopsis
       rating
       score
       totalEpisodes
       seasons{
         seasonNumber
+      }
+       episodes {
+        id
+        title
+        slug
+        duration
+        synopsis
+        image
+        videoUrl
+        releaseDate
+        createdAt
+        updatedAt
+        versions {
+          id
+          languageType
+          videoUrl
+        }
       }
     }
   }

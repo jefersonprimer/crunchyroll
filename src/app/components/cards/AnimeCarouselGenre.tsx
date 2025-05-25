@@ -6,7 +6,7 @@ import styles from "./AnimeCarouselGenre.module.css";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight, faStar } from "@fortawesome/free-solid-svg-icons";
-import MaturityRating from "../elements/MaturityRating";
+import MaturityRating from "../utils/elements/SmallMaturityRating";
 
 interface AnimeCarouselGenreProps {
   animes: Anime[];
@@ -74,9 +74,9 @@ const AnimeCarouselGenre: React.FC<AnimeCarouselGenreProps> = ({ animes }) => {
         {/* Container dos cards */}
         <div className={styles.flexContainer} ref={containerRef}>
           {animes.map((anime) => (
-            <div key={anime.id} className={styles.card}>
+            <div key={anime.id} className={styles.card} title={anime.name}>
               <Link href={`/series/${anime.id}/${anime.slug}`} className={styles.animeLink}>
-                <img src={anime.image} alt={anime.name} className={styles.animeImage} />
+                <img src={anime.imagePoster} alt={anime.name} className={styles.animeImage} />
                 <div className={styles.nomeDataContainer}>
                   <p className={styles.nome}>{anime.name}</p>
                   <p className={styles.data}>{anime.audioType}</p>
@@ -86,7 +86,7 @@ const AnimeCarouselGenre: React.FC<AnimeCarouselGenreProps> = ({ animes }) => {
                   <h3 className={styles.name}>{anime.name}</h3>
                   <div className={styles.infoText}>
                     <div className={styles.flexContainer2}>
-                      <MaturityRating rating={anime.rating} />
+                      <MaturityRating rating={Number(anime.rating) || 0} />
                       <span className={styles.score}>
                         {anime.score}
                         <FontAwesomeIcon icon={faStar} className={styles.iconStar} />
@@ -95,10 +95,10 @@ const AnimeCarouselGenre: React.FC<AnimeCarouselGenreProps> = ({ animes }) => {
                   </div>
 
                   <p className={`${styles.infoText} ${styles.seasonText}`}>
-                    Season: {anime.season}
+                    Season: {anime.seasons?.[0]?.seasonNumber || 1}
                   </p>
                   <p className={`${styles.infoText} ${styles.episodesText}`}>
-                    Episódios: {anime.episodes}
+                    Episódios: {anime.totalEpisodes || 0}
                   </p>
                   <p className={`${styles.infoText} ${styles.synopsis}`}>{anime.synopsis}</p>
                 </div>

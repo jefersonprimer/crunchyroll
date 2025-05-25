@@ -69,57 +69,225 @@
 }
 
 .anime_card {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
   overflow: hidden;
-  transition: transform 0.3s ease-in-out;
-  display: flex;
-  flex-direction: row;
+  transition: transform 0.3s ease;
 }
 
-.anime_card:hover {
-  background-color: #23252B;
+.anime_card:hover{
+ background-color: #23252B;
 }
 
 .anime_content {
   display: flex;
-  flex-direction: row;
-  padding: 1rem;
-  gap: 1rem;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 16px;
+  position: relative;
+}
+
+.imageContainer {
+  position: relative;
+  width: 200px;
+  height: 112px;
+  flex-shrink: 0;
 }
 
 .anime_image {
   width: 100%;
-  height: auto;
-  max-width: 120px;
+  height: 100%;
   object-fit: cover;
 }
 
+.favoriteLabel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 36px 36px 0;
+  border-color: transparent #000000 transparent transparent;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0px;
+  color: #FF640A;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.favoriteLabel svg {
+  width: 14px;
+  height: 14px;
+  transform: translate(32px, 2px);
+}
+
 .anime_details {
-  flex-grow: 1;
+  flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 8px;
+  position: relative;
+  min-height: 112px;
 }
 
 .anime_name {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
 }
 
 .anime_synopsis {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 14px;
+  color: #b3b3b3;
+  margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  color: #A0A0A0;
+  overflow: hidden;
 }
 
 .anime_audio {
-  font-size: 0.9rem;
-  color: #A0A0A0;
+  font-size: 12px;
+  color: #808080;
+  margin: 0;
+}
+
+.cardInfo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.anime_card:hover .cardInfo {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.anime_card:hover .anime_name,
+.anime_card:hover .anime_synopsis,
+.anime_card:hover .anime_audio {
+  display: none;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.infoText {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.flexContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.score {
+  font-size: 14px;
+  color: #ff640a;
+  font-weight: 600;
+}
+
+.synopsis {
+  font-size: 14px;
+  color: #b3b3b3;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.playButton {
+  display: flex;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.tooltip {
+  position: relative;
+  cursor: pointer;
+}
+
+.tooltipText {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.tooltip:hover .tooltipText {
+  opacity: 1;
+  visibility: visible;
+}
+
+.iconPlay {
+  width: 24px;
+  height: 24px;
+  fill: #ff640a;
+  transition: transform 0.3s ease;
+}
+
+.iconPlay:hover {
+  transform: scale(1.1);
+}
+
+.iconBookmark {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.iconBookmark.filled {
+  color: #ff640a !important;
+  fill: #ff640a !important;
+}
+
+.iconBookmark.outline {
+  color: transparent;
+  stroke: #ff640a;
+}
+
+.iconPlus {
+  width: 24px;
+  height: 24px;
+  fill: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.iconPlus:hover {
+  transform: scale(1.1);
 }
 
 .ordemAlfabetica {
@@ -188,6 +356,25 @@
   height: 1rem;
   margin-right: 0.5rem;
   fill: #A0A0A0;
+}
+
+.ratingContainer {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.anime_card:hover .ratingContainer {
+  opacity: 1;
+}
+
+.ratingContainer :global(.maturityRating) {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 2px 4px;
+  border-radius: 2px;
 }
 
 @media (max-width: 768px) {

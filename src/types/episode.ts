@@ -19,16 +19,15 @@ export interface EpisodeVersion {
 
 export interface Episode {
   id: string;
-  title: string;
   slug: string;
-  duration?: string;
-  synopsis?: string;
-  image?: string;
-  videoUrl?: string;
-  versions?: EpisodeVersion[];
-  releaseDate?: string;
+  animeId: string;
+  episodeNumber: number;
+  seasonNumber: number;
+  title: string;
+  synopsis: string;
+  duration: number;
+  thumbnail: string;
+  videoUrl: string;
   createdAt: string;
   updatedAt: string;
-  season?: number;
-  animeId?: string;
 }

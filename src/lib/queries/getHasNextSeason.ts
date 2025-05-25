@@ -9,6 +9,7 @@ export const GET_HAS_NEXT_SEASON = gql`
       name
       audioType
       imagePoster
+      imageCardCompact
       synopsis
       rating
       score

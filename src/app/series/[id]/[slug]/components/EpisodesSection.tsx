@@ -11,16 +11,32 @@ interface EpisodesSectionProps {
 }
 
 export const EpisodesSection = ({ anime }: EpisodesSectionProps) => {
-  const [selectedSeason, setSelectedSeason] = useState<string>(anime.seasons[0]?.seasonName || "");
+  console.log('Anime seasons:', anime.seasons); // Debug log
+
+  const [selectedSeason, setSelectedSeason] = useState<string>(
+    anime.seasons[0]?.id || ""
+  );
   const [filteredEpisodes, setFilteredEpisodes] = useState<Episode[]>([]);
   const [sortOrder, setSortOrder] = useState<"oldest" | "newest">("newest");
   const [showSortModal, setShowSortModal] = useState(false);
   const [showOptionsModal, setShowOptionsModal] = useState(false);
 
+  const hasMultipleSeasons = anime.seasons.length > 1;
+
   // Efeito para filtrar e ordenar os episódios
   useEffect(() => {
     if (anime.episodes && anime.episodes.length > 0) {
       let filtered = anime.episodes;
+
+      // Se tiver apenas uma temporada, mostra todos os episódios
+      if (!hasMultipleSeasons) {
+        filtered = anime.episodes;
+      } else {
+        // Se tiver múltiplas temporadas, filtra pelo season_id
+        filtered = anime.episodes.filter(episode => 
+          episode.season_id === selectedSeason
+        );
+      }
 
       // Ordenar episódios
       filtered = [...filtered].sort((a, b) => {
@@ -33,12 +49,19 @@ export const EpisodesSection = ({ anime }: EpisodesSectionProps) => {
     } else {
       setFilteredEpisodes([]);
     }
-  }, [anime.episodes, sortOrder]);
+  }, [anime.episodes, sortOrder, selectedSeason, hasMultipleSeasons]);
 
-  const hasMultipleSeasons = anime.seasons.length > 1;
+  const getSeasonName = (season: any) => {
+    return `${anime.name} - ${season.seasonName || `Temporada ${season.seasonNumber}`}`;
+  };
 
-  const getSeasonName = (seasonName: string) => {
-    return `${anime.name} - ${seasonName}`;
+  const getTotalEpisodesForSeason = (seasonId: string) => {
+    // Se tiver apenas uma temporada, retorna o total de episódios do anime
+    if (!hasMultipleSeasons) {
+      return anime.episodes.length;
+    }
+    // Se tiver múltiplas temporadas, conta os episódios da temporada específica
+    return anime.episodes.filter(episode => episode.season_id === seasonId).length;
   };
 
   const handleSortSelection = (order: "oldest" | "newest") => {
@@ -52,17 +75,22 @@ export const EpisodesSection = ({ anime }: EpisodesSectionProps) => {
         <div className={styles.controlsLeft}>
           {hasMultipleSeasons && (
             <div className={styles.seasonSelector}>
-              {anime.seasons.map((season) => (
-                <button
-                  key={season.seasonName}
-                  className={`${styles.seasonButton} ${
-                    selectedSeason === season.seasonName ? styles.active : ""
-                  }`}
-                  onClick={() => setSelectedSeason(season.seasonName)}
-                >
-                  {season.seasonName}
-                </button>
-              ))}
+              {anime.seasons.map((season) => {
+                const seasonDisplayName = season.seasonName || `Temporada ${season.seasonNumber}`;
+                const totalEpisodes = getTotalEpisodesForSeason(season.id);
+                return (
+                  <button
+                    key={season.id}
+                    className={`${styles.seasonButton} ${
+                      selectedSeason === season.id ? styles.active : ""
+                    }`}
+                    onClick={() => setSelectedSeason(season.id)}
+                  >
+                    {seasonDisplayName}
+                    <span className={styles.episodeCount}>({totalEpisodes} eps)</span>
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>
@@ -118,11 +146,14 @@ export const EpisodesSection = ({ anime }: EpisodesSectionProps) => {
         </div>
       </div>
 
-      {hasMultipleSeasons && (
-        <div className={styles.seasonSubtitle}>
-          <h5>{getSeasonName(selectedSeason)}</h5>
-        </div>
-      )}
+      {/* Subtítulo da temporada */}
+      <div className={styles.seasonSubtitle}>
+        <h5>
+          {hasMultipleSeasons
+            ? getSeasonName(anime.seasons.find(season => season.id === selectedSeason))
+            : anime.name}
+        </h5>
+      </div>
 
       {/* Seção de episódios */}
       <div className={styles.episodesSection}>

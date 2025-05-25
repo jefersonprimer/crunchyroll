@@ -14,46 +14,48 @@ interface FavoritesContextType {
 const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
 
 export function FavoritesProvider({ children }: { children: React.ReactNode }) {
-  const [favorites, setFavorites] = useState<Favorite[]>([]);
-
-  // Carregar favoritos do localStorage quando o componente for montado
-  useEffect(() => {
-    const storedFavorites = localStorage.getItem('favorites');
-    if (storedFavorites) {
-      setFavorites(JSON.parse(storedFavorites));
+  const [favorites, setFavorites] = useState<Favorite[]>(() => {
+    // Inicializa o estado com os favoritos do localStorage
+    if (typeof window !== 'undefined') {
+      const storedFavorites = localStorage.getItem('favorites');
+      return storedFavorites ? JSON.parse(storedFavorites) : [];
     }
-  }, []);
+    return [];
+  });
 
-  // Salvar ou limpar favoritos no localStorage sempre que a lista mudar
+  // Salvar favoritos no localStorage sempre que a lista mudar
   useEffect(() => {
-    if (favorites.length > 0) {
-      // Salva os favoritos no localStorage
-      localStorage.setItem('favorites', JSON.stringify(favorites));
-    } else {
-      // Limpa os favoritos no localStorage se a lista estiver vazia
-      localStorage.removeItem('favorites');
+    if (typeof window !== 'undefined') {
+      if (favorites.length > 0) {
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+      } else {
+        localStorage.removeItem('favorites');
+      }
     }
   }, [favorites]);
 
   const addFavorite = (anime: Favorite) => {
     setFavorites((prevFavorites) => {
+      // Verifica se o anime já está nos favoritos
+      if (prevFavorites.some(fav => fav.id === anime.id)) {
+        return prevFavorites;
+      }
+      
       // Verifica se a lista já tem 100 itens
       if (prevFavorites.length >= 100) {
         alert('Você atingiu o limite máximo de 100 favoritos.');
-        return prevFavorites; // Retorna a lista sem alterações
+        return prevFavorites;
       }
   
       // Adiciona o novo favorito à lista
-      const updatedFavorites = [...prevFavorites, anime];
-      return updatedFavorites;
+      return [...prevFavorites, anime];
     });
   };  
 
   const removeFavorite = (id: string) => {
-    setFavorites((prevFavorites) => {
-      const updatedFavorites = prevFavorites.filter(favorite => favorite.id !== id);
-      return updatedFavorites;
-    });
+    setFavorites((prevFavorites) => 
+      prevFavorites.filter(favorite => favorite.id !== id)
+    );
   };
 
   return (

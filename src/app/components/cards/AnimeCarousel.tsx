@@ -9,7 +9,6 @@ import { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-
 interface AnimeCarouselProps {
   animes: Anime[];
   itemsPerPage?: number;
@@ -19,12 +18,30 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+  const shouldShowArrows = animes.length > 5;
 
   const updateScrollState = () => {
     if (containerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
       setCanScrollLeft(scrollLeft > 0);
       setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
+
+      // Atualiza os cards visíveis
+      const cards = containerRef.current.getElementsByClassName(styles.card);
+      const newVisibleCards = new Set<number>();
+      
+      Array.from(cards).forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const containerRect = containerRef.current!.getBoundingClientRect();
+        
+        // Verifica se o card está totalmente visível dentro do container
+        if (rect.left >= containerRect.left && rect.right <= containerRect.right) {
+          newVisibleCards.add(index);
+        }
+      });
+      
+      setVisibleCards(newVisibleCards);
     }
   };
 
@@ -36,18 +53,22 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes }) => {
     const handleResize = () => updateScrollState();
 
     const container = containerRef.current;
-    if (container) container.addEventListener("scroll", updateScrollState);
-    window.addEventListener("resize", handleResize);
+    if (container) {
+      container.addEventListener("scroll", updateScrollState);
+      window.addEventListener("resize", handleResize);
+    }
 
     return () => {
-      if (container) container.removeEventListener("scroll", updateScrollState);
-      window.removeEventListener("resize", handleResize);
+      if (container) {
+        container.removeEventListener("scroll", updateScrollState);
+        window.removeEventListener("resize", handleResize);
+      }
     };
   }, []);
 
   return (
     <div className={styles.carouselContainer}>
-      {canScrollLeft && (
+      {shouldShowArrows && canScrollLeft && (
         <button
           onClick={scrollLeft}
           className={`${styles.scrollButton} ${styles.scrollLeft}`}
@@ -58,12 +79,17 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes }) => {
       )}
 
       <div className={styles.flexContainer} ref={containerRef}>
-        {animes.map((anime) => (
-          <AnimeCard key={anime.id} anime={anime} />
+        {animes.map((anime, index) => (
+          <div
+            key={anime.id}
+            className={`${styles.card} ${visibleCards.has(index) ? styles.fullyVisible : ''}`}
+          >
+            <AnimeCard anime={anime} />
+          </div>
         ))}
       </div>
 
-      {canScrollRight && (
+      {shouldShowArrows && canScrollRight && (
         <button
           onClick={scrollRight}
           className={`${styles.scrollButton} ${styles.scrollRight}`}

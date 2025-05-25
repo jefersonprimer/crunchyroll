@@ -4,11 +4,14 @@ import Loading from "../../../app/loading";
 import styles from "./AnimeCarouselFullScreen.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark as bookmarkSolid } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark as bookmarkOutline } from "@fortawesome/free-regular-svg-icons";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import MaturityRating from "../elements/MaturityRating";
+import { useFavorites } from "../../contexts/FavoritesContext";
 
 // GraphQL query to fetch animes with thumbnails
 import { GET_HAS_THUMBNAIL } from "../../../lib/queries/getHasThumbnail";
@@ -29,6 +32,7 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [touchEndX, setTouchEndX] = useState<number | null>(null);
   const [firstEpisode, setFirstEpisode] = useState<Episode | null>(null);
+  const { favorites, addFavorite, removeFavorite } = useFavorites();
 
   // Fetch animes with thumbnails using GraphQL
   const { 
@@ -48,18 +52,15 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
   const episodes = episodesData?.episodes || [];
 
   useEffect(() => {
-    if (!episodesLoading && episodes && thumbnailAnimes.length > 0) {
+    if (!episodesLoading && thumbnailAnimes.length > 0) {
       const currentAnime = thumbnailAnimes[currentIndex];
-      if (currentAnime) {
-        const animeEpisodes = episodes.filter((ep: Episode) => ep.animeId === currentAnime.id);
-        if (animeEpisodes.length > 0) {
-          setFirstEpisode(animeEpisodes[0]);
-        } else {
-          setFirstEpisode(null);
-        }
+      if (currentAnime && currentAnime.episodes && currentAnime.episodes.length > 0) {
+        setFirstEpisode(currentAnime.episodes[0]);
+      } else {
+        setFirstEpisode(null);
       }
     }
-  }, [episodes, episodesLoading, thumbnailAnimes, currentIndex]);
+  }, [episodesLoading, thumbnailAnimes, currentIndex, episodes]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -122,6 +123,16 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
     setTouchEndX(null);
   };
 
+  const handleFavoriteClick = (e: React.MouseEvent, anime: Anime) => {
+    e.preventDefault();
+    const isFavorited = favorites.some((fav) => fav.id === anime.id);
+    if (isFavorited) {
+      removeFavorite(anime.id);
+    } else {
+      addFavorite(anime);
+    }
+  };
+
   if (animesLoading) {
     return <Loading />;
   }
@@ -135,6 +146,7 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
   }
 
   const currentAnime = thumbnailAnimes[currentIndex];
+  const isFavorited = favorites.some((fav) => fav.id === currentAnime.id);
 
   return (
     <div
@@ -150,20 +162,26 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
           : currentAnime.imageThumbnail}
         alt="Background"
       />
+      <div className={styles.gradientOverlay}></div>
 
       <div className={styles.blurOverlay}></div>
       <div className={styles.cardContainer}>
         <div className={styles.cardContent}>
           <div className={styles.logoAnime}>
-            <img
-              className={styles.logoAnime}
-              src={currentAnime.imageLogo}
-              alt={currentAnime.name}
-            />
+            {currentAnime && (
+              <Link href={`/series/${currentAnime.id}/${currentAnime.slug}`}>
+                <img
+                  className={styles.logoAnime}
+                  src={currentAnime.imageLogo}
+                  alt={currentAnime.name}
+                />
+              </Link>
+            )}
           </div>
           <div className={styles.leftColumn}>
             <div className={styles.ratingAndAudioType}>
-              <MaturityRating rating={currentAnime.rating} />
+            <MaturityRating rating={currentAnime.rating} />
+            <span className={styles.metaItem}></span>
               <p className={styles.audioType}>
                 {currentAnime.audioType}
               </p>
@@ -173,55 +191,62 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
             </p>
 
             <div className={styles.buttonsContainer}>
-              <div className={styles.playButton}>
-                <div className={styles.tooltip}>
-                  <span className={styles.tooltipText}>Play</span>
-                  {firstEpisode ? (
-                    <Link href={`/watch/${firstEpisode.id}/${firstEpisode.slug}`}>
-                      <svg
-                        className={styles.iconPlay}
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        aria-labelledby="play-svg"
-                        aria-hidden="false"
-                        role="img"
-                      >
-                        <title id="play-svg">Play</title>
-                        <path d="M5.944 3C5.385 3 5 3.445 5 4.22v16.018c0 .771.384 1.22.945 1.22.234 0 .499-.078.779-.243l13.553-7.972c.949-.558.952-1.468 0-2.028L6.724 3.243C6.444 3.078 6.178 3 5.944 3m1.057 2.726l11.054 6.503L7 18.732l.001-13.006" />
-                      </svg>
-                    </Link>
-                  ) : (
-                    <span>
-                      <svg
-                        className={styles.iconPlay}
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        aria-labelledby="play-svg"
-                        aria-hidden="false"
-                        role="img"
-                      >
-                        <title id="play-svg">Play</title>
-                        <path d="M5.944 3C5.385 3 5 3.445 5 4.22v16.018c0 .771.384 1.22.945 1.22.234 0 .499-.078.779-.243l13.553-7.972c.949-.558.952-1.468 0-2.028L6.724 3.243C6.444 3.078 6.178 3 5.944 3m1.057 2.726l11.054 6.503L7 18.732l.001-13.006" />
-                      </svg>
-                    </span>
-                  )}
+              {currentAnime.episodes && currentAnime.episodes.length > 0 ? (
+                <Link 
+                  href={`/watch/${currentAnime.episodes[0].id}/${currentAnime.episodes[0].slug}`}
+                  className={styles.playButton}
+                >
+                  <div className={styles.tooltip}>
+                    <span className={styles.tooltipText}>Play</span>
+                    <svg
+                      className={styles.iconPlay}
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      aria-labelledby="play-svg"
+                      aria-hidden="false"
+                      role="img"
+                    >
+                      <title id="play-svg">Play</title>
+                      <path d="M5.944 3C5.385 3 5 3.445 5 4.22v16.018c0 .771.384 1.22.945 1.22.234 0 .499-.078.779-.243l13.553-7.972c.949-.558.952-1.468 0-2.028L6.724 3.243C6.444 3.078 6.178 3 5.944 3m1.057 2.726l11.054 6.503L7 18.732l.001-13.006" />
+                    </svg>
+                  </div>
+                  <span className={styles.titleName}>
+                    COMEÇAR A ASSISTIR E1
+                  </span>
+                </Link>
+              ) : (
+                <div className={styles.playButton}>
+                  <div className={styles.tooltip}>
+                    <span className={styles.tooltipText}>Play</span>
+                    <svg
+                      className={styles.iconPlay}
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      aria-labelledby="play-svg"
+                      aria-hidden="false"
+                      role="img"
+                    >
+                      <title id="play-svg">Play</title>
+                      <path d="M5.944 3C5.385 3 5 3.445 5 4.22v16.018c0 .771.384 1.22.945 1.22.234 0 .499-.078.779-.243l13.553-7.972c.949-.558.952-1.468 0-2.028L6.724 3.243C6.444 3.078 6.178 3 5.944 3m1.057 2.726l11.054 6.503L7 18.732l.001-13.006" />
+                    </svg>
+                  </div>
+                  <span className={styles.titleName}>
+                    EPISÓDIO INDISPONÍVEL
+                  </span>
                 </div>
-                <span className={styles.titleName}>COMEÇAR A ASSISTIR E1</span>
-              </div>
+              )}
 
-              <div className={styles.buttonBookmark}>
+              <div className={styles.buttonBookmark} onClick={(e) => handleFavoriteClick(e, currentAnime)}>
                 <div className={styles.tooltip}>
-                  <span className={styles.tooltipText}>Add to Watchlist</span>
-                  <svg
-                    className={styles.iconBookmark}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    aria-labelledby="watchlist-svg"
-                    role="img"
-                  >
-                    <title id="watchlist-svg">Watchlist</title>
-                    <path d="M17 18.113l-3.256-2.326A2.989 2.989 0 0 0 12 15.228c-.629 0-1.232.194-1.744.559L7 18.113V4h10v14.113zM18 2H6a1 1 0 0 0-1 1v17.056c0 .209.065.412.187.581a.994.994 0 0 0 1.394.233l4.838-3.455a1 1 0 0 1 1.162 0l4.838 3.455A1 1 0 0 0 19 20.056V3a1 1 0 0 0-1-1z" />
-                  </svg>
+                  <span className={styles.tooltipText}>
+                    {isFavorited ? "Remover da Fila" : "Adicionar à Fila"}
+                  </span>
+                  <FontAwesomeIcon
+                    icon={isFavorited ? bookmarkSolid : bookmarkOutline}
+                    className={`${styles.iconBookmark} ${isFavorited ? "filled" : "outline"}`}
+                    style={{ color: "#FF640A" }}
+                    title="Fila"
+                  />
                 </div>
               </div>
             </div>

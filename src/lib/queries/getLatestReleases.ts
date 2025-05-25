@@ -12,6 +12,10 @@ export const GET_LATEST_RELEASES = gql`
         synopsis
         rating
         score
+        genres{
+          id
+          name	
+        }
         totalEpisodes
         seasons{
           seasonNumber

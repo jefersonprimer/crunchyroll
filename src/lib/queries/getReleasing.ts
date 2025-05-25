@@ -9,6 +9,7 @@ export const GET_RELEASING_ANIMES = gql`
       name
       audioType
       imagePoster
+      imageCardCompact
       synopsis
       rating
       score

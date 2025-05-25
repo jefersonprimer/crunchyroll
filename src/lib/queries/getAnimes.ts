@@ -10,18 +10,29 @@ export const GET_ANIMES = gql`
       audioType
       imageBannerMobile
       imageBannerDesktop
+      imageCardCompact
       imagePoster
       imageLogo
       synopsis
       rating
       score
+      audioLanguages
+      subtitles
+      contentSources{
+        authors
+        sourceType
+        copyright 
+      }
+      contentAdvisory
       genres {
         id
         name
       }
       totalEpisodes
       seasons {
+        id
         seasonName
+        seasonNumber
         totalEpisodes
       }
       episodes {

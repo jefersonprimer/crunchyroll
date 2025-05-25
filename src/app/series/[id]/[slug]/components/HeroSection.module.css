@@ -1,3 +1,41 @@
+.playButton {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.buttonBookmark {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-top: 4px;
+}
+
+.iconBookmark {
+  margin-left: 8px; 
+  border: 2px solid #ff640a;
+  padding: 7px;
+  align-items: center;
+  fill: #ff640a;
+  stroke-width: 2;
+  height: 1.7rem;
+  justify-content: center;
+  width: 1.6rem;
+  cursor: pointer;
+}
+
+.playButton,
+.bookmarkButton {
+  display: flex; 
+  align-items: center; 
+  padding: 8px 15px;
+  background-color: #ff640a;
+  color: #000;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 /* HeroSection.tsx */
 .heroSection {
   width: 100%;
@@ -21,11 +59,48 @@
   justify-content: left;
 }
 
+.heroImage::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  background-size: cover;
+  background-position: center;
+  filter: blur(100px);
+  z-index: -1;
+}
+
+.heroImage::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.2) 100%
+  ),
+  linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  z-index: 0;
+}
+
 .heroContent {
+  position: relative;
+  z-index: 1;
   text-align: left; 
   color: white;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 60px;
 }
 
 .heroText h1 {
@@ -35,6 +110,7 @@
 
 .name {
   padding-left: 15px;
+  color: red;
 }
 
 .metaInfoContainer {
@@ -106,8 +182,8 @@
 }
 
 .starIcon {
-  width: 16px;
-  height: 16px;
+  width: 26px;
+  height: 26px;
   fill: #ffc107;
 }
 
@@ -122,6 +198,19 @@
   gap: 16px; 
   margin-top: 16px;
   flex-wrap: wrap; 
+}
+
+
+
+.iconPlay {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.titleName {
+  font-size: 0.9rem;
+  white-space: nowrap;
 }
 
 .buttonPrimary {
@@ -159,6 +248,7 @@
 .tooltipContainer {
   position: relative;
   display: inline-block;
+  color: #ff640a;
 }
 
 .buttonSecondary {
@@ -185,21 +275,28 @@
 
 .tooltipText {
   visibility: hidden;
-  width: max-content;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #23252B;
   color: #fff;
   text-align: center;
-  border-radius: 4px;
-  padding: 4px 8px;
+  padding: 8px 12px;
   position: absolute;
   z-index: 1;
   bottom: 125%;
   left: 50%;
   transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-  font-size: 12px;
   white-space: nowrap;
+  font-size: 0.8rem;
+}
+
+.tooltipText::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #23252B transparent transparent transparent;
 }
 
 .tooltip:hover .tooltipText {
@@ -224,8 +321,8 @@
 }
 
 .actionIcon, .moreIcon {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   fill: currentColor;
 }
 

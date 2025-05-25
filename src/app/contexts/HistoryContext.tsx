@@ -1,53 +1,110 @@
 // contexts/HistoryContext.tsx
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Episode } from '@/types/episode'; // Tipo de episódio
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { Episode } from '@/types/episode';
+import { Anime } from '@/types/anime';
 
 interface HistoryContextType {
-  history: Episode[];
-  addEpisode: (episode: Episode) => void;
-  removeEpisode: (episodeId: string) => void;
+  watchedEpisodes: Array<{
+    episode: Episode;
+    anime: Anime;
+    watchedAt: string;
+  }>;
+  addToHistory: (episode: Episode, anime: Anime) => void;
+  clearHistory: () => void;
 }
 
 const HistoryContext = createContext<HistoryContextType | undefined>(undefined);
 
-export const HistoryProvider = ({ children }: { children: React.ReactNode }) => {
-  const [history, setHistory] = useState<Episode[]>([]);
+const defaultHistory: Array<{
+  episode: Episode;
+  anime: Anime;
+  watchedAt: string;
+}> = [];
 
-  // Carregar o histórico do localStorage ao montar o componente
+export const HistoryProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [watchedEpisodes, setWatchedEpisodes] = useState<Array<{
+    episode: Episode;
+    anime: Anime;
+    watchedAt: string;
+  }>>(defaultHistory);
+  const [isClient, setIsClient] = useState(false);
+
+  // Load history from localStorage only once on mount
   useEffect(() => {
-    const storedHistory = localStorage.getItem('history');
-    if (storedHistory) {
-      setHistory(JSON.parse(storedHistory));
+    setIsClient(true);
+    try {
+      const savedHistory = localStorage.getItem('watchHistory');
+      if (savedHistory) {
+        const parsedHistory = JSON.parse(savedHistory);
+        if (Array.isArray(parsedHistory)) {
+          setWatchedEpisodes(parsedHistory);
+        } else {
+          console.error('Invalid history format in localStorage');
+          localStorage.removeItem('watchHistory');
+        }
+      }
+    } catch (error) {
+      console.error('Error loading history from localStorage:', error);
+      localStorage.removeItem('watchHistory');
     }
-  }, []);
+  }, []); // Empty dependency array ensures this only runs once
 
-  // Salvar o histórico no localStorage sempre que a lista mudar
-  useEffect(() => {
-    if (history.length > 0) {
-      localStorage.setItem('history', JSON.stringify(history));
+  // Memoize the addToHistory function
+  const addToHistory = useCallback((episode: Episode, anime: Anime) => {
+    if (!isClient) return;
+    
+    setWatchedEpisodes(prevEpisodes => {
+      const newHistory = [
+        {
+          episode,
+          anime,
+          watchedAt: new Date().toISOString(),
+        },
+        ...prevEpisodes.filter(
+          (item) => item.episode.id !== episode.id
+        ),
+      ].slice(0, 50);
+
+      try {
+        localStorage.setItem('watchHistory', JSON.stringify(newHistory));
+      } catch (error) {
+        console.error('Error saving history to localStorage:', error);
+      }
+
+      return newHistory;
+    });
+  }, [isClient]);
+
+  // Memoize the clearHistory function
+  const clearHistory = useCallback(() => {
+    if (!isClient) return;
+    
+    setWatchedEpisodes(defaultHistory);
+    try {
+      localStorage.removeItem('watchHistory');
+    } catch (error) {
+      console.error('Error clearing history from localStorage:', error);
     }
-  }, [history]);
+  }, [isClient]);
 
-  const addEpisode = (episode: Episode) => {
-    setHistory((prevHistory) => [...prevHistory, episode]);
-  };
-
-  const removeEpisode = (episodeId: string) => {
-    setHistory((prevHistory) => prevHistory.filter((episode) => episode.id !== episodeId));
-  };
+  const value = React.useMemo(() => ({
+    watchedEpisodes,
+    addToHistory,
+    clearHistory,
+  }), [watchedEpisodes, addToHistory, clearHistory]);
 
   return (
-    <HistoryContext.Provider value={{ history, addEpisode, removeEpisode }}>
+    <HistoryContext.Provider value={value}>
       {children}
     </HistoryContext.Provider>
   );
 };
 
-export const useHistory = (): HistoryContextType => {
+export const useHistory = () => {
   const context = useContext(HistoryContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error('useHistory must be used within a HistoryProvider');
   }
   return context;

@@ -2,11 +2,20 @@
 'use client';
 
 import { useFavorites } from "../../contexts/FavoritesContext";  // Importando o hook
-
+import { useState, useEffect } from "react";
 import FavoritesCarousel from "./FavoritesCarousel";
 
 const FavoritesSection = () => {
   const { favorites } = useFavorites(); // Usando o hook aqui
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <>
