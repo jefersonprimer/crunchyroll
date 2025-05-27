@@ -162,6 +162,7 @@
   justify-content: center;
   height: 24px;
   color: #FFF;
+  cursor: pointer;
 }
 
 .iconBackground {
@@ -513,6 +514,7 @@
     justify-content: center;
     height: 24px;
     color: #FFF;
+    cursor: pointer;
   }
 
   .searchContainer {

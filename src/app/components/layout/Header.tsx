@@ -9,6 +9,18 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Anime } from "@/types/anime";
+import AccountModal from "../AccountModal";
+
+interface UserProfile {
+  id: string;
+  email: string;
+  username: string;
+  display_name: string;
+  profile_image_url: string | null;
+  background_image_url: string | null;
+  created_at: string;
+  last_login_at: string;
+}
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,11 +30,51 @@ export default function Header() {
   const [isDropdownNewsOpen, setDropdownNewsOpen] = useState(false);
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
+  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
   const resultsRef = useRef<HTMLUListElement | null>(null);
   const dropdownNavRef = useRef<HTMLDivElement | null>(null);
   const dropdownNewsRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
+
+  const checkAuthState = async () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const response = await fetch('http://localhost:3000/api/profile', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setUserProfile(data);
+        } else {
+          setUserProfile(null);
+        }
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+        setUserProfile(null);
+      }
+    } else {
+      setUserProfile(null);
+    }
+  };
+
+  useEffect(() => {
+    checkAuthState();
+
+    const handleAuthChange = () => {
+      checkAuthState();
+    };
+
+    window.addEventListener('auth-state-changed', handleAuthChange);
+    return () => {
+      window.removeEventListener('auth-state-changed', handleAuthChange);
+    };
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -86,8 +138,9 @@ export default function Header() {
   };
 
   // Função para redirecionar para a página de user ao clicar no ícone de fila
-  const handleUserClick = () => {
-    router.push("/user");
+  const handleUserClick = async () => {
+    await checkAuthState();
+    setIsAccountModalOpen(true);
   };
 
   return (
@@ -324,7 +377,7 @@ export default function Header() {
                     {/* Exibe o popup quando passar o mouse */}
                     <div className={styles.ercUpsellPopup}>
                       <a
-                        tabIndex="0"
+                        tabIndex={0}
                         href="https://www.crunchyroll.com/pt-br/premium?referrer=newweb_header_modal&amp;return_url=https%3A%2F%2Fwww.crunchyroll.com%2Fpt-br%2Fcrunchylists#plans"
                         className={styles.contentWrapper}
                       >
@@ -506,23 +559,44 @@ export default function Header() {
               {" "}
               {/* Adicionando div com a classe de background */}
               <div className={styles.ercHeaderSvg} onClick={handleUserClick}>
-                <svg
-                  className={styles.headerSvgIcon}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  data-t="user-settings-svg"
-                  aria-labelledby="user-settings-svg"
-                  aria-hidden="true"
-                  role="img"
-                >
-                  <title id="user-settings-svg">Menu da conta</title>
-                  <path d="M12 20a6.01 6.01 0 0 1-5.966-5.355L12 12.088l5.966 2.557A6.01 6.01 0 0 1 12 20m0-16c1.654 0 3 1.346 3 3s-1.345 3-2.999 3h-.002A3.003 3.003 0 0 1 9 7c0-1.654 1.346-3 3-3m7.394 9.081l-4.572-1.959A4.997 4.997 0 0 0 17 7c0-2.757-2.243-5-5-5S7 4.243 7 7c0 1.71.865 3.22 2.178 4.122l-4.572 1.959A.999.999 0 0 0 4 14c0 4.411 3.589 8 8 8s8-3.589 8-8c0-.4-.238-.762-.606-.919"></path>
-                </svg>
+                {userProfile?.profile_image_url ? (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <img
+                      src={userProfile.profile_image_url}
+                      alt="Profile"
+                      className={styles.profileImage}
+                      style={{
+                        width: '34px',
+                        height: '34px',
+                        borderRadius: '50%',
+                        objectFit: 'cover'
+                      }}
+                    />
+                    <svg className={styles.headerSvgIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-t="dropdown-svg" aria-labelledby="dropdown-svg" aria-hidden="true" role="img"><path d="M7 10h10l-5 5z"></path></svg>
+                  </div>
+                ) : (
+                  <svg
+                    className={styles.headerSvgIcon}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    data-t="user-settings-svg"
+                    aria-labelledby="user-settings-svg"
+                    aria-hidden="true"
+                    role="img"
+                  >
+                    <title id="user-settings-svg">Menu da conta</title>
+                    <path d="M12 20a6.01 6.01 0 0 1-5.966-5.355L12 12.088l5.966 2.557A6.01 6.01 0 0 1 12 20m0-16c1.654 0 3 1.346 3 3s-1.345 3-2.999 3h-.002A3.003 3.003 0 0 1 9 7c0-1.654 1.346-3 3-3m7.394 9.081l-4.572-1.959A4.997 4.997 0 0 0 17 7c0-2.757-2.243-5-5-5S7 4.243 7 7c0 1.71.865 3.22 2.178 4.122l-4.572 1.959A.999.999 0 0 0 4 14c0 4.411 3.589 8 8 8s8-3.589 8-8c0-.4-.238-.762-.606-.919"></path>
+                  </svg>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
+      <AccountModal 
+        isOpen={isAccountModalOpen}
+        onClose={() => setIsAccountModalOpen(false)}
+      />
     </header>
   );
 }

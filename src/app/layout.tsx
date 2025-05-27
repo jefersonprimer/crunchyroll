@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
@@ -23,7 +23,7 @@ export default function RootLayout({
         />
         <link rel="icon" href="/3357695.webp" id="favicon" />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <Providers>
           <ClientBody>
             <ClientLayout>{children}</ClientLayout>

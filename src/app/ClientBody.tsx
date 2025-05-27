@@ -1,15 +1,22 @@
 'use client';
 
-import React from 'react';
+import { useEffect, useState } from 'react';
 
-interface ClientBodyProps {
+export default function ClientBody({
+  children,
+}: {
   children: React.ReactNode;
-}
+}) {
+  const [mounted, setMounted] = useState(false);
 
-export default function ClientBody({ children }: ClientBodyProps) {
-  return (
-    <div className="min-h-screen">
-      {children}
-    </div>
-  );
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return null;
+  }
+
+  return <>{children}</>;
 } 

@@ -4,12 +4,16 @@
   align-items: center;
   height: 100vh;
   flex-direction: column;
-  color: #FFF!important;
+  background-color: #000000;
 }
 
 .title {
   font-size: 34px;
   font-weight: 400;
+}
+
+.login-box {
+  width: 500px;
 }
 
 .register-box {
@@ -21,7 +25,6 @@
 }
 
 .form-container {
-  background-color: #141519;
   padding: 50px;
   margin-bottom: 20px;
 }
@@ -34,42 +37,51 @@
 }
 
 /* Remove a borda padrão */
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .input-field {
   color: #FFFFFF;
   width: 100%;
   border: none;
   background-color: transparent;
-  border-bottom: 2px solid #ccc; /* Borda inferior padrão */
+  border-bottom: 2px solid #ccc;
   padding: 8px;
   outline: none;
   font-size: 16px;
-  transition: border-color 0.3s ease; /* Transição suave para a borda */
+  transition: border-color 0.3s ease;
   margin-bottom: 10px;
 }
 
-/* Container para alinhar o input e a label */
-.input-container {
-position: relative;
-margin-bottom: 20px;
-}
-
-/* Estilo da label */
 .input-label {
-position: absolute;
-top: 12px;
-left: 8px;
-font-size: 16px;
-color: #aaa;
-transition: 0.2s all ease; /* Transição suave */
-pointer-events: none; /* Impede a interação com a label */
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 16px;
+  color: #aaa;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  z-index: 1;
 }
 
-/* Efeito quando o campo tem foco ou valor */
 .input-field:focus + .input-label,
-.input-label.filled {
-top: -14px;   /* Move a label para cima */
-left: 8px;    /* Deixa a label alinhada */
-font-size: 12px; /* Reduz o tamanho da fonte */
+.input-field:not(:placeholder-shown) + .input-label {
+  top: -14px;
+  left: 8px;
+  font-size: 12px;
+  color: #ff640a;
+}
+
+.input-field:focus {
+  border-bottom: 2px solid #ff640a;
 }
 
 .register-button {
@@ -89,16 +101,9 @@ transition: all 0.3s ease;  /* Transição suave para mudanças */
 color: #fff;               /* Cor do texto ao passar o mouse */
 }
 
-
-
-.input-field:focus {
-  border-bottom: 2px solid #ff640a; /* Borda inferior verde quando em foco */
-}
-
 .input-field:focus-visible {
   outline: none; /* Remove o contorno de foco se não necessário */
 }
-
 
 .checkbox-text {
   color: #A0A0A0;
@@ -143,13 +148,58 @@ color: #fff;               /* Cor do texto ao passar o mouse */
 }
 
 .login-button {
-  background: none;
-  color: #FF640A;
-  border: none;
+  background: transparent;
+  border: 1px solid #A0A0A0;
   cursor: pointer;
   font-size: 14px;
+  border-radius: 50px;
+  padding: 10px 12px;
+  margin: 10px 0px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.login-button span {
+  color: #A0A0A0;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.login-button.filled {
+  background: #FF640A;
+  border: 1px solid #FF640A;
+}
+
+.login-button.filled span {
+  color: #000000;
 }
 
 .login-button:hover {
-  text-decoration: underline;
+  opacity: 0.9;
+}
+
+.show-password-button {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  background: none;
+  border: none;
+  color: #A0A0A0;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 5px;
+  transition: color 0.3s ease;
+  z-index: 2;
+}
+
+.show-password-button:hover {
+  color: #FFFFFF;
+}
+
+.register-link {
+  
+}
+
+.register-link:hover {
+  color: #ff640a;
 }
