@@ -13,6 +13,7 @@ const Register = () => {
     display_name: ''
   });
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,13 +52,13 @@ const Register = () => {
 
   return (
     <div className="container">
-      <h1 className='title'>Register</h1>
+      <h1 className='title'>Criar Conta</h1>
       <div className="register-box">
         <div className='form-container'>
           <form onSubmit={handleSubmit}>
             {error && <div className="error-message">{error}</div>}
             
-            <div>
+            <div className="input-container">
               <input
                 type="email"
                 id="email"
@@ -66,13 +67,14 @@ const Register = () => {
                 onChange={handleChange}
                 required
                 className="input-field"
+                placeholder=" "
               />
-              <label htmlFor="email" className={`input-label ${formData.email ? 'filled' : ''}`}>
+              <label htmlFor="email" className="input-label">
                 Email
               </label>
             </div>
 
-            <div>
+            <div className="input-container">
               <input
                 type="text"
                 id="username"
@@ -81,13 +83,14 @@ const Register = () => {
                 onChange={handleChange}
                 required
                 className="input-field"
+                placeholder=" "
               />
-              <label htmlFor="username" className={`input-label ${formData.username ? 'filled' : ''}`}>
+              <label htmlFor="username" className="input-label">
                 Username
               </label>
             </div>
 
-            <div>
+            <div className="input-container">
               <input
                 type="text"
                 id="display_name"
@@ -96,33 +99,45 @@ const Register = () => {
                 onChange={handleChange}
                 required
                 className="input-field"
+                placeholder=" "
               />
-              <label htmlFor="display_name" className={`input-label ${formData.display_name ? 'filled' : ''}`}>
+              <label htmlFor="display_name" className="input-label">
                 Display Name
               </label>
             </div>
 
-            <div>
+            <div className="input-container">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
                 required
                 className="input-field"
+                placeholder=" "
               />
-              <label htmlFor="password" className={`input-label ${formData.password ? 'filled' : ''}`}>
-                Password
+              <label htmlFor="password" className="input-label">
+                Senha
               </label>
+              <button
+                type="button"
+                className="show-password-button"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? "OCULTAR" : "EXIBIR"}
+              </button>
             </div>
 
-            <button type="submit" className="register-button">
+            <button 
+              type="submit" 
+              className={`register-button ${formData.email && formData.password && formData.username && formData.display_name ? 'filled' : ''}`}
+            >
               REGISTER
             </button>
           </form>
           <div className="login-link">
-            Already have an account? <a href="/login">Login here</a>
+            <a href="/login">Already have an account? Login here</a>
           </div>
         </div>
       </div>
