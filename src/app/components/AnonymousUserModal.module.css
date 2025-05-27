@@ -1,0 +1,102 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: #141519;
+  padding: 16px 0px;
+  margin-top: 60px;
+  margin-right: 20px;
+  width: 360px;
+}
+
+.userMenu {
+  width: 100%;
+}
+
+.userMenuScrollable {
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.userMenuSection {
+  margin-bottom: 16px;
+}
+
+.userMenuSection:last-child {
+  margin-bottom: 0;
+}
+
+.userMenuItem {
+  display: block;
+  padding: 12px;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.userMenuItem:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.itemTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.itemDescription {
+  font-size: 14px;
+  color: #999;
+}
+
+.itemDescription p {
+  margin: 0;
+}
+
+.upsellButton {
+  padding: 0 12px;
+}
+
+.premiumButton {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  background: #FAB818;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.premiumButton:hover {
+  opacity: 0.9;
+}
+
+.buttonContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #000;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.premiumIcon {
+  width: 20px;
+  height: 20px;
+  fill: #000;
+} 

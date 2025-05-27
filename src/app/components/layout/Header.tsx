@@ -10,6 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Anime } from "@/types/anime";
 import AccountModal from "../AccountModal";
+import AnonymousUserModal from "../AnonymousUserModal";
 
 interface UserProfile {
   id: string;
@@ -31,6 +32,7 @@ export default function Header() {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
+  const [isAnonymousModalOpen, setIsAnonymousModalOpen] = useState(false);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
   const resultsRef = useRef<HTMLUListElement | null>(null);
@@ -140,7 +142,11 @@ export default function Header() {
   // Função para redirecionar para a página de user ao clicar no ícone de fila
   const handleUserClick = async () => {
     await checkAuthState();
-    setIsAccountModalOpen(true);
+    if (userProfile) {
+      setIsAccountModalOpen(true);
+    } else {
+      setIsAnonymousModalOpen(true);
+    }
   };
 
   return (
@@ -555,7 +561,7 @@ export default function Header() {
               </div>
             </Link>
 
-            <div className={styles.iconBackground}>
+            <div className={`${styles.iconBackground} ${(isAccountModalOpen || isAnonymousModalOpen) ? styles.active : ''}`}>
               {" "}
               {/* Adicionando div com a classe de background */}
               <div className={styles.ercHeaderSvg} onClick={handleUserClick}>
@@ -596,6 +602,10 @@ export default function Header() {
       <AccountModal 
         isOpen={isAccountModalOpen}
         onClose={() => setIsAccountModalOpen(false)}
+      />
+      <AnonymousUserModal
+        isOpen={isAnonymousModalOpen}
+        onClose={() => setIsAnonymousModalOpen(false)}
       />
     </header>
   );
