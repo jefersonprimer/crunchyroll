@@ -88,7 +88,10 @@ const Login = () => {
             </button>
           </form>
           <div className="register-link">
-          <a href="/register"> Don't have an account? Register here</a>
+            <a href="/register">Don't have an account? Register here</a>
+          </div>
+          <div className="forgot-password-link">
+            <a href="/forgot-password">Forgot your password?</a>
           </div>
         </div>
       </div>
