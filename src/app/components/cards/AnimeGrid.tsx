@@ -13,7 +13,7 @@ import { useFavorites } from "../../contexts/FavoritesContext";
 import PlayButton from '../buttons/PlayButton';
 import BookmarkButton from '../buttons/BookmarkButton';
 import AddButton from '../buttons/AddButton';
-import AddToListModal from '../modal/AddToListModal';
+import AddToListModal from '../modals/AddToListModal';
 
 interface AnimeGridProps {
   animes: Anime[];

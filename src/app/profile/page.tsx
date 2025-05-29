@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import ConfirmationModal from '../components/ConfirmationModal';
-import ImageSelectionModal from '../components/ImageSelectionModal';
+import ConfirmationModal from '../components/modals/ConfirmationModal';
+import ImageSelectionModal from '../components/modals/ImageSelectionModal';
 
 interface UserProfile {
   id: string;

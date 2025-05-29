@@ -28,11 +28,11 @@ const EpisodePage: FC = () => {
     anime.episodes?.some((ep: Episode) => ep.id === id)
   );
   const currentEpisode = anime?.episodes?.find((ep: Episode) => ep.id === id);
-  const allEpisodes = anime?.episodes?.sort((a: Episode, b: Episode) => {
+  const allEpisodes = anime?.episodes ? [...anime.episodes].sort((a: Episode, b: Episode) => {
     const aNum = extractEpisodeNumber(a.title);
     const bNum = extractEpisodeNumber(b.title);
     return aNum - bNum;
-  }) || [];
+  }) : [];
 
   useEffect(() => {
     if (currentEpisode && anime) {

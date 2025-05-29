@@ -634,3 +634,52 @@
     color: #FFF;
   }
 }
+
+/* Skeleton Loading Styles */
+.skeletonLogo {
+  width: 120px;
+  height: 40px;
+  background-color: #1a1a1a;
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
+}
+
+.skeletonNavLink {
+  width: 80px;
+  height: 24px;
+  background-color: #1a1a1a;
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
+}
+
+.skeletonIcon {
+  width: 24px;
+  height: 24px;
+  background-color: #1a1a1a;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+.skeletonSpacing {
+  margin: 0 8px;
+}
+
+.navItem .skeletonSpacing {
+  margin: 0 16px;
+}
+
+.searchIcon .skeletonSpacing {
+  margin: 0 12px;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}

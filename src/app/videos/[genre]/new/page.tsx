@@ -4,7 +4,7 @@ import React from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@apollo/client';
 import { GET_ANIMES } from '@/lib/queries/getAnimes';
-import AnimeCarouselGenre from '../../../components/cards/AnimeCarouselGenre';
+import AnimeCarouselGenre from '../../../components/carousel/AnimeCarouselGenre';
 import styles from './styles.module.css';
 
 interface Genre {

@@ -9,8 +9,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Anime } from "@/types/anime";
-import AccountModal from "../AccountModal";
-import AnonymousUserModal from "../AnonymousUserModal";
+import AccountModal from "../modals/AccountModal";
+import AnonymousUserModal from "../modals/AnonymousUserModal";
+import HeaderSkeleton from "./HeaderSkeleton";
 
 interface UserProfile {
   id: string;
@@ -34,6 +35,7 @@ export default function Header() {
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isAnonymousModalOpen, setIsAnonymousModalOpen] = useState(false);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const resultsRef = useRef<HTMLUListElement | null>(null);
   const dropdownNavRef = useRef<HTMLDivElement | null>(null);
@@ -89,6 +91,15 @@ export default function Header() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  useEffect(() => {
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const toggleHamburgerMenu = () => {
@@ -148,6 +159,10 @@ export default function Header() {
       setIsAnonymousModalOpen(true);
     }
   };
+
+  if (isLoading) {
+    return <HeaderSkeleton />;
+  }
 
   return (
     <header className={styles.header}>

@@ -1,52 +1,76 @@
 import styles from './Episodios.module.css';
+import { useQuery } from '@apollo/client';
+import { GET_ANIMES } from '../../../lib/queries/getAnimes';
+import { Episode } from '../../../types/episode';
+import EpisodeCard from './EpisodeCard';
 
-import { useState, useEffect } from 'react';
+interface EpisodesGrouped {
+  hoje: Episode[];
+  ontem: Episode[];
+  anteontem: Episode[];
+  proximos: Episode[];
+}
 
-import useFetchEpisodes from '../../hooks/useFetchEpisodes';
-import useFetchAnimes from '../../hooks/useFetchAnimes';
+interface EpisodesData {
+  animes: {
+    episodes: Episode[];
+  }[];
+}
 
 const EpisodesPage = () => {
-  const { episodes, loading: loadingEpisodes, error: errorEpisodes } = useFetchEpisodes();
-  const { animes, loading: loadingAnimes, error: errorAnimes } = useFetchAnimes();
+  const { data, loading, error } = useQuery<EpisodesData>(GET_ANIMES);
 
-  const getAnimeDetails = (animeId) => {
-    return animes.find((anime) => anime.id === animeId);
-  };
-
-  // Função para formatar data
-  const formatDate = (date) => {
-    const options = { weekday: 'long' }; // Exibe apenas o dia da semana
-    return new Date(date).toLocaleDateString('pt-BR', options);
-  };
+  // Pega todos os episódios de todos os animes
+  const allEpisodes = data?.animes?.flatMap(anime => anime.episodes) || [];
 
   // Função para agrupar os episódios
-  const groupEpisodesByDate = () => {
+  const groupEpisodesByDate = (): EpisodesGrouped => {
+    // Get today's date
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
+    
     const twoDaysAgo = new Date(today);
     twoDaysAgo.setDate(today.getDate() - 2);
 
-    const episodesGrouped = {
+    const episodesGrouped: EpisodesGrouped = {
       hoje: [],
       ontem: [],
       anteontem: [],
+      proximos: [],
     };
 
-    episodes.forEach((episode) => {
+    allEpisodes.forEach((episode) => {
+      // Parse the release date
       const releaseDate = new Date(episode.releaseDate);
-      const releaseDay = releaseDate.toLocaleDateString('pt-BR');
-      const todayDay = today.toLocaleDateString('pt-BR');
-      const yesterdayDay = yesterday.toLocaleDateString('pt-BR');
-      const twoDaysAgoDay = twoDaysAgo.toLocaleDateString('pt-BR');
+      releaseDate.setHours(0, 0, 0, 0);
 
-      if (releaseDay === todayDay) {
+      console.log('Comparing dates:', {
+        episodeTitle: episode.title,
+        releaseDate: releaseDate.toISOString(),
+        today: today.toISOString(),
+        isToday: releaseDate.getTime() === today.getTime(),
+        isFuture: releaseDate > today
+      });
+
+      if (releaseDate.getTime() === today.getTime()) {
         episodesGrouped.hoje.push(episode);
-      } else if (releaseDay === yesterdayDay) {
+      } else if (releaseDate.getTime() === yesterday.getTime()) {
         episodesGrouped.ontem.push(episode);
-      } else if (releaseDay === twoDaysAgoDay) {
+      } else if (releaseDate.getTime() === twoDaysAgo.getTime()) {
         episodesGrouped.anteontem.push(episode);
+      } else if (releaseDate > today) {
+        episodesGrouped.proximos.push(episode);
       }
+    });
+
+    // Sort upcoming episodes by release date
+    episodesGrouped.proximos.sort((a, b) => {
+      const dateA = new Date(a.releaseDate);
+      const dateB = new Date(b.releaseDate);
+      return dateA.getTime() - dateB.getTime();
     });
 
     return episodesGrouped;
@@ -54,12 +78,12 @@ const EpisodesPage = () => {
 
   const episodesGrouped = groupEpisodesByDate();
 
-  if (loadingEpisodes || loadingAnimes) {
+  if (loading) {
     return <div>Carregando dados...</div>;
   }
 
-  if (errorEpisodes || errorAnimes) {
-    return <div>{errorEpisodes || errorAnimes}</div>;
+  if (error) {
+    return <div>Erro ao carregar episódios: {error.message}</div>;
   }
 
   return (
@@ -85,27 +109,9 @@ const EpisodesPage = () => {
         <div>
           <h3 className={styles.titleSection}>Hoje</h3>
           <div className={styles.episodesContainer}>
-            {episodesGrouped.hoje.map((episode) => {
-              const anime = getAnimeDetails(episode.animeId);
-              return (
-                <div key={episode.id} className={styles.episodeCard}>
-                  <div className={styles.episodeImageContainer}>
-                    <a href={`/episodios/${episode.id}`} className={styles.episodeLink}>
-                      <img src={episode.image} alt={`Episódio ${episode.title}`} className={styles.episodeImage} />
-                    </a>
-                  </div>
-                  <div className={styles.episodeDetails}>
-                    <div className={styles.animeInfo}>
-                      <h3>{anime?.name}</h3>
-                    </div>
-                    <div className={styles.episodeInfo}>
-                      <p><strong>{episode.title}</strong></p>
-                      <p><strong>Áudio:</strong> {anime?.audioType}</p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {episodesGrouped.hoje.map((episode) => (
+              <EpisodeCard key={episode.id} episode={episode} />
+            ))}
           </div>
         </div>
       ) : (
@@ -117,27 +123,9 @@ const EpisodesPage = () => {
         <div>
           <h3 className={styles.titleSection}>Ontem</h3>
           <div className={styles.episodesContainer}>
-            {episodesGrouped.ontem.map((episode) => {
-              const anime = getAnimeDetails(episode.animeId);
-              return (
-                <div key={episode.id} className={styles.episodeCard}>
-                  <div className={styles.episodeImageContainer}>
-                    <a href={`/episodios/${episode.id}`} className={styles.episodeLink}>
-                      <img src={episode.image} alt={`Episódio ${episode.title}`} className={styles.episodeImage} />
-                    </a>
-                  </div>
-                  <div className={styles.episodeDetails}>
-                    <div className={styles.animeInfo}>
-                      <h3>{anime?.name}</h3>
-                    </div>
-                    <div className={styles.episodeInfo}>
-                      <p><strong>{episode.title}</strong></p>
-                      <p><strong>Áudio:</strong> {anime?.audioType}</p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {episodesGrouped.ontem.map((episode) => (
+              <EpisodeCard key={episode.id} episode={episode} />
+            ))}
           </div>
         </div>
       ) : (
@@ -149,31 +137,27 @@ const EpisodesPage = () => {
         <div>
           <h3 className={styles.titleSection}>Anteontem</h3>
           <div className={styles.episodesContainer}>
-            {episodesGrouped.anteontem.map((episode) => {
-              const anime = getAnimeDetails(episode.animeId);
-              return (
-                <div key={episode.id} className={styles.episodeCard}>
-                  <div className={styles.episodeImageContainer}>
-                    <a href={`/episodios/${episode.id}`} className={styles.episodeLink}>
-                      <img src={episode.image} alt={`Episódio ${episode.title}`} className={styles.episodeImage} />
-                    </a>
-                  </div>
-                  <div className={styles.episodeDetails}>
-                    <div className={styles.animeInfo}>
-                      <h3>{anime?.name}</h3>
-                    </div>
-                    <div className={styles.episodeInfo}>
-                      <p><strong>{episode.title}</strong></p>
-                      <p><strong>Áudio:</strong> {anime?.audioType}</p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {episodesGrouped.anteontem.map((episode) => (
+              <EpisodeCard key={episode.id} episode={episode} />
+            ))}
           </div>
         </div>
       ) : (
         <div><h3>Anteontem</h3><p>Nenhum episódio disponível.</p></div>
+      )}
+
+      {/* Seção de Episódios - Próximos */}
+      {episodesGrouped.proximos.length > 0 ? (
+        <div>
+          <h3 className={styles.titleSection}>Próximos Lançamentos</h3>
+          <div className={styles.episodesContainer}>
+            {episodesGrouped.proximos.map((episode) => (
+              <EpisodeCard key={episode.id} episode={episode} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div><h3>Próximos Lançamentos</h3><p>Nenhum episódio disponível.</p></div>
       )}
 
       {/* Botão para carregar mais episódios */}

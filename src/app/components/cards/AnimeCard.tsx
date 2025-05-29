@@ -11,7 +11,7 @@ import { faBookmark as bookmarkOutline } from "@fortawesome/free-regular-svg-ico
 import { useFavorites } from "../../contexts/FavoritesContext";
 import { useQuery } from '@apollo/client';
 
-import AddToListModal from "../modal/AddToListModal";
+import AddToListModal from "../modals/AddToListModal";
 import MaturityRating from '../utils/elements/SmallMaturityRating';
 import PlayButton from '../buttons/PlayButton';
 import BookmarkButton from '../buttons/BookmarkButton';

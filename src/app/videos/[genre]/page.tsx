@@ -4,7 +4,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { GET_POPULAR_ANIMES } from "@/lib/queries/getPopularAnimes";
 import { GET_LATEST_RELEASES } from "@/lib/queries/getLatestReleases";
-import AnimeCarouselGenre from "../../components/cards/AnimeCarouselGenre";
+import AnimeCarouselGenre from "../../components/carousel/AnimeCarouselGenre";
 import Link from "next/link";
 import styles from "./styles.module.css";
 

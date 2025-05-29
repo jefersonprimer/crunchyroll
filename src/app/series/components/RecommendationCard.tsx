@@ -10,7 +10,7 @@ import { useFavorites } from "@/app/contexts/FavoritesContext";
 import { useQuery } from '@apollo/client';
 import MaturityRating from '@/app/components/utils/elements/SmallMaturityRating';
 import { GET_EPISODES } from "@/lib/queries/getEpisodes";
-import AddToListModal from '@/app/components/modal/AddToListModal';
+import AddToListModal from '@/app/components/modals/AddToListModal';
 import styles from './RecommendationCard.module.css';
 import { Anime } from "@/types/anime";
 

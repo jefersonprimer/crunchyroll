@@ -8,7 +8,7 @@ import { faBookmark as bookmarkSolid } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark as bookmarkOutline } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFavorites } from "@/app/contexts/FavoritesContext";
-import AddToListModal from "@/app/components/modal/AddToListModal";
+import AddToListModal from "@/app/components/modals/AddToListModal";
 import Link from "next/link";
 
 interface HeroSectionProps {

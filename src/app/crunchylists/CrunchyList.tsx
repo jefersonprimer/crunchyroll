@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 import { useLists } from '../contexts/ListsContext';
 
-import AddToListModal from '../components/modal/AddToListModal';
+import AddToListModal from '../components/modals/AddToListModal';
 import { Anime } from '@/types/anime';
 
 interface List {

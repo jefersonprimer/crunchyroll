@@ -1,9 +1,10 @@
 "use client";
 
 import Loading from "@/app/loading";
-import useFetchAnimes from "@/app/hooks/useFetchAnimes"; 
-import styles from "./AnimeCarouselLancamentos.module.css";
-import AnimeCarousel from "./AnimeCarousel";
+import { useQuery } from "@apollo/client";
+import { GET_MOVIES } from "@/lib/queries/getMovie";
+import styles from "./MovieCard.module.css"
+import AnimeCarousel from "../carousel/AnimeCarousel";
 import { Anime } from "@/types/anime";
 
 import { useState, useEffect } from "react";
@@ -16,22 +17,21 @@ interface MovieCardProps {
 const MovieCard: React.FC<MovieCardProps> = ({
   itemsPerPage = 5,
 }) => {
-  const { animes, loading, error } = useFetchAnimes(); 
+  const { data, loading, error } = useQuery(GET_MOVIES);
   const [movie, setMovie] = useState<Anime[]>([]);
 
   useEffect(() => {
-    if (animes) {
-      const filteredAnimes = animes.filter((anime) => anime.isMovie);
-      setMovie(filteredAnimes);
+    if (data?.movie) {
+      setMovie(data.movie);
     }
-  }, [animes]);
+  }, [data]);
 
   if (loading) {
     return <Loading />;
   }
 
   if (error) {
-    return <div>Erro ao carregar os dados: {error}</div>;
+    return <div>Erro ao carregar os dados: {error.message}</div>;
   }
 
   if (movie.length === 0) {

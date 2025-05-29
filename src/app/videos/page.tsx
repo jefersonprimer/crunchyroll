@@ -3,7 +3,7 @@
 import React from 'react';
 import { Anime } from '@/types/anime';
 import animesData from '@/data/animes.json';
-import AnimeCarousel from '../components/cards/AnimeCarousel'; // Importe o AnimeCarousel
+import AnimeCarousel from '../components/carousel/AnimeCarousel'; // Importe o AnimeCarousel
 
 const Videos: React.FC = () => {
   const animes: Anime[] = animesData.animes;

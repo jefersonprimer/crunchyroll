@@ -1,0 +1,111 @@
+.episodeCard {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--background-secondary);
+  transition: transform 0.2s ease-in-out;
+}
+
+.episodeCard:hover {
+  transform: scale(1.02);
+}
+
+.episodeImageContainer {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  overflow: hidden;
+}
+
+.episodeImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.episodeLink {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.episodeLink.disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.playIconContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.episodeCard:hover .playIconContainer {
+  opacity: 1;
+}
+
+.playIcon {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+.comingSoonBadge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.episodeDetails {
+  padding: 12px;
+}
+
+.episodeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.animeName {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.episodeTitle {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.episodeNumber {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+} 

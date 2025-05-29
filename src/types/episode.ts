@@ -17,6 +17,12 @@ export interface EpisodeVersion {
   videoUrl: string;
 }
 
+export interface AnimeInfo {
+  id: string;
+  name: string;
+  slug: string;
+}
+
 export interface Episode {
   id: string;
   slug: string;
@@ -30,4 +36,8 @@ export interface Episode {
   videoUrl: string;
   createdAt: string;
   updatedAt: string;
+  releaseDate: string;
+  image: string;
+  versions?: EpisodeVersion[];
+  anime?: AnimeInfo;
 }
