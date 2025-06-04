@@ -79,7 +79,7 @@ const EpisodeNavigation: React.FC<EpisodeNavigationProps> = ({
       <div className={styles.navigationCard}>
         <h3 className={styles.cardLabel}>{label}</h3>
         <Link
-          href={`/watch/${episode.id}/${episode.slug}`}
+          href={`/watch/${episode.publicCode}/${episode.slug}`}
           className={styles.cardLink}
         >
           <div className={styles.cardContainer}>

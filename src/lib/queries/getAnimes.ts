@@ -5,6 +5,7 @@ export const GET_ANIMES = gql`
   query {
     animes {
       id
+      publicCode
       slug
       name
       audioType
@@ -37,6 +38,7 @@ export const GET_ANIMES = gql`
       }
       episodes {
         id
+        publicCode
         title
         slug
         duration

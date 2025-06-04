@@ -18,6 +18,7 @@ export interface Season {
 
 export interface Anime {
   id: string;
+  publicCode: string;
   slug: string;
   name: string;
   audioType?: string;

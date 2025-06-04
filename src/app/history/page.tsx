@@ -3,7 +3,7 @@
 import React from 'react';
 import { useHistory } from '../contexts/HistoryContext';
 import styles from './styles.module.css';
-import { EpisodeCard } from '../series/[id]/[slug]/components/EpisodeCard';
+import { EpisodeCard } from '../series/[publicCode]/[slug]/components/EpisodeCard';
 
 const History = () => {
   const { watchedEpisodes, clearHistory } = useHistory();

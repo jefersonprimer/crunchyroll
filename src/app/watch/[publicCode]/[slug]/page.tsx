@@ -12,22 +12,22 @@ import EpisodeSynopsis from "./components/EpisodeSynopsis";
 import EpisodeNavigation from "./components/EpisodeNavigation";
 import EpisodesModal from "./components/EpisodesModal";
 import styles from "./styles.module.css";
-import { ClientMetadata } from "@/app/series/[id]/[slug]/components/ClientMetadata";
+import { ClientMetadata } from "@/app/series/[publicCode]/[slug]/components/ClientMetadata";
 import { FavoritesProvider } from "@/app/contexts/FavoritesContext";
 import { useHistory } from "@/app/contexts/HistoryContext";
 
 const EpisodePage: FC = () => {
   const params = useParams();
-  const { id, slug } = params;
+  const { publicCode, slug } = params;
   const { data, loading, error } = useQuery(GET_ANIMES);
   const [expandedSynopsis, setExpandedSynopsis] = useState(false);
   const [showEpisodesModal, setShowEpisodesModal] = useState(false);
   const { addToHistory } = useHistory();
 
   const anime = data?.animes?.find((anime: Anime) => 
-    anime.episodes?.some((ep: Episode) => ep.id === id)
+    anime.episodes?.some((ep: Episode) => ep.publicCode === publicCode)
   );
-  const currentEpisode = anime?.episodes?.find((ep: Episode) => ep.id === id);
+  const currentEpisode = anime?.episodes?.find((ep: Episode) => ep.publicCode === publicCode);
   const allEpisodes = anime?.episodes ? [...anime.episodes].sort((a: Episode, b: Episode) => {
     const aNum = extractEpisodeNumber(a.title);
     const bNum = extractEpisodeNumber(b.title);
@@ -40,7 +40,7 @@ const EpisodePage: FC = () => {
     }
   }, [currentEpisode, anime, addToHistory]);
 
-  if (!id || !slug || loading) {
+  if (!publicCode || !slug || loading) {
     return <div className={styles.loadingContainer}>Carregando...</div>;
   }
 
@@ -95,7 +95,7 @@ const EpisodePage: FC = () => {
       {showEpisodesModal && (
         <EpisodesModal
           episodes={allEpisodes}
-          currentEpisodeId={currentEpisode.id}
+          currentEpisodePublicCode={currentEpisode.publicCode}
           anime={anime}
           onClose={toggleEpisodesModal}
         />

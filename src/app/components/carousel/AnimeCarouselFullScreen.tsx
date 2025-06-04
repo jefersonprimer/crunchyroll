@@ -169,7 +169,7 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
         <div className={styles.cardContent}>
           <div className={styles.logoAnime}>
             {currentAnime && (
-              <Link href={`/series/${currentAnime.id}/${currentAnime.slug}`}>
+              <Link href={`/series/${currentAnime.publicCode}/${currentAnime.slug}`}>
                 <img
                   className={styles.logoAnime}
                   src={currentAnime.imageLogo}
@@ -193,7 +193,7 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
             <div className={styles.buttonsContainer}>
               {currentAnime.episodes && currentAnime.episodes.length > 0 ? (
                 <Link 
-                  href={`/watch/${currentAnime.episodes[0].id}/${currentAnime.episodes[0].slug}`}
+                  href={`/watch/${currentAnime.episodes[0].publicCode}/${currentAnime.episodes[0].slug}`}
                   className={styles.playButton}
                 >
                   <div className={styles.tooltip}>

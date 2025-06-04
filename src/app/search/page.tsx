@@ -15,7 +15,7 @@ export default function Search() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredAnimes, setFilteredAnimes] = useState<Anime[]>([]);
   const searchParams = useSearchParams();
-  const query = searchParams?.get('query');
+  const query = searchParams?.get('q');
 
   useEffect(() => {
     if (query) {
@@ -34,10 +34,18 @@ export default function Search() {
     }
   }, [searchTerm, data]);
 
-  const handleSearch = () => {
+  useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    params.set('query', searchTerm);
+    if (searchTerm) {
+      params.set('q', searchTerm);
+    } else {
+      params.delete('q');
+    }
     window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+  }, [searchTerm]);
+
+  const handleSearch = () => {
+    // This function is no longer needed since we update the URL in real-time
   };
 
   return (

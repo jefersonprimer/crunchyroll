@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useTheme } from "../../context/ThemeContext";
 import NavItem from './components/NavItem';
-import LoginButton from './components/buttons/LoginButton';
+import UserProfileButton from './components/buttons/LoginButton';
 import SearchButton from './components/buttons/SearchButton';
 import { navItems } from './utils/constants';
 import MobileMenu from './components/MobileMenu';
@@ -38,12 +38,12 @@ const Header = () => {
 
   return (
     <header className={`${isDark ? "bg-[#000000] text-white" : "bg-[#FFFCF6] text-[#4A4E58]"} border-b-4 border-orange-500`}>  
-      <div className="container mx-auto">
-        <div className="flex items-center justify-between 2xl:px-[174px] h-16">
+      <div className="container mx-auto max-w-[1200px]">
+        <div className="flex items-center justify-between px-4 2xl:px-[174px] h-16">
           {/* Left side: Hamburger + Logo */}
-          <div className="flex items-center">
+          <div className="flex items-center gap-4">
             {/* Mobile menu button */}
-            <div className={`block md:hidden mx-4 px-4 py-[16px] cursor-pointer ${isDark ? "text-white hover:bg-[#4A4E58]" : "text-[#4A4E62] hover:bg-[#E6E5E3]"}`}>
+            <div className={`block md:hidden px-4 py-[16px] cursor-pointer ${isDark ? "text-white hover:bg-[#4A4E58]" : "text-[#4A4E62] hover:bg-[#E6E5E3]"}`}>
               <button 
                 onClick={toggleMobileMenu}
                 className="mobile-menu-button cursor-pointer "
@@ -63,7 +63,7 @@ const Header = () => {
           </div>
   
           {/* Right side: Navigation (desktop) + Login + Search */}
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
             {/* Navigation for desktop */}
             <nav className="hidden md:flex">
               {navItems.map((item) => (
@@ -77,14 +77,7 @@ const Header = () => {
                 />
               ))}
             </nav>
-
             <div className="flex items-center">
-              {/* Login button */}
-              <div className="px-2 block md:hidden">
-                <LoginButton isDark={isDark} />
-              </div>
-
-              {/* Search button */}
               <SearchButton isDark={isDark} />
             </div>
           </div>

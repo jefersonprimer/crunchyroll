@@ -113,7 +113,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           <div className={styles.seriesHeroActionsWrapper}>
             {anime.episodes && anime.episodes.length > 0 ? (
               <Link 
-                href={`/watch/${anime.episodes[0].id}/${anime.episodes[0].slug}`}
+                href={`/watch/${anime.episodes[0].publicCode}/${anime.episodes[0].slug}`}
                 className={styles.playButton}
               >
                 <div className={styles.tooltip}>

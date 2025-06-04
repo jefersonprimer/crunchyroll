@@ -5,6 +5,7 @@ export const GET_HAS_THUMBNAIL = gql`
   query hasThumbnail {
       hasThumbnail {
       id
+      publicCode
       slug
       name
       audioType
@@ -21,6 +22,7 @@ export const GET_HAS_THUMBNAIL = gql`
       }
        episodes {
         id
+        publicCode
         title
         slug
         duration

@@ -1,89 +1,43 @@
 .header {
-  position: fixed; /* position: sticky;*/
-  top: 0;
-  left: 0;
-  width: calc(100% - 15px);
-  height: 60px;
   background-color: #23252B;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 max(5%, 40px);
-  z-index: 999;
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
   display: flex;
-  justify-content: space-between; 
-  width: 100%;
   align-items: center;
-  background-color: #23252B;
+  gap: 2rem;
 }
 
 .headerLogo {
+  flex: 0 0 auto;
+}
+
+.headerMenu {
+  flex: 1;
   display: flex;
-  align-items: center;
-  padding-right: 30px;
+  justify-content: flex-start;
 }
 
 .logoContainer {
-  width: 136;
-  height: 60px; 
-  overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .logo {
-  width: 133;
-  height: 21px;
-  object-fit: cover;
+  height: 60px;
+  width: 120px;
 }
 
 .headerLogo .logoContainer:hover .logo {
   filter: brightness(0) invert(1);
   transition: filter 0.3s ease;
-}
-
-.headerMenu {
-  display: flex;
-  align-items: center;
-  margin-left: 0; 
-  color: #FFF;
-}
-
-.hamburgerMenu {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.hamburgerHeader {
-  display: flex; 
-  align-items: center; 
-  justify-content: space-between; 
-  width: 100%;
-  padding: 0 16px; 
-}
-
-.hamburgerIcon {
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  z-index: 2;
-}
-
-.hamburgerIcon svg {
-  width: 24px;
-  height: 24px;
-  fill: currentColor;
-  color: #ffffff;
 }
 
 .headerLogoMobile {
@@ -120,54 +74,169 @@
   background-color: rgba(255, 255, 255, 0.1); 
 }
 
-.navLinks {
+.navList {
   display: flex;
+  align-items: center;
   list-style: none;
-  padding: 0;
   margin: 0;
-}
-
-.navLinks a {
-  color: white;            
-  text-decoration: none;   
-  display: inline-block;      
-  transition: background-color 0.3s ease; 
-}
-
-.navLinks a:hover {
-  background-color: #141519;
+  padding: 0;
+  gap: 0px;
 }
 
 .navItem {
   position: relative;
 }
 
-.navItem a {
-  font-family: 'Roboto', sans-serif;
-  text-decoration: none;
-  color: #333;
-  font-size: 16px;
+.navLink {
   display: flex;
   align-items: center;
-  padding: 18px 14px;     
+  gap: 0px;
+  color: #DADADA;
+  text-decoration: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 1rem;
+  height: 60px;
 }
 
-.titleNavegation {
+.dropdownIcon {
+  width: 24px;
+  height: 24px;
+  fill: #DADADA;
+}
+
+.navLink:hover {
+  color: #ffffff;
+  background-color: #141519;
+}
+
+.activeNews {
+  color: #fff;
+  background-color: #141519;
+}
+
+.activeNews .dropdownIcon {
+  fill: #f47521;
+}
+
+.newsDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #141519;
+  padding: 0.5rem 0px;
+  width: 300px;
+  z-index: 1000;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #141519;
+  padding: 0.5rem 0px;
+  width: 862px;
+  height: 260px;
+  z-index: 1000;
+}
+
+.navDropdown {
+  display: flex;
+  gap: 0;
+  position: relative;
+}
+
+.dropdownColumn {
+  width: 1px;
+}
+
+.dropdownColumn:first-child {
+  flex: 1;
+  border-right: 1px solid #23252B;
+}
+
+.dropdownColumn:last-child {
+  flex: 3;
+}
+
+.dropdownItem {
+  color: #F8F8EA;
+  text-decoration: none;
+  padding: 0.6rem 1rem;
+  display: block;
+}
+
+.dropdownItem:hover {
+  background-color: #23252B;
   color: #DADADA;
 }
 
-.ercHeaderSvg {
+.dropdownTitle {
+  color: #999;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  padding: 0.4rem;
+}
+
+.genreGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+}
+
+.genreItem {
+  color: #F8F8EA;
+  text-decoration: none;
+  padding: 9px 0.9rem;
+}
+
+.genreItem:hover {
+  background-color: #23252B;
+  color: #DADADA;
+}
+
+.headerActions {
+  flex: 0 0 auto;
+}
+
+.searchContainer {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 24px;
-  color: #FFF;
+  gap: 0;
+}
+
+.searchIcon {
+  position: relative;
+}
+
+.searchButton {
+  background: none;
+  border: none;
+  padding: 0;
   cursor: pointer;
 }
 
 .iconBackground {
-  padding: 18px 18px; /* Espaçamento interno */
-  transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  transition: background-color 0.2s;
+}
+
+.iconBackgroundLoggedIn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 60px;
+  transition: background-color 0.2s;
+}
+
+.iconBackgroundLoggedIn:hover,
+.iconBackgroundLoggedIn.active {
+  background-color: #141519;
 }
 
 .iconBackground:hover,
@@ -175,139 +244,161 @@
   background-color: #141519;
 }
 
-.dropdownMenu {
+.iconBackgroundPopup {
   display: flex;
-  flex-direction: row;
-  position: absolute;
-  background-color: #141519;
-  width: 850px; 
-  top: 100%;
-  left: 0;
-  padding: 0px;
-  z-index: 100;
-}
-
-/* Estilo para as colunas dentro do dropdown */
-.menuContent {
-  display: flex;
-  width: 100%;
-}
-
-/* Coluna de Categorias (Popular, Novidades, A-Z) */
-.categoriesColumn {
-  display: flex;
-  flex-direction: column;
-  /* margin-right: 20px; */
-  padding: 6px 0px;
-  width: 360px;
-}
-
-/* Estilo do link nas colunas */
-.categoriesColumn a {
-  color: #F8F8F8;
-  padding: 10px 20px;
-  text-decoration: none;
-  margin-bottom: 0px;
-  width: 100%;
-}
-
-.categoriesColumn a:hover {
-  background-color: #23252B;
-}
-
-/* Divisória entre as colunas */
-.divider {
-  border-right: 2px solid #23252B;
-  margin: 0px;
-  height: 100%;
-}
-
-/* Título "Gêneros" */
-.genresSection {
-  padding: 14px 0;
-  display: flex;
-  flex-direction: column;
-  width: 100%; 
-}
-
-.genresTitle {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 200;
-  color: gray;
-  margin-bottom: 6px;
-  text-align: left; 
-  padding: 4px 14px;
-  font-size: 14px;
-}
-
-/* Coluna de Gêneros */
-.genresGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); 
-  gap: 15px;
-}
-
-/* Estilo do link nas colunas de Gêneros */
-.genresColumn a {
-  font-family: 'Roboto', sans-serif;
-  color: #DADADA;
-  padding: 10px 15px;
-  text-decoration: none;
-}
-
-.genresColumn a:hover {
-  background-color: #23252B;
-}
-
-.titleNews {
-  color: #DADADA;
-}
-
-.newsDropdown {
-  width: 220px;
-}
-
-
-.activeNews {
-  background-color: #141519;
-  transition: background-color 0.3s ease; /* Animação suave */
-}
-
-
-
-.headerActions {
-  display: flex;
-  align-items: center;
-  margin-left: auto; 
-  color: #FFF;
-}
-
-.headerActions {
-  display: flex;
-  align-items: center;
-}
-
-.content {
   align-items: center;
   justify-content: center;
-  padding-top: 20px;
+  width: 120px;
+  height: 60px;
+  transition: background-color 0.2s;
+  position: relative;
 }
 
+.iconBackgroundPopup :hover {
+  background-color: #141519;
+}
 
+.ercHeaderSvg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+
+.ercHeaderSvgPopup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 60px;
+  gap: 8px;
+}
+
+.profileImage {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+  display: block;
+}
+
+.userProfileContainer {
+  width: 120px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* Mobile Menu Styles */
+.mobileMenu {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .headerMenu {
+    margin: 0;
+  }
+
+  .mobileMenu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hamburgerButton {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+  }
+
+  .mobileLogo {
+    display: flex;
+    align-items: center;
+  }
+
+  .logoImage {
+    height: 30px;
+    width: auto;
+  }
+
+  .mobileDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #232323;
+    padding: 1rem;
+    border-top: 1px solid #333;
+  }
+
+  .mobileMenuItem {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #333;
+  }
+
+  .mobileMenuItem:last-child {
+    border-bottom: none;
+  }
+}
 
 /* Esconde o popup inicialmente */
 .ercUpsellPopup {
-  display: none;
-  position: absolute; /* Fica posicionado abaixo do botão */
-  top: 100%; /* Fica logo abaixo do botão */
-  margin-top: 10px; /* Espaço entre o botão e o popup */
+  position: absolute;
+  top: calc(100% + 15px); /* Increased distance from the button */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
   background: #000;
-  /* border: 1px solid yellow; */
   color: #FFF;
   padding: 10px 20px;
   width: 360px;
   height: 160px;
-  z-index: 1000; /* Garante que o pop-up esteja acima de outros elementos */
+}
+
+/* Add triangle arrow */
+.ercUpsellPopup::before {
+  content: '';
+  position: absolute;
+  top: -10px; /* Position above the popup */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #000; /* Same color as popup background */
+}
+
+.iconBackgroundPopup:hover .ercUpsellPopup {
+  visibility: visible;
+  opacity: 1;
+}
+
+.ercUpsellPopup {
+  position: absolute;
+  top: calc(100% + 15px); /* Increased distance from the button */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  background: #000;
+  color: #FFF;
+  padding: 10px 15px;
+  width: 360px;
+  height: 166px;
 }
 
 .backgroundInner {
@@ -355,11 +446,6 @@
   fill: #FFF;
 }
 
-/* Exibe o popup quando passar o mouse sobre o botão */
-.iconBackground:hover .ercUpsellPopup {
-  display: block;
-}
-
 /* Estilo do conteúdo do popup */
 .contentWrapper {
   display: block;
@@ -379,11 +465,10 @@
 
 .textContainer {
   display: flex;
-  flex-direction: column; /* Empilha os textos */
-  /* align-items: center; */
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
   text-align: left;
-  gap: 2px;
 }
 
 .headerPrimiumIcon {
@@ -391,7 +476,6 @@
   width: 24px;
   height: 24px;
   cursor: pointer;
-  margin-right: 5px;
 }
 
 .freeTrialText {
@@ -416,223 +500,12 @@
   cursor: pointer;
 }
 
-.iconBookmark, .headerSvgIcon {
-  fill: #DADADA;
+.headerSvgIcon {
+  fill: currentColor;
   width: 24px;
   height: 24px;
   margin-left: 0px;
   cursor: pointer;
-}
-
-/* Para telas maiores (tablet, desktop) */
-@media (max-width: 768px) {
-  .header {
-    border: none;
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    padding: 0.5rem 0.2rem;
-    max-width: 100%;
-    max-height: 3.75rem;
-    background-color: #23252B;
-    color: #FFFFFF;
-  }
-  
-  #games {
-    display: none;
-  }
-
-  .textContainer {
-    display: none;
-  }
-
-
-  .container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    align-items: center;
-    background-color: #23252B;
-  }
-
-  .headerLogo {
-    display: flex;
-    align-items: center;
-    margin-right: auto; 
-  }
-
-  .headerLogoMobile {
-    display: block;
-  }
-
-  .headerMenu {
-    display: flex;
-    align-items: center;
-    margin-left: 0;
-    color: #FFF;
-  }
-
-  .navLinks {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .navItem {
-    margin-right: 20px;
-    position: relative;
-  }
-
-  .navItem a {
-    font-family: 'Roboto', sans-serif;
-    text-decoration: none;
-    color: #333;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-  }
-
-  .headerActions {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    color: #FFF;
-  }
-
-  .searchContainer {
-    display: flex;
-    align-items: center;
-    /* gap: 16px;  */
-  }
-
-  .ercHeaderSvg {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 24px;
-    color: #FFF;
-    cursor: pointer;
-  }
-
-  .searchContainer {
-    display: flex;
-    align-items: center;
-  }
-
-  .searchButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-
-  .iconBookmark, .headerSvgIcon {
-    fill: #FFF;
-    width: 24px;
-    height: 24px;
-    margin-left: 0px;
-    cursor: pointer;
-  }
-
-  .dropdownMenu {
-    display: flex;
-    flex-direction: column; 
-    position: absolute;
-    background-color: #141519;
-    width: 100%; 
-    top: 180%;
-    left: 0;
-    padding: 0px;
-    z-index: 100;
-  }
-
-  .menuContent {
-    display: flex;
-    flex-direction: column; 
-    width: 100%;
-  }
-
-  .categoriesColumn {
-    display: flex;
-    flex-direction: column;
-    margin-right: 0; 
-    padding: 10px;
-  }
-
-  .categoryTitle {
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 10px;
-  }
-
-  .categoriesColumn a {
-    color: #fff;
-    padding: 6px;
-    text-decoration: none;
-    margin-bottom: 8px;
-  }
-
-  .categoriesColumn a:hover {
-    background-color: #23252B;
-  }
-
-  .divider {
-    border-right: none; 
-    margin: 0;
-    height: 100%;
-  }
-
-  .genresGrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  .genresColumn a {
-    font-family: 'Roboto', sans-serif;
-    color: #fff;
-    padding: 10px 5px;
-    text-decoration: none;
-  }
-
-  .genresColumn a:hover {
-    background-color: #23252B;
-  }
-
-  .genresSection {
-    padding: 14px 0;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .genresTitle {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 200;
-    color: gray;
-    margin-bottom: 6px;
-    text-align: left;
-    padding: 4px 4px;
-    font-size: 14px;
-  }
-
-  .newsDropdown {
-    width: 100%;
-  }
-
-  .newsDropdown a {
-    font-family: 'Roboto', sans-serif;
-  }
-
-  .titleNavegation {
-    color: #FFF;
-  }
-
-  .titleNews {
-    color: #FFF;
-  }
 }
 
 /* Skeleton Loading Styles */
@@ -682,4 +555,28 @@
   100% {
     opacity: 0.6;
   }
+}
+
+.ercLogo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logoIcon {
+  width: 136px;
+  height: 60px;
+  fill: #f47521;
+  transition: fill 0.3s ease;
+}
+
+.ercLogo:hover .logoIcon {
+  fill: #ffffff;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  padding-top: 20px;
+  text-align: center;
 }

@@ -49,7 +49,7 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ anime, episode }) => {
     <div className={styles.headerContainer}>
       <div className={styles.titleRow}>
         <div className={styles.titleContainer}>
-          <Link href={`/series/${anime.id}/${anime.slug}`} key={anime.id}>
+          <Link href={`/series/${anime.publicCode}/${anime.slug}`} key={anime.id}>
             <h1 className={styles.animeTitle}>{anime.name}</h1>
           </Link>
           {anime.score && (

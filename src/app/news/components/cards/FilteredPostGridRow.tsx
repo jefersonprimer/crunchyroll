@@ -29,7 +29,7 @@ const FilteredPostGridRow: React.FC<FilteredPostGridRowProps> = ({
   const displayedPosts = filteredPosts.slice(0, limit);
 
   return (
-    <div className={`${isDark ? "bg-[#333333]" : "bg-[#FFFCF6]"} p-4`}>
+    <div>
       {displayedPosts.length > 0 && (
         <>
           {/* Primeiro post grande */}

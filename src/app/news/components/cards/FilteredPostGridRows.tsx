@@ -30,7 +30,7 @@ const FilteredPostGridRows: React.FC<FilteredPostGridRowsProps> = ({
   const displayedPosts = filteredPosts.slice(0, limit);
 
   return (
-    <div className={`${isDark ? "bg-[#000000]" : "bg-[#FFFCF6]"} p-4`}>
+    <div>
       {displayedPosts.length > 0 && (
         <>
           {/* Exibir posts um abaixo do outro (em rows) */}

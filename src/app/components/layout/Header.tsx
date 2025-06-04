@@ -1,84 +1,21 @@
 "use client";
 
 import styles from "./Header.module.css";
-import logo from "../../../../public/Crunchyroll-Logo.png";
-import cat from "../../../../public/3357695.webp";
-
-import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { Anime } from "@/types/anime";
 import AccountModal from "../modals/AccountModal";
 import AnonymousUserModal from "../modals/AnonymousUserModal";
 import HeaderSkeleton from "./HeaderSkeleton";
-
-interface UserProfile {
-  id: string;
-  email: string;
-  username: string;
-  display_name: string;
-  profile_image_url: string | null;
-  background_image_url: string | null;
-  created_at: string;
-  last_login_at: string;
-}
+import NavigationMenu from "./NavigationMenu";
+import HeaderActions from "./HeaderActions";
+import MobileMenu from "./MobileMenu";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Header() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredAnimes, setFilteredAnimes] = useState<Anime[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isDropdownNavOpen, setDropdownNavOpen] = useState(false);
-  const [isDropdownNewsOpen, setDropdownNewsOpen] = useState(false);
-  const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isAnonymousModalOpen, setIsAnonymousModalOpen] = useState(false);
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const resultsRef = useRef<HTMLUListElement | null>(null);
-  const dropdownNavRef = useRef<HTMLDivElement | null>(null);
-  const dropdownNewsRef = useRef<HTMLDivElement | null>(null);
-  const router = useRouter();
-
-  const checkAuthState = async () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const response = await fetch('http://localhost:3000/api/profile', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setUserProfile(data);
-        } else {
-          setUserProfile(null);
-        }
-      } catch (error) {
-        console.error('Error fetching user profile:', error);
-        setUserProfile(null);
-      }
-    } else {
-      setUserProfile(null);
-    }
-  };
-
-  useEffect(() => {
-    checkAuthState();
-
-    const handleAuthChange = () => {
-      checkAuthState();
-    };
-
-    window.addEventListener('auth-state-changed', handleAuthChange);
-    return () => {
-      window.removeEventListener('auth-state-changed', handleAuthChange);
-    };
-  }, []);
+  const { userProfile, isLoading, checkAuthState } = useAuth();
 
   useEffect(() => {
     const handleResize = () => {
@@ -93,64 +30,6 @@ export default function Header() {
     };
   }, []);
 
-  useEffect(() => {
-    // Simulate loading time
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const toggleHamburgerMenu = () => {
-    setIsHamburgerOpen((prevState) => !prevState);
-  };
-
-  // Função que detecta clique fora do contêiner de resultados ou dropdown
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      (resultsRef.current &&
-        !resultsRef.current.contains(event.target as Node)) ||
-      (dropdownNavRef.current &&
-        !dropdownNavRef.current.contains(event.target as Node)) ||
-      (dropdownNewsRef.current &&
-        !dropdownNewsRef.current.contains(event.target as Node))
-    ) {
-      setIsOpen(false);
-      setDropdownNavOpen(false);
-      setDropdownNewsOpen(false);
-    }
-  };
-
-  // Adiciona e remove o ouvinte de clique fora do container
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  // Funções para alternar a visibilidade dos dropdowns
-  const toggleDropdownNav = () => {
-    setDropdownNavOpen((prevState) => !prevState);
-  };
-
-  const toggleDropdownNews = () => {
-    setDropdownNewsOpen((prevState) => !prevState);
-  };
-
-  // Função para redirecionar para a página de pesquisa ao clicar no ícone de busca
-  const handleSearchClick = () => {
-    router.push("/search");
-  };
-
-  // Função para redirecionar para a página de watchlist ao clicar no ícone de fila
-  const handleWatchlistClick = () => {
-    router.push("/watchlist");
-  };
-
-  // Função para redirecionar para a página de user ao clicar no ícone de fila
   const handleUserClick = async () => {
     await checkAuthState();
     if (userProfile) {
@@ -172,447 +51,35 @@ export default function Header() {
           className={styles.headerLogo}
           style={{ display: isMobileView ? "none" : "block" }}
         >
-          <Link href="/">
-            <div className={styles.logoContainer}>
-              <Image
-                className={styles.logo}
-                src={logo}
-                alt="Logo da Crunchyroll"
-                width={1200}
-                height={720}
-                priority
-              />
-            </div>
+          <Link href="/" className={styles.ercLogo}>
+            <svg 
+              className={styles.logoIcon} 
+              xmlns="http://www.w3.org/2000/svg" 
+              viewBox="0 0 303 52" 
+              data-t="crunchyroll-horizontal-svg" 
+              aria-labelledby="crunchyroll-horizontal-svg" 
+              aria-hidden="true" 
+              role="img"
+            >
+              <path d="M62.1772 26.0647C62.1772 17.3803 69.1876 10.3699 77.872 10.3699C84.2042 10.3699 89.2693 13.8967 91.8466 19.0081L85.425 22.1742C84.0686 19.2794 81.3094 17.1091 77.872 17.1091C73.1676 17.1091 69.3233 20.9996 69.3233 26.0647C69.3233 31.1299 73.1676 35.0667 77.872 35.0667C81.3094 35.0667 84.0686 32.8963 85.425 30.0015L91.8466 33.1676C89.2693 38.279 84.2042 41.8058 77.872 41.8058C69.1876 41.8058 62.1772 34.7954 62.1772 26.0647Z M94.3376 18.7368H101.077V22.3992C102.298 20.0933 104.197 18.7368 106.506 18.7368H108.405V25.3865H106.188C102.976 25.3865 101.484 27.1499 101.484 30.2728V41.3526H94.3376V18.7368Z M110.754 31.6724V18.7368H117.9V31.6724C117.9 34.1603 119.484 35.6986 121.88 35.6986C124.275 35.6986 125.86 34.1603 125.86 31.6724V18.7368H133.006V31.6724C133.006 37.6871 128.301 41.8027 121.88 41.8027C115.458 41.8027 110.754 37.6871 110.754 31.6724Z M136.4 18.7368H143.41V21.4959C144.995 19.6863 147.208 18.5117 149.789 18.5117C155.307 18.5117 158.926 22.538 158.926 28.3275V41.3526H151.78V28.3275C151.78 25.9291 150.017 24.1195 147.665 24.1195C145.312 24.1195 143.549 25.9291 143.549 28.3275V41.3526H136.403V18.7368H136.4Z M178.691 32.1256L184.526 34.8848C182.671 38.9541 178.647 41.8058 173.761 41.8058C167.158 41.8058 161.864 36.5588 161.864 30.0447C161.864 23.5306 167.158 18.2836 173.761 18.2836C178.691 18.2836 182.717 21.1784 184.573 25.2478L178.694 28.0532C177.926 25.9723 176.024 24.5264 173.764 24.5264C170.78 24.5264 168.517 26.968 168.517 30.0447C168.517 33.1214 170.78 35.563 173.764 35.563C175.981 35.563 177.88 34.1603 178.694 32.1256H178.691Z M186.832 10.8231H193.978V21.4528C195.563 19.6432 197.733 18.5117 200.221 18.5117C205.739 18.5117 209.359 22.538 209.359 28.3275V41.3526H202.213V28.3275C202.213 25.9291 200.449 24.1195 198.097 24.1195C195.745 24.1195 193.981 25.9291 193.981 28.3275V41.3526H186.835V10.8231H186.832Z M222.337 32.215L227.131 18.7368H234.277L225.14 42.7091C223.241 47.6848 220.254 49.8089 215.188 49.8089H211.933V43.5661H215.188C217.134 43.5661 218.129 42.7522 218.672 41.3958L209.67 18.7368H217.312L222.334 32.215H222.337Z M236.087 18.7368H242.826V22.3992C244.047 20.0933 245.946 18.7368 248.255 18.7368H250.154V25.3865H247.938C244.725 25.3865 243.233 27.1499 243.233 30.2728V41.3526H236.087V18.7368Z M251.15 30.0447C251.15 23.5769 256.443 18.2836 263.136 18.2836C269.829 18.2836 275.122 23.5769 275.122 30.0447C275.122 36.5125 269.829 41.8058 263.136 41.8058C256.443 41.8058 251.15 36.5588 251.15 30.0447ZM257.8 30.0447C257.8 33.2108 260.152 35.563 263.136 35.563C266.12 35.563 268.472 33.2108 268.472 30.0447C268.472 26.8786 266.12 24.5264 263.136 24.5264C260.152 24.5264 257.8 26.8786 257.8 30.0447Z M286.427 41.3526C280.502 41.3526 278.06 38.7291 278.06 33.1214V10.8231H285.206V33.1214C285.206 34.3884 285.749 35.1129 287.016 35.1129H288.19V41.3557H286.427V41.3526Z M298.367 41.3526C292.442 41.3526 290 38.7291 290 33.1214V10.8231H297.146V33.1214C297.146 34.3884 297.689 35.1129 298.956 35.1129H300.13V41.3557H298.367V41.3526Z M7.81735 28.8732C7.82968 17.2231 17.2848 7.78652 28.9349 7.79885C40.0886 7.81118 49.2108 16.4771 49.9568 27.4366C49.9846 26.968 50 26.4963 50 26.0247C50.0123 12.7684 39.2809 2.01234 26.0247 2.00001C12.7684 1.98768 2.01234 12.7222 2.00001 25.9753C1.98768 39.2316 12.7222 49.9877 25.9753 50C26.5241 50 27.0667 49.9815 27.6062 49.9476C16.5542 49.2724 7.80502 40.0917 7.81735 28.8732Z M40.3846 29.1846C35.8559 29.1815 32.1873 25.5037 32.1935 20.9749C32.1965 17.4235 34.4594 14.4023 37.6193 13.2647C35.1191 11.9453 32.2705 11.1961 29.2432 11.1931C19.2948 11.1838 11.2208 19.2393 11.2116 29.1877C11.2023 39.136 19.2578 47.21 29.2062 47.2193C39.1545 47.2285 47.2285 39.173 47.2378 29.2216C47.2378 28.0933 47.136 26.9927 46.9387 25.9198C45.4405 27.9021 43.0636 29.1846 40.3846 29.1815V29.1846Z" />
+            </svg>
           </Link>
         </div>
 
         <div className={styles.headerMenu}>
-          {/* Links de Navegação */}
           {isMobileView ? (
-            <div className={styles.hamburgerMenu}>
-              {/* */}
-              <div className={styles.hamburgerHeader}>
-                <button
-                  onClick={toggleHamburgerMenu}
-                  className={styles.hamburgerIcon}
-                  aria-expanded={isHamburgerOpen}
-                >
-                  <svg
-                    className="headerSvgIcon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    aria-labelledby="menu-svg"
-                    aria-hidden="true"
-                    role="img"
-                  >
-                    <title id="menu-svg">Menu</title>
-                    <path d="M21 4a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h18zm0 7a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h18zm0 7a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h18z"></path>
-                  </svg>
-                </button>
-                {/*logo mobile*/}
-                <div className={styles.headerLogoMobile}>
-                  <Link href="/">
-                    <div className={styles.logoMobileContainer}>
-                      <Image
-                        src={cat}
-                        alt="Logo do Site"
-                        width={26}
-                        height={26}
-                        priority
-                      />
-                    </div>
-                  </Link>
-                </div>
-              </div>
-              {isHamburgerOpen && (
-                <div className={styles.hamburgerLinks}>
-                  <Link href="/videos/popular">Populares</Link>
-                </div>
-              )}
-            </div>
+            <MobileMenu />
           ) : (
-            <ul className={styles.navLinks}>
-              {/* Navegação com Dropdown */}
-              <li
-                className={`${styles.navItem} ${
-                  isDropdownNavOpen ? styles.activeNews : ""
-                }`}
-                onClick={toggleDropdownNav}
-              >
-                <Link href="#" className={styles.cNavegation}>
-                  <span className={styles.titleNavegation}>Navegar</span>
-                  <div className={`${styles.ercHeaderSvg} menu-icon`}>
-                    <svg
-                      className={styles.headerSvgIcon}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      data-t="dropdown-svg"
-                      aria-labelledby="dropdown-svg"
-                      aria-hidden="true"
-                      role="img"
-                    >
-                      <title id="dropdown-svg">Menu dropdown</title>
-                      <path d="M7 10h10l-5 5z"></path>
-                    </svg>
-                  </div>
-                </Link>
-
-                {/* Dropdown de Navegação */}
-                {isDropdownNavOpen && (
-                  <div ref={dropdownNavRef} className={styles.dropdownMenu}>
-                    <div className={styles.menuContent}>
-                      {/* A-Z */}
-                      <div className={styles.categoriesColumn}>
-                        <Link href="/videos/popular">Populares</Link>
-                        <Link href="/videos/new">Novidades</Link>
-                        <Link href="/videos/alphabetical">A-Z</Link>
-                        <Link href="/calendar">Simulcasts da Temporada</Link>
-                        <Link href="/calendar">Calendário de Lançamentos</Link>
-                        <Link href="/series">Videoclips & Shows</Link>
-                      </div>
-
-                      {/* Divisória entre as colunas */}
-                      <div className={styles.divider}></div>
-
-                      {/* Coluna de Gêneros */}
-                      <div className={styles.genresSection}>
-                        <h3 className={styles.genresTitle}>GÊNEROS</h3>
-                        <div className={styles.genresGrid}>
-                          <div className={styles.genresColumn}>
-                            <Link href="/videos/action">Ação</Link>
-                            <Link href="/videos/adventure">Aventura</Link>
-                            <Link href="/videos/comedy">Comédia</Link>
-                            <Link href="/videos/drama">Drama</Link>
-                            <Link href="/videos/fantasy">Fantasia</Link>
-                          </div>
-                          <div className={styles.genresColumn}>
-                            <Link href="/videos/music">Música</Link>
-                            <Link href="/videos/romance">Romance</Link>
-                            <Link href="/videos/sci-fi">Ficção Científica</Link>
-                            <Link href="/videos/seinen">Seinen</Link>
-                            <Link href="/videos/shoujo">Shoujo</Link>
-                          </div>
-                          <div className={styles.genresColumn}>
-                            <Link href="/videos/shounen">Shounen</Link>
-                            <Link href="/videos/slice-of-life">
-                              Slice-of-Life
-                            </Link>
-                            <Link href="/videos/sports">Esportes</Link>
-                            <Link href="/videos/supernatural">
-                              Sobrenatural
-                            </Link>
-                            <Link href="/videos/thriller">Suspense</Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </li>
-
-              {/* Dropdown de jogos */}
-              <li id="games" className={styles.navItem}>
-                <Link href="/games/index.html">
-                  <span className={styles.titleNews}>Jogos</span>
-                  <div className={`${styles.ercHeaderSvg} menu-icon`}></div>
-                </Link>
-              </li>
-
-              {/* Dropdown de Notícias */}
-              <li
-                className={`${styles.navItem} ${
-                  isDropdownNewsOpen ? styles.activeNews : ""
-                }`}
-                onClick={toggleDropdownNews}
-              >
-                <Link href="#">
-                  <span className={styles.titleNews}>Notícias</span>
-                  <div className={`${styles.ercHeaderSvg} menu-icon`}>
-                    <svg
-                      className={styles.headerSvgIcon}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      data-t="dropdown-svg"
-                      aria-labelledby="dropdown-svg"
-                      aria-hidden="true"
-                      role="img"
-                    >
-                      <title id="dropdown-svg">Menu dropdown</title>
-                      <path d="M7 10h10l-5 5z"></path>
-                    </svg>
-                  </div>
-                </Link>
-
-                {/* Dropdown de Notícias */}
-                {isDropdownNewsOpen && (
-                  <div
-                    ref={dropdownNewsRef}
-                    className={`${styles.dropdownMenu} ${styles.newsDropdown}`}
-                  >
-                    <div className={styles.menuContent}>
-                      <div className={styles.categoriesColumn}>
-                        <Link href="/news">Todas as Notícias</Link>
-                        <Link href="/news/new">Anime Awards</Link>
-                        <Link href="/news/alphabetical">
-                          Evento & Experiências
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </li>
-            </ul>
+            <NavigationMenu />
           )}
         </div>
 
-        {/* Ícones de Busca, Watchlist e Menu de Conta */}
-        <div className={styles.headerActions}>
-          <div className={styles.searchContainer}>
-            <div className={styles.searchIcon}>
-              <button
-                onClick={handleSearchClick}
-                className={styles.searchButton}
-              >
-                <div className={styles.iconBackground}>
-                  {" "}
-                  {/* Adicionando div com a classe de background */}
-                  <div className={styles.ercHeaderSvg}>
-                    <svg
-                      className={styles.headerPrimiumIcon}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      data-t="premium-filled-svg"
-                      aria-labelledby="premium-filled-svg"
-                      aria-hidden="true"
-                      role="img"
-                    >
-                      <title id="premium-filled-svg">Premium</title>
-                      <path d="M2.419 13L0 4.797 4.837 6.94 8 2l3.163 4.94L16 4.798 13.581 13z"></path>
-                    </svg>
-                    <div className={styles.textContainer}>
-                      {" "}
-                      {/* Nova div para os textos */}
-                      <span className={styles.freeTrialText}>TESTE GRÁTIS</span>
-                      <span className={styles.premiumText}>PREMIUM</span>
-                    </div>
-                    {/* Exibe o popup quando passar o mouse */}
-                    <div className={styles.ercUpsellPopup}>
-                      <a
-                        tabIndex={0}
-                        href="https://www.crunchyroll.com/pt-br/premium?referrer=newweb_header_modal&amp;return_url=https%3A%2F%2Fwww.crunchyroll.com%2Fpt-br%2Fcrunchylists#plans"
-                        className={styles.contentWrapper}
-                      >
-                        <div className={styles.ercUpsellPopupBackground}>
-                          <div className={styles.backgroundInner}>
-                            {/* SVGs inseridos como background */}
-                            <svg
-                              className={styles.leftUpStars}
-                              viewBox="0 0 50 36"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <g
-                                transform="translate(2 -7)"
-                                fill="none"
-                                fillRule="evenodd"
-                              >
-                                <path
-                                  stroke="#FAB818"
-                                  strokeWidth="2"
-                                  d="m15.225 33.094.214 1.078-.744.833 1.083-.215.853.733-.237-1.068.73-.855-1.068.24z"
-                                />
-                                <path
-                                  stroke="#FFF"
-                                  strokeWidth="2"
-                                  d="m6.602 16.97.24 1.124-.837.868 1.218-.224.96.764-.267-1.113.822-.891-1.202.25z"
-                                />
-                                <path
-                                  stroke="#FAB818"
-                                  strokeWidth="2.4"
-                                  d="m36.534 15.907.088 1.565-1.215 1.028 1.57-.09 1.059 1.205-.123-1.554 1.201-1.063-1.555.127z"
-                                />
-                              </g>
-                            </svg>
-
-                            <svg
-                              className={styles.rightUpStar}
-                              viewBox="0 0 17 16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <g
-                                transform="translate(-276 -10)"
-                                stroke="#FAB818"
-                                strokeWidth="2"
-                                fill="none"
-                                fillRule="evenodd"
-                              >
-                                <path d="m284.748 17.598.078.375-.273.28.396-.062.313.265-.087-.373.268-.287-.391.07z" />
-                              </g>
-                            </svg>
-
-                            <svg
-                              className={styles.rightBottomLinesStar}
-                              viewBox="0 0 75 79"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <g
-                                transform="translate(-290 -89)"
-                                fill="none"
-                                fillRule="evenodd"
-                              >
-                                <path
-                                  stroke="#FFC94D"
-                                  strokeWidth="1.68"
-                                  opacity=".688"
-                                  d="m343.9 145.118.037.41-.31.28.412-.038.289.306-.047-.406.305-.29-.406.048z"
-                                />
-                                <path
-                                  stroke="#FAB818"
-                                  opacity=".4"
-                                  d="m365.957 85.043-52.5 82.059M361.457 173.102l-66-41.03"
-                                />
-                              </g>
-                            </svg>
-
-                            <svg
-                              className={styles.leftBottomLines}
-                              viewBox="0 0 70 63"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <g
-                                transform="translate(5 -105)"
-                                stroke="#FAB818"
-                                fill="none"
-                                fillRule="evenodd"
-                                opacity=".4"
-                              >
-                                <path d="M-43 73 93.876 192.954M-35.5 158.5l93.301-21.628" />
-                              </g>
-                            </svg>
-                          </div>
-                        </div>
-
-                        <div className={styles.content}>
-                          <div className={styles.headerPremium}>
-                            <span>
-                              <svg
-                                className={styles.headerPremiumIcon}
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                data-t="premium-svg"
-                                aria-labelledby="premium-svg"
-                                aria-hidden="true"
-                                role="img"
-                              >
-                                <title id="premium-svg">
-                                  Apenas para Premium
-                                </title>
-                                <path d="M18.188 17l1.667-5.606-4.26 1.864L12 7.688l-3.596 5.57-4.259-1.864L5.812 17h12.376zm-14.08 1.285L1.614 9.9a1 1 0 0 1 1.36-1.2l4.673 2.045 3.512-5.442a1 1 0 0 1 1.68 0l3.514 5.442 4.674-2.046a1 1 0 0 1 1.36 1.201l-2.494 8.386a1 1 0 0 1-.959.715H5.067a1 1 0 0 1-.959-.715z"></path>
-                              </svg>
-                            </span>
-                            <h3 className={styles.heading}>
-                              Teste Gratuito de 7 Dias
-                            </h3>
-                          </div>
-                          <p className={styles.text}>
-                            O Premium inclui acesso ilimitado a todos os animes,
-                            sem anúncios, com novos lançamentos logo após a
-                            exibição no Japão. Teste hoje mesmo!
-                          </p>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </button>
-            </div>
-
-            <div className={styles.searchIcon}>
-              <button
-                onClick={handleSearchClick}
-                className={styles.searchButton}
-              >
-                <div className={styles.iconBackground}>
-                  {" "}
-                  {/* Adicionando div com a classe de background */}
-                  <div className={styles.ercHeaderSvg}>
-                    <svg
-                      className={styles.headerSvgIcon}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      data-t="search-svg"
-                      aria-labelledby="search-svg"
-                      aria-hidden="false"
-                      role="img"
-                    >
-                      <title id="search-svg">Buscar</title>
-                      <path d="M15.474 14.035l6.235 6.26a1 1 0 1 1-1.418 1.41l-6.228-6.253a7.5 7.5 0 1 1 1.41-1.418zM9.5 15a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11z"></path>
-                    </svg>
-                  </div>
-                </div>
-              </button>
-            </div>
-
-            <Link href="/watchlist">
-              <div className={styles.iconBackground}>
-                {" "}
-                {/* Adicionando div com a classe de background */}
-                <div
-                  className={styles.ercHeaderSvg}
-                  onClick={handleWatchlistClick}
-                >
-                  <svg
-                    className={styles.headerSvgIcon}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    data-t="watchlist-svg"
-                    aria-labelledby="watchlist-svg"
-                    aria-hidden="false"
-                    role="img"
-                  >
-                    <title id="watchlist-svg">Fila</title>
-                    <path d="M17 18.113l-3.256-2.326A2.989 2.989 0 0 0 12 15.228c-.629 0-1.232.194-1.744.559L7 18.113V4h10v14.113zM18 2H6a1 1 0 0 0-1 1v17.056c0 .209.065.412.187.581a.994.994 0 0 0 1.394.233l4.838-3.455a1 1 0 0 1 1.162 0l4.838 3.455A1 1 0 0 0 19 20.056V3a1 1 0 0 0-1-1z"></path>
-                  </svg>
-                </div>
-              </div>
-            </Link>
-
-            <div className={`${styles.iconBackground} ${(isAccountModalOpen || isAnonymousModalOpen) ? styles.active : ''}`}>
-              {" "}
-              {/* Adicionando div com a classe de background */}
-              <div className={styles.ercHeaderSvg} onClick={handleUserClick}>
-                {userProfile?.profile_image_url ? (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <img
-                      src={userProfile.profile_image_url}
-                      alt="Profile"
-                      className={styles.profileImage}
-                      style={{
-                        width: '34px',
-                        height: '34px',
-                        borderRadius: '50%',
-                        objectFit: 'cover'
-                      }}
-                    />
-                    <svg className={styles.headerSvgIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-t="dropdown-svg" aria-labelledby="dropdown-svg" aria-hidden="true" role="img"><path d="M7 10h10l-5 5z"></path></svg>
-                  </div>
-                ) : (
-                  <svg
-                    className={styles.headerSvgIcon}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    data-t="user-settings-svg"
-                    aria-labelledby="user-settings-svg"
-                    aria-hidden="true"
-                    role="img"
-                  >
-                    <title id="user-settings-svg">Menu da conta</title>
-                    <path d="M12 20a6.01 6.01 0 0 1-5.966-5.355L12 12.088l5.966 2.557A6.01 6.01 0 0 1 12 20m0-16c1.654 0 3 1.346 3 3s-1.345 3-2.999 3h-.002A3.003 3.003 0 0 1 9 7c0-1.654 1.346-3 3-3m7.394 9.081l-4.572-1.959A4.997 4.997 0 0 0 17 7c0-2.757-2.243-5-5-5S7 4.243 7 7c0 1.71.865 3.22 2.178 4.122l-4.572 1.959A.999.999 0 0 0 4 14c0 4.411 3.589 8 8 8s8-3.589 8-8c0-.4-.238-.762-.606-.919"></path>
-                  </svg>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
+        <HeaderActions
+          userProfile={userProfile}
+          onUserClick={handleUserClick}
+          isAccountModalOpen={isAccountModalOpen}
+          isAnonymousModalOpen={isAnonymousModalOpen}
+        />
       </div>
       <AccountModal 
         isOpen={isAccountModalOpen}

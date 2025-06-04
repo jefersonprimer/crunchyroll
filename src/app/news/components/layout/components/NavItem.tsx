@@ -30,12 +30,12 @@ const NavItemComponent: React.FC<NavItemProps> = ({
         className={`${isDark ? "text-white" : "text-[#4A4E62]"} ${
           item.subLinks && openDropdown === item.label
             ? isDark
-              ? "bg-[#111827] text-[#E6E5E3]"
+              ? "bg-[#2B2D32] text-[#E6E5E3]"
               : "bg-[#DFDFDD] text-[#008382]"
             : isDark
-            ? "hover:bg-[#111827] hover:text-[#E6E5E3]"
-            : "hover:bg-[#DFDFDD] hover:text-[#008382]"
-        } transition-colors px-4 py-5 flex items-center`}
+            ? "hover:bg-[#2B2D32] hover:text-[#008382]"
+            : "hover:bg-[#EFEDE9] hover:text-[#008382]"
+        } transition-colors px-4 py-[22px] flex items-center`}
       >
         {item.label}
         {item.subLinks && (
@@ -59,7 +59,7 @@ const NavItemComponent: React.FC<NavItemProps> = ({
 
       {item.subLinks && openDropdown === item.label && (
         <div
-          className={`absolute z-10 ${isDark ? "bg-[#4A4E58]" : "bg-[#E6E5E3]"} w-48 shadow-lg left-0`}
+          className={`absolute z-10 ${isDark ? "bg-[#2B2D32]" : "bg-[#E6E5E3]"} w-48 shadow-lg left-0`}
           onMouseEnter={() => handleMouseEnter(item.label)}
           onMouseLeave={handleMouseLeave}
         >
@@ -67,7 +67,9 @@ const NavItemComponent: React.FC<NavItemProps> = ({
             <Link
               key={subLink.label}
               href={subLink.href}
-              className={`block text-sm ${isDark ? "text-white hover:bg-[#333333]" : "text-[#4A4E62] hover:bg-[#FFF]"} hover:text-[#008382] transition-colors px-4 py-4`}
+              className={`block text-sm 
+                ${isDark ? "text-white hover:bg-[#23252B]" : "text-[#4A4E62] hover:bg-[#FFF]"}
+                hover:text-[#008382] transition-colors px-4 py-4`}
             >
               {subLink.label}
             </Link>

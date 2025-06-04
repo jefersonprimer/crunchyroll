@@ -18,20 +18,37 @@ const ArticlesCarousel: React.FC<DestaqueCarouselProps> = ({ posts }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
+    if (displayedPosts.length === 0) return;
+    
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % displayedPosts.length);
-    }, 3000); // Troca a cada 3 segundos
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [displayedPosts.length]);
 
   const prevSlide = () => {
+    if (displayedPosts.length === 0) return;
     setCurrentIndex((prevIndex) => (prevIndex - 1 + displayedPosts.length) % displayedPosts.length);
   };
 
   const nextSlide = () => {
+    if (displayedPosts.length === 0) return;
     setCurrentIndex((prevIndex) => (prevIndex + 1) % displayedPosts.length);
   };
+
+  if (displayedPosts.length === 0) {
+    return (
+      <div>
+        <h1 className={`text-3xl ${isDark ? "text-white" : "text-black"} border-b-4 ${isDark ? "border-[#F47521]" : "border-[#F47521]"} my-4`}>
+          Destaque
+        </h1>
+        <div className={`relative ${isDark ? "bg-[#1c1c1c]" : "bg-[#F0EDE7]"} p-4 flex justify-center items-center`}>
+          <p className={`${isDark ? "text-white" : "text-black"}`}>Nenhum post em destaque no momento.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

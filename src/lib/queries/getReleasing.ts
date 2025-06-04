@@ -5,6 +5,7 @@ export const GET_RELEASING_ANIMES = gql`
   query ReleasingAnimes {
     releasingAnimes {
       id
+      publicCode
       slug
       name
       audioType

@@ -6,6 +6,7 @@ export const GET_DUBBED_ANIMES = gql`
     dubbedAnimes {
       id
       slug
+      publicCode
       name
       audioType
       imagePoster

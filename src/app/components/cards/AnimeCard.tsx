@@ -47,7 +47,7 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
 
   return (
     <div className={styles.card} title={anime.name}>
-      <Link href={`/series/${anime.id}/${anime.slug}`} className={styles.animeLink}>
+      <Link href={`/series/${anime.publicCode}/${anime.slug}`} className={styles.animeLink}>
         <img src={anime.imagePoster} alt={anime.name} className={styles.animeImage} />
         
         {isFavorited && (

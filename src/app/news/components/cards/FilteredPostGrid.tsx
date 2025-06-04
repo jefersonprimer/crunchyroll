@@ -2,22 +2,23 @@ import PostCard from "../post/PostCard";
 import { Post } from "../../types/posts";
 import { useTheme } from "../../context/ThemeContext"; 
 import Link from "next/link";
-import PostCardRows from "../post/PostCardRows";
 
-type FilteredPostGridRowProps = {
+type FilteredPostGridProps = {
   posts: Post[];
   category: string;
   limit: number;
   viewMoreLink?: string;
+  hideImage?: boolean;
 };
 
-const FilteredPostGridRow: React.FC<FilteredPostGridRowProps> = ({
+const FilteredPostGrid: React.FC<FilteredPostGridProps> = ({
   posts,
   category,
   limit,
   viewMoreLink,
+  hideImage = false,
 }) => {
-  const { isDark } = useTheme(); // Pegando o estado do tema
+  const { isDark } = useTheme();
 
   // Filtra os posts pela categoria recebida via props
   const filteredPosts = posts.filter((post) => post.category === category);
@@ -30,19 +31,19 @@ const FilteredPostGridRow: React.FC<FilteredPostGridRowProps> = ({
   const displayedPosts = filteredPosts.slice(0, limit);
 
   return (
-    <div className={`${isDark ? "bg-[#000000]" : "bg-[#FFFCF6]"} `}>
+    <div>
       {displayedPosts.length > 0 && (
         <>
           {/* Primeiro post grande */}
-          <div className="mb-4">
-            <PostCard key={displayedPosts[0].id} post={displayedPosts[0]} />
+          <div>
+            <PostCard key={displayedPosts[0].id} post={displayedPosts[0]} hideImage={hideImage} />
           </div>
 
           {/* Restante dos posts em linha */}
           <div className="flex gap-4">
             {displayedPosts.slice(1).map((post) => (
               <div key={post.id}>
-                <PostCardRows post={post} />
+                <PostCard post={post} hideImage={hideImage} />
               </div>
             ))}
           </div>
@@ -64,4 +65,4 @@ const FilteredPostGridRow: React.FC<FilteredPostGridRowProps> = ({
   );
 };
 
-export default FilteredPostGridRow;
+export default FilteredPostGrid;

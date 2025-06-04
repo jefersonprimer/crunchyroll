@@ -5,6 +5,7 @@ export const GET_LATEST_RELEASES = gql`
   query LatestReleases {
     latestReleases {
         id
+        publicCode
         slug
         name
         audioType

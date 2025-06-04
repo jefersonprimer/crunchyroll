@@ -3,19 +3,19 @@ import { Episode } from "../types/types";
 import { Anime } from "@/types/anime";
 import { extractEpisodeNumber } from "../utils/utils";
 import styles from "./EpisodesModal.module.css";
-import { EpisodeCard } from "@/app/series/[id]/[slug]/components/EpisodeCard";
+import { EpisodeCard } from "@/app/series/[publicCode]/[slug]/components/EpisodeCard";
 
 interface EpisodesModalProps {
   episodes: Episode[];
-  currentEpisodeId: string;
-  anime: Anime; // Adicionando o anime como propriedade necessária
+  currentEpisodePublicCode: string;
+  anime: Anime;
   onClose: () => void;
 }
 
 const EpisodesModal: React.FC<EpisodesModalProps> = ({
   episodes,
-  currentEpisodeId,
-  anime, // Recebendo o anime como prop
+  currentEpisodePublicCode,
+  anime,
   onClose,
 }) => {
   // Get all unique seasons from episodes
@@ -35,9 +35,9 @@ const EpisodesModal: React.FC<EpisodesModalProps> = ({
       : episodes.filter((episode) => episode.season === selectedSeason)
   ).sort((a, b) => {
     if (a.season !== b.season) {
-      return a.season - b.season; // Ordena pelas temporadas (crescente)
+      return a.season - b.season;
     }
-    return extractEpisodeNumber(a.title) - extractEpisodeNumber(b.title); // Ordena pelos episódios (crescente)
+    return extractEpisodeNumber(a.title) - extractEpisodeNumber(b.title);
   });
 
   return (
@@ -82,12 +82,11 @@ const EpisodesModal: React.FC<EpisodesModalProps> = ({
           <div className={styles.episodesGrid}>
             {filteredEpisodes.map((episode) => (
               <div
-                key={episode.id}
+                key={episode.publicCode}
                 className={`${styles.episodeGridItem} ${
-                  episode.id === currentEpisodeId ? styles.currentEpisode : ""
+                  episode.publicCode === currentEpisodePublicCode ? styles.currentEpisode : ""
                 }`}
               >
-                {/* Substituindo o card anterior pelo EpisodeCard */}
                 <EpisodeCard episode={episode} anime={anime} />
               </div>
             ))}

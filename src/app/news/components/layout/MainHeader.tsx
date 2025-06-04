@@ -2,18 +2,18 @@
 
 import Link from "next/link";
 import { useTheme } from "../../context/ThemeContext"; 
-import LoginButton from "./components/buttons/LoginButton";
+import UserProfileButton from "./components/buttons/LoginButton";
 
 const MainHeader = () => {
   const { isDark, toggleTheme } = useTheme(); 
 
   return (
     <header className={`hidden md:block ${isDark ? 'dark-gradient' : 'light-gradient'}`}>
-      <div className="container mx-auto">
-        <div className="flex items-center justify-between 2xl:px-[174px] h-10">
+      <div className="container mx-auto max-w-[1200px] px-4 2xl:px-[174px]">
+        <div className="flex items-center justify-between h-10">
           
           <div>
-            <Link href="/" className={`text-sm font-bold ${isDark ? 'text-[#F47521]' : 'text-[#008382]'}`}>       
+            <Link href="/" className={`text-sm font-bold ${isDark ? 'text-[#F47521]' : 'text-[#008382]'} hover:text-[#2ABDBB]`}>       
               Página principal da Crunchyroll
             </Link>
           </div>
@@ -22,7 +22,7 @@ const MainHeader = () => {
           <div className="hidden md:flex items-center gap-10">
             {/* Premium button */}
             <div className={`rounded-[10px] py-[3px] px-3 cursor-pointer 
-              ${isDark ? 'bg-[#000000] hover:bg-[#0C111C] hover:border-1 border-[#000]' : 'bg-white hover:bg-[#D7D7D7] hover:border-1 border-[#FFF]'}
+              ${isDark ? 'bg-[#000000] hover:bg-[#2B2D32] hover:border-1 border-[#000]' : 'bg-white hover:bg-[#D7D7D7] hover:border-1 border-[#FFF]'}
             `}>
 
               <Link
@@ -50,9 +50,9 @@ const MainHeader = () => {
             {/* Theme button */}
             <button
               onClick={toggleTheme}
-              className={`relative flex h-6 w-12 items-center rounded-full p-1 transition-colors duration-300 ${
+              className={`relative flex cursor-pointer h-6 w-12 items-center rounded-full p-1 transition-colors duration-300 ${
                 isDark ? 'bg-[#FABB18]' : 'bg-[#4A4E58]'
-              } hover:scale-110 hover:transform`}
+              }`}
               aria-label="Toggle theme"
             >
               <div
@@ -89,9 +89,9 @@ const MainHeader = () => {
             </button>
 
 
-            {/* Login button */}
-            <div className={`flex items-center  ${isDark ? 'hover:bg-[#2B2D32]' : 'hover:bg-[#E6E5E3]'}`}>
-            <LoginButton isDark={isDark} />
+            {/* User profile button */}
+            <div className={`flex items-center ${isDark ? 'hover:bg-[#2B2D32]' : 'hover:bg-[#E6E5E3]'}`}>
+              <UserProfileButton isDark={isDark} />
             </div>
           </div>          
         </div>

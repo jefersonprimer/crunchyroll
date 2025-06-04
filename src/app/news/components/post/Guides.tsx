@@ -1,16 +1,14 @@
 "use client";
 
 import useFetchPosts from "../../hooks/useFetchPosts";
-import Destaques from "./Destaques";
-import FilteredPostGrid from "../cards/FilteredPostGrid";
-import ArticlesGrid from "./ArticlesGrid";
+import { useTheme } from "../../context/ThemeContext";
 import Link from "next/link";
-import FilteredPostGridRow from "../cards/FilteredPostGrid";
-import { useTheme } from "../../context/ThemeContext"; // Importando o hook useTheme
+import FilteredPostGrid from "../cards/FilteredPostGrid";
+import FilteredPostGridRows from "../cards/FilteredPostGridRows";
 
 const Guides = () => {
   const { posts, loading, error } = useFetchPosts();
-  const { isDark } = useTheme(); // Pegando o estado do tema
+  const { isDark } = useTheme();
 
   if (loading) {
     return <p className="text-center text-lg">Carregando posts...</p>;
@@ -21,7 +19,15 @@ const Guides = () => {
   }
 
   // Filtra apenas posts da categoria "guias"
-  const guias = posts.filter((post) => post.category === "guias");
+  const guides = posts.filter((post) => post.category === "guides");
+
+  // Sort posts by date (most recent first)
+  const sortedGuias = [...guides].sort((a, b) => 
+    new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
+
+  // Get the 6 most recent posts
+  const recentGuias = sortedGuias.slice(0, 6);
 
   return (
     <div
@@ -30,33 +36,60 @@ const Guides = () => {
       }`}
     >
       <div
-        className={`w-full border-b-4 ${
+        className={`w-full border-b-4 mb-1 ${
           isDark ? "border-[#F47521]" : "border-[#F47521]"
         } flex justify-between items-center`}
       >
-        <h1 className={`text-3xl ${isDark ? "text-white" : "text-black"} my-4`}>
-          Guias
-        </h1>
-        <div className={`text-[#008382] border ${isDark ? 'border-[#008382]' : 'border-[#008382]'}  px-4 py-2 hover:bg-[#008382] hover:text-[#000]`}>
+          <h1 className={`text-3xl font-weight-700 ${isDark ? "text-[#FFFFFF]" : "text-[#000000]"}`}>
+            Guias
+          </h1>
+        <div className={`text-[#008382] border ${isDark ? 'border-[#008382]' : 'border-[#008382]'} mb-2 px-4 py-2 hover:bg-[#008382] hover:text-[#000]`}>
           <Link href="/news/announcements">Todos os Guias</Link>
         </div>
       </div>
 
       {/* Grid responsivo */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-4 mb-8">
-        {/* Segundo guia */}
+        {/* Primeira coluna - Dois posts verticais */}
         <div className="sm:col-span-1 md:col-span-1 lg:col-span-3">
-          <FilteredPostGrid posts={guias} category="guias" limit={1} />
+          {recentGuias[4] && (
+            <div className="mb-4">
+              <FilteredPostGrid posts={[recentGuias[4]]} category="guides" limit={1} />
+            </div>
+          )}
+          {recentGuias[5] && (
+            <div>
+              <FilteredPostGrid posts={[recentGuias[5]]} category="guides" limit={1} />
+            </div>
+          )}
         </div>
 
-        {/* Terceiro guia */}
-        <div className="sm:col-span-1 md:col-span-1 lg:col-span-4 lg:border-x-2 border-[#A0A0A0]">
-          <FilteredPostGrid posts={guias} category="guias" limit={2} />
+        {/* Segunda coluna - Dois posts verticais (mais larga) */}
+        <div className={`sm:col-span-1 md:col-span-1 lg:col-span-4 lg:border-x-2 ${isDark ? "border-[#4A4E58]" : "border-[#A0A0A0]"}`}>
+          {recentGuias[2] && (
+            <div className="mb-4">
+              <FilteredPostGrid posts={[recentGuias[2]]} category="guides" limit={1} />
+            </div>
+          )}
+          {recentGuias[3] && (
+            <div>
+              <FilteredPostGrid posts={[recentGuias[3]]} category="guides" limit={1} hideImage={true} />
+            </div>
+          )}
         </div>
 
-        {/* Primeiro guia destacado */}
+        {/* Terceira coluna - Dois posts verticais (primeiro normal, segundo em row) */}
         <div className="sm:col-span-1 md:col-span-1 lg:col-span-5">
-          <FilteredPostGridRow posts={guias} category="guias" limit={1} />
+          {recentGuias[0] && (
+            <div className="mb-4">
+              <FilteredPostGrid posts={[recentGuias[0]]} category="guides" limit={1} />
+            </div>
+          )}
+          {recentGuias[1] && (
+            <div>
+              <FilteredPostGridRows posts={[recentGuias[1]]} category="guides" limit={1} />
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -25,10 +25,12 @@ export interface AnimeInfo {
 
 export interface Episode {
   id: string;
+  publicCode: string;
   slug: string;
   animeId: string;
   episodeNumber: number;
   seasonNumber: number;
+  season: number;
   title: string;
   synopsis: string;
   duration: number;

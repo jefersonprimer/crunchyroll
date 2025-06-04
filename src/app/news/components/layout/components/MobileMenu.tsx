@@ -7,6 +7,7 @@ import { useTheme } from "../../../context/ThemeContext";
 
 interface MobileMenuProps {
   isOpen: boolean;
+  isDark: boolean;
   navItems: NavItem[];
   openMobileAccordion: string | null;
   toggleMobileAccordion: (label: string) => void;
@@ -15,12 +16,13 @@ interface MobileMenuProps {
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ 
   isOpen, 
+  isDark, 
   navItems, 
   openMobileAccordion, 
   toggleMobileAccordion,
   onClose,
 }) => {
-  const { isDark, toggleTheme } = useTheme();
+  const { toggleTheme } = useTheme();
   
   if (!isOpen) return null;
 

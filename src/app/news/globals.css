@@ -27,11 +27,11 @@ body {
 
 /* globals.css */
 .light-gradient {
-  background: linear-gradient(to right, #FFFCF6, #DDDDDC, #D7D7D7);
+  background: linear-gradient(to right, #FFFCF6, #FFFCF6, #EFEDE9, #D9D9D8, #D7D7D7, #D7D7D7);
 }
 
 .dark-gradient {
-  background: linear-gradient(to right, #1F2937, #111827, #000000);
+  background: linear-gradient(to right, #000000, #000000, #1F2125, #2B2D32, #2B2D32, #2B2D32, #2B2D32);
 }
 
 .fixed-header {
@@ -47,7 +47,7 @@ body {
   position: sticky;
   top: 40px; /* Altura normal do MainHeader */
   width: 100%;
-  z-index: 1000;
+  z-index: 999;
   background-color: var(--background-color, white);
 }
 

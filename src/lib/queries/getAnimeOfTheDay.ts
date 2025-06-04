@@ -5,6 +5,7 @@ export const GET_ANIME_OF_DAY = gql`
   query {
     animeOfTheDay {
       id
+      publicCode
       slug
       name
       audioType

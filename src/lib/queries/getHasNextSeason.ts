@@ -5,6 +5,7 @@ export const GET_HAS_NEXT_SEASON = gql`
   query NextSeasonAnimes {
     nextSeasonAnimes {
       id
+      publicCode
       slug
       name
       audioType

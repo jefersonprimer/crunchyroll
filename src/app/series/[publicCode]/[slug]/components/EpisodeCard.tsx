@@ -52,7 +52,7 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime }) => {
 
   return (
     <Link
-      href={hasVideoUrl ? `/watch/${episode.id}/${episode.slug}` : "#"}
+      href={hasVideoUrl ? `/watch/${episode.publicCode}/${episode.slug}` : "#"}
       className={`${styles.episodeCard} ${!hasVideoUrl ? styles.disabled : ""}`} title={episode.title}
       onClick={(e) => {
         if (!hasVideoUrl) {

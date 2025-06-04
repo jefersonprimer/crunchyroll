@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useHistory } from '@/app/contexts/HistoryContext';
-import { EpisodeCard } from '@/app/series/[id]/[slug]/components/EpisodeCard';
+import { EpisodeCard } from '@/app/series/[publicCode]/[slug]/components/EpisodeCard';
 import styles from './HistoryCarousel.module.css';
 
 const HistoryCarousel = () => {

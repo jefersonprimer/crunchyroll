@@ -5,6 +5,7 @@ export const GET_POPULAR_ANIMES = gql`
   query PopularAnimes {
     popularAnimes {
       id
+      publicCode
       slug
       name
       audioType
