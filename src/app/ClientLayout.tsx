@@ -19,11 +19,10 @@ export default function ClientLayout({
 }) {
   return (
     <ApolloProvider client={client}>
-      <Header />
       <div>   {/* className="pt-[60px]" */}
         <ListsProvider>{children}</ListsProvider>
       </div>
-      <Footer />
+      
     </ApolloProvider>
   );
 } 

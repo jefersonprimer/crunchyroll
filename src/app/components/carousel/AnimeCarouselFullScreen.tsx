@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import MaturityRating from "../elements/MaturityRating";
 import { useFavorites } from "../../contexts/FavoritesContext";
+import AnimeCarouselFullScreenSkeleton from "./AnimeCarouselFullScreenSkeleton";
 
 // GraphQL query to fetch animes with thumbnails
 import { GET_HAS_THUMBNAIL } from "../../../lib/queries/getHasThumbnail";
@@ -134,7 +135,7 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
   };
 
   if (animesLoading) {
-    return <Loading />;
+    return <AnimeCarouselFullScreenSkeleton />;
   }
 
   if (animesError) {

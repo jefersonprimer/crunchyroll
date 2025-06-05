@@ -9,6 +9,8 @@ import AnimeCard from './components/AnimeCard';
 import styles from './styles.module.css';
 import { Anime } from '@/types/anime';
 import { FavoritesProvider } from '@/app/contexts/FavoritesContext';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
 
 export default function Search() {
   const { data, loading, error } = useQuery(GET_ANIMES);
@@ -50,6 +52,7 @@ export default function Search() {
 
   return (
     <FavoritesProvider>
+      <Header/>
       <div className={styles.searchPage}>
         <Head>
           <title>{searchTerm ? `Você pesquisou por "${searchTerm}" - Bakashi TV` : 'Pesquisa de Animes - Bakashi TV'}</title>
@@ -119,6 +122,7 @@ export default function Search() {
           )}
         </div>
       </div>
+      <Footer/>
     </FavoritesProvider>
   );
 }

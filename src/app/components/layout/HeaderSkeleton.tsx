@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logo from "../../../../public/Crunchyroll-Logo.png";
+const logo = "/Crunchyroll-Logo.png";
 
 export default function HeaderSkeleton() {
   return (
@@ -12,6 +12,8 @@ export default function HeaderSkeleton() {
               className="w-[120px] h-[60px] brightness-0"
               src={logo}
               alt="Logo da Crunchyroll"
+              width={120}
+              height={60}
               priority
             />
           </div>

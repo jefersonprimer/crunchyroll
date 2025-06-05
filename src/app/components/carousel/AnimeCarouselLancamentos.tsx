@@ -1,16 +1,16 @@
 "use client";
 
-import Loading from "@/app/loading";
 import { useQuery } from '@apollo/client';
 import { GET_RELEASING_ANIMES } from '@/lib/queries/getReleasing';
 
 import { Anime } from "@/types/anime";
 import AnimeCarousel from "./AnimeCarousel";
+import AnimeCarouselLancamentosSkeleton from "./AnimeCarouselLancamentosSkeleton";
 import styles from "./AnimeCarouselLancamentos.module.css";
 
 interface AnimeCarouselLancamentosProps {
   itemsPerPage?: number;
-  className?: string; // Propriedade opcional
+  className?: string;
 }
 
 const AnimeCarouselLancamentos: React.FC<AnimeCarouselLancamentosProps> = ({
@@ -19,9 +19,8 @@ const AnimeCarouselLancamentos: React.FC<AnimeCarouselLancamentosProps> = ({
   const { loading, error, data } = useQuery(GET_RELEASING_ANIMES);
   const releasingAnimes = data?.releasingAnimes || [];
 
-
   if (loading) {
-    return <Loading/>;
+    return <AnimeCarouselLancamentosSkeleton itemsPerPage={itemsPerPage} />;
   }
 
   if (error) {

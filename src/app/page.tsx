@@ -1,9 +1,10 @@
 "use client";
 
-import React, { memo } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { FavoritesProvider, useFavorites } from "./contexts/FavoritesContext";
 import { ListsProvider } from "./contexts/ListsContext";
 import { HistoryProvider, useHistory } from "./contexts/HistoryContext";
+import PageLoading from "./components/loading/PageLoading";
 
 import AnimeCarouselFullScreen from "./components/carousel/AnimeCarouselFullScreen";
 import AnimeCarouselLancamentos from "./components/carousel/AnimeCarouselLancamentos";
@@ -20,6 +21,8 @@ import FavoritesCarousel from "./components/carousel/FavoritesCarousel";
 import HistoryCarousel from "./components/carousel/HistoryCarousel";
 import { ApolloProvider } from "@apollo/client";
 import client from "@/lib/apollo-client";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
 
 // Memoize the HistorySection component
 const HistorySection = memo(() => {
@@ -45,10 +48,26 @@ FavoritesSection.displayName = 'FavoritesSection';
 
 // Componente principal
 const HomePage = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time for demonstration
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <PageLoading />;
+  }
+
   return (
     <ApolloProvider client={client}>
       <FavoritesProvider>
         <ListsProvider>
+          <Header />
           <AnimeCarouselFullScreen />
           <AnimeCarouselLancamentos className="relative z-[2] mt-[-25vh] backdrop-blur-sm" />
 
@@ -118,6 +137,7 @@ const HomePage = () => {
             </a>
           </div>
         </div>
+        <Footer />
       </FavoritesProvider>
     </ApolloProvider>
   );

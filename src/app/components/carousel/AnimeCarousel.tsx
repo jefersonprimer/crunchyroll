@@ -2,6 +2,7 @@
 
 import styles from "./AnimeCarousel.module.css";
 import AnimeCard from "../cards/AnimeCard";
+import AnimeCardSkeleton from "../cards/AnimeCardSkeleton";
 import { Anime } from "@/types/anime";
 
 import { useRef, useState, useEffect } from "react";
@@ -12,9 +13,10 @@ import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons
 interface AnimeCarouselProps {
   animes: Anime[];
   itemsPerPage?: number;
+  loading?: boolean;
 }
 
-const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes }) => {
+const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -79,14 +81,23 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes }) => {
       )}
 
       <div className={styles.flexContainer} ref={containerRef}>
-        {animes.map((anime, index) => (
-          <div
-            key={anime.id}
-            className={`${styles.card} ${visibleCards.has(index) ? styles.fullyVisible : ''}`}
-          >
-            <AnimeCard anime={anime} />
-          </div>
-        ))}
+        {loading ? (
+          // Show 5 skeleton cards while loading
+          Array.from({ length: 5 }).map((_, index) => (
+            <div key={`skeleton-${index}`} className={styles.card}>
+              <AnimeCardSkeleton />
+            </div>
+          ))
+        ) : (
+          animes.map((anime, index) => (
+            <div
+              key={anime.id}
+              className={`${styles.card} ${visibleCards.has(index) ? styles.fullyVisible : ''}`}
+            >
+              <AnimeCard anime={anime} />
+            </div>
+          ))
+        )}
       </div>
 
       {shouldShowArrows && canScrollRight && (

@@ -1,0 +1,42 @@
+.skeleton {
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.titleSkeleton {
+  composes: skeleton;
+  height: 32px;
+  width: 40%;
+  margin-bottom: 16px;
+}
+
+.subtitleSkeleton {
+  composes: skeleton;
+  height: 20px;
+  width: 40%;
+  margin-bottom: 24px;
+}
+
+.cardsContainer {
+  display: flex;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.cardSkeleton {
+  composes: skeleton;
+  flex: 0 0 calc(20% - 16px);
+  aspect-ratio: 2/3;
+  min-width: 200px;
+} 

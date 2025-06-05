@@ -19,7 +19,7 @@ export default function MobileMenu() {
 
       <Link href="/" className={styles.mobileLogo}>
         <img
-          src="/images/crunchyroll-logo.png"
+          src="/Crunchyroll-Logo.png"
           alt="Crunchyroll"
           className={styles.logoImage}
         />
