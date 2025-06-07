@@ -54,7 +54,7 @@ export default function NavigationMenu() {
         <Link href="/videos/popular" className={styles.navLink}>Populares</Link>
       </li>
       <li className={styles.navItem}>
-        <Link href="/calendar" className={styles.navLink}>Simulcasts</Link>
+        <Link href="/simulcasts" className={styles.navLink}>Simulcasts</Link>
       </li>
       <li className={styles.navItem}>
         <div
