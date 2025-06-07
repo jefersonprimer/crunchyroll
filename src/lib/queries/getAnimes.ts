@@ -17,6 +17,7 @@ export const GET_ANIMES = gql`
       synopsis
       rating
       score
+      airingDay
       audioLanguages
       subtitles
       contentSources{

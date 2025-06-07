@@ -51,7 +51,7 @@ const oldAnimeCarousel: React.FC<oldAnimeCarouselProps> = ({
           .map((anime) => (
             <Link className={styles.animeCard} href={`/series/${anime.id}/${anime.slug}`} key={anime.id}>
               <img
-                src={anime.image}
+                src={anime.imagePoster}
                 alt={anime.name}
                 className={styles.animeImage}
               />
@@ -73,10 +73,10 @@ const oldAnimeCarousel: React.FC<oldAnimeCarouselProps> = ({
                 </div>
 
                 <p className={`${styles.infoText} ${styles.seasonText}`}>
-                  Season: {anime.season}
+                  Temporada: {anime.seasons?.[0]?.seasonNumber ?? "N/A"}
                 </p>
                 <p className={`${styles.infoText} ${styles.episodesText}`}>
-                  Episódios: {anime.episodes}
+                  Episódios: {anime.totalEpisodes ?? "N/A"}
                 </p>
                 <p className={`${styles.infoText} ${styles.synopsis}`}>
                   {anime.synopsis}

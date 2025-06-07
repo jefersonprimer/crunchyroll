@@ -9,7 +9,7 @@ import HeaderSkeleton from "./HeaderSkeleton";
 import NavigationMenu from "./NavigationMenu";
 import HeaderActions from "./HeaderActions";
 import MobileMenu from "./MobileMenu";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/app/hooks/useAuth";
 
 export default function Header() {
   const [isMobileView, setIsMobileView] = useState(false);

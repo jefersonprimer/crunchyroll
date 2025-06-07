@@ -14,6 +14,8 @@ import MaturityRating from "@/app/components/elements/MaturityRating";
 import { ClientMetadata } from "./components/ClientMetadata";
 import PremiumUpsell from "./components/PremiumUpsell";
 import HeroSection from "./components/HeroSection";
+import Header from "@/app/components/layout/Header";
+import Footer from "@/app/components/layout/Footer";
 
 const Page = () => {
   const { slug } = useParams();
@@ -70,6 +72,7 @@ const Page = () => {
 
   return (
     <div className={styles.container}>
+      <Header/>
       <ClientMetadata
         title={`Assistir ${anime.name}`}
         description={`Assista ${anime.synopsis?.substring(0, 160) || ''}...`}
@@ -97,6 +100,7 @@ const Page = () => {
           </FavoritesProvider>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

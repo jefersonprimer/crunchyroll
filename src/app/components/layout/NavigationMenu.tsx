@@ -31,30 +31,46 @@ export default function NavigationMenu() {
     };
   }, [setActiveDropdown]);
 
+  useEffect(() => {
+    if (activeDropdown) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = '17px'; // Compensate for scrollbar width
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }
+  }, [activeDropdown]);
+
   const handleButtonClick = () => {
-    setActiveDropdown(activeDropdown === "navegar" ? null : "navegar");
+    setActiveDropdown(activeDropdown === "categorias" ? null : "categorias");
   };
 
   return (
     <ul className={styles.navList}>
       <li className={styles.navItem}>
+        <Link href="/videos/new" className={styles.navLink}>Novidades</Link>
+      </li>
+      <li className={styles.navItem}>
+        <Link href="/videos/popular" className={styles.navLink}>Populares</Link>
+      </li>
+      <li className={styles.navItem}>
+        <Link href="/calendar" className={styles.navLink}>Simulcasts</Link>
+      </li>
+      <li className={styles.navItem}>
         <div
           ref={buttonRef}
-          className={`${styles.navLink} ${activeDropdown === "navegar" ? styles.activeNews : ""}`}
+          className={`${styles.navLink} ${activeDropdown === "categorias" ? styles.activeNews : ""}`}
           onClick={handleButtonClick}
         >
-          Navegar
+          Categorias
           <DropdownIcon />
         </div>
-        {activeDropdown === "navegar" && (
+        {activeDropdown === "categorias" && (
           <div className={styles.dropdownMenu} ref={dropdownRef}>
             <div className={styles.navDropdown}>   
               <div className={styles.dropdownColumn}>
-                <Link href="/videos/popular" className={styles.dropdownItem}>Populares</Link>
-                <Link href="/videos/new" className={styles.dropdownItem}>Novidades</Link>
-                <Link href="/videos/alphabetical" className={styles.dropdownItem}>A-Z</Link>
-                <Link href="/calendar" className={styles.dropdownItem}>Simulcasts da Temporada</Link>
-                <Link href="/calendar" className={styles.dropdownItem}>Calendário de Lançamentos</Link>
+                <Link href="/videos/alphabetical" className={styles.dropdownItem}>Explorar Tudo (A-Z)</Link>
+                <Link href="/simulcastcalendar" className={styles.dropdownItem}>Calendário de Lançamentos</Link>
                 <Link href="/series" className={styles.dropdownItem}>Videoclips & Shows</Link>
               </div>
               <div className={styles.dropdownColumn}>
@@ -81,10 +97,12 @@ export default function NavigationMenu() {
           </div>
         )}
       </li>
+      <div className={styles.navSeparator} />
       <li className={styles.navItem}>
-        <Link href="/games" className={styles.navLink}>
-          Jogos
-        </Link>
+        <Link href="/games" className={styles.navLink}>Jogos</Link>
+      </li>
+      <li className={styles.navItem}>
+        <Link href="/store" className={styles.navLink}>Loja</Link>
       </li>
       <NewsMenu />
     </ul>

@@ -10,7 +10,7 @@ const NotFound: React.FC = () => {
   const router = useRouter();
 
   const handleGoBack = () => {
-    router.push("/pt-br");
+    router.push("/");
   };
 
   return (

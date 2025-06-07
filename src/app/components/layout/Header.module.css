@@ -4,15 +4,18 @@
   position: sticky;
   top: 0;
   z-index: 1000;
+  width: 100vw;
+  left: 0;
+  right: 0;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   padding: 0 1rem;
+  gap: 1rem;
   display: flex;
   align-items: center;
-  gap: 2rem;
 }
 
 .headerLogo {
@@ -23,6 +26,7 @@
   flex: 1;
   display: flex;
   justify-content: flex-start;
+  
 }
 
 .logoContainer {
@@ -80,23 +84,34 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 0px;
+  gap: 0;
+  height: 60px;
 }
 
 .navItem {
   position: relative;
+  height: 100%;
+}
+
+.navSeparator {
+  width: 1px;
+  height: 20px;
+  background-color: #4A4E58;
+  margin: 0 4px;
 }
 
 .navLink {
   display: flex;
   align-items: center;
-  gap: 0px;
+  gap: 2px;
   color: #DADADA;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 16px;
   cursor: pointer;
-  padding: 1rem;
-  height: 60px;
+  padding: 0 1rem;
+  height: 100%;
+  white-space: nowrap;
+  font-weight: 500;
 }
 
 .dropdownIcon {
@@ -561,6 +576,7 @@
   display: flex;
   align-items: center;
   text-decoration: none;
+  padding: 0px;
 }
 
 .logoIcon {

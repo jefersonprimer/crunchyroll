@@ -6,6 +6,8 @@ import Fila from '../Fila/page'; // Componente da Fila
 import CrunchyList from '../crunchylists/page'; // Componente da Crunchylist
 import History from '../history/page'; // Componente do Histórico
 import styles from './styles.module.css'; // Importando o arquivo de estilos
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
 
 const WatchlistPage = () => {
   const [selectedTab, setSelectedTab] = useState('fila'); // Estado para controlar qual aba está selecionada
@@ -34,6 +36,7 @@ const WatchlistPage = () => {
 
   return (
     <FavoritesProvider>
+      <Header/>
       <div className={styles.appLayoutContent}>
         <div className={styles.pageWrapper}>
           <div className={styles.contentWrapper}>
@@ -73,6 +76,7 @@ const WatchlistPage = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </FavoritesProvider>
   );
 };
