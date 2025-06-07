@@ -72,7 +72,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         className={styles.heroImage}
       >
         <div className={styles.heroContent}>
-          <div style={{ width: '283px', height: '151px' }}>
+          <div style={{ width: '283px', height: '151px', marginBottom: '80px' }}>
             <img src={anime.imageLogo} alt={anime.name} />
           </div>
           <div className={styles.metaInfoContainer}>
@@ -223,55 +223,53 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         </div>
       </div>
 
-      <div className={styles.synopsisContainer}>
-        <div
-          className={`${styles.synopsisWrapper} ${
-            expandedSynopsis ? styles.expanded : ""
-          }`}
-        >
-          <div className={styles.synopsisColumns}>
-            <div className={styles.synopsisColumn}>
-              <p>{anime.synopsis}</p>
-            </div>
-            <div className={styles.synopsisColumn}>
-              <div className={styles.metadata}>
-                <div className={styles.metadataItem}>
-                  <strong>Áudio:</strong>
-                  <span>
-                    {Array.isArray(anime.audioLanguages) 
-                      ? anime.audioLanguages.join(', ')
-                      : anime.audioLanguages || "Não disponível"}
-                  </span>
+      <div className={styles.synopsisContainerMain}>
+        <div className={styles.synopsisContainer}>
+          <div
+            className={`${styles.synopsisWrapper} ${
+              expandedSynopsis ? styles.expanded : ""
+            }`}
+          >
+            <div className={styles.synopsisColumns}>
+              <div className={styles.synopsisColumn}>
+                <p>{anime.synopsis}</p>
+              </div>
+              <div className={styles.synopsisColumn}>
+                <div className={styles.metadata}>
+                  <div className={styles.metadataItem}>
+                    <strong>Áudio:</strong>
+                    <span>
+                      {Array.isArray(anime.audioLanguages)
+                        ? anime.audioLanguages.join(', ')
+                        : anime.audioLanguages || "Não disponível"}
+                    </span>
+                  </div>
+                  <div className={styles.metadataItem}>
+                    <strong>Legendas:</strong>
+                    <span>{anime.subtitles || "Não disponível"}</span>
+                  </div>
+                  <div className={styles.metadataItem}>
+                    <strong>Classificação de Conteúdo:</strong>
+                    <SmallMaturityRating rating={Number(anime.rating) || 0} /> {anime.contentAdvisory}
+                  </div>
+                  <div className={styles.metadataItem}>
+                    <strong>Gêneros:</strong>
+                    <span> {anime.genres?.map(g => g.name).join(", ") || "Não disponível"}</span>
+                  </div>
+                  <div className={styles.metadataItem}>
+                    <span> {anime.contentSources?.[0]?.copyright || "Não disponível"} </span>
+                  </div>
                 </div>
-                <div className={styles.metadataItem}>
-                  <strong>Legendas:</strong>
-                  <span>{anime.subtitles || "Não disponível"}</span>
-                </div>
-
-                <div className={styles.metadataItem}>
-                  <strong>Classificação de Conteúdo:</strong>
-                  <SmallMaturityRating rating={Number(anime.rating) || 0} /> {anime.contentAdvisory}
-                </div>
-
-                <div className={styles.metadataItem}>
-                  <strong>Gêneros:</strong>
-                  <span> {anime.genres?.map(g => g.name).join(", ") || "Não disponível"}</span>
-                </div>
-
-                <div className={styles.metadataItem}>
-                  <span> {anime.contentSources?.[0]?.copyright || "Não disponível"} </span>
-                </div>
-
               </div>
             </div>
           </div>
+          <button
+            className={styles.moreDetailsButton}
+            onClick={toggleSynopsis}
+          >
+            {expandedSynopsis ? "Mostrar menos" : "Mostrar mais"}
+          </button>
         </div>
-        <button
-          className={styles.moreDetailsButton}
-          onClick={toggleSynopsis}
-        >
-          {expandedSynopsis ? "Mostrar menos" : "Mostrar mais"}
-        </button>
       </div>
 
       {showModal && (

@@ -36,6 +36,7 @@ export const GET_ANIMES = gql`
         seasonName
         seasonNumber
         totalEpisodes
+        season
       }
       episodes {
         id

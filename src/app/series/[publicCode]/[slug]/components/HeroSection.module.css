@@ -69,7 +69,7 @@
   background: inherit;
   background-size: cover;
   background-position: center;
-  filter: blur(100px);
+  filter: blur(150px);
   z-index: -1;
 }
 
@@ -82,15 +82,24 @@
   bottom: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.1) 0%,
-    rgba(0, 0, 0, 0.5) 50%,
-    rgba(0, 0, 0, 0.2) 100%
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.1) 20%,
+    rgba(0, 0, 0, 0.15) 40%,
+    rgba(0, 0, 0, 0.3) 60%,
+    rgba(0, 0, 0, 0.5) 80%,
+    rgba(0, 0, 0, 0.9) 100%
   ),
   linear-gradient(
     to right,
-    rgba(0, 0, 0, 0.5) 0%,
-    rgba(0, 0, 0, 0.2) 50%,
-    rgba(0, 0, 0, 0.5) 100%
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.7) 15%,
+    rgba(0, 0, 0, 0.5) 25%,
+    rgba(0, 0, 0, 0.2) 35%,
+    rgba(0, 0, 0, 0.05) 50%,
+    rgba(0, 0, 0, 0.2) 65%,
+    rgba(0, 0, 0, 0.5) 75%,
+    rgba(0, 0, 0, 0.7) 85%,
+    rgba(0, 0, 0, 0.9) 100%
   );
   z-index: 0;
 }
@@ -101,6 +110,7 @@
   text-align: left; 
   color: white;
   padding: 60px;
+  margin-bottom: 120px;
 }
 
 .heroText h1 {
@@ -196,7 +206,7 @@
   display: flex;
   align-items: center;
   gap: 16px; 
-  margin-top: 16px;
+  margin-top: 30px;
   flex-wrap: wrap; 
 }
 
@@ -326,14 +336,20 @@
   fill: currentColor;
 }
 
-.synopsisContainer {
+.synopsisContainerMain {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 1));
-  padding: 0px 40px;
-  padding-bottom: 20px;
-  margin: 20px 0;
+  width: 100%;
+  height: 100%;
   position: relative;
-  margin-top: -8vh; 
-  border-bottom: 1px solid #23252B;
+  z-index: 1;
+}
+
+.synopsisContainer {
+  padding-bottom: 40px;
+  margin: 0px 60px;
+  position: relative;
+  margin-top: -14vh; 
+  border-bottom: 2px solid #23252B;
 }
 
 .synopsisWrapper {
@@ -359,7 +375,7 @@
 
 .synopsisColumn {
   flex: 1;
-  padding: 15px;
+  
   border-radius: 8px;
 }
 
@@ -398,10 +414,9 @@
 .moreDetailsButton {
   position: absolute;
   bottom: 0px;
-  left: 35px;
   color: #FF6408;
   border: none;
-  padding: 8px 16px;
+  padding: 8px 0px;
   cursor: pointer;
   transition: background-color 0.2s;
   display: inline-block; 

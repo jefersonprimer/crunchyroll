@@ -46,7 +46,7 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
           >
             <Link
               title={anime.name}
-              href={`/series/${anime.id}/${anime.slug}`}
+              href={`/series/${anime.publicCode}/${anime.slug}`}
              
             >
               {/* Imagem do anime */}
