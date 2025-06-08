@@ -119,6 +119,21 @@
   font-size: 15px;
 }
 
+/* Play Button (SEMPRE VISÍVEL) */
+.playButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
 .playButton {
   background: none;
   border: none;
@@ -327,21 +342,6 @@
   background-size: cover;
   background-position: center;
   position: relative;
-}
-
-/* Play Button (SEMPRE VISÍVEL) */
-.playButton {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
 }
 
 /* Overlay (aparece no hover) */

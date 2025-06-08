@@ -60,6 +60,7 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ anime, episode }) => {
                 viewBox="0 0 24 24"
                 className={styles.starIcon}
                 aria-hidden="true"
+                fill="#DADADA"
               >
                 <path d="M15.266 8.352L11.988 1.723 8.73 8.352 1.431 9.397 6.71 14.528 5.465 21.849 11.999 18.39 18.544 21.85 17.285 14.528 22.57 9.398z" />
               </svg>

@@ -1,27 +1,29 @@
 .animeItem {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 280px;
+  width: 252px;
+  height: 261px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
+  padding: 10px;
 }
 
 .animeItem:hover {
-  transform: translateY(-4px);
+  background-color: #23252B;
 }
 
 .imageContainer {
-  width: 100%;
-  height: 130px;
+  width: 231px;
+  height: 142px;
   position: relative;
+  margin: 0 auto;
 }
 
 .ratingContainer {
   position: absolute;
-  top: 8px;
-  left: 8px;
+  top: 4px;
+  left: 4px;
   z-index: 1;
 }
 
@@ -35,7 +37,8 @@
   padding: 1rem 0px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  
+  height: 120px;
 }
 
 .name {
@@ -58,26 +61,45 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 0.5rem;
+  margin-top: 2rem;
 }
 
 .removeButton {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.2s ease;
 }
 
-.removeButton:hover {
-  transform: scale(1.1);
+.trashIcon {
+  width: 24px;
+  height: 24px;
+  color: #A0A0A0;
 }
 
-.trashIcon {
-  width: 20px;
-  height: 20px;
-  color: #a0a0a0;
+.trashIcon:hover {
+  color: #FFFFFF;
+}
+
+.favoriteIcon {
+  width: 24px;
+  height: 24px;
+  color: #A0A0A0;
+}
+
+.favoriteIcon:hover {
+  color: #FFFFFF;
+}
+
+.favoriteIconFilled {
+  width: 24px;
+  height: 24px;
+  color: #A0A0A0;
 } 
+
+.favoriteIconFilled:hover {
+  color: #FFFFFF;
+}

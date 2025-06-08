@@ -2,7 +2,7 @@
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0;
 }
 
 .seasonHeader {
@@ -29,8 +29,8 @@
 .cardLabel {
   font-size: 0.875rem;
   color: #FFFFFF;
-  margin: 0;
-  padding-bottom: 1rem;
+  margin: 5px;
+  font-weight: bold;
 }
 
 .cardLink {
@@ -41,6 +41,11 @@
 .cardContainer {
   display: flex;
   gap: 1rem;
+  padding: 5px;
+}
+
+.cardContainer:hover {
+  background-color: #23252B;
 }
 
 .imageWrapper {
@@ -52,15 +57,18 @@
   flex-shrink: 0;
 }
 
+.imageWrapper > :first-child {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  z-index: 1;
+}
+
 .episodeImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
-}
-
-.cardLink:hover .episodeImage {
-  transform: scale(1.03);
 }
 
 /* Badges */
@@ -78,6 +86,39 @@
   color: #fff;
   padding: 0.25rem 0.4rem;
   font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cardLink .durationBadge {
+  opacity: 1;
+}
+
+.playIconContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 38px;
+  height: 38px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cardLink .playIconContainer {
+  opacity: 1;
+}
+
+.playIcon {
+  width: 24px;
+  height: 24px;
+  fill: #FFFFFF;
 }
 
 /* Play button */
@@ -88,19 +129,13 @@
   transform: translate(-50%, -50%);
   width: 32px;
   height: 32px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #101418;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   transition: opacity 0.3s ease;
-}
-
-.playIcon {
-  color: #000;
-  font-size: 0.875rem;
-  margin-left: 2px;
 }
 
 .cardLink:hover .playButton {
@@ -116,15 +151,15 @@
 
 .episodeTitle {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  color: #fff;
+  color: #FFFFFF;
   margin-bottom: 0.5rem;
 }
 
 .audioType {
   font-size: 0.875rem;
-  color: #aaa;
+  color: #A0A0A0;
 }
 
 /* Empty state */
@@ -148,6 +183,7 @@
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  margin: 5px;
 }
 
 .allEpisodesButton:hover {

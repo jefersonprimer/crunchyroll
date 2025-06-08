@@ -3,6 +3,7 @@ import { Episode, Anime } from "../types/types";
 import styles from "./EpisodeNavigation.module.css";
 import { FaPlay } from "react-icons/fa";
 import MaturityRating from "@/app/components/elements/MaturityRating";
+import SmallMaturityRating from "@/app/components/utils/elements/SmallMaturityRating";
 
 interface EpisodeNavigationProps {
   currentEpisode: Episode;
@@ -25,48 +26,35 @@ const EpisodeNavigation: React.FC<EpisodeNavigationProps> = ({
     return match ? parseInt(match[0]) : 0;
   };
 
-  // Filtra todos os episódios do anime e ordena por temporada e número
+  console.log('Current Episode:', currentEpisode);
+  console.log('All Episodes:', allEpisodes);
+  console.log('Anime:', anime);
+
+  // Filtra todos os episódios do anime e ordena por número
   const allAnimeEpisodes = [...allEpisodes]
-    .filter((ep) => ep.animeId === anime.id)
-    .sort((a, b) => {
-      if (a.season !== b.season) return a.season - b.season;
-      return getEpisodeNumber(a.title) - getEpisodeNumber(b.title);
-    });
+    .sort((a, b) => getEpisodeNumber(a.title) - getEpisodeNumber(b.title));
+
+  console.log('Sorted Episodes:', allAnimeEpisodes);
 
   // Encontra o índice do episódio atual na lista completa
   const currentIndex = allAnimeEpisodes.findIndex(
-    (ep) => ep?.id === currentEpisode?.id
+    (ep) => ep?.title === currentEpisode?.title
   );
 
-  // Verifica se é o último episódio de TODAS as temporadas
+  console.log('Current Index:', currentIndex);
+
+  // Verifica se é o último episódio
   const isLastEpisode = currentIndex === allAnimeEpisodes.length - 1;
 
-  // Episódio anterior (pode ser da mesma temporada ou da anterior)
+  // Episódio anterior
   const prevEpisode =
     currentIndex > 0 ? allAnimeEpisodes[currentIndex - 1] : null;
 
-  // Próximo episódio (só mostra se não for o último)
-  let nextEpisode = null;
-  if (!isLastEpisode) {
-    // Verifica se há próximo episódio na mesma temporada
-    if (
-      currentIndex < allAnimeEpisodes.length - 1 &&
-      allAnimeEpisodes[currentIndex + 1]?.season === currentEpisode.season
-    ) {
-      nextEpisode = allAnimeEpisodes[currentIndex + 1];
-    }
-    // Se não houver, verifica se há uma próxima temporada
-    else {
-      const nextSeason = currentEpisode.season + 1;
-      const firstEpisodeOfNextSeason = allAnimeEpisodes.find(
-        (ep) => ep.season === nextSeason && getEpisodeNumber(ep.title) === 1
-      );
+  // Próximo episódio
+  const nextEpisode = !isLastEpisode ? allAnimeEpisodes[currentIndex + 1] : null;
 
-      if (firstEpisodeOfNextSeason) {
-        nextEpisode = firstEpisodeOfNextSeason;
-      }
-    }
-  }
+  console.log('Previous Episode:', prevEpisode);
+  console.log('Next Episode:', nextEpisode);
 
   // Episode card component
   const EpisodeCard: React.FC<{ episode: Episode | null; label: string }> = ({
@@ -85,6 +73,7 @@ const EpisodeNavigation: React.FC<EpisodeNavigationProps> = ({
           <div className={styles.cardContainer}>
             {/* Image with overlays */}
             <div className={styles.imageWrapper}>
+              <SmallMaturityRating rating={Number(anime.rating) || 0} />
               <img
                 src={episode.image}
                 alt={episode.title}
@@ -94,36 +83,29 @@ const EpisodeNavigation: React.FC<EpisodeNavigationProps> = ({
                     "https://via.placeholder.com/300x169";
                 }}
               />
-
-              {/* Rating badge */}
-              {anime.rating && (
-                <div className={styles.ratingBadge}>
-                  <MaturityRating rating={anime.rating} />
-                </div>
-              )}
-
-              {/* Play button */}
-              <div className={styles.playButton}>
-                <FaPlay className={styles.playIcon} />
+              <div className={styles.durationBadge}>
+                {episode.duration}
               </div>
-
-              {/* Duration badge */}
-              {episode.duration && (
-                <div className={styles.durationBadge}>{episode.duration}</div>
-              )}
+              {/* Play button */}
+              <div className={styles.playIconContainer}>
+                <svg
+                  className={styles.playIcon}
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  data-t="play-filled-svg"
+                  aria-labelledby="play-filled-svg"
+                  aria-hidden="true"
+                  role="img"
+                >
+                  <path d="m4 2 16 10L4 22z" />
+                </svg>
+              </div>
             </div>
 
             {/* Text content */}
             <div className={styles.textContent}>
               <h4 className={styles.episodeTitle}>{episode.title}</h4>
-              {anime.audioType && (
-                <span className={styles.audioType}>{anime.audioType}</span>
-              )}
-              {episode.season !== currentEpisode.season && (
-                <span className={styles.seasonBadge}>
-                  Season {episode.season}
-                </span>
-              )}
+              <h4 className={styles.audioType}>{anime.audioType}</h4>
             </div>
           </div>
         </Link>
@@ -136,12 +118,12 @@ const EpisodeNavigation: React.FC<EpisodeNavigationProps> = ({
       {/* Previous and next episodes */}
       <div className={styles.episodesContainer}>
         {prevEpisode && (
-          <EpisodeCard episode={prevEpisode} label="Previous Episode" />
+          <EpisodeCard episode={prevEpisode} label="EPISÓDIO ANTERIOR" />
         )}
 
         {/* Mostra o próximo episódio apenas se não for o último */}
         {!isLastEpisode && nextEpisode && (
-          <EpisodeCard episode={nextEpisode} label="NEXT EPISODE" />
+          <EpisodeCard episode={nextEpisode} label="PRÓXIMO EPISÓDIO" />
         )}
       </div>
 

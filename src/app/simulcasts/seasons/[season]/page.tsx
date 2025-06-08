@@ -95,14 +95,15 @@ export default function SeasonPage() {
     return (
       <div className="relative">
         <div 
-          className={`flex items-center px-4 py-2 cursor-pointer ${isDropdownOpen ? 'bg-[#23262F]' : 'hover:bg-[#23262F]'}`}
+          className={`flex items-center px-4 py-2 cursor-pointer text-[#A0A0A0] hover:text-[#fff] 
+          ${isDropdownOpen ? 'text-[#fff] bg-[#23262F]' : 'hover:bg-[#23262F]'}`}
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
-          <svg className="w-6 h-6 text-white mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <svg className="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path fill="currentColor" d="M7 10h10l-5 5z" />
           </svg>
-          <span className="text-white font-semibold text-lg">
-            {getSeasonName(seasonName)} {seasonYear}
+          <span className="font-semibold text-[14px]">
+            {`${getSeasonName(seasonName)} ${seasonYear}`.toUpperCase()}
           </span>
         </div>
 
@@ -111,7 +112,7 @@ export default function SeasonPage() {
             {getAvailableSeasons().map(({ season, year }) => (
               <div
                 key={`${season}-${year}`}
-                className="px-4 py-2 text-white hover:bg-[#2F323D] cursor-pointer"
+                className="px-4 py-2  text-[#A0A0A0] hover:text-[#fff] hover:bg-[#2F323D] cursor-pointer"
                 onClick={() => handleSeasonSelect(season, year)}
               >
                 {getSeasonName(season)} {year}
@@ -139,9 +140,9 @@ export default function SeasonPage() {
     <div>
       <Header/>
       <FavoritesProvider>
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-16 w-[80%]">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-            <h1 className="text-3xl font-bold text-white mb-4 md:mb-0">Simulcasts da Temporada</h1>
+            <h1 className="text-[26px] font-weight-700 text-[#FFFFFF] mb-4 md:mb-0">Simulcasts da Temporada</h1>
             {renderDropdown()}
           </div>
           <AnimeGrid animes={seasonAnimes} />

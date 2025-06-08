@@ -1,10 +1,71 @@
-import { Anime } from "@/types/anime";
-import { Episode } from "@/types/episode";
-
-// Re-exporta os tipos básicos para uso nos componentes
-export type { Anime, Episode };
-
 // Define tipos específicos da página de episódio
+export interface Episode {
+  id: string;
+  publicCode: string;
+  slug: string;
+  animeId: string;
+  episodeNumber: number;
+  seasonNumber: number;
+  season: number;
+  title: string;
+  synopsis: string;
+  duration: number;
+  thumbnail: string;
+  videoUrl: string;
+  createdAt: string;
+  updatedAt: string;
+  releaseDate: string;
+  image: string;
+  versions?: {
+    id: string;
+    languageType: string;
+    videoUrl: string;
+  }[];
+  anime?: {
+    id: string;
+    name: string;
+    slug: string;
+  };
+}
+
+export interface Anime {
+  id: string;
+  publicCode: string;
+  slug: string;
+  name: string;
+  audioType?: string;
+  audioLanguages?: string[];
+  subtitles?: string;
+  imagePoster?: string;
+  imageCardCompact?: string;
+  imageBannerDesktop?: string;
+  imageBannerMobile?: string;
+  imageLogo?: string;
+  genres?: {
+    id: string;
+    name: string;
+  }[];
+  isPopular: boolean;
+  isNewRelease: boolean;
+  rating?: string;
+  score?: number;
+  synopsis?: string;
+  contentAdvisory?: string;
+  contentSources?: Array<{
+    copyright?: string;
+  }>;
+  totalEpisodes?: number;
+  seasons: {
+    id: string;
+    seasonName: string;
+    seasonNumber: number;
+    totalEpisodes: number;
+  }[];
+  episodes: Episode[];
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface EpisodePageProps {
   episode: Episode;
   anime: Anime;

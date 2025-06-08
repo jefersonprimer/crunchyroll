@@ -5,7 +5,8 @@
 }
 
 .synopsisWrapper {
-  max-height: 200px;
+  max-height: 100px;
+  margin-bottom: 30px;
   overflow: hidden;
   transition: max-height 0.3s ease;
 }
@@ -49,7 +50,7 @@
 .moreDetailsButton {
   background-color: transparent;
   border: none;
-  color: #3498db;
+  color: #FF640A;
   cursor: pointer;
   font-weight: bold;
 }

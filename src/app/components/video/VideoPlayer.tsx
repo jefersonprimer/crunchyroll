@@ -19,26 +19,33 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, posterImage }) => {
 
   return (
     <div
-      className="relative w-full h-0 pb-[56.25%] bg-black"
+      className="relative w-full h-[450px] bg-black"
       ref={containerRef}
     >
       {showPreview && posterImage && (
-        <div
-          className="absolute top-0 left-0 w-full h-full flex items-center justify-center cursor-pointer"
-          onClick={handlePlayClick}
-        >
-          <img
-            src={posterImage}
-            alt="Preview"
+        <>
+          <img 
+            src={posterImage} 
+            alt="Video preview" 
             className="w-full h-full object-cover"
           />
-          <button
-            className="absolute w-20 h-20 flex items-center justify-center bg-black bg-opacity-70 text-white text-3xl rounded-full transition-transform duration-200 hover:scale-110 hover:bg-white hover:bg-opacity-20"
-            aria-label="Play video"
+          <div 
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[68px] h-[68px] bg-black/40 rounded-full flex items-center justify-center z-10 cursor-pointer"
+            onClick={handlePlayClick}
           >
-            ▶
-          </button>
-        </div>
+            <svg
+              className="w-8 h-8 fill-white"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              data-t="play-filled-svg"
+              aria-labelledby="play-filled-svg"
+              aria-hidden="true"
+              role="img"
+            >
+              <path d="m4 2 16 10L4 22z" />
+            </svg>
+          </div>
+        </>
       )}
       {!showPreview && (
         <iframe

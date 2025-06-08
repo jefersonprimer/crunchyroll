@@ -10,6 +10,7 @@ export const GET_LATEST_RELEASES = gql`
         name
         audioType
         imagePoster
+        imageCardCompact
         synopsis
         rating
         score

@@ -7,7 +7,8 @@
 }
 
 .header {
-  width: 70%; 
+  width: 80%; 
+  padding: 0px 22px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,15 +22,16 @@
   font-family: Lato, Helvetica Neue, helvetica, sans-serif;
   padding: 0;
   margin: 0;
+  
 }
 
 .filters {
-  width: 100%;
-  max-width: 160px; 
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
   position: relative;
+  margin-left: 1rem;
+}
+
+.filtersContainer {
+  display: flex;
   align-items: center;
 }
 
@@ -50,61 +52,127 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 10px;
   position: absolute;
   top: 100%;
-  left: 0;
+  right: 0;
   background-color: #23252B;
-  padding: 10px 0;
+  padding: 10px 0px;
   z-index: 10;
+  width: 200px;
+}
+
+.idioma {
+  padding: 5px 10px;
+  font-size: 18px;
 }
 
 .item {
   padding: 10px;
+  color: #A0A0A0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .item:hover {
   background-color: #1D1E22;
+  color: white;
+}
+
+.radioButton {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #A0A0A0;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.radioButton::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-color: #2ABDBB;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.item:hover .radioButton {
+  border-color: white;
+}
+
+.item[data-selected="true"] .radioButton {
+  border-color: #2ABDBB;
+}
+
+.item[data-selected="true"] .radioButton::after {
+  opacity: 1;
 }
 
 .svgBtn {
   padding: 0.6rem;
   display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
-.svgBtn:hover {
+.svgBtn:hover,
+.svgBtn.active {
   background-color: #23252B;
- 
+}
+
+.svgBtn:hover .svgIcon,
+.svgBtn.active .svgIcon {
+  fill: white;
+}
+
+.svgBtn:hover .maisPopulares,
+.svgBtn.active .maisPopulares {
+  color: white;
 }
 
 .maisPopulares {
   cursor: pointer;
   color: #A0A0A0;
+  font-size: .875rem;
+  font-weight: bold;
 }
 
 .svgIcon {
-  width: 14px;
-  height: 14px;
+  width: 1.5rem;
+  height: 1.5rem;
   margin-right: 8px;
   fill: #A0A0A0;
 }
 
 .gridPopular {
-  width: 70%; 
-  margin: 0 auto;
+  width: 80%; 
   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 1rem; 
 }
 
-.popularTitle {
-  margin: 0; /* Remove margens extras */
-  padding: 0; /* Remove o padding */
+.newTitle {
+  margin: 0;
+  padding: 0;
+  padding-left: 20px;
   font-size: 1.5rem; 
   font-weight: 500;
   font-family: Lato, Helvetica Neue, helvetica, sans-serif;
-  text-align: left; /* Garante alinhamento à esquerda */
+  text-align: left;
+  width: 100%;
 }
 
 /* Responsividade */
@@ -127,7 +195,7 @@
     align-items: flex-start;
   }
 
-  .popularTitle {
+  .newTitle {
     font-size: 1.25rem;
   }
 }
@@ -149,7 +217,7 @@
     padding: 8px 12px;
   }
 
-  .popularTitle {
+  .newTitle {
     font-size: 1rem; /* Ajusta o tamanho da fonte se necessário */
   }
 }

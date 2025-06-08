@@ -15,6 +15,9 @@ import styles from "./styles.module.css";
 import { ClientMetadata } from "@/app/series/[publicCode]/[slug]/components/ClientMetadata";
 import { FavoritesProvider } from "@/app/contexts/FavoritesContext";
 import { useHistory } from "@/app/contexts/HistoryContext";
+import Loading from "@/app/loading";
+import Header from "@/app/components/layout/Header";
+import Footer from "@/app/components/layout/Footer";
 
 const EpisodePage: FC = () => {
   const params = useParams();
@@ -41,7 +44,7 @@ const EpisodePage: FC = () => {
   }, [currentEpisode, anime, addToHistory]);
 
   if (!publicCode || !slug || loading) {
-    return <div className={styles.loadingContainer}>Carregando...</div>;
+    return <Loading />;
   }
 
   if (!anime) {
@@ -56,50 +59,49 @@ const EpisodePage: FC = () => {
   const toggleEpisodesModal = () => setShowEpisodesModal(!showEpisodesModal);
 
   return (
-    <div className={styles.episodePage}>
-      <ClientMetadata
-        title={`Assistir ${anime.name} - ${currentEpisode.title}`}
-        description={`Assista ${anime.name}: ${anime.synopsis?.substring(0, 160) || ''}...`}
-      />
-
-      <div className={styles.videoPlayerContainer}>
-        <EpisodeVideoPlayer episode={currentEpisode} />
-      </div>
-
-      <div className={styles.mainContent}>
-        <div className={styles.contentColumns}>
-          <div className={styles.leftColumn}>
-            <FavoritesProvider>
-              <EpisodeHeader anime={anime} episode={currentEpisode} />
-            </FavoritesProvider>
-
-            <EpisodeSynopsis
-              episode={currentEpisode}
-              anime={anime}
-              expanded={expandedSynopsis}
-              onToggle={toggleSynopsis}
-            />
-          </div>
-
-          <div className={styles.rightColumn}>
-            <EpisodeNavigation
-              currentEpisode={currentEpisode}
-              allEpisodes={allEpisodes}
-              anime={anime}
-              onShowAllEpisodes={toggleEpisodesModal}
-            />
+    <div>
+      <Header/>
+      <div className={styles.episodePage}>
+        <ClientMetadata
+          title={`Assistir ${anime.name} - ${currentEpisode.title}`}
+          description={`Assista ${anime.name}: ${anime.synopsis?.substring(0, 160) || ''}...`}
+        />
+        <div className={styles.videoPlayerContainer}>
+          <EpisodeVideoPlayer episode={currentEpisode} />
+        </div>
+        <div className={styles.mainContent}>
+          <div className={styles.contentColumns}>
+            <div className={styles.leftColumn}>
+              <FavoritesProvider>
+                <EpisodeHeader anime={anime} episode={currentEpisode} />
+              </FavoritesProvider>
+              <EpisodeSynopsis
+                episode={currentEpisode}
+                anime={anime}
+                expanded={expandedSynopsis}
+                onToggle={toggleSynopsis}
+              />
+            </div>
+            <div className={styles.rightColumn}>
+              <EpisodeNavigation
+                currentEpisode={currentEpisode}
+                allEpisodes={allEpisodes}
+                anime={anime}
+                onShowAllEpisodes={toggleEpisodesModal}
+              />
+            </div>
           </div>
         </div>
+        {showEpisodesModal && (
+          <EpisodesModal
+            episodes={allEpisodes}
+            currentEpisodePublicCode={currentEpisode.publicCode}
+            anime={anime}
+            onClose={toggleEpisodesModal}
+          />
+        )}
       </div>
-
-      {showEpisodesModal && (
-        <EpisodesModal
-          episodes={allEpisodes}
-          currentEpisodePublicCode={currentEpisode.publicCode}
-          anime={anime}
-          onClose={toggleEpisodesModal}
-        />
-      )}
+      <Footer/>
     </div>
   );
 };
