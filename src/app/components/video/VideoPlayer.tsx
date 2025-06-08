@@ -30,11 +30,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, posterImage }) => {
             className="w-full h-full object-cover"
           />
           <div 
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[68px] h-[68px] bg-black/40 rounded-full flex items-center justify-center z-10 cursor-pointer"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  rounded-full flex items-center justify-center z-10 cursor-pointer"
             onClick={handlePlayClick}
           >
             <svg
-              className="w-8 h-8 fill-white"
+              className="w-20 h-20 fill-white"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               data-t="play-filled-svg"
