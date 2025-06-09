@@ -8,7 +8,7 @@
 
 .metaItem:not(:first-child)::before {
   content: "◆";
-  color: #DADADA; 
+  color: #A0A0A0; 
   font-size: 0.6rem;
   position: absolute;
   left: 4px;
@@ -118,7 +118,7 @@
 .audioType {
   font-size: 0.9rem;
   margin: 5px 0;
-  color: #aaa;
+  color: #A0A0A0;
 }
 
 .name,
@@ -137,6 +137,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   width: 380px;
+  color: #DADADA;
 }
 
 .buttonsContainer {
@@ -297,17 +298,38 @@
 }
 
 .arrowButton {
-  background: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transform: translateX(-30%);
   border: none;
-  color: white;
-  font-size: 1.5rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  padding: 10px;
-  transition: color 0.3s ease;
+  z-index: 3;
+  transition: background-color 0.3s ease;
 }
 
-.arrowButton:hover {
-  color: #A0A0A0;
+.arrowIcon:hover {
+  fill: #A0A0A0;
+}
+
+.arrowIcon {
+  width: 44px;
+  height: 44px;
+  fill: #FFFFFF;
+}
+
+.arrowButton:first-child {
+  left: 20px;
+}
+
+.arrowButton:last-child {
+  right: 20px;
 }
 
 /* Responsividade para dispositivos menores */

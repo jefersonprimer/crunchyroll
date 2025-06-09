@@ -1,20 +1,33 @@
 .anime-carousel-lancamentos {
   padding: 0 20px; 
-  text-align: center; 
+  text-align: left; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.header {
+  width: 1223px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .titulo {
   font-size: 1.74rem;
   margin-bottom: 5px;
-  color: #fff;
-  padding-left: 62px;
+  color: #FFFFFF;
+  font-weight: 700;
 }
 
 .subtitulo {
   font-size: 0.97rem;
   margin-bottom: 15px;
-  color: #ccc;
-  padding-left: 62px;
+  color: #A0A0A0;
+  font-weight: 500;
 }
 
 /* Responsividade para telas pequenas */

@@ -7,7 +7,7 @@ import { Anime } from "@/types/anime";
 import AnimeCarousel from "./AnimeCarousel";
 import styles from "./AnimeCarouselByDay.module.css";
 
-interface AnimeOfTheDayProps {
+interface AnimeCarouselByDayProps {
   itemsPerPage?: number;
   className?: string;
 }
@@ -16,7 +16,7 @@ interface GetAnimeOfTheDayData {
   animeOfTheDay: Anime | Anime[]; // Pode ser um único anime ou um array
 }
 
-const AnimeOfTheDay: React.FC<AnimeOfTheDayProps> = ({
+const AnimeCarouselByDay: React.FC<AnimeCarouselByDayProps> = ({
   itemsPerPage = 5,
   className = "",
 }) => {
@@ -53,13 +53,15 @@ const AnimeOfTheDay: React.FC<AnimeOfTheDayProps> = ({
 
   return (
     <div className={`${styles.dayContainer} ${className}`}>
-      <h1 className={styles.titulo}>{titleText}</h1>
-      <p className={styles.subtitulo}>
-        Confira {animes.length === 1 ? "o anime" : "os animes"} que {animes.length === 1 ? "está" : "estão"} sendo exibido{animes.length === 1 ? "" : "s"} hoje!
-      </p>
+      <div className={styles.header}>
+        <h2 className={styles.titulo}>{titleText}</h2>
+        <p className={styles.subtitulo}>
+          Confira {animes.length === 1 ? "o anime" : "os animes"} que {animes.length === 1 ? "está" : "estão"} sendo exibido{animes.length === 1 ? "" : "s"} hoje!
+        </p>
+      </div>
       <AnimeCarousel animes={animes} itemsPerPage={itemsPerPage} />
     </div>
   );
 };
 
-export default AnimeOfTheDay;
+export default AnimeCarouselByDay;

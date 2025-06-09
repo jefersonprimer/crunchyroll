@@ -1,73 +1,56 @@
 .historyCarouselContainer {
-  margin: 20px 0;
-  padding: 0 20px;
-}
-
-.historyTitle {
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 16px;
-}
-
-.historyCarousel {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  padding: 10px 0;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-}
-
-.historyCarousel::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
-
-.historyItem {
-  flex: 0 0 300px;
-  min-width: 300px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  padding: 0; 
+  text-align: left; 
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000000;
+  padding: 0 20px;
+  width: 1223px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.filaLink {
+  display: flex;
   align-items: center;
 }
 
-.history-image {
-  width: 100%;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
-.episode-info {
-  margin-top: 10px;
-  text-align: center;
-}
-
-.watch-button {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #ff5733;
-  color: white;
+.filaButton {
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  border-radius: 4px;
+  color: #A0A0A0;
+  font-weight: bold;
+  transition: color 0.2s;
 }
 
-.remove-button {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  margin-top: 10px;
+.filaButton:hover {
+  color: #FFFFFF;
 }
 
-.remove-button img {
-  width: 20px;
+.angle {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
 }
 
-.trashIcon {
-  display: block;
+.historyCarousel {
+  width: 1223px;
+  gap: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   margin: 0 auto;
 }
-  

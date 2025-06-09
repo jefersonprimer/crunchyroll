@@ -33,13 +33,15 @@ const AnimeCarouselPopular: React.FC<AnimeCarouselPopularProps> = ({
 
   return (
     <div className="anime-carousel-popular">
-      <h1 className={styles.titulo}>
-        Animes Populares
-      </h1>
-      <p className={styles.subtitulo}>
-        Assista os três primeiros episódios desses simulcasts de outubro de
-        2024 de graça!
-      </p>
+      <div className={styles.header}>
+        <h2 className={styles.titulo}>
+          Animes Populares
+        </h2>
+        <p className={styles.subtitulo}>
+          Assista os três primeiros episódios desses simulcasts de outubro de
+          2024 de graça!
+        </p>
+      </div>
       <AnimeCarousel animes={popularAnimes} itemsPerPage={itemsPerPage} />
     </div>
   );

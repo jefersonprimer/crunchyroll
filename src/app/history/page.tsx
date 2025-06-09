@@ -3,7 +3,7 @@
 import React from 'react';
 import { useHistory } from '../contexts/HistoryContext';
 import styles from './styles.module.css';
-import { EpisodeCard } from '../series/[publicCode]/[slug]/components/EpisodeCard';
+import { EpisodeCard } from '../components/cards/EpisodeCard';
 
 const History = () => {
   const { watchedEpisodes, clearHistory } = useHistory();
@@ -28,14 +28,19 @@ const History = () => {
   return (
     <div className={styles.historyContainer}>
       <div className={styles.historyHeader}>
-        <h2>Histórico de Visualização</h2>
+        <h2>Mais Recentes</h2>
         <button onClick={clearHistory} className={styles.clearButton}>
-          Limpar Histórico
+          <span className='text-[#A0A0A0] font-bold'>LIMPAR HISTÓRICO</span>
         </button>
       </div>
       <div className={styles.episodesGrid}>
-        {watchedEpisodes.map(({ episode, anime }) => (
-          <EpisodeCard key={episode.id} episode={episode} anime={anime} />
+        {watchedEpisodes.map(({ episode, anime, watchedAt }) => (
+          <EpisodeCard 
+            key={episode.id} 
+            episode={episode} 
+            anime={anime} 
+            watchedAt={watchedAt}
+          />
         ))}
       </div>
     </div>

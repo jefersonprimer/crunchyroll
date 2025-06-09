@@ -13,6 +13,7 @@ interface HistoryContextType {
   }>;
   addToHistory: (episode: Episode, anime: Anime) => void;
   clearHistory: () => void;
+  removeFromHistory: (episodeId: string) => void;
 }
 
 const HistoryContext = createContext<HistoryContextType | undefined>(undefined);
@@ -89,11 +90,33 @@ export const HistoryProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
   }, [isClient]);
 
+  // Add removeFromHistory function
+  const removeFromHistory = useCallback((episodeId: string) => {
+    if (!isClient) return;
+    
+    setWatchedEpisodes(prevEpisodes => {
+      const newHistory = prevEpisodes.filter(item => item.episode.id !== episodeId);
+      
+      try {
+        if (newHistory.length > 0) {
+          localStorage.setItem('watchHistory', JSON.stringify(newHistory));
+        } else {
+          localStorage.removeItem('watchHistory');
+        }
+      } catch (error) {
+        console.error('Error updating history in localStorage:', error);
+      }
+
+      return newHistory;
+    });
+  }, [isClient]);
+
   const value = React.useMemo(() => ({
     watchedEpisodes,
     addToHistory,
     clearHistory,
-  }), [watchedEpisodes, addToHistory, clearHistory]);
+    removeFromHistory,
+  }), [watchedEpisodes, addToHistory, clearHistory, removeFromHistory]);
 
   return (
     <HistoryContext.Provider value={value}>

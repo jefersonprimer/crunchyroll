@@ -1,36 +1,51 @@
-.anime-carousel-by-day {
+.dayContainer {
   padding: 0 20px; 
-  text-align: center; 
+  text-align: left; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.header {
+  width: 1223px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .titulo {
   font-size: 1.74rem;
-  margin-bottom: 9px;
-  color: #fff;
-  padding-left: 62px;
+  margin-bottom: 5px;
+  color: #FFFFFF;
+  font-weight: 700;
 }
 
 .subtitulo {
   font-size: 0.97rem;
-  margin-bottom: 20px;
-  color: #ccc;
-  padding-left: 62px;
+  margin-bottom: 15px;
+  color: #A0A0A0;
+  font-weight: 500;
 }
 
 /* Responsividade para telas pequenas */
 @media (max-width: 768px) {
   .anime-carousel-lancamentos {
-    padding: 0 20px; 
+    padding: 0 10px; 
+    display: flex;
     text-align: center;
+    justify-content: center;
   }
   
   .titulo {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.4rem;
+    margin-bottom: 7px;
     color: #fff;
+    
     padding-left: 20px;
   }
-  
   
   .subtitulo {
     font-size: 0.9rem;
@@ -43,6 +58,6 @@
 /* Responsividade para dispositivos muito pequenos */
 @media (max-width: 480px) {
   .carouselContainer {
-    padding-bottom: 20px; 
+    padding-bottom: 20px;
   }
 }

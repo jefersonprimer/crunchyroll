@@ -2,7 +2,8 @@ import styles from './Episodios.module.css';
 import { useQuery } from '@apollo/client';
 import { GET_ANIMES } from '../../../lib/queries/getAnimes';
 import { Episode } from '../../../types/episode';
-import EpisodeCard from './EpisodeCard';
+import { Anime } from '../../../types/anime';
+import { EpisodeCard } from './EpisodeCard';
 
 interface EpisodesGrouped {
   hoje: Episode[];
@@ -12,16 +13,16 @@ interface EpisodesGrouped {
 }
 
 interface EpisodesData {
-  animes: {
-    episodes: Episode[];
-  }[];
+  animes: Anime[];
 }
 
 const EpisodesPage = () => {
   const { data, loading, error } = useQuery<EpisodesData>(GET_ANIMES);
 
   // Pega todos os episódios de todos os animes
-  const allEpisodes = data?.animes?.flatMap(anime => anime.episodes) || [];
+  const allEpisodes = data?.animes?.flatMap(anime => 
+    anime.episodes.map(episode => ({ episode, anime }))
+  ) || [];
 
   // Função para agrupar os episódios
   const groupEpisodesByDate = (): EpisodesGrouped => {
@@ -42,7 +43,7 @@ const EpisodesPage = () => {
       proximos: [],
     };
 
-    allEpisodes.forEach((episode) => {
+    allEpisodes.forEach(({ episode }) => {
       // Parse the release date
       const releaseDate = new Date(episode.releaseDate);
       releaseDate.setHours(0, 0, 0, 0);
@@ -74,6 +75,13 @@ const EpisodesPage = () => {
     });
 
     return episodesGrouped;
+  };
+
+  // Helper to find anime for an episode
+  const findAnimeForEpisode = (episode: Episode): Anime => {
+    const found = allEpisodes.find(ea => ea.episode.id === episode.id);
+    if (!found) throw new Error('Anime not found for episode: ' + episode.id);
+    return found.anime;
   };
 
   const episodesGrouped = groupEpisodesByDate();
@@ -110,7 +118,7 @@ const EpisodesPage = () => {
           <h3 className={styles.titleSection}>Hoje</h3>
           <div className={styles.episodesContainer}>
             {episodesGrouped.hoje.map((episode) => (
-              <EpisodeCard key={episode.id} episode={episode} />
+              <EpisodeCard key={episode.id} episode={episode} anime={findAnimeForEpisode(episode)} />
             ))}
           </div>
         </div>
@@ -124,7 +132,7 @@ const EpisodesPage = () => {
           <h3 className={styles.titleSection}>Ontem</h3>
           <div className={styles.episodesContainer}>
             {episodesGrouped.ontem.map((episode) => (
-              <EpisodeCard key={episode.id} episode={episode} />
+              <EpisodeCard key={episode.id} episode={episode} anime={findAnimeForEpisode(episode)} />
             ))}
           </div>
         </div>
@@ -138,7 +146,7 @@ const EpisodesPage = () => {
           <h3 className={styles.titleSection}>Anteontem</h3>
           <div className={styles.episodesContainer}>
             {episodesGrouped.anteontem.map((episode) => (
-              <EpisodeCard key={episode.id} episode={episode} />
+              <EpisodeCard key={episode.id} episode={episode} anime={findAnimeForEpisode(episode)} />
             ))}
           </div>
         </div>
@@ -152,7 +160,7 @@ const EpisodesPage = () => {
           <h3 className={styles.titleSection}>Próximos Lançamentos</h3>
           <div className={styles.episodesContainer}>
             {episodesGrouped.proximos.map((episode) => (
-              <EpisodeCard key={episode.id} episode={episode} />
+              <EpisodeCard key={episode.id} episode={episode} anime={findAnimeForEpisode(episode)} />
             ))}
           </div>
         </div>

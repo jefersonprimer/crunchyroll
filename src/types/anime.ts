@@ -44,6 +44,7 @@ export interface Anime {
   episodes: Episode[];
   createdAt: string;
   updatedAt: string;
+  airingDay?: AiringDay;
 }
 
 export interface AnimeSeason {
@@ -59,9 +60,4 @@ export interface ContentSource {
   title?: string;
   sourceType: string;
   copyright?: string;
-}
-
-export interface Genre {
-  id: string;
-  name: string;
 }

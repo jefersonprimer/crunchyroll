@@ -275,14 +275,18 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
           onClick={prevPage}
           aria-label="Anterior"
         >
-          <FontAwesomeIcon icon={faChevronLeft} />
+          <svg className={styles.arrowIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-labelledby="angle-svg" aria-hidden="true" role="img">
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+          </svg>
         </button>
         <button
           className={styles.arrowButton}
           onClick={nextPage}
           aria-label="Próximo"
         >
-          <FontAwesomeIcon icon={faChevronRight} />
+          <svg className={styles.arrowIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-labelledby="angle-svg" aria-hidden="true" role="img">
+            <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"></path>
+          </svg>
         </button>
       </div>
     </div>

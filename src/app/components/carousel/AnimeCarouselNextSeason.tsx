@@ -32,10 +32,12 @@ const AnimeCarouselNextSeason: React.FC<AnimeCarouselNextSeasonProps> = ({
 
   return (
     <div className={`${styles.nextSeasonContainer} anime-carousel-next-season`}>
-      <h1 className={styles.titulo}>Animes da Próxima Temporada</h1>
-      <p className={styles.subtitulo}>
-        Confira os animes mais esperados para a próxima temporada!
-      </p>
+      <div className={styles.header}>
+        <h2 className={styles.titulo}>Animes da Próxima Temporada</h2>
+        <p className={styles.subtitulo}>
+          Confira os animes mais esperados para a próxima temporada!
+        </p>
+      </div>
       <AnimeCarousel animes={nextSeasonAnimes} itemsPerPage={itemsPerPage} />
     </div>
   );
