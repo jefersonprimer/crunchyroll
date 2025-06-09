@@ -8,7 +8,6 @@
 
 .wrapper {
   text-align: center;
-  padding: 2rem;
 }
 
 .image {
@@ -76,7 +75,6 @@
 
 .animeList {
   list-style: none;
-  padding: 2rem;
   margin: 0;
   width: 100%;
   display: grid;

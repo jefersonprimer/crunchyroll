@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useFilters } from '../../contexts/FilterContext';
 
+const useDropdown = () => {
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
+  const toggleDropdown = useCallback((dropdownId: string) => {
+    setActiveDropdown(prev => prev === dropdownId ? null : dropdownId);
+  }, []);
+
+  const isDropdownOpen = useCallback((dropdownId: string) => {
+    return activeDropdown === dropdownId;
+  }, [activeDropdown]);
+
+  return { toggleDropdown, isDropdownOpen };
+};
+
 const WatchlistHeader: React.FC = () => {
-  const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
-  const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
+  const { toggleDropdown, isDropdownOpen } = useDropdown();
   const [selectedSortOption, setSelectedSortOption] = useState('atualizacao-mais-recente');
   const { filters, setFilters } = useFilters();
 
@@ -13,6 +26,9 @@ const WatchlistHeader: React.FC = () => {
     { id: 'assistido', label: 'Assistido' },
     { id: 'adicionado', label: 'Adicionado' },
     { id: 'ordem-alfabetica', label: 'Ordem Alfabética' },
+  ];
+
+  const dateSortOptions = [
     { id: 'mais-recente', label: 'Mais Recente' },
     { id: 'mais-antigo', label: 'Mais Antigo' },
   ];
@@ -46,12 +62,14 @@ const WatchlistHeader: React.FC = () => {
                 role="button"
                 aria-label="Ordenar"
                 tabIndex={0}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer"
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer ${
+                  isDropdownOpen('sort') ? 'bg-[#2D2F36] text-[#FFF]' : 'text-[#A0A0A0] hover:text-[#FFF] hover:bg-[#23252B]'
+                }`}
                 aria-haspopup="listbox"
-                aria-expanded={isSortDropdownOpen}
+                aria-expanded={isDropdownOpen('sort')}
                 data-t="sorting-button"
                 aria-controls="3f455acd-d5a8-47d4-9e14-df62da78b314"
-                onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
+                onClick={() => toggleDropdown('sort')}
               >
                 <svg
                   className="w-5 h-5"
@@ -70,8 +88,8 @@ const WatchlistHeader: React.FC = () => {
                 </span>
               </div>
               
-              {isSortDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-[#23252B] rounded-lg shadow-lg z-50">
+              {isDropdownOpen('sort') && (
+                <div className="absolute top-full right-0 w-64 bg-[#23252B] shadow-lg z-50">
                   <ul className="py-2">
                     {sortOptions.map((option) => (
                       <li
@@ -79,14 +97,44 @@ const WatchlistHeader: React.FC = () => {
                         className="px-4 py-2 hover:bg-[#2D2F36] cursor-pointer flex items-center gap-3"
                         onClick={() => {
                           setSelectedSortOption(option.id);
-                          setIsSortDropdownOpen(false);
+                          toggleDropdown('sort');
                         }}
                       >
-                        <div className={`w-3 h-3 rounded-full border ${
+                        <div className={`w-3 h-3 rounded-full border flex items-center justify-center ${
                           selectedSortOption === option.id 
-                            ? 'bg-[#F47521] border-[#F47521]' 
+                            ? 'border-[#2ABDBB]' 
                             : 'border-[#A0A0A0]'
-                        }`} />
+                        }`}>
+                          <div className={`w-1.5 h-1.5 ${
+                            selectedSortOption === option.id 
+                              ? 'bg-[#2ABDBB]' 
+                              : 'bg-transparent'
+                          }`} />
+                        </div>
+                        <span className="text-[#FFFFFF]">{option.label}</span>
+                      </li>
+                    ))}
+                    <li className="px-4 py-2 text-[#A0A0A0] text-sm font-medium">Ordenação</li>
+                    {dateSortOptions.map((option) => (
+                      <li
+                        key={option.id}
+                        className="px-4 py-2 hover:bg-[#2D2F36] cursor-pointer flex items-center gap-3"
+                        onClick={() => {
+                          setSelectedSortOption(option.id);
+                          toggleDropdown('sort');
+                        }}
+                      >
+                        <div className={`w-3 h-3 rounded-full border flex items-center justify-center ${
+                          selectedSortOption === option.id 
+                            ? 'border-[#2ABDBB]' 
+                            : 'border-[#A0A0A0]'
+                        }`}>
+                          <div className={`w-1.5 h-1.5 ${
+                            selectedSortOption === option.id 
+                              ? 'bg-[#2ABDBB]' 
+                              : 'bg-transparent'
+                          }`} />
+                        </div>
                         <span className="text-[#FFFFFF]">{option.label}</span>
                       </li>
                     ))}
@@ -104,12 +152,14 @@ const WatchlistHeader: React.FC = () => {
                 role="button"
                 aria-label="Filtrar"
                 tabIndex={0}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer"
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer ${
+                  isDropdownOpen('filter') ? 'bg-[#2D2F36] text-[#FFF]' : 'text-[#A0A0A0] hover:text-[#FFF] hover:bg-[#23252B]'
+                }`}
                 aria-haspopup="listbox"
-                aria-expanded={isFilterDropdownOpen}
+                aria-expanded={isDropdownOpen('filter')}
                 data-t="filter-button"
                 aria-controls="61bd6b12-b2ad-4cc2-bc15-5cb02a2be575"
-                onClick={() => setIsFilterDropdownOpen(!isFilterDropdownOpen)}
+                onClick={() => toggleDropdown('filter')}
               >
                 <svg
                   className="w-5 h-5"
@@ -129,8 +179,8 @@ const WatchlistHeader: React.FC = () => {
                 <span className="text-sm font-medium">FILTRAR</span>
               </div>
               
-              {isFilterDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-[#23252B] rounded-lg shadow-lg z-50">
+              {isDropdownOpen('filter') && (
+                <div className="absolute top-full right-0  w-64 bg-[#23252B] shadow-lg z-50">
                   <ul className="py-2">
                     {/* Favoritos Section */}
                     {filterOptions.favoritos.map((option) => (
@@ -144,11 +194,17 @@ const WatchlistHeader: React.FC = () => {
                           }));
                         }}
                       >
-                        <div className={`w-3 h-3 rounded-full border ${
+                        <div className={`w-3 h-3  border flex items-center justify-center ${
                           filters.favoritos 
-                            ? 'bg-[#F47521] border-[#F47521]' 
+                            ? 'border-[#2ABDBB]' 
                             : 'border-[#A0A0A0]'
-                        }`} />
+                        }`}>
+                          <div className={`w-1.5 h-1.5 ${
+                            filters.favoritos 
+                              ? 'bg-[#2ABDBB]' 
+                              : 'bg-transparent'
+                          }`} />
+                        </div>
                         <span className="text-[#FFFFFF]">{option.label}</span>
                       </li>
                     ))}
@@ -166,11 +222,17 @@ const WatchlistHeader: React.FC = () => {
                           }));
                         }}
                       >
-                        <div className={`w-3 h-3 rounded-full border ${
+                        <div className={`w-3 h-3 rounded-full border flex items-center justify-center ${
                           filters.idioma === option.id 
-                            ? 'bg-[#F47521] border-[#F47521]' 
+                            ? 'border-[#2ABDBB]' 
                             : 'border-[#A0A0A0]'
-                        }`} />
+                        }`}>
+                          <div className={`w-1.5 h-1.5 rounded-full ${
+                            filters.idioma === option.id 
+                              ? 'bg-[#2ABDBB]' 
+                              : 'bg-transparent'
+                          }`} />
+                        </div>
                         <span className="text-[#FFFFFF]">{option.label}</span>
                       </li>
                     ))}
@@ -188,11 +250,17 @@ const WatchlistHeader: React.FC = () => {
                           }));
                         }}
                       >
-                        <div className={`w-3 h-3 rounded-full border ${
+                        <div className={`w-3 h-3 rounded-full border flex items-center justify-center ${
                           filters.tipoMidia === option.id 
-                            ? 'bg-[#F47521] border-[#F47521]' 
+                            ? 'border-[#2ABDBB]' 
                             : 'border-[#A0A0A0]'
-                        }`} />
+                        }`}>
+                          <div className={`w-1.5 h-1.5 rounded-full ${
+                            filters.tipoMidia === option.id 
+                              ? 'bg-[#2ABDBB]' 
+                              : 'bg-transparent'
+                          }`} />
+                        </div>
                         <span className="text-[#FFFFFF]">{option.label}</span>
                       </li>
                     ))}
