@@ -78,7 +78,7 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
     if (thumbnailAnimes.length > 0) {
       const interval = setInterval(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % thumbnailAnimes.length);
-      }, 5000);
+      }, 10000);
 
       return () => clearInterval(interval);
     }
@@ -143,7 +143,7 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
   }
 
   if (!thumbnailAnimes || thumbnailAnimes.length === 0) {
-    return <div>Nenhum anime disponível.</div>;
+    return <div></div>;
   }
 
   const currentAnime = thumbnailAnimes[currentIndex];

@@ -43,7 +43,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Remove o outline do ícone quando não está favoritado */
 .iconBookmark.outline {
   outline: none !important;
   -webkit-tap-highlight-color: transparent;

@@ -1,15 +1,13 @@
 'use client';
 
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { faBookmark as bookmarkSolid } from "@fortawesome/free-solid-svg-icons";
-import { faBookmark as bookmarkOutline } from "@fortawesome/free-regular-svg-icons";
-import Link from "next/link";
 import styles from "./AnimeGrid.module.css";
-import MaturityRating from '../utils/elements/SmallMaturityRating';
+import { useState } from "react";
+
 import { Anime } from "@/types/anime";
 import { useFavorites } from "../../contexts/FavoritesContext";
+import Link from "next/link";
+
+import MaturityRating from '../utils/elements/SmallMaturityRating';
 import PlayButton from '../buttons/PlayButton';
 import BookmarkButton from '../buttons/BookmarkButton';
 import AddButton from '../buttons/AddButton';
@@ -49,7 +47,6 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
               href={`/series/${anime.publicCode}/${anime.slug}`}
              
             >
-              {/* Imagem do anime */}
               <img
                 src={anime.imagePoster}
                 alt={anime.name}
@@ -69,17 +66,15 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
                 </div>
               )}
 
-              {/* Nome e informações adicionais */}
               <div className={styles.nomeDataContainer}>
                 <p className={styles.nome}>{anime.name}</p>
                 <p className={styles.data}>{anime.audioType}</p>
               </div>
 
-              {/* Informações detalhadas no hover */}
               {hoveredCard === anime.id && (
                 <div className={styles.cardInfo}>
                   <h3 className={styles.name}>{anime.name}</h3>
-                  <div className={styles.infoText}>
+                  <div>
                     <div className={styles.flexContainer}>
                       <MaturityRating rating={Number(anime.rating) || 0} />
                       <span className={styles.score}>
@@ -100,21 +95,19 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
                       </span>
                     </div>
                   </div>
-
                   <p className={styles.seasonText}>
                     {anime.seasons?.[0]?.seasonNumber ?? "N/A"} Temporada
                   </p>
                   <p className={styles.episodesText}>
                     {anime.totalEpisodes ?? "N/A"} Episódios
                   </p>
-
                   <p className={styles.synopsis}>
                     {anime.synopsis}
                   </p>
                 </div>
               )}
             </Link>
-            {/* Botões de ação */}
+            
             <div className={styles.playButton}>
               <PlayButton firstEpisode={null} />
               <BookmarkButton isFavorited={isFavorited} onToggle={() => handleFavoriteClick(anime)} />

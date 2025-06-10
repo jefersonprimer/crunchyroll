@@ -21,11 +21,8 @@
   text-align: left;
 }
 
-.animeImage {
-  width: 150px;
-  height: 225px;
-  object-fit: cover;
-  transition: height 0.3s ease;
+.animeCard:hover .favoriteLabel {
+  opacity: 0;
 }
 
 .animeCard:hover .animeImage {
@@ -55,6 +52,10 @@
   opacity: 1;
 }
 
+.animeCard:hover .nomeDataContainer {
+  opacity: 0;
+}
+
 .animeCard:hover .playButton {
   opacity: 1;
 }
@@ -64,6 +65,37 @@
   height: 80%;
   object-fit: cover;
   transition: height 0.3s ease;
+}
+
+.favoriteLabel {
+  position: absolute;
+  top: 8;
+  right: 8;
+  z-index: 3;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 34px 32px 0;
+  border-color: transparent #000000 transparent transparent;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0px;
+  color: #FF640A;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.favoriteLabel svg {
+  width: 1rem;
+  margin: 1px -34px 0 0;
+  fill: #FF640A;
+}
+
+.favoriteIcon {
+  width: 1rem;
+  margin: 2px -35px 0 0;
+  fill: #FF640A;
 }
 
 .nomeDataContainer {
@@ -78,10 +110,6 @@
   opacity: 1;
   transition: opacity 0.3s ease;
   z-index: 1;
-}
-
-.animeCard:hover .nomeDataContainer {
-  opacity: 0;
 }
 
 .nome {
@@ -126,19 +154,6 @@
   margin-bottom: 5px;
 }
 
-.synopsis {
-  margin-top: 6px;
-  color: #FFFFFF;
-  font-size: 0.875rem;
-  font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 6;
-  -webkit-box-orient: vertical;
-  width: 140px;
-}
-
 .flexContainer {
   display: flex;
   align-items: center;
@@ -171,6 +186,19 @@
   font-weight: 500;
 }
 
+.synopsis {
+  margin-top: 6px;
+  color: #FFFFFF;
+  font-size: 0.875rem;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  width: 140px;
+}
+
 .playButton {
   position: absolute;
   bottom: 10px;
@@ -183,128 +211,4 @@
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 3;
-}
-
-.tooltip {
-  position: relative;
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.tooltipText {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 5px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.tooltip:hover .tooltipText {
-  visibility: visible;
-  opacity: 1;
-}
-
-.iconPlay {
-  align-items: center;
-  fill:#ff640a;
-  display: flex;
-  stroke-width: 2;
-  height: 1.5rem;
-  justify-content: center;
-  width: 1.5rem;
-}
-
-.iconBookmark {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.iconBookmark.filled {
-  color: #FF640A !important;
-  fill: #FF640A !important;
-  stroke: #FF640A !important;
-}
-
-.iconBookmark.outline {
-  color: transparent;
-  stroke: #FF640A;
-  stroke-width: 2px;
-}
-
-.iconPlus {
-  align-items: center;
-  fill:#ff640a;
-  display: flex;
-  stroke-width: 2;
-  height: 1.5rem;
-  justify-content: center;
-  width: 1.5rem;
-}
-
-.animeCard:hover .favoriteLabel {
-  opacity: 0;
-}
-
-.favoriteLabel {
-  position: absolute;
-  top: 8;
-  right: 8;
-  z-index: 3;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 34px 32px 0;
-  border-color: transparent #000000 transparent transparent;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding: 0px;
-  color: #FF640A;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-.favoriteLabel svg {
-  width: 1rem;
-
-  margin: 1px -34px 0 0;
-  fill: #FF640A;
-}
-
-
-.favoriteIcon {
-  width: 1rem;
-
-  margin: 2px -35px 0 0;
-  fill: #FF640A;
-}
-
-
-@media (max-width: 1200px) {
-  .gridContainer {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .gridContainer {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .gridContainer {
-    grid-template-columns: 1fr;
-  }
 }

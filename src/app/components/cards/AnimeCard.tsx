@@ -1,22 +1,18 @@
-// src/components/cards/AnimeCard.tsx
 import styles from "./AnimeCard.module.css";
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark as bookmarkSolid } from "@fortawesome/free-solid-svg-icons";
 
 import { useFavorites } from "../../contexts/FavoritesContext";
 import { useQuery } from '@apollo/client';
+import { GET_EPISODES } from "@/lib/queries/getEpisodes";
+import { Anime } from "@/types/anime";
 
 import AddToListModal from "../modals/AddToListModal";
 import MaturityRating from '../utils/elements/SmallMaturityRating';
 import PlayButton from '../buttons/PlayButton';
 import BookmarkButton from '../buttons/BookmarkButton';
 import AddButton from '../buttons/AddButton';
-import { GET_EPISODES } from "@/lib/queries/getEpisodes";
-import { Anime } from "@/types/anime";
 
 const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
   const { favorites, addFavorite, removeFavorite } = useFavorites();
@@ -60,8 +56,7 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
                 </path>
             </svg>
           </div>
-        )}
-        
+        )}        
         <div className={styles.nomeDataContainer}>
           <p className={styles.nome}>{anime.name}</p>
           <p className={styles.data}>{anime.audioType}</p>

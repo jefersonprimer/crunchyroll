@@ -36,6 +36,42 @@
   object-fit: cover;
 }
 
+.favoriteLabel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 36px 36px 0;
+  border-color: transparent #000000 transparent transparent;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0px;
+  color: #FF640A;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.favoriteLabel svg {
+  width: 1rem;
+  margin: 2px -35px 0 0;
+  fill: #FF640A;
+}
+
+
+.favoriteIcon {
+  width: 1rem;
+  margin: 2px -35px 0 0;
+  fill: #FF640A;
+}
+
+.card:hover .favoriteLabel {
+  opacity: 0;
+}
+
 .nomeDataContainer {
   position: absolute;
   color: white;
@@ -45,6 +81,15 @@
   width: 90%;
   opacity: 1;
   transition: opacity 0.3s ease;
+}
+
+.nome {
+  padding-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .data {
@@ -68,15 +113,6 @@
   z-index: 2; 
   height: 100%;
   width: 100%;
-}
-
-.nome {
-  padding-top: 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 14px;
-  font-weight: bold;
 }
 
 .name {
@@ -115,7 +151,6 @@
   align-items: center;
 }
 
-/* Estilo de Season e Episódios */
 .seasonText,
 .episodesText {
   font-size: 0.875rem;
@@ -124,7 +159,6 @@
   margin: 0px;
 }
 
-/* Sinopse com limite de 6 linhas */
 .synopsis {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -137,7 +171,6 @@
   font-weight: 500;
 }
 
-/* Botão de play */
 .playButton {
   position: absolute;
   bottom: 10%;
@@ -153,119 +186,10 @@
   gap: 16px;
 }
 
-/* Tooltip */
-.tooltip {
-  position: relative;
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.tooltipText {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 5px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.tooltip:hover .tooltipText {
-  visibility: visible;
-  opacity: 1;
-}
-
-/* Ícones */
-.iconPlay,
-.iconBookmark,
-.iconPlus {
-  align-items: center;
-  fill: #ff640a;
-  display: flex;
-  stroke-width: 2;
-  height: 1.5rem;
-  justify-content: center;
-  width: 1.5rem;
-}
-
-/* REMOVA qualquer estilo genérico que afete .iconBookmark */
-.iconBookmark {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  /* --- RESET TOTAL --- */
-  background: transparent !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  appearance: none !important;
-}
-
-
-.iconBookmark.filled path {
-  fill: #FF640A; 
-  stroke: none;
-}
-
-.iconBookmark.outline path {
-  fill: transparent !important;
-  stroke: #FF640A !important;
-  stroke-width: 2px !important;
-}
-
 .card:hover .playButton {
   opacity: 1;
 }
 
-.favoriteLabel {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 3;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 36px 36px 0;
-  border-color: transparent #000000 transparent transparent;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding: 0px;
-  color: #FF640A;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-.favoriteLabel svg {
-  width: 1rem;
-
-  margin: 2px -35px 0 0;
-  fill: #FF640A;
-}
-
-
-.favoriteIcon {
-  width: 1rem;
-
-  margin: 2px -35px 0 0;
-  fill: #FF640A;
-}
-
-.card:hover .favoriteLabel {
-  opacity: 0;
-}
-
-.cardTooltip,
-.cardTooltipText {
-  display: none;
-}
 
 /* Skeleton Loading Styles */
 .skeleton {
@@ -295,7 +219,6 @@
   border-radius: 50%;
 }
 
-/* Override hover effects for skeleton */
 .card:hover .skeleton {
   animation: loading 1.5s infinite;
 }
