@@ -1,6 +1,6 @@
 .episodeCard {
   position: relative;
-  width: 283.25px;
+  width: 295.25px;
   height: 249.33px;
   padding: 10px;
   overflow: hidden;
@@ -13,13 +13,13 @@
   
 .episodeImageContainer {
   position: relative;
-  width: 283.25px;
+  width: 295.25px;
   height: 159.33px;
   background: #2a2a2a;
 }
 
 .episodeInfo {
-  width: 283.25px;
+  width: 295.25px;
   height: 90px;
   display: flex;
   flex-direction: column;
@@ -188,12 +188,16 @@
     top: 1px;
     left: 1px;
   }
-  
+
   .durationBadge {
+    position: absolute;
     bottom: 1px;
-    right: 1px;
-    background-color: rgba(0, 0, 0, 0.7);
+    right: 15px;
+    background: rgba(0, 0, 0, 0.8);
     color: white;
+    padding: 4px 8px;
+    font-size: 12px;
+    z-index: 1;
   }
   
   .episodeCard:hover .ratingBadge,
@@ -254,16 +258,7 @@
     z-index: 1;
   }
   
-  .durationBadge {
-    position: absolute;
-    bottom: 1px;
-    right: 4px;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 4px 8px;
-    font-size: 12px;
-    z-index: 1;
-  }
+
   
   .comingSoonBadge {
     position: absolute;
@@ -532,3 +527,35 @@
     margin-right: 8px;
     font-weight: 500;
   }
+
+.audioTypeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.audioType {
+  font-size: 0.875rem;
+  color: #999;
+}
+
+.audioTypeButton {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.audioTypeIcon {
+  width: 20px;
+  height: 20px;
+  fill: #999;
+}
+
+.audioTypeButton:hover .audioTypeIcon {
+  fill: #fff;
+}

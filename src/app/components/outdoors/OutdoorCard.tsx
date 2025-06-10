@@ -19,12 +19,9 @@ const OutdoorCard: React.FC<OutdoorCardProps> = ({
       target="_blank"
       rel="noopener noreferrer"
       className="block relative 
-        w-[1350px] h-[450px] 
-        max-[1536px]:w-[1200px] max-[1536px]:h-[400px]
-        max-[1280px]:w-[1000px] max-[1280px]:h-[350px]
-        max-[1024px]:w-[800px] max-[1024px]:h-[300px]
-        max-[768px]:w-[600px] max-[768px]:h-[250px]
-        max-[640px]:w-[371px] max-[640px]:h-[166px]
+        w-[1230px] h-[400px] 
+        
+       
         overflow-hidden no-underline"
     >
       <Image

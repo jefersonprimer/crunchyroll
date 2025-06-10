@@ -1,5 +1,6 @@
 .historyCarouselContainer {
   padding: 0; 
+  margin: 0 auto;
   text-align: left; 
   display: flex;
   flex-direction: column;
@@ -11,7 +12,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: #000000;
-  padding: 0 20px;
+  padding: 0px;
   width: 1223px;
   margin: 0 auto;
 }
@@ -47,10 +48,11 @@
 }
 
 .historyCarousel {
-  width: 1223px;
+  width: 1230px;
   gap: 20px;
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  padding: 0px;
   margin: 0 auto;
 }
