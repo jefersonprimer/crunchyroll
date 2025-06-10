@@ -126,57 +126,59 @@
   margin-bottom: 5px;
 }
 
-.infoText {
-  font-size: 14px;
-  color: #f1f1f1;
-}
-
-.flexContainer {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.score {
-  display: flex;
-  align-items: center;
-}
-
-.iconStar {
-  margin-left: 2px;
-  font-size: 12px;
-  color: #f1f1f1;
-}
-
-.iconStar {
-  font-size: 12px;
-}
-
-.seasonText {
-  color: #9A9A9A;
-}
-
-.episodesText {
-  color: #9A9A9A;
-}
-
 .synopsis {
+  margin-top: 6px;
+  color: #FFFFFF;
+  font-size: 0.875rem;
+  font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
-  width: 130px;
+  width: 140px;
+}
+
+.flexContainer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.score {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.iconStar {
+  width: 16px;
+  height: 16px;
+  color: #f1f1f1;
+  display: inline-flex;
+  align-items: center;
+}
+
+.seasonText {
+  color: #A0A0A0;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.episodesText {
+  color: #A0A0A0;
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
 .playButton {
   position: absolute;
-  bottom: 5px;
+  bottom: 10px;
   gap: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px;
+  padding: 0px;
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -262,7 +264,7 @@
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 0 36px 36px 0;
+  border-width: 0 34px 32px 0;
   border-color: transparent #000000 transparent transparent;
   display: flex;
   align-items: flex-start;
@@ -274,10 +276,20 @@
 }
 
 .favoriteLabel svg {
-  width: 14px;
-  height: 14px;
-  transform: translate(32px, 2px);
+  width: 1rem;
+
+  margin: 1px -34px 0 0;
+  fill: #FF640A;
 }
+
+
+.favoriteIcon {
+  width: 1rem;
+
+  margin: 2px -35px 0 0;
+  fill: #FF640A;
+}
+
 
 @media (max-width: 1200px) {
   .gridContainer {

@@ -32,7 +32,7 @@ export interface Anime {
   genres?: Genre[];
   isPopular: boolean;
   isNewRelease: boolean;
-  rating?: string;
+  rating: number; /*estava  rating?: string; */
   score?: number;
   synopsis?: string;
   contentAdvisory?: string;

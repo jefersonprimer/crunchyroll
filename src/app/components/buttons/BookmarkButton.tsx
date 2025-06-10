@@ -1,7 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark as bookmarkSolid } from "@fortawesome/free-solid-svg-icons";
-import { faBookmark as bookmarkOutline } from "@fortawesome/free-regular-svg-icons";
 import styles from './BookmarkButton.module.css';
 
 interface BookmarkButtonProps {
@@ -15,11 +12,35 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ isFavorited, onToggle }
       <span className={styles.tooltipText}>
         {isFavorited ? "Remover da Fila" : "Adicionar à Fila"}
       </span>
-      <FontAwesomeIcon
-        icon={isFavorited ? bookmarkSolid : bookmarkOutline}
-        style={{ color: "#FF640A", transition: "color 0.3s ease-in-out" }}
-        className={`${styles.iconBookmark} ${isFavorited ? "filled" : "outline"}`}
-      />
+      {isFavorited ? (
+        <svg 
+          className={`${styles.iconBookmark} filled`}
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 24 24" 
+          data-t="watchlist-filled-svg" 
+          aria-hidden="false" 
+          role="img" 
+          aria-labelledby="watchlist-filled-svg-bdb1692f-63d6-46db-8a25-f70538841b69"
+          style={{ fill: "#FF640A", transition: "fill 0.3s ease-in-out" }}
+        >
+          <title id="watchlist-filled-svg-bdb1692f-63d6-46db-8a25-f70538841b69">Remover da Lista</title>
+          <path d="M18 2H6a1 1 0 0 0-1 1v17.056c0 .209.065.412.187.581a.994.994 0 0 0 1.394.233l4.838-3.455a1 1 0 0 1 1.162 0l4.838 3.455A1 1 0 0 0 19 20.056V3a1 1 0 0 0-1-1z"></path>
+        </svg>
+      ) : (
+        <svg 
+          className={`${styles.iconBookmark} outline`}
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 24 24" 
+          data-t="watchlist-svg" 
+          aria-hidden="false" 
+          role="img" 
+          aria-labelledby="watchlist-svg-11a8bc49-a2a5-474f-94ea-d05d7a5967c5"
+          style={{ fill: "#FF640A", transition: "fill 0.3s ease-in-out" }}
+        >
+          <title id="watchlist-svg-11a8bc49-a2a5-474f-94ea-d05d7a5967c5">Lista</title>
+          <path d="M17 18.113l-3.256-2.326A2.989 2.989 0 0 0 12 15.228c-.629 0-1.232.194-1.744.559L7 18.113V4h10v14.113zM18 2H6a1 1 0 0 0-1 1v17.056c0 .209.065.412.187.581a.994.994 0 0 0 1.394.233l4.838-3.455a1 1 0 0 1 1.162 0l4.838 3.455A1 1 0 0 0 19 20.056V3a1 1 0 0 0-1-1z"></path>
+        </svg>
+      )}
     </div>
   );
 };

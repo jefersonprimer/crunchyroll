@@ -1,8 +1,7 @@
-/* Card */
 .card {
   position: relative;
-  flex: 0 0 264px; /*254*/
-  height: 455px; /*437*/
+  flex: 0 0 264px;
+  height: 455px; 
   overflow: hidden;
   transition: all 0.3s ease;
   cursor: pointer;
@@ -48,15 +47,6 @@
   transition: opacity 0.3s ease;
 }
 
-.nome {
-  padding-top: 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 14px;
-  font-weight: bold;
-}
-
 .data {
   padding-top: 10px;
   font-size: 12px;
@@ -69,7 +59,7 @@
   left: 0;
   right: 0;
   transform: translateY(-52%);
-  padding: 10px;
+  padding: 12px;
   color: white;
   text-align: left;
   opacity: 0; 
@@ -80,13 +70,25 @@
   width: 100%;
 }
 
+.nome {
+  padding-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  font-weight: bold;
+}
+
 .name {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   width: 220px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 8px 0;
 }
 
 .flexContainer2 {
@@ -106,26 +108,20 @@
 }
 
 .iconStar {
-  margin-left: 2px; 
-  font-size: 12px; 
+  width: 16px;
+  height: 16px;
   color: #f1f1f1;
-}
-
-/* Informações do anime */
-.name,
-.infoText,
-.synopsis {
-  font-size: 14px;
-  margin: 5px 0;
-  color: #f1f1f1;
+  display: inline-flex;
+  align-items: center;
 }
 
 /* Estilo de Season e Episódios */
 .seasonText,
 .episodesText {
-  font-size: 14px;
-  color: #9A9A9A; 
-  margin: 5px 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #A0A0A0; 
+  margin: 0px;
 }
 
 /* Sinopse com limite de 6 linhas */
@@ -135,7 +131,10 @@
   display: -webkit-box;
   -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
-  width: 200px;
+  width: 208px;
+  margin-top: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
 /* Botão de play */
@@ -209,20 +208,18 @@
   appearance: none !important;
 }
 
-/* Estado "filled" (ícone preenchido) */
+
 .iconBookmark.filled path {
-  fill: #FF640A; /* Preenche o SVG */
-  stroke: none; /* Remove contorno */
+  fill: #FF640A; 
+  stroke: none;
 }
 
-/* Estado "outline" (apenas contorno) */
 .iconBookmark.outline path {
-  fill: transparent !important; /* SEM preenchimento */
-  stroke: #FF640A !important; /* Apenas contorno */
+  fill: transparent !important;
+  stroke: #FF640A !important;
   stroke-width: 2px !important;
 }
 
-/* Tornar os botões visíveis quando o card for hover */
 .card:hover .playButton {
   opacity: 1;
 }
@@ -247,239 +244,24 @@
 }
 
 .favoriteLabel svg {
-  width: 14px;
-  height: 14px;
-  transform: translate(32px, 2px);
+  width: 1rem;
+
+  margin: 2px -35px 0 0;
+  fill: #FF640A;
+}
+
+
+.favoriteIcon {
+  width: 1rem;
+
+  margin: 2px -35px 0 0;
+  fill: #FF640A;
 }
 
 .card:hover .favoriteLabel {
   opacity: 0;
 }
 
-@media (max-width: 768px) {
-  /* Card */
-.card {
-  position: relative;
-  flex: 0 0 141px; /*254*/
-  height: 285px; /*437*/
-  overflow: hidden;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  text-align: left;
-}
-
-.card:hover .animeImage {
-  height: 100%;
-}
-
-.card:hover .cardInfo {
-  opacity: 1;
-  background-color: rgba(20, 21, 25, 0.9);
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-direction: column;
-}
-
-.card:hover .nomeDataContainer {
-  opacity: 0;
-}
-
-.animeLink {
-  text-decoration: none;
-  color: inherit;
-}
-
-.animeImage {
-  width: 100%;
-  height: 78%;
-  object-fit: cover;
-}
-
-.nomeDataContainer {
-  position: absolute;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 90%;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-.nome {
-  padding-top: 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.data {
-  padding-top: 10px;
-  font-size: 12px;
-  margin: 0;
-}
-
-.cardInfo {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  transform: translateY(-50%);
-  padding: 10px;
-  color: white;
-  text-align: left;
-  opacity: 0; 
-  background-color: rgba(20, 21, 25, 0.8); 
-  transition: color 0.2s ease;
-  z-index: 2; 
-  height: 100%;
-  width: 100%;
-}
-
-.name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  width: 120px;
-}
-
-.flexContainer2 {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  scroll-behavior: smooth;
-  margin: 0;
-}
-
-.score {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center; 
-  gap: 5px;
-}
-
-.iconStar {
-  margin-left: 2px; 
-  font-size: 12px; 
-  color: #f1f1f1;
-}
-
-/* Informações do anime */
-.name,
-.infoText,
-.synopsis {
-  font-size: 14px;
-  margin: 5px 0;
-  color: #f1f1f1;
-}
-
-/* Estilo de Season e Episódios */
-.seasonText,
-.episodesText {
-  font-size: 14px;
-  color: #9A9A9A; 
-  margin: 5px 0;
-}
-
-/* Sinopse com limite de 6 linhas */
-.synopsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 6;
-  -webkit-box-orient: vertical;
-  width: 120px;
-}
-
-/* Botão de play */
-.playButton {
-  position: absolute;
-  bottom: 5px;
-  left: 10px;
-  border-radius: 50%;
-  padding: 5px;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-/* Tooltip */
-.tooltip {
-  position: relative;
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.tooltipText {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 5px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.tooltip:hover .tooltipText {
-  visibility: visible;
-  opacity: 1;
-}
-
-/* Ícones */
-.iconPlay,
-.iconBookmark,
-.iconPlus {
-  align-items: center;
-  fill:#ff640a;
-  display: flex;
-  stroke-width: 2;
-  height: 1.5rem;
-  justify-content: center;
-  width: 1.5rem;
-}
-
-.iconBookmark {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.iconBookmark.filled {
-  color: #FF640A;
-}
-
-.iconBookmark.outline {
-  color: transparent;
-  stroke: #FF640A;
-  stroke-width: 2px;
-}
-
-/* Tornar os botões visíveis quando o card for hover */
-.card:hover .playButton {
-  opacity: 1;
-}
-
-}
-
-/* Removendo os estilos do tooltip personalizado */
 .cardTooltip,
 .cardTooltipText {
   display: none;

@@ -36,8 +36,8 @@
 }
 
 .iconBookmark {
-  width: 20px;
-  height: 20px;
+  width: 1.5rem;
+  height: 1.5rem;
   transition: transform 0.3s ease-in-out;
   outline: none;
   -webkit-tap-highlight-color: transparent;
