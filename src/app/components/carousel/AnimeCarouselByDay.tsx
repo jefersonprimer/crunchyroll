@@ -31,7 +31,7 @@ const AnimeCarouselByDay: React.FC<AnimeCarouselByDayProps> = ({
   }
 
   if (!data?.animeOfTheDay) {
-    return <div className={styles.noAnimes}>Nenhum anime programado para hoje.</div>;
+    return <div className={styles.noAnimes}></div>;
   }
 
   // Normaliza os dados para sempre trabalhar com um array
@@ -40,7 +40,7 @@ const AnimeCarouselByDay: React.FC<AnimeCarouselByDayProps> = ({
     : [data.animeOfTheDay];
 
   if (animes.length === 0) {
-    return <div className={styles.noAnimes}>Nenhum anime programado para hoje.</div>;
+    return <div className={styles.noAnimes}></div>;
   }
 
   // Verifica o dia a partir do primeiro anime (assumindo que todos têm o mesmo airingDay)

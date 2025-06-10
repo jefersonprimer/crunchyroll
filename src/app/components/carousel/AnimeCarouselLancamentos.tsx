@@ -28,7 +28,7 @@ const AnimeCarouselLancamentos: React.FC<AnimeCarouselLancamentosProps> = ({
   }
 
   if (releasingAnimes.length === 0) {
-    return <div>Nenhum lançamento disponível no momento.</div>;
+    return <div></div>;
   }
 
   return (

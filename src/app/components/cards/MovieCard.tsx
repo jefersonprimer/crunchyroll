@@ -35,7 +35,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
   }
 
   if (movie.length === 0) {
-    return <div>Nenhum filme disponível no momento.</div>;
+    return <div></div>;
   }
 
   return (

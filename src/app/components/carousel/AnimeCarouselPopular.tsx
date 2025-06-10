@@ -28,7 +28,7 @@ const AnimeCarouselPopular: React.FC<AnimeCarouselPopularProps> = ({
   }
 
   if (popularAnimes.length === 0) {
-    return <div>Nenhum anime popular disponível no momento.</div>;
+    return <div></div>;
   }
 
   return (

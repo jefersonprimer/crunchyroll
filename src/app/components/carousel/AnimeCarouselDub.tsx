@@ -32,7 +32,7 @@ const AnimeCarouselDub: React.FC<AnimeCarouselDubProps> = ({
   }
 
   if (dubbedAnimes.length === 0) {
-    return <div>Nenhum anime dublado disponível no momento.</div>;
+    return <div></div>;
   }
 
   return (

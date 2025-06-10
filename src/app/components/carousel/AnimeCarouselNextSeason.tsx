@@ -27,7 +27,7 @@ const AnimeCarouselNextSeason: React.FC<AnimeCarouselNextSeasonProps> = ({
   }
 
   if (nextSeasonAnimes.length === 0) {
-    return <div>Não há animes programados para a próxima temporada.</div>;
+    return <div></div>;
   }
 
   return (
