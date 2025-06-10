@@ -5,7 +5,7 @@ import Link from "next/link";
 import styles from "./Header.module.css";
 import { DropdownIcon } from "../icons/HeaderIcons";
 import NewsMenu from "./NewsMenu";
-import { useDropdown } from "@/app/context/DropdownContext";
+import { useDropdown } from "@/app/contexts/DropdownContext";
 
 export default function NavigationMenu() {
   const { activeDropdown, setActiveDropdown } = useDropdown();
@@ -69,28 +69,28 @@ export default function NavigationMenu() {
           <div className={styles.dropdownMenu} ref={dropdownRef}>
             <div className={styles.navDropdown}>   
               <div className={styles.dropdownColumn}>
-                <Link href="/videos/alphabetical" className={styles.dropdownItem}>Explorar Tudo (A-Z)</Link>
-                <Link href="/simulcastcalendar" className={styles.dropdownItem}>Calendário de Lançamentos</Link>
-                <Link href="/series" className={styles.dropdownItem}>Videoclips & Shows</Link>
+                <Link href="/videos/alphabetical" className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>Explorar Tudo (A-Z)</Link>
+                <Link href="/simulcastcalendar" className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>Calendário de Lançamentos</Link>
+                <Link href="/series" className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>Videoclips & Shows</Link>
               </div>
               <div className={styles.dropdownColumn}>
                 <h3 className={styles.dropdownTitle}>GÊNEROS</h3>
                 <div className={styles.genreGrid}>
-                  <Link href="/videos/action" className={styles.genreItem}>Ação</Link>
-                  <Link href="/videos/adventure" className={styles.genreItem}>Aventura</Link>
-                  <Link href="/videos/comedy" className={styles.genreItem}>Comédia</Link>
-                  <Link href="/videos/drama" className={styles.genreItem}>Drama</Link>
-                  <Link href="/videos/fantasy" className={styles.genreItem}>Fantasia</Link>
-                  <Link href="/videos/music" className={styles.genreItem}>Música</Link>
-                  <Link href="/videos/romance" className={styles.genreItem}>Romance</Link>
-                  <Link href="/videos/sci-fi" className={styles.genreItem}>Ficção Científica</Link>
-                  <Link href="/videos/seinen" className={styles.genreItem}>Seinen</Link>
-                  <Link href="/videos/shoujo" className={styles.genreItem}>Shoujo</Link>
-                  <Link href="/videos/shounen" className={styles.genreItem}>Shounen</Link>
-                  <Link href="/videos/slice-of-life" className={styles.genreItem}>Slice-of-Life</Link>
-                  <Link href="/videos/sports" className={styles.genreItem}>Esportes</Link>
-                  <Link href="/videos/supernatural" className={styles.genreItem}>Sobrenatural</Link>
-                  <Link href="/videos/thriller" className={styles.genreItem}>Suspense</Link>
+                  <Link href="/videos/action" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Ação</Link>
+                  <Link href="/videos/adventure" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Aventura</Link>
+                  <Link href="/videos/comedy" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Comédia</Link>
+                  <Link href="/videos/drama" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Drama</Link>
+                  <Link href="/videos/fantasy" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Fantasia</Link>
+                  <Link href="/videos/music" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Música</Link>
+                  <Link href="/videos/romance" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Romance</Link>
+                  <Link href="/videos/sci-fi" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Ficção Científica</Link>
+                  <Link href="/videos/seinen" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Seinen</Link>
+                  <Link href="/videos/shoujo" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Shoujo</Link>
+                  <Link href="/videos/shounen" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Shounen</Link>
+                  <Link href="/videos/slice-of-life" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Slice-of-Life</Link>
+                  <Link href="/videos/sports" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Esportes</Link>
+                  <Link href="/videos/supernatural" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Sobrenatural</Link>
+                  <Link href="/videos/thriller" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Suspense</Link>
                 </div>
               </div>
             </div>

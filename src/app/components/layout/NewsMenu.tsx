@@ -4,7 +4,7 @@ import { useRef, useEffect } from "react";
 import Link from "next/link";
 import styles from "./Header.module.css";
 import { DropdownIcon } from "../icons/HeaderIcons";
-import { useDropdown } from "@/app/context/DropdownContext";
+import { useDropdown } from "@/app/contexts/DropdownContext";
 
 export default function NewsMenu() {
   const { activeDropdown, setActiveDropdown } = useDropdown();
@@ -47,13 +47,13 @@ export default function NewsMenu() {
       {activeDropdown === "news" && (
         <div className={styles.newsDropdown} ref={dropdownRef}>
           <div>
-            <Link href="/news" className={styles.dropdownItem}>
+            <Link href="/news" className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>
               Todas as Notícias
             </Link>
-            <Link href="/news/awards" className={styles.dropdownItem}>
+            <Link href="/news/awards" className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>
               Anime Awards
             </Link>
-            <Link href="/news/events" className={styles.dropdownItem}>
+            <Link href="/news/events" className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>
               Evento & Experiências
             </Link>
           </div>

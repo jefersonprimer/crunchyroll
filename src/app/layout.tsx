@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import ClientBody from "./ClientBody";
 import { Providers } from './providers';
-import { DropdownProvider } from "./context/DropdownContext";
+import { DropdownProvider } from "./contexts/DropdownContext";
 import RootLayoutClient from "./RootLayoutClient";
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/3357695.webp" id="favicon" />
+        <link rel="icon" href="/favicon.webp" id="favicon" />
       </head>
       <body suppressHydrationWarning>
         <DropdownProvider>
