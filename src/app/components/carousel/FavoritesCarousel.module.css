@@ -1,147 +1,88 @@
-.carouselContainer {
-    padding: 0px 60px;
-    margin: 100px 0px;
-    background-color: #000000;
-  }
-  
-  .title {
-    font-size: 1.5rem;
-    color: #FFFFFF;
-    margin-bottom: 8px;
-  }
-  
-  /* Layout do carrossel */
-  .carousel {
-    display: flex;
-    overflow-x: auto;
-    gap: 15px;
-    padding-bottom: 10px;
-    scrollbar-width: none;
-  }
+.carouselContainer {    
+  align-items: center;
+  justify-content: center;
+  width: 1351px;
+  height: 325.33px;
+  background-color: #000000;
+}
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #000000;
-  }
-  
-  .filaLink {
-    display: flex;
-    align-items: center;
-  }
-  
-  .filaButton {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #A0A0A0;
-    font-weight: bold;
-    transition: color 0.2s;
-  }
-  
-  .filaButton:hover {
-    color: #FFFFFF;
-  }
-  
-  .angle {
-    width: 24px;
-    height: 24px;
-    fill: currentColor;
-  }
+.header {
+  width: 1223px;
+  height: 52px;
+  margin: 0 auto;;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000000;
+}
 
-  .carousel::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* Cada anime é um card */
-  .animeCard {
-    width: 180px;
-    height: 360px;
-    text-align: left;
-  }
+.title {
+  font-size: 1.5rem;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+}
 
-  .animeCard:hover {
-    width: 180px;
-    height: 360px;
-    text-align: left;
-    background-color: red;
-  }
-  
-  .animeImage {
-    width: 100%;
-    height: auto;
-  }
-  
-  .animeInfo {
-    margin-top: 10px;
-  }
-  
-  .animeName {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #FFFFFF;
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .animeEpisode {
-    font-size: 0.9rem;
-    color: gray;
-    display: block;
-  }
-  
-  /* Seção de ações */
-  .actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 8px;
-  }
-  
-  .audioType {
-    font-size: 0.8rem;
-    color: #A0A0A0;
-  }
-  
-  /* Botão de remover */
-  .removeButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .trashIcon {
-    width: 20px;
-    height: 20px;
-    fill: #A0A0A0;
-    transition: transform 0.2s;
-  }
+.filaLink {
+  display: flex;
+  align-items: center;
+}
 
-  /* Estilização da lista vazia */
-  .emptyState {
-    text-align: center;
-    padding: 40px;
-  }
-  
-  .image {
-    max-width: 200px;
-    margin-bottom: 15px;
-  }
-  
-  .description {
-    font-size: 1rem;
-    color: white;
-    margin-bottom: 10px;
-  }
-  
-  .returnButton {
-    background: #ffcc00;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    display: inline-block;
-  }
-  
+.filaButton {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #A0A0A0;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.filaButton:hover {
+  color: #FFFFFF;
+}
+
+.angle {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px;
+}
+
+.image {
+  max-width: 200px;
+  margin-bottom: 15px;
+}
+
+.description {
+  font-size: 1rem;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.returnButton {
+  background: #ffcc00;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.carousel {
+  width: 1223px;
+  height: 273.33px;
+  display: flex;
+  overflow-x: auto;
+  gap: 0.75rem;
+  padding-bottom: 10px;
+  scrollbar-width: none;
+  margin: 0 auto;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}

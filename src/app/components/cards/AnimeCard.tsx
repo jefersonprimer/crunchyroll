@@ -84,10 +84,10 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
             </span>
           </div>
           <span className={styles.seasonText}>
-            {anime.seasons?.[0]?.seasonNumber ?? "N/A"} Temporada
+            {anime.seasons?.length ?? "N/A"} Temporada{anime.seasons?.length !== 1 ? "s" : ""}
           </span>
           <span className={styles.episodesText}>
-            {anime.totalEpisodes ?? "N/A"} Episódios
+            {anime.totalEpisodes ?? "N/A"} Episódio{anime.totalEpisodes !== 1 ? "s" : ""}
           </span>
 
           <p className={styles.synopsis}>{anime.synopsis}</p>

@@ -92,8 +92,10 @@ const Page = () => {
         <EpisodesSection anime={anime} />
       </div>
 
-      <div>
-        <h2 className={styles.recommendationsTitle}>Similares a Este</h2>
+      <div className={styles.recommendationsContainer}>
+        <div className={styles.header}>
+          <h2 className={styles.recommendationsTitle}>Similares a Este</h2>
+        </div>
         <div className={styles.recommendationsSection}>
           <FavoritesProvider>
             <RecommendationCarousel animes={recommendations} />

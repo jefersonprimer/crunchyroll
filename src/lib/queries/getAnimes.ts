@@ -50,6 +50,7 @@ export const GET_ANIMES = gql`
         releaseDate
         createdAt
         updatedAt
+        seasonId
         versions {
           id
           languageType
@@ -76,6 +77,9 @@ export const GET_EPISODES = gql`
       createdAt
       updatedAt
       season
+      seasonNumber
+      episodeNumber
+      seasonId
       versions {
         id
         languageType

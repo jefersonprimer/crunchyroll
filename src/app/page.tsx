@@ -102,7 +102,7 @@ const HomePage = () => {
             <FavoritesSection />
           </div>
 
-          <div className="my-[10px]">
+          <div className="my-[40px]">
             <Episodios />
           </div>
 

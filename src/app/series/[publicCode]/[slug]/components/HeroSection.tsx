@@ -72,13 +72,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         className={styles.heroImage}
       >
         <div className={styles.heroContent}>
-          <div style={{ width: '283px', height: '151px', marginBottom: '80px' }}>
+          <div style={{ width: '283px', height: '151px', marginBottom: '0px' }}>
             <img src={anime.imageLogo} alt={anime.name} />
           </div>
           <div className={styles.metaInfoContainer}>
-           
             <MaturityRating rating={Number(anime.rating) || 0} />
-            
             <span className={styles.metaItem}>{anime.audioType}</span>
             <span className={styles.metaItem}></span>
             <div className={styles.genresList}>

@@ -110,7 +110,7 @@
   text-align: left; 
   color: white;
   padding: 60px;
-  margin-bottom: 120px;
+  margin-bottom: 60px;
 }
 
 .heroText h1 {
@@ -127,7 +127,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 10px;
+  margin-top: 0px;
   row-gap: 8px;
 }
 
@@ -342,13 +342,14 @@
   height: 100%;
   position: relative;
   z-index: 1;
+  margin-bottom: 24px;
 }
 
 .synopsisContainer {
   padding-bottom: 40px;
   margin: 0px 60px;
   position: relative;
-  margin-top: -14vh; 
+  margin-top: -18vh; 
   border-bottom: 2px solid #23252B;
 }
 

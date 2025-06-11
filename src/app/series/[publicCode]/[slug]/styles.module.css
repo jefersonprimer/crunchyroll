@@ -9,10 +9,24 @@
   padding: 0px 40px;
 }
 
+.recommendationsContainer {
+  padding: 24px 0;
+  width: 1351px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1254px;
+  height: 46px;
+}
+
 .recommendationsTitle {
   font-size: 1.5rem;
   color: #fff; 
- padding-left: 30px;
+  padding-left: 55px;
 }
 
 .recommendationsSection {

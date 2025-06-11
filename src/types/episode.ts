@@ -31,6 +31,7 @@ export interface Episode {
   episodeNumber: number;
   seasonNumber: number;
   season: number;
+  seasonId: string;
   title: string;
   synopsis: string;
   duration: number;

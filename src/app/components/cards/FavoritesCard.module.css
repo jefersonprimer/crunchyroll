@@ -1,15 +1,15 @@
 .animeItem {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 280px;
+  width: 293.25px;
+  height: 273.33px;
+  padding: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
 }
 
 .animeItem:hover {
-  transform: translateY(-4px);
+  background-color: #23252B;
 }
 
 .imageContainer {
@@ -32,52 +32,31 @@
 }
 
 .texts {
-  padding: 1rem 0px;
+  padding-top: 8px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 2px;
 }
 
 .name {
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #FFFFFF;
   margin: 0;
   line-height: 1.4;
 }
 
-.audioType {
-    color: #a0a0a0;
-}
-
 .play {
-    color: #a0a0a0;
+    color: #A0A0A0;
 }
 
 .buttons {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 0.5rem;
+  margin-top: 2rem;
 }
 
-.removeButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease;
+.audioType {
+    color: #A0A0A0;
 }
-
-.removeButton:hover {
-  transform: scale(1.1);
-}
-
-.trashIcon {
-  width: 20px;
-  height: 20px;
-  color: #a0a0a0;
-} 
