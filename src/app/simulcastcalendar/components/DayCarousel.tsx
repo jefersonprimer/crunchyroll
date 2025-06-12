@@ -1,7 +1,8 @@
 import { Anime } from '@/types/anime';
+import { Episode } from '@/types/episode';
 import SimulcastCalendarHeader from "./SimulcastCalendarHeader";
 import AnimeHoverModal from './AnimeHoverModal';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import SimulcastCalendarFooter from './SimulcastCalendarFooter';
 
 interface DayCarouselProps {
@@ -13,6 +14,7 @@ interface DayCarouselProps {
 
 const DayCarousel = ({ days, currentDay, groupedAnimes, dayNames }: DayCarouselProps) => {
   const [hoveredAnime, setHoveredAnime] = useState<Anime | null>(null);
+  const [selectedDay, setSelectedDay] = useState(currentDay);
   const cardRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   // Define the correct order of days
@@ -29,55 +31,93 @@ const DayCarousel = ({ days, currentDay, groupedAnimes, dayNames }: DayCarouselP
     'sunday': 'DOM'
   };
 
+  // Function to format the time from createdAt
+  const formatEpisodeTime = (createdAt: string): string => {
+    const date = new Date(createdAt);
+    return date.toLocaleTimeString('pt-BR', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: true 
+    });
+  };
+
+  // Function to get the latest episode for an anime
+  const getLatestEpisode = (anime: Anime): Episode | undefined => {
+    if (!anime.episodes || anime.episodes.length === 0) return undefined;
+    return anime.episodes.sort((a, b) => 
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    )[0];
+  };
+
+  // Function to check if anime airs on the selected day
+  const isAnimeAiringOnDay = (anime: Anime, day: string): boolean => {
+    return anime.airingDay?.toLowerCase() === day.toLowerCase();
+  };
+
   return (
     <div className="w-[1280px] mx-auto">
       <SimulcastCalendarHeader/>
-      {/* Horizontal day carousel */}
-      <div className="flex justify-center mb-4 pb-2 mt-20">
-        <div className="flex overflow-x-auto gap-24 max-w-[1280px]">
-          {orderedDays.map((day, index) => (
-            <button
-              key={`${day}-${index}`}
-              className={`px-8 py-2 font-bold rounded-full whitespace-nowrap ${
-                day === currentDay
-                  ? '= text-[#363231] hover:text-[#F78C25]'
-                  : '= text-[#363231] hover:text-[#F78C25]'
-              }`}
-            >
-              {day === currentDay ? 'HOJE' : abbreviatedDayNames[day]}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Anime lists in columns */}
-      <div className="grid grid-cols-7 gap-12">
+      {/* Horizontal day carousel and anime columns */}
+      <div className="grid grid-cols-7 gap-1"> {/* estava gap-12  */}
         {orderedDays.map((day) => (
-          <div key={day} className="flex flex-col gap-4">
-            {groupedAnimes[day]?.map((anime) => (
-              <div
-                key={anime.id}
-                ref={(el) => {
-                  cardRefs.current[anime.id] = el;
-                }}
-                className="flex flex-col gap-2 p-2 w-full relative items-start"
-                onMouseEnter={() => setHoveredAnime(anime)}
-                onMouseLeave={() => setHoveredAnime(null)}
+          <div key={day} className="flex flex-col">
+            <div className={`flex justify-center ${day === selectedDay ? 'bg-[#FFFFFF] rounded-t-lg' : ''}`}>
+              <button
+                onClick={() => setSelectedDay(day)}
+                className={`px-8 py-2 font-bold rounded-full whitespace-nowrap ${
+                  day === selectedDay
+                    ? 'text-[#363231] hover:text-[#F78C25]'
+                    : 'text-[#363231] hover:text-[#F78C25]'
+                }`}
               >
-                <h3 className="text-sm text-[#363231] font-semibold line-clamp-2">{anime.name}</h3>
-                <img
-                  src={anime.imagePoster}
-                  alt={anime.name}
-                  className="w-full aspect-[2/3] object-cover"
-                />
-                {hoveredAnime?.id === anime.id && cardRefs.current[anime.id] && (
-                  <AnimeHoverModal 
-                    anime={anime} 
-                    triggerRef={{ current: cardRefs.current[anime.id] }} 
-                  />
-                )}
-              </div>
-            ))}
+                {day === currentDay ? 'HOJE' : abbreviatedDayNames[day]}
+              </button>
+            </div>
+            <div className={`flex flex-col gap-4 ${day === selectedDay ? 'bg-[#FFFFFF] p-4 rounded-b-lg' : ''}`}>
+              {groupedAnimes[day]?.map((anime) => {
+                const latestEpisode = getLatestEpisode(anime);
+                const isDaySelected = day === selectedDay;
+                
+                return (
+                  <div
+                    key={anime.id}
+                    ref={(el) => {
+                      cardRefs.current[anime.id] = el;
+                    }}
+                    className="flex flex-col gap-2 p-2 w-full relative items-start"
+                    onMouseEnter={() => setHoveredAnime(anime)}
+                    onMouseLeave={() => setHoveredAnime(null)}
+                  >
+                    {latestEpisode && (
+                      <div className="text-xs text-[#A09895] font-medium">
+                        {formatEpisodeTime(latestEpisode.createdAt).toLowerCase()}
+                      </div>
+                    )}
+                    <h3 className="text-sm text-[#363231] font-semibold line-clamp-2">{anime.name.toLocaleUpperCase()}</h3>
+                    {latestEpisode && (
+                      <div className="text-xs text-[#A09895] font-medium">
+                        Episódio {anime.totalEpisodes} Disponível
+                      </div>
+                    )}
+                    <img
+                      src={isDaySelected && latestEpisode ? latestEpisode.image : anime.imagePoster}
+                      alt={anime.name}
+                      className={`object-cover ${
+                        isDaySelected && latestEpisode 
+                          ? 'w-[167.45px] h-[94.19px]' 
+                          : 'w-[100px] h-[150px] aspect-[2/3]'
+                      }`}
+                    />
+                    {hoveredAnime?.id === anime.id && cardRefs.current[anime.id] && (
+                      <AnimeHoverModal 
+                        anime={anime} 
+                        triggerRef={{ current: cardRefs.current[anime.id] }} 
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         ))}
       </div>

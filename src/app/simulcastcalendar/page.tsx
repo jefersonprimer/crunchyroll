@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import DayCarousel from "./components/DayCarousel";
 import Loading from "../loading";
 import Footer from "./components/Footer";
+import { FavoritesProvider } from "../contexts/FavoritesContext";
 
 const CalendarPage = () => {
   const { data, loading, error } = useQuery(GET_ANIMES);
@@ -121,12 +122,14 @@ const CalendarPage = () => {
       
       <div className="flex flex-col items-center  p-4 min-h-screen text-center box-border bg-[#F2F2F2]">
         <div >
-          <DayCarousel
-            days={orderedDays}
-            currentDay={currentDay}
-            groupedAnimes={groupedAnimes}
-            dayNames={dayNames}
-          />
+          <FavoritesProvider>
+            <DayCarousel
+              days={orderedDays}
+              currentDay={currentDay}
+              groupedAnimes={groupedAnimes}
+              dayNames={dayNames}
+            />
+          </FavoritesProvider>
         </div>
       </div>
 
