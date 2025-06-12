@@ -54,7 +54,7 @@ const FavoritesCarousel = () => {
         </div>
       ) : (
         <div className={styles.carousel}>
-          {favorites.map((anime) => (
+          {favorites.slice(-4).map((anime) => (
             <FavoritesCard
               key={anime.id}
               anime={anime}

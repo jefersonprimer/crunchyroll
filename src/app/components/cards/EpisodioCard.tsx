@@ -116,7 +116,7 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime }) => {
           <h3>{anime.name}</h3>
           <p className={styles.episodeTitle}>
             {seasonNumber && <span className={styles.episodeNumber}>T{seasonNumber}</span>}
-            {episodeNumber && <span className={styles.episodeNumber}>E - {episodeNumber}</span>}
+            {episodeNumber && <span className={styles.episodeNumber}>E{episodeNumber} - </span>}
             {episode.title.replace(/^E\d+\s*-\s*/, "")}
           </p>
           {episode.releaseDate && (

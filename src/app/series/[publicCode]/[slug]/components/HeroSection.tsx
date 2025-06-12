@@ -72,7 +72,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         className={styles.heroImage}
       >
         <div className={styles.heroContent}>
-          <div style={{ width: '283px', height: '151px', marginBottom: '0px' }}>
+          <div style={{ width: '283.25px', height: 'auto', marginTop: '-60px', marginBottom: '60px' }}>
             <img src={anime.imageLogo} alt={anime.name} />
           </div>
           <div className={styles.metaInfoContainer}>

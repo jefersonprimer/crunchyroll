@@ -60,7 +60,7 @@ const DayCarousel = ({ days, currentDay, groupedAnimes, dayNames }: DayCarouselP
                 ref={(el) => {
                   cardRefs.current[anime.id] = el;
                 }}
-                className="flex flex-col gap-2 p-2 w-full relative"
+                className="flex flex-col gap-2 p-2 w-full relative items-start"
                 onMouseEnter={() => setHoveredAnime(anime)}
                 onMouseLeave={() => setHoveredAnime(null)}
               >

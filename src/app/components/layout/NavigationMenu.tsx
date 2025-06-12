@@ -74,7 +74,7 @@ export default function NavigationMenu() {
                 <Link href="/series" className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>Videoclips & Shows</Link>
               </div>
               <div className={styles.dropdownColumn}>
-                <h3 className={styles.dropdownTitle}>GÊNEROS</h3>
+                <small className={styles.dropdownTitle}>gêneros</small>
                 <div className={styles.genreGrid}>
                   <Link href="/videos/action" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Ação</Link>
                   <Link href="/videos/adventure" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Aventura</Link>

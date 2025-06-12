@@ -1,47 +1,9 @@
-.playButton {
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-.buttonBookmark {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  margin-top: 4px;
-}
-
-.iconBookmark {
-  margin-left: 8px; 
-  border: 2px solid #ff640a;
-  padding: 7px;
-  align-items: center;
-  fill: #ff640a;
-  stroke-width: 2;
-  height: 1.7rem;
-  justify-content: center;
-  width: 1.6rem;
-  cursor: pointer;
-}
-
-.playButton,
-.bookmarkButton {
-  display: flex; 
-  align-items: center; 
-  padding: 8px 15px;
-  background-color: #ff640a;
-  color: #000;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* HeroSection.tsx */
 .heroSection {
   width: 100%;
   margin-bottom: 30px;
   transition: height 0.3s ease;
   overflow: hidden;
+  background-color: #000000;
 }
 
 .heroSectionExpanded {
@@ -111,16 +73,6 @@
   color: white;
   padding: 60px;
   margin-bottom: 60px;
-}
-
-.heroText h1 {
-  color: white;
-  font-size: 16px;
-}
-
-.name {
-  padding-left: 15px;
-  color: red;
 }
 
 .metaInfoContainer {
@@ -194,7 +146,7 @@
 .starIcon {
   width: 26px;
   height: 26px;
-  fill: #ffc107;
+  fill: #DADADA;
 }
 
 .scoreText {
@@ -210,71 +162,22 @@
   flex-wrap: wrap; 
 }
 
-
-
-.iconPlay {
-  width: 24px;
-  height: 24px;
-  fill: currentColor;
-}
-
-.titleName {
-  font-size: 0.9rem;
-  white-space: nowrap;
-}
-
-.buttonPrimary {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 4px;
+.playButton {
   display: flex;
   align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  white-space: nowrap; 
+  height: 100%;
 }
 
-.buttonSecondary {
-  background-color: var(--secondary-color);
-  padding: 8px 16px;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-}
-
-.callToAction {
-  display: flex;
-}
-
-.playIcon, .watchlistIcon, .actionIcon, .moreIcon {
-  width: 20px;
-  height: 20px;
-  fill: currentColor;
-}
-
-.tooltipContainer {
-  position: relative;
-  display: inline-block;
-  color: #ff640a;
-}
-
-.buttonSecondary {
-  background-color: var(--secondary-color);
-  padding: 8px 16px;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: none;
+.playButton,
+.bookmarkButton {
+  display: flex; 
+  align-items: center; 
+  padding: 8px 15px;
+  background-color: #ff640a;
+  color: #000;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.buttonSecondary:hover {
-  background-color: var(--secondary-hover-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .tooltip {
@@ -314,9 +217,41 @@
   opacity: 1;
 }
 
+.iconPlay {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.titleName {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.tooltipContainer {
+  position: relative;
+  display: inline-block;
+  color: #ff640a;
+}
+
+.buttonBookmark {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-top: 4px;
+}
+
 .iconBookmark {
+  margin-left: 8px; 
+  border: 2px solid #ff640a;
+  padding: 7px;
+  align-items: center;
+  fill: #ff640a;
+  stroke-width: 2;
   width: 20px;
   height: 20px;
+  justify-content: center;
+  cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
 
@@ -328,6 +263,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.playIcon, .watchlistIcon, .actionIcon, .moreIcon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
 }
 
 .actionIcon, .moreIcon {
@@ -342,11 +283,11 @@
   height: 100%;
   position: relative;
   z-index: 1;
-  margin-bottom: 24px;
+  padding-bottom: 24px; /*margin-bottom=24px;*/
 }
 
 .synopsisContainer {
-  padding-bottom: 40px;
+  padding-bottom: 60px;
   margin: 0px 60px;
   position: relative;
   margin-top: -18vh; 
@@ -426,3 +367,4 @@
 .moreDetailsButton:hover {
   color: #FFF;
 }
+

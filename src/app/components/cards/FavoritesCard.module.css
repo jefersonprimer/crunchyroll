@@ -1,7 +1,7 @@
 .animeItem {
   display: flex;
   flex-direction: column;
-  width: 293.25px;
+  width: 300.25px;
   height: 273.33px;
   padding: 10px;
   overflow: hidden;
@@ -39,6 +39,7 @@
 }
 
 .name {
+  font-family: Lato, Helvetica Neue, helvetica, sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
   color: #FFFFFF;
@@ -47,7 +48,10 @@
 }
 
 .play {
-    color: #A0A0A0;
+  font-family: Lato, Helvetica Neue, helvetica, sans-serif;
+  color: #A0A0A0;
+  font-weight: 500;
+  font-size: 0.875rem;
 }
 
 .buttons {
@@ -58,5 +62,8 @@
 }
 
 .audioType {
-    color: #A0A0A0;
+  font-family: Lato, Helvetica Neue, helvetica, sans-serif;
+  color: #A0A0A0;
+  font-weight: 500;
+  font-size: 0.875rem;
 }

@@ -202,9 +202,6 @@ export const EpisodesSection = ({ anime }: EpisodesSectionProps) => {
         </div>
       </div>
 
-      {/* Subtítulo da temporada - apenas para animes com uma única temporada */}
-      
-
       {/* Seção de episódios */}
       <div className={styles.episodesContainer}>
         <div className={styles.episodesGrid}>

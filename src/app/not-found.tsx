@@ -16,7 +16,7 @@ const NotFound: React.FC = () => {
   return (
     <>
       <HeaderSecundary />
-      <div className="flex flex-col items-center justify-center min-h-screen bg-[#000000]">
+      <div className="flex flex-col items-center justify-center h-[515px] bg-[#000000]">
         <div className="w-full max-w-6xl mx-auto p-8">
           <div className="bg-[#000000] rounded-lg shadow-lg p-8 flex items-center gap-12">
             <img 

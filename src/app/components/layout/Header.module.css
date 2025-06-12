@@ -101,17 +101,19 @@
 }
 
 .navLink {
+  font-family: Lato, Helvetica Neue, helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
   display: flex;
   align-items: center;
   gap: 2px;
   color: #DADADA;
   text-decoration: none;
-  font-size: 16px;
   cursor: pointer;
   padding: 0 1rem;
   height: 100%;
   white-space: nowrap;
-  font-weight: 500;
 }
 
 .dropdownIcon {
@@ -126,7 +128,7 @@
 }
 
 .activeNews {
-  color: #fff;
+  color: #ffffff;
   background-color: #141519;
 }
 
@@ -149,9 +151,9 @@
   top: 100%;
   left: 0;
   background-color: #141519;
-  padding: 0.5rem 0px;
+  padding: 0.8rem 0px;
   width: 862px;
-  height: 260px;
+  height: 286px;
   z-index: 1000;
 }
 
@@ -163,46 +165,62 @@
 
 .dropdownColumn {
   width: 1px;
+  padding: 6px 0;
 }
 
 .dropdownColumn:first-child {
   flex: 1;
   border-right: 1px solid #23252B;
+ 
 }
 
 .dropdownColumn:last-child {
+  padding-top: 16px;
   flex: 3;
 }
 
 .dropdownItem {
   color: #F8F8EA;
+  font-size: 0.875rem;
+  font-family: Lato, Helvetica Neue, helvetica, sans-serif;
+  font-weight: 500;
+  line-height: 1.125rem;
   text-decoration: none;
-  padding: 0.6rem 1rem;
+  padding: .75rem 1rem;
   display: block;
 }
 
 .dropdownItem:hover {
-  background-color: #23252B;
-  color: #DADADA;
+  background-color: #23252b;
+  color: #f8f8f8;
 }
 
 .dropdownTitle {
-  color: #999;
-  font-size: 0.875rem;
+  font-family: Lato, Helvetica Neue, helvetica, sans-serif;
+  color: #a0a0a0;
+  font-size: .75rem;
   margin-bottom: 0.5rem;
-  padding: 0.4rem;
+  padding: .8125rem 1rem;
+  font-weight: 600;
+  line-height: 1rem;
+  text-transform: uppercase;
 }
 
 .genreGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
+  gap: 2px;
+  margin-top: 10px;
 }
 
 .genreItem {
-  color: #F8F8EA;
+  font-family: Lato,Helvetica Neue,helvetica,sans-serif;
+  color: #dadada;
   text-decoration: none;
-  padding: 9px 0.9rem;
+  padding: .75rem 1rem;
+  font-size: .875rem;
+  line-height: 1.125rem;
+  font-weight: 500;
 }
 
 .genreItem:hover {

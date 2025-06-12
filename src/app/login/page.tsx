@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Para redirecionamento de rotas
 import './styles.css'; // Estilos do seu componente
+import HeaderSecundary from '../components/layout/HeaderSecundary';
+import FooterSecundary from '../components/layout/FooterSecundary';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -39,62 +41,69 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
-      <h1 className='title'>Login</h1>
-      <div className="login-box">
-        <div className='form-container'>
-          <form onSubmit={handleLogin}>
-            {error && <div className="error-message">{error}</div>}
-            <div className="input-container">
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="input-field"
-                placeholder=" "
-              />
-              <label htmlFor="email" className="input-label">
-                Email
-              </label>
-            </div>
-            <div className="input-container">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="input-field"
-                placeholder=" "
-              />
-              <label htmlFor="password" className="input-label">
-                Senha
-              </label>
+    <div className='main-container'>
+      <HeaderSecundary />
+      <div className="container">
+        <h1 className='title'>Login</h1>
+        <div className="login-box">
+          <div className='form-container'>
+            <form onSubmit={handleLogin}>
+              {error && <div className="error-message">{error}</div>}
+              <div className="input-container">
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="input-field"
+                  placeholder=" "
+                />
+                <label htmlFor="email" className="input-label">
+                  Email
+                </label>
+              </div>
+              <div className="input-container">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="input-field"
+                  placeholder=" "
+                />
+                <label htmlFor="password" className="input-label">
+                  Senha
+                </label>
+                <button
+                  type="button"
+                  className="show-password-button"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? "OCULTAR" : "EXIBIR"}
+                </button>
+              </div>
               <button
-                type="button"
-                className="show-password-button"
-                onClick={() => setShowPassword(!showPassword)}
+                type="submit"
+                className={`login-button ${email && password ? 'filled' : ''}`}
               >
-                {showPassword ? "OCULTAR" : "EXIBIR"}
+                <span>LOGIN</span>
               </button>
+            </form>
+            <div className="container-link">
+              <div className="forgot-password-link">
+                <a href="/forgot-password">esqueceu a senha?</a>
+              </div>
+              |
+              <div className="register-link">
+                <a href="/register">criar conta</a>
+              </div>
             </div>
-            <button 
-              type="submit" 
-              className={`login-button ${email && password ? 'filled' : ''}`}
-            >
-              <span>LOGIN</span>
-            </button>
-          </form>
-          <div className="register-link">
-            <a href="/register">Don't have an account? Register here</a>
-          </div>
-          <div className="forgot-password-link">
-            <a href="/forgot-password">Forgot your password?</a>
           </div>
         </div>
       </div>
+      <FooterSecundary/>
     </div>
   );
 };

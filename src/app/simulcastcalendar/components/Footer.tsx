@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <div id="footer_menu" className="flex flex-col gap-8 bg-[#F3F3F3] p-[40px]">
+    <div id="footer_menu" className="flex flex-col gap-8 bg-[#F3F3F3] p-[60px]">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 w-[1280px]">
         <div className="hidden md:block">
           <h6 className="text-[11px] font-bold mb-1 text-[#777777]">Séries Mais Vistas</h6>

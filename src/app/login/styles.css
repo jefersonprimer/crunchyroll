@@ -1,19 +1,35 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #000000;
+}
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  flex: 1;
   flex-direction: column;
-  background-color: #000000;
+  padding: 40px 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .title {
   font-size: 34px;
   font-weight: 400;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #FFFFFF;
 }
 
 .login-box {
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
 }
 
 .register-box {
@@ -27,6 +43,7 @@
 .form-container {
   padding: 50px;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .title-form {
@@ -196,10 +213,33 @@ color: #fff;               /* Cor do texto ao passar o mouse */
   color: #FFFFFF;
 }
 
+.container-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
 .register-link {
-  
+  text-transform: uppercase;
+  color: #ff640a;
+  font-weight: 900;
+  text-decoration: none;
+  transition: color .2s ease;
 }
 
 .register-link:hover {
+  color: #FFFFFF;
+}
+
+.forgot-password-link {
+  text-transform: uppercase;
   color: #ff640a;
+  font-weight: 900;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.forgot-password-link:hover {
+  color: #FFFFFF;
 }
