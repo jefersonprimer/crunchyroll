@@ -54,6 +54,36 @@
   right: 0;
 }
 
+.carouselPagination {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.paginationPage {
+  width: 40px;
+  height: 4px;
+  background-color: #F8F8F8;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.paginationPage.active {
+  background-color: #FF640A;
+  transform: scale(1.2);
+}
+
+.paginationPage:hover {
+  background-color: #FFFFFF;
+  transform: scale(1.2);
+}
+
 /* Ajuste para os cards */
 .card {
   position: relative;

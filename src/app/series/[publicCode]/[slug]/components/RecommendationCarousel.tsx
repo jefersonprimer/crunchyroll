@@ -1,51 +1,65 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from 'react';
+import styles from "./RecommendationCarousel.module.css";
+import AnimeCard from "../../../../components/cards/AnimeCard";
+import AnimeCardSkeleton from "../../../../components/cards/AnimeCardSkeleton";
+import { Anime } from "@/types/anime";
+
+import { useRef, useState, useEffect } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { Anime } from "@/types/anime";
-import RecommendationCard from './RecommendationCard';
-import styles from './RecommendationCarousel.module.css';
 
 interface RecommendationCarouselProps {
   animes: Anime[];
+  itemsPerPage?: number;
+  loading?: boolean;
 }
 
-const RecommendationCarousel: React.FC<RecommendationCarouselProps> = ({ animes }) => {
+const RecommendationCarousel: React.FC<RecommendationCarouselProps> = ({ animes, loading = false }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
   const [currentPage, setCurrentPage] = useState(0);
-  const cardsPerPage = 4;
+  const cardsPerPage = 5;
   const totalPages = Math.ceil(animes.length / cardsPerPage);
+  const shouldShowArrows = animes.length > 5;
 
   const updateScrollState = () => {
     if (containerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
-      const isAtStart = scrollLeft <= 0;
-      const isAtEnd = Math.ceil(scrollLeft + clientWidth) >= scrollWidth;
-      setCanScrollLeft(!isAtStart);
-      setCanScrollRight(!isAtEnd);
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
+
+      // Atualiza os cards visíveis
+      const cards = containerRef.current.getElementsByClassName(styles.card);
+      const newVisibleCards = new Set<number>();
+      
+      Array.from(cards).forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const containerRect = containerRef.current!.getBoundingClientRect();
+        
+        // Verifica se o card está totalmente visível dentro do container
+        if (rect.left >= containerRect.left && rect.right <= containerRect.right) {
+          newVisibleCards.add(index);
+        }
+      });
+      
+      setVisibleCards(newVisibleCards);
     }
   };
 
   const scrollLeft = () => {
     if (containerRef.current) {
-      containerRef.current.scrollBy({
-        left: -300,
-        behavior: "smooth",
-      });
+      containerRef.current.scrollBy({ left: -300, behavior: "smooth" });
       setCurrentPage(prev => Math.max(0, prev - 1));
     }
   };
 
   const scrollRight = () => {
     if (containerRef.current) {
-      containerRef.current.scrollBy({
-        left: 300,
-        behavior: "smooth",
-      });
+      containerRef.current.scrollBy({ left: 300, behavior: "smooth" });
       setCurrentPage(prev => Math.min(totalPages - 1, prev + 1));
     }
   };
@@ -62,42 +76,22 @@ const RecommendationCarousel: React.FC<RecommendationCarouselProps> = ({ animes 
   };
 
   useEffect(() => {
+    updateScrollState();
+    const handleResize = () => updateScrollState();
+
     const container = containerRef.current;
     if (container) {
-      updateScrollState();
       container.addEventListener("scroll", updateScrollState);
-      return () => container.removeEventListener("scroll", updateScrollState);
+      window.addEventListener("resize", handleResize);
     }
-  }, []);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const index = Number(entry.target.getAttribute("data-index"));
-          setVisibleCards((prev) => {
-            const newSet = new Set(prev);
-            if (entry.isIntersecting) {
-              newSet.add(index);
-            } else {
-              newSet.delete(index);
-            }
-            return newSet;
-          });
-        });
-      },
-      {
-        threshold: 0.1,
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", updateScrollState);
+        window.removeEventListener("resize", handleResize);
       }
-    );
-
-    const cards = containerRef.current?.querySelectorAll("[data-index]");
-    cards?.forEach((card) => observer.observe(card));
-
-    return () => observer.disconnect();
-  }, [animes]);
-
-  const shouldShowArrows = animes.length > 4;
+    };
+  }, []);
 
   return (
     <div className={styles.carouselContainer}>
@@ -112,15 +106,23 @@ const RecommendationCarousel: React.FC<RecommendationCarouselProps> = ({ animes 
       )}
 
       <div className={styles.flexContainer} ref={containerRef}>
-        {animes.map((anime, index) => (
-          <div
-            key={anime.id}
-            data-index={index}
-            className={`${styles.card} ${visibleCards.has(index) ? styles.fullyVisible : ''}`}
-          >
-            <RecommendationCard anime={anime} />
-          </div>
-        ))}
+        {loading ? (
+          // Show 5 skeleton cards while loading
+          Array.from({ length: 5 }).map((_, index) => (
+            <div key={`skeleton-${index}`} className={styles.card}>
+              <AnimeCardSkeleton />
+            </div>
+          ))
+        ) : (
+          animes.map((anime, index) => (
+            <div
+              key={anime.id}
+              className={`${styles.card} ${visibleCards.has(index) ? styles.fullyVisible : ''}`}
+            >
+              <AnimeCard anime={anime} />
+            </div>
+          ))
+        )}
       </div>
 
       {shouldShowArrows && canScrollRight && (

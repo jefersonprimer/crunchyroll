@@ -23,6 +23,7 @@ import { ApolloProvider } from "@apollo/client";
 import client from "@/lib/apollo-client";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
+import NewsSection from "./components/sections/NewsSection";
 
 // Memoize the HistorySection component
 const HistorySection = memo(() => {
@@ -104,6 +105,10 @@ const HomePage = () => {
 
           <div className="my-[40px]">
             <Episodios />
+          </div>
+
+          <div className="my-[40px]">
+            <NewsSection />
           </div>
 
           <div className="flex justify-center items-center text-center flex-col my-[10px]">

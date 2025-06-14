@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation'; // Para redirecionamento de rotas
-import './styles.css'; // Estilos do seu componente
-import HeaderSecundary from '../components/layout/HeaderSecundary';
+import { useRouter } from 'next/navigation';
+import './styles.css'; 
 import FooterSecundary from '../components/layout/FooterSecundary';
+import HeaderLogin from '../components/layout/HeaderLogin';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -42,7 +42,7 @@ const Login = () => {
 
   return (
     <div className='main-container'>
-      <HeaderSecundary />
+      <HeaderLogin />
       <div className="container">
         <h1 className='title'>Login</h1>
         <div className="login-box">

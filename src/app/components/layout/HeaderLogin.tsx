@@ -1,9 +1,9 @@
 import React from 'react';
 
-const HeaderSecundary: React.FC = () => {
+const HeaderLogin: React.FC = () => {
   return (
     <header>
-      <div className="w-full h-[60px] bg-gradient-to-b from-transparent bg-[#23252B] shadow-lg flex items-center justify-center">
+      <div className="w-full h-[72px] bg-gradient-to-b from-transparent to-[#2d303a33] bg-black shadow-lg flex items-center justify-center">
         <div className="sticky top-0 z-50">
           <div className="flex items-center">
             <a 
@@ -13,7 +13,7 @@ const HeaderSecundary: React.FC = () => {
               className="inline-block"
             >
               <svg 
-                className="w-[136px] h-[60px] text-[#FF640A] hover:text-[#FFFFFF] transition-colors duration-200" 
+                className="w-[180px] h-[72px] text-[#FF640A] hover:text-[#FFFFFF] transition-colors duration-200" 
                 xmlns="http://www.w3.org/2000/svg" 
                 viewBox="0 0 303 52" 
                 data-t="crunchyroll-horizontal-svg" 
@@ -31,4 +31,4 @@ const HeaderSecundary: React.FC = () => {
   );
 };
 
-export default HeaderSecundary;
+export default HeaderLogin;

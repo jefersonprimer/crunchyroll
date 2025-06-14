@@ -8,7 +8,7 @@ import { Anime } from "@/types/anime";
 import { Episode } from "@/types/episode";
 import { GET_ANIMES } from "@/lib/queries/getAnimes";
 import { FavoritesProvider } from "@/app/contexts/FavoritesContext";
-import RecommendationCarousel from "../../components/RecommendationCarousel";
+import RecommendationCarousel from "./components/RecommendationCarousel";
 import { EpisodesSection } from "./components/EpisodesSection";
 import MaturityRating from "@/app/components/elements/MaturityRating";
 import { ClientMetadata } from "./components/ClientMetadata";

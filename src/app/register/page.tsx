@@ -2,10 +2,10 @@
 
 // src/app/register/page.tsx
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation'; // Para redirecionamento de rotas
+import { useRouter } from 'next/navigation'; 
 import './styles.css';
-import HeaderSecundary from '../components/layout/HeaderSecundary';
 import FooterSecundary from '../components/layout/FooterSecundary';
+import HeaderLogin from '../components/layout/HeaderLogin';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -54,7 +54,7 @@ const Register = () => {
 
   return (
     <div className='main-container'>
-      <HeaderSecundary />
+      <HeaderLogin />
       <div className="container">
         <h1 className='title'>Criar Conta</h1>
         <div className="register-box">
