@@ -27,8 +27,9 @@ export enum AudioLanguage {
 }
 
 export enum AudioType {
-  DUB = "dub",
-  SUB = "sub",
+  SUBTITLED = "subtitled",
+  DUBBED = "dubbed",
+  SUBTITLED_DUBBED = "subtitled_dubbed",
 }
 
 export enum EpisodeLanguageType {
