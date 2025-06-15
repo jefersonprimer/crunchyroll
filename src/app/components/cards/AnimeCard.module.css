@@ -1,39 +1,99 @@
+.cardWrapper {
+  width: 250.59px;
+  height: 436.89px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+  margin: 0 auto;
+}
+
+.cardWrapper:hover {
+  width: 236.59px;
+  height: 422.89px;
+}
+
 .card {
   position: relative;
-  flex: 0 0 264px;
-  height: 455px; 
-  overflow: hidden;
-  transition: all 0.3s ease;
+  width: 220.59px;
+  height: 406.89px;
+  overflow: hidden; 
   cursor: pointer;
   text-align: left;
 }
 
-.card:hover .animeImage {
-  height: 100%;
+.cardWrapper:hover .card {
+  width: 236.59px;
+  height: 422.89px;
 }
 
-.card:hover .cardInfo {
-  opacity: 1;
-  background-color: rgba(20, 21, 25, 0.9);
+.animeImage {
+  width: 220.59px;
+  height: 330.89px;
+  object-fit: cover;
+}
+
+.cardWrapper:hover .animeImage {
+  width: 236.59px;
+  height: 422.89px;
+}
+
+.cardWrapper:hover .cardInfo {
+  width: 236.59px;
+  height: 422.89px;
+}
+
+.cardInfo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px;
+  color: white;
+  text-align: left;
+  opacity: 0; 
+  background-color: rgba(20, 21, 25, 0.8); 
+  transition: opacity 0.2s ease;
+  z-index: 2; 
+  width: 100%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  flex-direction: column;
 }
 
-.card:hover .nomeDataContainer {
+.cardWrapper:hover .cardInfo {
+  opacity: 1;
+  background-color: rgba(20, 21, 25, 0.9);
+}
+
+.nomeDataContainer {
+  position: absolute;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 220.59px;
+  height: 76px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8px;
+  bottom: 0;
+}
+
+.cardWrapper:hover .nomeDataContainer {
   opacity: 0;
 }
 
 .animeLink {
   text-decoration: none;
   color: inherit;
-}
-
-.animeImage {
+  display: block;
   width: 100%;
-  height: 78%;
-  object-fit: cover;
+  height: 100%;
 }
 
 .favoriteLabel {
@@ -52,7 +112,7 @@
   padding: 0px;
   color: #FF640A;
   opacity: 1;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 
 .favoriteLabel svg {
@@ -60,7 +120,6 @@
   margin: 2px -35px 0 0;
   fill: #FF640A;
 }
-
 
 .favoriteIcon {
   width: 1rem;
@@ -70,17 +129,6 @@
 
 .card:hover .favoriteLabel {
   opacity: 0;
-}
-
-.nomeDataContainer {
-  position: absolute;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 90%;
-  opacity: 1;
-  transition: opacity 0.3s ease;
 }
 
 .nome {
@@ -96,23 +144,6 @@
   padding-top: 10px;
   font-size: 12px;
   margin: 0;
-}
-
-.cardInfo {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  transform: translateY(-52%);
-  padding: 12px;
-  color: white;
-  text-align: left;
-  opacity: 0; 
-  background-color: rgba(20, 21, 25, 0.8); 
-  transition: color 0.2s ease;
-  z-index: 2; 
-  height: 100%;
-  width: 100%;
 }
 
 .name {
@@ -173,8 +204,8 @@
 
 .playButton {
   position: absolute;
-  bottom: 10%;
-  left: 10px;
+  bottom: 10;
+  left: 10;
   border-radius: 50%;
   padding: 0px;
   cursor: pointer;
@@ -184,12 +215,12 @@
   display: flex;
   align-items: center;
   gap: 16px;
+ 
 }
 
 .card:hover .playButton {
   opacity: 1;
 }
-
 
 /* Skeleton Loading Styles */
 .skeleton {

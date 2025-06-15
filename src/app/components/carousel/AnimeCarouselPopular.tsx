@@ -3,10 +3,8 @@
 import Loading from "@/app/loading";
 import { useQuery } from '@apollo/client';
 import { GET_POPULAR_ANIMES } from '@/lib/queries/getPopularAnimes';
-
-import { Anime } from "@/types/anime";
 import AnimeCarousel from "./AnimeCarousel";
-import styles from "./AnimeCarouselPopular.module.css";
+import styles from "./styles.module.css";
 
 interface AnimeCarouselPopularProps {
   itemsPerPage?: number;
@@ -32,7 +30,7 @@ const AnimeCarouselPopular: React.FC<AnimeCarouselPopularProps> = ({
   }
 
   return (
-    <div className="anime-carousel-popular">
+    <div className={styles.container}>
       <div className={styles.header}>
         <h2 className={styles.titulo}>
           Animes Populares

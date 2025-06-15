@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/client";
 import { GET_ANIME_OF_DAY } from "@/lib/queries/getAnimeOfTheDay";
 import { Anime } from "@/types/anime";
 import AnimeCarousel from "./AnimeCarousel";
-import styles from "./AnimeCarouselByDay.module.css";
+import styles from "./styles.module.css";
 
 interface AnimeCarouselByDayProps {
   itemsPerPage?: number;
@@ -52,7 +52,7 @@ const AnimeCarouselByDay: React.FC<AnimeCarouselByDayProps> = ({
     : `Animes de Hoje (${airingDay})`;
 
   return (
-    <div className={`${styles.dayContainer} ${className}`}>
+    <div className={styles.container}>
       <div className={styles.header}>
         <h2 className={styles.titulo}>{titleText}</h2>
         <p className={styles.subtitulo}>

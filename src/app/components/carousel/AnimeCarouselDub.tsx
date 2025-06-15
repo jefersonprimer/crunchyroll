@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/client";
 import { GET_DUBBED_ANIMES } from "@/lib/queries/getDubbedAnimes";
 import { Anime } from "@/types/anime";
 import AnimeCarousel from "./AnimeCarousel";
-import styles from "./AnimeCarouselDub.module.css";
+import styles from "./styles.module.css";
 
 interface AnimeCarouselDubProps {
   itemsPerPage?: number;
@@ -36,7 +36,7 @@ const AnimeCarouselDub: React.FC<AnimeCarouselDubProps> = ({
   }
 
   return (
-    <div className={`${styles.audioTypeContainer} ${className}`}>
+    <div className={styles.container}>
       <div className={styles.header}>
         <h2 className={styles.titulo}>Dublagens em Português</h2>
         <p className={styles.subtitulo}>

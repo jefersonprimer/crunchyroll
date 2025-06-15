@@ -1,14 +1,11 @@
 "use client";
 
-import styles from "./AnimeCarousel.module.css";
-import AnimeCard from "../cards/AnimeCard";
 import AnimeCardSkeleton from "../cards/AnimeCardSkeleton";
+import styles from "./AnimeCarousel.module.css";
 import { Anime } from "@/types/anime";
-
 import { useRef, useState, useEffect } from "react";
+import AnimeCard from "../cards/AnimeCard";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 interface AnimeCarouselProps {
   animes: Anime[];
@@ -76,7 +73,19 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false }
           className={`${styles.scrollButton} ${styles.scrollLeft}`}
           aria-label="Scroll Left"
         >
-          <FontAwesomeIcon icon={faChevronLeft} />
+          <svg className="angle"
+           xmlns="http://www.w3.org/2000/svg" 
+           viewBox="0 0 24 24" 
+           data-t="angle-left-svg" 
+           aria-hidden="true" 
+           role="img"
+           fill="currentColor"
+           width="44"
+           height="44"
+           >
+            <path d="M15.4 7.4L14 6l-6 6 6 6 1.4-1.4-4.6-4.6z">
+            </path>
+          </svg>
         </button>
       )}
 
@@ -106,7 +115,20 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false }
           className={`${styles.scrollButton} ${styles.scrollRight}`}
           aria-label="Scroll Right"
         >
-          <FontAwesomeIcon icon={faChevronRight} />
+          <svg 
+            className="angle" 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 24 24" 
+            data-t="angle-right-svg" 
+            aria-hidden="true" 
+            role="img"
+            fill="currentColor"
+            width="44"
+            height="44"
+            >
+            <path d="M8.6 7.4L10 6l6 6-6 6-1.4-1.4 4.6-4.6z">
+            </path>
+          </svg>
         </button>
       )}
     </div>

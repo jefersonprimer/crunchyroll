@@ -1,8 +1,8 @@
 .carouselContainer {
   align-items: center;
-  width: 100vw;
+  width: 1351px;
+  height: 436.89px;
   margin: 0;
-  padding-bottom: 60px;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -12,13 +12,11 @@
 /* Container dos cards */
 .flexContainer {
   width: 100%;
-  max-width: 1800px;
-  align-items: flex-start;
+  align-items: center;
   display: flex;
   overflow-x: hidden;
-  gap: 1.37rem;
   scroll-behavior: smooth;
-  padding: 0 60px 0 60px; 
+  padding: 0 50px; 
   margin: 0 auto;
   justify-content: flex-start;
 }
@@ -32,35 +30,34 @@
   height: 100%;
   width: 60px;
   background-color: transparent;
-  color: white;
+  color: #f8f8f8;
   border: none;
   cursor: pointer;
   z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background-color 0.3s ease;
-}
-
-.scrollButton:hover {
-  background-color: rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease;
 }
 
 .scrollLeft {
-  left: 0;
+  left: 0px;
+  display: flex;
+  align-items: center;
 }
 
 .scrollRight {
-  right: 0;
+  right: 0px;
+  display: flex;
+  align-items: center;
 }
 
 /* Ajuste para os cards */
 .card {
   position: relative;
-  flex: 0 0 230px;
-  height: 420px;
-  overflow: hidden;
-  transition: all 0.3s ease;
+  flex: 0 0 250.59px;
+  height: 436.89px;
+  overflow: visible;
   cursor: pointer;
   text-align: left;
   opacity: 0.7;
@@ -68,23 +65,6 @@
 
 .card.fullyVisible {
   opacity: 1;
-}
-
-.card.fullyVisible:hover .animeImage {
-  height: 100%;
-}
-
-.card.fullyVisible:hover .cardInfo {
-  opacity: 1;
-  background-color: rgba(20, 21, 25, 0.9);
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-direction: column;
-}
-
-.card.fullyVisible:hover .nomeDataContainer {
-  opacity: 0;
 }
 
 /* Ajuste para os cards parcialmente visíveis */

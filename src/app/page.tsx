@@ -5,7 +5,7 @@ import { FavoritesProvider, useFavorites } from "./contexts/FavoritesContext";
 import { ListsProvider } from "./contexts/ListsContext";
 import { HistoryProvider, useHistory } from "./contexts/HistoryContext";
 import PageLoading from "./components/loading/PageLoading";
-
+import SpacedSection from "./components/layout/SpacedSection";
 import AnimeCarouselFullScreen from "./components/carousel/AnimeCarouselFullScreen";
 import AnimeCarouselLancamentos from "./components/carousel/AnimeCarouselLancamentos";
 import AnimeCarouselByDay from "./components/carousel/AnimeCarouselByDay";
@@ -70,53 +70,76 @@ const HomePage = () => {
         <ListsProvider>
           <Header />
           <AnimeCarouselFullScreen />
-          <AnimeCarouselLancamentos className="relative z-[2] mt-[-25vh] backdrop-blur-sm" />
+          <AnimeCarouselLancamentos className="relative z-[2]  backdrop-blur-sm" />
 
           <HistoryProvider>
             <HistorySection />
           </HistoryProvider>
 
-          <div className="flex justify-center items-center text-center flex-col my-[50px]">
-            <OutdoorCard
-              link="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
+          <SpacedSection>
+            <div className="flex justify-center items-center text-center flex-col">
+              <OutdoorCard
+                link="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
+                imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
+              />
+            </div>
+          </SpacedSection>
+
+          <SpacedSection>
+            <AnimeCarouselByDay />
+          </SpacedSection>
+
+          <SpacedSection className="relative z-[2] backdrop-blur-sm">
+            <AnimeCarouselPopularSeason />
+          </SpacedSection>
+
+          <SpacedSection className="relative z-[2] backdrop-blur-sm">
+            <AnimeCarouselPopular />
+          </SpacedSection>
+
+          <SpacedSection>
+            <AnimeCarouselNextSeason />
+          </SpacedSection>
+
+          <SpacedSection>
+            <AnimeCarouselDub />
+          </SpacedSection>
+
+          <SpacedSection>
+            <MovieCard />
+          </SpacedSection>
+
+          <SpacedSection>
+            <Outdoor
               imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
+              audiotype="Dub | Leg"
+              description="Milhares de anos após um misterioso fenômeno transformar a humanidade inteira em pedra, desperta um garoto extraordinariamente inteligente e motivado pela ciência - Senku Ishigami. Diante de um mundo de pedra e do colapso generalizado da civilização, Senku decide usar sua..."
+              buttonLink="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
+              addToQueueLink="#"
+              title="The Apothecary Diaries"
             />
-          </div>
+          </SpacedSection>
 
-          <AnimeCarouselByDay className="my-[10px]" />
-          <AnimeCarouselPopularSeason className="relative z-[2] backdrop-blur-sm my-[10px]" />
-          <AnimeCarouselPopular className="relative z-[2] backdrop-blur-sm my-[10px]" />
-          <AnimeCarouselNextSeason className="my-[10px]" />
-          <AnimeCarouselDub className="my-[10px]" />
-          <MovieCard className="my-[10px]" />
-
-          <Outdoor
-            imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
-            audiotype="Dub | Leg"
-            description="Milhares de anos após um misterioso fenômeno transformar a humanidade inteira em pedra, desperta um garoto extraordinariamente inteligente e motivado pela ciência - Senku Ishigami. Diante de um mundo de pedra e do colapso generalizado da civilização, Senku decide usar sua..."
-            buttonLink="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
-            addToQueueLink="#"
-            title="The Apothecary Diaries"
-          />
-
-          <div className="my-[10px]">
+          <SpacedSection>
             <FavoritesSection />
-          </div>
+          </SpacedSection>
 
-          <div className="my-[40px]">
+          <SpacedSection>
             <Episodios />
-          </div>
+          </SpacedSection>
 
-          <div className="my-[40px]">
+          <SpacedSection>
             <NewsSection />
-          </div>
+          </SpacedSection>
 
-          <div className="flex justify-center items-center text-center flex-col my-[10px]">
-            <OutdoorCard
-              link="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
-              imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
-            />
-          </div>
+          <SpacedSection>
+            <div className="flex justify-center items-center text-center flex-col">
+              <OutdoorCard
+                link="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
+                imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
+              />
+            </div>
+          </SpacedSection>
         </ListsProvider>
 
         <div className="flex justify-center items-center py-[50px] px-[80px] pb-[80px]">

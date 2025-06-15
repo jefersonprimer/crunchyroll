@@ -3,14 +3,12 @@
 import Loading from "@/app/loading";
 import { useQuery } from '@apollo/client';
 import { GET_SEASON_POPULAR_ANIMES } from '@/lib/queries/getSeasonPopularAnimes';
-
 import AnimeCarousel from "./AnimeCarousel";
-import styles from "./AnimeCarouselPopularSeason.module.css";
-import { Anime } from "@/types/anime";
+import styles from "./styles.module.css";
 
 interface AnimeCarouselPopularSeasonProps {
   itemsPerPage?: number;
-  className?: string; // Propriedade opcional
+  className?: string; 
 }
 
 const AnimeCarouselPopularSeason: React.FC<AnimeCarouselPopularSeasonProps> = ({
@@ -32,7 +30,7 @@ const AnimeCarouselPopularSeason: React.FC<AnimeCarouselPopularSeasonProps> = ({
   }
 
   return (
-    <div className="anime-carousel-popular-season">
+    <div className={styles.container}>
       <div className={styles.header}>
         <h2 className={styles.titulo}>
           Animes Populares da Temporada

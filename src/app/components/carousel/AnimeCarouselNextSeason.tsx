@@ -2,9 +2,8 @@
 
 import { useQuery } from '@apollo/client';
 import { GET_HAS_NEXT_SEASON } from '@/lib/queries/getHasNextSeason';
-import { Anime } from "@/types/anime";
 import AnimeCarousel from "./AnimeCarousel";
-import styles from "./AnimeCarouselNextSeason.module.css";
+import styles from "./styles.module.css";
 import Loading from "@/app/loading";
 
 interface AnimeCarouselNextSeasonProps {
@@ -31,7 +30,7 @@ const AnimeCarouselNextSeason: React.FC<AnimeCarouselNextSeasonProps> = ({
   }
 
   return (
-    <div className={`${styles.nextSeasonContainer} anime-carousel-next-season`}>
+    <div className={styles.container}>
       <div className={styles.header}>
         <h2 className={styles.titulo}>Animes da Próxima Temporada</h2>
         <p className={styles.subtitulo}>
