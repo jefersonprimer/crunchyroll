@@ -21,7 +21,7 @@ export interface Anime {
   publicCode: string;
   slug: string;
   name: string;
-  audioType?: string;
+  audioType?: AudioType;
   audioLanguages?: string[] | string;
   subtitles?: string;
   imagePoster?: string;

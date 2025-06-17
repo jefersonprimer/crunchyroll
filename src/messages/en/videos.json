@@ -1,0 +1,116 @@
+{
+  "newReleases": {
+    "title": "Newly Added Anime",
+    "subtitle": "Latest Releases",
+    "latestReleases": "Latest",
+    "filters": {
+    "sort": {
+      "label": "Sort",
+        "options": {
+          "mostPopular": "Most Popular",
+          "newest": "Latest",
+          "alphabetical": "Alphabetical Order"
+        }
+      },
+      "audio": {
+      "label": "Filter",
+      "language": "Language",
+      "options": {
+          "all": "All",
+          "subtitled": "Subtitled",
+          "dubbed": "Dubbed"
+        }
+      }
+    }
+  },
+  "popular": {
+    "title": "Most Popular Anime",
+    "subtitle": "Popular Releases",
+    "filters": {
+      "sort": {
+        "label": "Sort",
+        "options": {
+          "mostPopular": "Most Popular",
+          "newest": "Latest",
+          "alphabetical": "Alphabetical Order"
+        }
+      },
+      "audio": {
+        "label": "Filter",
+        "language": "Language",
+        "options": {
+          "all": "All",
+          "subtitled": "Subtitled",
+          "dubbed": "Dubbed"
+        }
+      }
+    }
+  },
+    "alphabetical": {
+      "title": "Alphabetical Order",
+      "filters": {
+        "alphabetical": "ALPHABETICAL ORDER",
+        "mostPopular": "Most Popular",
+        "mostRecent": "Most Recent",
+        "alphabeticalOrder": "Alphabetical Order",
+        "filter": "FILTER",
+        "language": "Language",
+        "all": "All",
+        "subtitled": "Subtitled",
+        "dubbed": "Dubbed"
+      },
+      "noResults": "No anime found with the letter \"{letter}\"",
+      "actions": {
+        "play": "Play",
+        "removeFromQueue": "Remove from Queue",
+        "addToQueue": "Add to Queue",
+        "addToPrimerlist": "Add to Primerlist"
+      },
+      "tooltips": {
+        "play": "Play",
+        "removeFromQueue": "Remove from Queue",
+        "addToQueue": "Add to Queue",
+        "addToPrimerlist": "Add to Primerlist"
+      },
+      "sort": {
+        "label": "Sort",
+        "title": "Sort"
+      },
+      "filter": {
+        "label": "Filter",
+        "title": "Filter"
+      }
+    },
+    "genre": {
+      "filters": {
+        "audio": {
+            "label": "Filter",
+            "language": "Language",
+            "options": {
+                "all": "All",
+                "subtitled": "Subtitled",
+                "dubbed": "Dubbed"
+              }
+          }
+      },
+      "title": "{genre} Anime",
+      "popular": "Popular",
+      "newReleases": "New Releases",
+      "viewAll": "VIEW ALL",
+      "loading": "Loading...",
+      "error": "An error occurred: {error}",
+      "genreNotFound": "Genre \"{genre}\" not found.",
+      "genrePopularPage": {
+        "title": "All {genre} Anime",
+        "loading": "Loading...",
+        "error": "An error occurred: {error}",
+        "genreNotFound": "Genre \"{genre}\" not found."
+      },
+      "genreNewPage": {
+        "title": "All {genre} Anime",
+        "loading": "Loading...",
+        "error": "An error occurred: {error}",
+        "genreNotFound": "Genre \"{genre}\" not found."
+      }
+    }   
+}

@@ -5,6 +5,7 @@ import { GET_HAS_NEXT_SEASON } from '@/lib/queries/getHasNextSeason';
 import AnimeCarousel from "./AnimeCarousel";
 import styles from "./styles.module.css";
 import Loading from "@/app/loading";
+import { useTranslations } from 'next-intl'; 
 
 interface AnimeCarouselNextSeasonProps {
   itemsPerPage?: number;
@@ -16,6 +17,7 @@ const AnimeCarouselNextSeason: React.FC<AnimeCarouselNextSeasonProps> = ({
 }) => {
   const { loading, error, data } = useQuery(GET_HAS_NEXT_SEASON);
   const nextSeasonAnimes = data?.nextSeasonAnimes || [];
+  const t = useTranslations();
 
   if (loading) {
     return <Loading />;
@@ -32,9 +34,9 @@ const AnimeCarouselNextSeason: React.FC<AnimeCarouselNextSeasonProps> = ({
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.titulo}>Animes da Próxima Temporada</h2>
-        <p className={styles.subtitulo}>
-          Confira os animes mais esperados para a próxima temporada!
+        <h2 className={styles.title}>{t('carousels.nextSeason.title')}</h2>
+        <p className={styles.subtitle}>
+          {t('carousels.nextSeason.subtitle')}
         </p>
       </div>
       <AnimeCarousel animes={nextSeasonAnimes} itemsPerPage={itemsPerPage} />
@@ -43,3 +45,4 @@ const AnimeCarouselNextSeason: React.FC<AnimeCarouselNextSeasonProps> = ({
 };
 
 export default AnimeCarouselNextSeason;
+

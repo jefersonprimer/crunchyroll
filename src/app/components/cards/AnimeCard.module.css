@@ -80,7 +80,6 @@
   opacity: 1;
   transition: opacity 0.3s ease;
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 8px;
   bottom: 0;
 }
 

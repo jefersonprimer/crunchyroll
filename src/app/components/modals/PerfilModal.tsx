@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { useTranslations } from 'next-intl';
 
 const PerfilModal = () => {
+  const t = useTranslations('perfilModal');
+
   return (
     <>
       <div className="flex flex-col items-center p-5 border-b border-gray-300 w-[388px] h-[500px]">
@@ -9,41 +12,41 @@ const PerfilModal = () => {
           alt="foto de perfil"
           className="w-20 h-20 rounded-full object-cover"
         />
-        <h2 className="text-lg font-bold my-2">Nome do Usuário</h2>
+        <h2 className="text-lg font-bold my-2">{t('title')}</h2>
         <Link href="/profiles/manage/7a5f7a55-f9dc-5b4e-862b-6610af73f7bb">
           <span className="cursor-pointer text-gray-600">✏️</span>
         </Link>
         <div className="bg-yellow-400 text-gray-900 p-2 text-center rounded-md mt-2">
-          TESTE GRATUITO DE 7 DIAS
+         {t('freeTrial')}
         </div>
       </div>
 
       <div className="flex flex-col gap-2 p-2">
         <button className="w-full text-left p-2 hover:bg-gray-200">
-          Troca de Perfil
+          {t('switchProfile')}
         </button>
         <button className="w-full text-left p-2 hover:bg-gray-200">
-          Configurações
+          {t('settings')}
         </button>
       </div>
 
       <div className="flex flex-col gap-2 p-2">
         <Link href="#" className="text-blue-500">
-          Fila
+        {t('queue')}
         </Link>
         <Link href="#" className="text-blue-500">
-          Crunchylistas
+        {t('crunchyLists')}
         </Link>
         <Link href="#" className="text-blue-500">
-          Histórico
+          {t('history')}
         </Link>
       </div>
 
       <Link href="#" className="block p-2 text-left">
         <div className="bg-gray-200 p-2 rounded-md">
-          <h2>Notificações</h2>
-          <span>Cartão e Presente</span>
-          <span>Você tem um cartão de presente? Resgate aqui.</span>
+          <h2>{t('notifications')}</h2>
+          <span>{t('giftCard.title')}</span>
+          <span>{t('giftCard.description')}</span>
         </div>
       </Link>
 
@@ -53,3 +56,5 @@ const PerfilModal = () => {
 };
 
 export default PerfilModal;
+
+

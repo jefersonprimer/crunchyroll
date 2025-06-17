@@ -1,0 +1,42 @@
+{
+  "navigation": {
+    "new": "New",
+    "popular": "Popular",
+    "simulcasts": "Simulcasts",
+    "categories": "Categories",
+    "exploreAll": "Explore All (A-Z)",
+    "releaseCalendar": "Release Calendar",
+    "videosAndShows": "Videos & Shows",
+    "genres": "genres",
+    "action": "Action",
+    "adventure": "Adventure",
+    "comedy": "Comedy",
+    "drama": "Drama",
+    "fantasy": "Fantasy",
+    "music": "Music",
+    "romance": "Romance",
+    "sciFi": "Sci-Fi",
+    "seinen": "Seinen",
+    "shoujo": "Shoujo",
+    "shounen": "Shounen",
+    "sliceOfLife": "Slice-of-Life",
+    "sports": "Sports",
+    "supernatural": "Supernatural",
+    "thriller": "Thriller",
+    "games": "Games",
+    "store": "Store",
+    "news": "News",
+    "allNews": "All News",
+    "animeAwards": "Anime Awards",
+    "experiencesAndEvents": "Experiences & Events"
+  },
+  "premiumPopup": {
+    "premiumOnly": "Premium Only",
+    "freeTrial": "7-Day Free Trial",
+    "description": "Premium includes unlimited access to all anime, ad-free, with new releases right after they air in Japan. Try it today!"
+  },
+  "header": {
+    "freeTrial": "FREE TRIAL",
+    "premium": "PREMIUM"
+  }
+}

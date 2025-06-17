@@ -75,3 +75,5 @@ const SmallMaturityRating: React.FC<SmallMaturityRatingProps> = ({ rating }) => 
 };
 
 export default SmallMaturityRating;
+
+

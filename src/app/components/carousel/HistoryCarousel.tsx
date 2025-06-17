@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useHistory } from '@/app/contexts/HistoryContext';
+import { useHistory } from '@/app/[locale]/contexts/HistoryContext';
 import styles from './HistoryCarousel.module.css';
 import { EpisodeCard } from '../cards/EpisodioCard';
 import Link from 'next/link';
@@ -46,3 +46,5 @@ const HistoryCarousel = () => {
 };
 
 export default HistoryCarousel;
+
+

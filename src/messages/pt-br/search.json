@@ -1,0 +1,20 @@
+{
+    "Search": {
+        "searchPlaceholder": "Pesquisar...",
+        "searchResults": "Resultados da Pesquisa",
+        "noResults": "Nenhum anime encontrado.",
+        "loading": "Carregando resultados...",
+        "clearSearch": "Limpar pesquisa",
+        "searchTitle": "Você pesquisou por \"{searchTerm}\" - Bakashi TV",
+        "defaultTitle": "Pesquisa de Animes - Bakashi TV",
+        "searchDescription": "Resultados da pesquisa por \"{searchTerm}\" na Bakashi TV. Explore animes populares e descubra novas séries!",
+        "defaultDescription": "Pesquise seus animes favoritos na Bakashi TV, o melhor portal para fãs de anime!"
+    },
+    "AnimeCardSearch": {
+        "audioTypes": {
+            "sub": "Legendado",
+            "dub": "Dublado",
+            "subtitled_dubbed": "Leg | Dub"
+        }
+    }
+}

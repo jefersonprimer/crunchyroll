@@ -7,6 +7,7 @@ import { Anime } from "@/types/anime";
 import AnimeCarousel from "./AnimeCarousel";
 import AnimeCarouselLancamentosSkeleton from "./AnimeCarouselLancamentosSkeleton";
 import styles from "./AnimeCarouselLancamentos.module.css";
+import { useTranslations } from 'next-intl';
 
 interface AnimeCarouselLancamentosProps {
   itemsPerPage?: number;
@@ -18,6 +19,7 @@ const AnimeCarouselLancamentos: React.FC<AnimeCarouselLancamentosProps> = ({
 }) => {
   const { loading, error, data } = useQuery(GET_RELEASING_ANIMES);
   const releasingAnimes = data?.releasingAnimes || [];
+  const t = useTranslations();
 
   if (loading) {
     return <AnimeCarouselLancamentosSkeleton itemsPerPage={itemsPerPage} />;
@@ -34,11 +36,9 @@ const AnimeCarouselLancamentos: React.FC<AnimeCarouselLancamentosProps> = ({
   return (
     <div className="anime-carousel-lancamentos">
       <div className={styles.header}>
-        <h2 className={styles.titulo}>
-         Uma amostra da temporada de primavera 2025
-        </h2>
-        <p className={styles.subtitulo}>
-         Assista os três primeiros episódios desses simulcasts da primavera 2025 de graça!
+      <h2 className={styles.title}>{t('carousels.releases.title')}</h2>
+        <p className={styles.subtitle}>
+          {t('carousels.releases.subtitle')}
         </p>
       </div>
       <AnimeCarousel animes={releasingAnimes} itemsPerPage={itemsPerPage} />
@@ -47,3 +47,4 @@ const AnimeCarouselLancamentos: React.FC<AnimeCarouselLancamentosProps> = ({
 };
 
 export default AnimeCarouselLancamentos;
+

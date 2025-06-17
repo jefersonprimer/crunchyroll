@@ -52,3 +52,4 @@ const AnimeCarouselFullScreenSkeleton = () => {
 };
 
 export default AnimeCarouselFullScreenSkeleton; 
+

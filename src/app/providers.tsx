@@ -1,6 +1,6 @@
 'use client';
 
-import { HistoryProvider } from './contexts/HistoryContext';
+import { HistoryProvider } from './[locale]/contexts/HistoryContext';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -9,3 +9,4 @@ export function Providers({ children }: { children: React.ReactNode }) {
     </HistoryProvider>
   );
 } 
+

@@ -1,0 +1,45 @@
+{
+    "Crunchylist": {
+        "title": "Minhas Listas",
+        "queue": "FILA",
+        "crunchylists": "CRUNCHYLISTS",
+        "history": "HISTÓRICO"
+    },
+    "CrunchylistComponent": {
+        "createNewList": "CRIAR NOVA LISTA",
+        "listsCount": "{count}/10 listas",
+        "noLists": "Nenhuma lista criada ainda.",
+        "items": "Itens",
+        "updatedAt": "Atualizado em",
+        "noItems": "Nenhum item na lista.",
+        "remove": "Remover",
+        "rename": "Renomear",
+        "deleteList": "Excluir Lista",
+        "renameList": "Renomear Crunchylist",
+        "cancel": "CANCELAR",
+        "renameButton": "RENOMEAR LISTA",
+        "listLimit": "Você atingiu o limite de 10 listas."
+    },
+    "AnimeCardCrunchylist": {
+        "audioTypes": {
+            "subtitled": "Legendado",
+            "dubbed": "Dublado",
+            "subtitled_dubbed": "Sub | Dublado"
+        },
+        "addToQueue": "Adicionar à fila",
+        "removeFromQueue": "Remover da fila"
+    },
+    "ListDatils": {
+        "backToLists": "VOLTAR PARA A CRUNCHYLISTS",
+        "searchPlaceholder": "Pesquisar anime...",
+        "itemsCount": "{contagem} de 100 itens",
+        "settings": "CONFIGURAÇÕES",
+        "editListName": "Editar nome da lista",
+        "deleteList": "Excluir lista",
+        "noAnimeFound": "Nenhum anime encontrado.",
+        "renameTitle": "Renomear Crunchylist",
+        "listName": "Nome da lista",
+        "renameButton": "RENOMEAR LISTA",
+        "cancelButton": "CANCELAR"
+    }
+}

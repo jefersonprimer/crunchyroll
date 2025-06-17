@@ -26,3 +26,5 @@ const FavoritesSection = () => {
 };
 
 export default FavoritesSection;
+
+

@@ -1,9 +1,9 @@
 "use client";
 
-import useFetchPosts from "../../news/hooks/useFetchPosts";
+import useFetchPosts from "../../[locale]/news/hooks/useFetchPosts";
 import PostCard from "./PostCard";
 import NewsCard from "./NewsCard";
-import { Post } from "../../news/types/posts";
+import { Post } from "../../[locale]/news/types/posts";
 import Link from "next/link";
 import Loading from "@/app/loading";
 
@@ -135,3 +135,5 @@ const NewsSection = () => {
 };
 
 export default NewsSection;
+
+

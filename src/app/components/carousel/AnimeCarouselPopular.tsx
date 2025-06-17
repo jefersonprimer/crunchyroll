@@ -32,10 +32,10 @@ const AnimeCarouselPopular: React.FC<AnimeCarouselPopularProps> = ({
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.titulo}>
+        <h2 className={styles.title}>
           Animes Populares
         </h2>
-        <p className={styles.subtitulo}>
+        <p className={styles.subtitle}>
           Assista os três primeiros episódios desses simulcasts de outubro de
           2024 de graça!
         </p>
@@ -46,3 +46,4 @@ const AnimeCarouselPopular: React.FC<AnimeCarouselPopularProps> = ({
 };
 
 export default AnimeCarouselPopular;
+

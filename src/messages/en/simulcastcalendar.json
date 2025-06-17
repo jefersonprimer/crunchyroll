@@ -1,0 +1,109 @@
+{
+    "AnimeHoverModal": {
+        "buttons": {
+            "watch": "Watch",
+            "addToFavorites": "Add to favorites",
+            "removeFromFavorites": "Remove from favorites"
+        },
+        "episode": "Episode {number}"
+    },
+    "DayCarousel": {
+        "today": "TODAY",
+        "days": {
+            "mondayShort": "MON",
+            "tuesdayShort": "TUE",
+            "wednesdayShort": "WED",
+            "thursdayShort": "THU",
+            "fridayShort": "FRI",
+            "saturdayShort": "SAT",
+            "sundayShort": "SUN"
+        },
+        "episodeAvailable": "Episode {number} Available"
+    },
+    "footersimulcastcalendar": {
+        "sections": {
+            "mostWatched": "Most Watched Series",
+            "platforms": "Platforms and Devices",
+            "premium": "Premium Subscriptions",
+            "language": "Language",
+            "support": "Support",
+            "crunchyroll": "Crunchyroll"
+        },
+        "premium": {
+            "twoWeekTrial": "Two Week Free Trial",
+            "buyGiftSubscriptions": "Buy Gift Subscriptions",
+            "activateGiftCard": "Activate Crunchyroll/VRV Gift Card"
+        },
+        "language": {
+            "detectedLocation": "Your detected location is Brazil.",
+            "englishUS": "English (US)",
+            "spanishLatin": "Español (América Latina)",
+            "spanishSpain": "Español (España)",
+            "portugueseBrazil": "Português (Brasil)",
+            "portuguesePortugal": "Português (Portugal)",
+            "french": "Français (France)",
+            "german": "Deutsch",
+            "arabic": "العربية",
+            "italian": "Italiano",
+            "russian": "Русский",
+            "hindi": "हिन्द",
+            "indonesian": "Bahasa Indonesia"
+        },
+        "support": {
+            "helpFAQ": "Help/FAQ"
+        },
+        "crunchyroll": {
+            "about": "About",
+            "careers": "Careers",
+            "advertising": "Advertising",
+            "copyrightPolicy": "Copyright Policy",
+            "termsOfService": "Terms of Service",
+            "privacyPolicy": "Privacy Policy",
+            "cookieConsentTool": "Cookie Consent Tool"
+        },
+        "footer": {
+            "sonyPicturesLogo": "Sony Pictures Logo"
+        },
+        "social": {
+            "followTwitter": "Follow @crunchyroll_pt"
+        }
+    },
+    "headersimulcastcalendar": {
+        "navigation": {
+            "series": "Series",
+            "news": "News",
+            "games": "Games",
+            "premium": "Premium"
+        },
+        "userPanel": {
+            "queue": "Queue",
+            "random": "Random",
+            "profile": "Profile",
+            "login": "Login",
+            "notifications": "Notifications",
+            "settings": "Settings",
+            "orderHistory": "Order History",
+            "logout": "Logout",
+            "search": "Search"
+        }
+    },
+    "simulcastcalendarfooter": {
+        "goToPremium": "Go to",
+        "premium": "Premium",
+        "toWatchSimulcasts": "to watch the newest simulcasts",
+        "happyHimeAlt": "Happy Hime character"
+    },
+    "simulcastcalendarheader": {
+        "releaseCalendars": "RELEASE CALENDARS",
+        "spring2025Lineup": "SPRING 2025 LINEUP",
+        "filters": {
+            "premiumEpisodes": "PREMIUM EPISODES",
+            "freeEpisodes": "FREE NEW EPISODES"
+        },
+        "premiumBanner": {
+            "access": "Access to the latest anime and dramas on the same day as broadcast in Japan.",
+            "premium": "Premium",
+            "trial": "Try 7 days for free."
+        }
+    }
+}

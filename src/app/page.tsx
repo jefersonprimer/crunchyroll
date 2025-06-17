@@ -1,9 +1,10 @@
 "use client";
 
 import React, { memo, useState, useEffect } from "react";
-import { FavoritesProvider, useFavorites } from "./contexts/FavoritesContext";
-import { ListsProvider } from "./contexts/ListsContext";
-import { HistoryProvider, useHistory } from "./contexts/HistoryContext";
+import { FavoritesProvider, useFavorites } from "./[locale]/contexts/FavoritesContext";
+import { ListsProvider } from "./[locale]/contexts/ListsContext";
+import { HistoryProvider, useHistory } from "./[locale]/contexts/HistoryContext";
+import { useTranslations } from "next-intl";
 import PageLoading from "./components/loading/PageLoading";
 import SpacedSection from "./components/layout/SpacedSection";
 import AnimeCarouselFullScreen from "./components/carousel/AnimeCarouselFullScreen";
@@ -47,8 +48,8 @@ const FavoritesSection = memo(() => {
 
 FavoritesSection.displayName = 'FavoritesSection';
 
-// Componente principal
 const HomePage = () => {
+  const t = useTranslations("fallback_recommendation");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -151,8 +152,8 @@ const HomePage = () => {
               alt="Yuzu."
             />
             <h3 className="pb-[40px]">
-              Ainda está procurando algo pra assistir? <br />
-              Confira o nosso acervo completo
+              {t('title')} <br />
+              {t('subtitle')}
             </h3>
             <a
               className="mt-[20px] no-underline"
@@ -160,7 +161,7 @@ const HomePage = () => {
               href="/videos/popular"
             >
               <span className="py-[10px] px-[20px] border-2 border-solid border-[#ff640a] text-[#ff640a] no-underline">
-                VER TUDO
+                {t('button')}
               </span>
             </a>
           </div>
@@ -172,3 +173,5 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+

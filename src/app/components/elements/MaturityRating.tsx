@@ -75,3 +75,5 @@ const MaturityRating: React.FC<MaturityRatingProps> = ({ rating }) => {
 };
 
 export default MaturityRating;
+
+

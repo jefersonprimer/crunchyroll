@@ -6,6 +6,7 @@ import { GET_ANIME_OF_DAY } from "@/lib/queries/getAnimeOfTheDay";
 import { Anime } from "@/types/anime";
 import AnimeCarousel from "./AnimeCarousel";
 import styles from "./styles.module.css";
+import { useTranslations } from "next-intl";
 
 interface AnimeCarouselByDayProps {
   itemsPerPage?: number;
@@ -20,6 +21,7 @@ const AnimeCarouselByDay: React.FC<AnimeCarouselByDayProps> = ({
   itemsPerPage = 5,
   className = "",
 }) => {
+  const t = useTranslations("carousels.animeOfTheDay");
   const { loading, error, data } = useQuery<GetAnimeOfTheDayData>(GET_ANIME_OF_DAY);
   
   if (loading) {
@@ -44,20 +46,22 @@ const AnimeCarouselByDay: React.FC<AnimeCarouselByDayProps> = ({
   }
 
   // Verifica o dia a partir do primeiro anime (assumindo que todos têm o mesmo airingDay)
-  const airingDay = animes[0].airingDay;
+  const airingDay = animes[0].airingDay || "Unknown";
 
   // Texto condicional baseado na quantidade de animes
   const titleText = animes.length === 1 
-    ? `Anime de Hoje (${airingDay})` 
-    : `Animes de Hoje (${airingDay})`;
+    ? t("title", { day: airingDay })
+    : t("titlePlural", { day: airingDay });
+
+  const subtitleText = animes.length === 1
+    ? t("subtitle")
+    : t("subtitlePlural");
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.titulo}>{titleText}</h2>
-        <p className={styles.subtitulo}>
-          Confira {animes.length === 1 ? "o anime" : "os animes"} que {animes.length === 1 ? "está" : "estão"} sendo exibido{animes.length === 1 ? "" : "s"} hoje!
-        </p>
+        <h2 className={styles.title}>{titleText}</h2>
+        <p className={styles.subtitle}>{subtitleText}</p>
       </div>
       <AnimeCarousel animes={animes} itemsPerPage={itemsPerPage} />
     </div>
@@ -65,3 +69,4 @@ const AnimeCarouselByDay: React.FC<AnimeCarouselByDayProps> = ({
 };
 
 export default AnimeCarouselByDay;
+

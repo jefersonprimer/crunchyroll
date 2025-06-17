@@ -1,0 +1,22 @@
+{
+    "carousels": {
+        "animeOfTheDay": {
+            "title": "Anime de hoje ({day})",
+            "titlePlural": "Animes de hoje ({day})",
+            "subtitle": "Assista ao streaming do anime hoje!",
+            "subtitlePlural": "Confira o streaming do anime hoje!"
+        },
+        "dubbed" : {
+            "title": "Dublagens em Português",
+            "subtitle": "Descubra os animes disponíveis com áudio dublado!"
+        },
+        "releases": {
+            "title": " Uma amostra da temporada de primavera 2025",
+            "subtitle": " Assista os três primeiros episódios desses simulcasts da primavera 2025 de graça!"
+        },
+        "nextSeason": {
+            "title": "Animes da Próxima Temporada",
+            "subtitle": "Confira os animes mais esperados para a próxima temporada!"
+        }
+    }
+}

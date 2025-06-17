@@ -1,0 +1,45 @@
+{
+  "Series": {
+    "watch": "Watch",
+    "recommendationsTitle": "Similar to This"
+  },
+  "HeroSection": {
+    "metadata": {
+        "audio": "Audio",
+        "subtitles": "Subtitles",
+        "contentRating": "Content Rating",
+        "genres": "Genres",
+        "notAvailable": "Not available"
+      },
+      "buttons": {
+        "showMore": "Show more",
+        "showLess": "Show less"
+      },
+      "audioTypes": {
+        "sub": "Subtitled",
+        "dub": "Dubbed",
+        "subtitled_dubbed": "Sub | Dub"
+      }
+    },
+    "EpisodeSection": {
+      "sort": {
+        "newest": "NEWEST",
+        "oldest": "OLDEST",
+        "newestLabel": "Newest",
+        "oldestLabel": "Oldest"
+      },
+      "options": {
+        "label": "OPTIONS",
+        "markAllWatched": "Mark all as watched",
+        "markAllUnwatched": "Mark all as unwatched"
+      },
+      "episodes": {
+        "count": "Episodes",
+        "noEpisodes": "No episodes found for this season"
+      },
+      "season": {
+        "label": "Season",
+        "episodeCount": "{count} Episodes"
+      }
+    }
+}

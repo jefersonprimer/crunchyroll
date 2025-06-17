@@ -6,7 +6,7 @@ import styles from "./EpisodeCard.module.css";
 import { Anime } from "@/types/anime";
 import { Episode } from "@/types/episode";
 import MaturityRating from "@/app/components/utils/elements/SmallMaturityRating";
-import { useHistory } from '@/app/contexts/HistoryContext';
+import { useHistory } from '@/app/[locale]/contexts/HistoryContext';
 
 interface EpisodeCardProps {
   episode: Episode;
@@ -151,3 +151,5 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime, watche
     </Link>
   );
 };
+
+

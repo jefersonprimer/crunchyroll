@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Post } from "../../news/types/posts";
+import { Post } from "../../[locale]/news/types/posts";
 
 interface NewsCardProps {
   post: Post;
@@ -66,3 +66,4 @@ const NewsCard = ({ post }: NewsCardProps) => {
 };
 
 export default NewsCard; 
+

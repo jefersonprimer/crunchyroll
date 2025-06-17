@@ -2,9 +2,9 @@
 
 import styles from "./AnimeGrid.module.css";
 import { useState } from "react";
-
+import { useTranslations } from 'next-intl';
 import { Anime } from "@/types/anime";
-import { useFavorites } from "../../contexts/FavoritesContext";
+import { useFavorites } from "@/app/[locale]/contexts/FavoritesContext";
 import Link from "next/link";
 
 import MaturityRating from '../utils/elements/SmallMaturityRating';
@@ -18,6 +18,7 @@ interface AnimeGridProps {
 }
 
 const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
+  const t = useTranslations();
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
@@ -68,7 +69,7 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
 
               <div className={styles.nomeDataContainer}>
                 <p className={styles.nome}>{anime.name}</p>
-                <p className={styles.data}>{anime.audioType}</p>
+                <p className={styles.data}>{t(`audioTypes.${anime.audioType}`)}</p>
               </div>
 
               {hoveredCard === anime.id && (
@@ -95,12 +96,13 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
                       </span>
                     </div>
                   </div>
-                  <p className={styles.seasonText}>
-                    {anime.seasons?.[0]?.seasonNumber ?? "N/A"} Temporada
-                  </p>
-                  <p className={styles.episodesText}>
-                    {anime.totalEpisodes ?? "N/A"} Episódios
-                  </p>
+                  <span className={styles.seasonText}>
+                    {anime.seasons?.length ?? "N/A"} {t(`seasons.${anime.seasons?.length === 1 ? 'singular' : 'plural'}`)}
+                  </span>
+                  <span className={styles.episodesText}>
+                    {anime.totalEpisodes ?? "N/A"} {t(`episodes.${anime.totalEpisodes === 1 ? 'singular' : 'plural'}`)}
+                  </span>
+                  
                   <p className={styles.synopsis}>
                     {anime.synopsis}
                   </p>
@@ -134,3 +136,5 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
 };
 
 export default AnimeGrid;
+
+

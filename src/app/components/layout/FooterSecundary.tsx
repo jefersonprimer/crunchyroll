@@ -87,3 +87,4 @@ const FooterSecundary: React.FC = () => {
 };
 
 export default FooterSecundary;
+

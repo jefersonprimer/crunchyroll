@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import ClientBody from "./ClientBody";
 import { Providers } from './providers';
-import { DropdownProvider } from "./contexts/DropdownContext";
+import { DropdownProvider } from "./[locale]/contexts/DropdownContext";
 import RootLayoutClient from "./RootLayoutClient";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html suppressHydrationWarning>
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
@@ -36,3 +36,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+

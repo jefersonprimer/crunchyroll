@@ -22,3 +22,4 @@ const AnimeCarouselLancamentosSkeleton: React.FC<AnimeCarouselLancamentosSkeleto
 };
 
 export default AnimeCarouselLancamentosSkeleton; 
+

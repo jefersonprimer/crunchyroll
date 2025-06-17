@@ -149,3 +149,5 @@ const oldAnimeCarousel: React.FC<oldAnimeCarouselProps> = ({
 };
 
 export default oldAnimeCarousel;
+
+

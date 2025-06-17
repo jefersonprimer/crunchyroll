@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useFavorites } from "../../contexts/FavoritesContext";
+import { useFavorites } from "../../[locale]/contexts/FavoritesContext";
 import styles from "./FavoritesCarousel.module.css";
 import Link from "next/link";
 import FavoritesCard from "../cards/FavoritesCard";
@@ -68,3 +68,5 @@ const FavoritesCarousel = () => {
 };
 
 export default FavoritesCarousel;
+
+

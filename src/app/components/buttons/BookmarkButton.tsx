@@ -46,3 +46,4 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ isFavorited, onToggle }
 };
 
 export default BookmarkButton; 
+

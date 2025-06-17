@@ -18,3 +18,4 @@ export default function RootLayoutClient({
   // For all other routes, wrap with ClientLayout
   return <ClientLayout>{children}</ClientLayout>;
 } 
+

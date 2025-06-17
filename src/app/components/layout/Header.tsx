@@ -9,13 +9,16 @@ import HeaderSkeleton from "./HeaderSkeleton";
 import NavigationMenu from "./NavigationMenu";
 import HeaderActions from "./HeaderActions";
 import MobileMenu from "./MobileMenu";
-import { useAuth } from "@/app/hooks/useAuth";
+import { useAuth } from "@/app/[locale]/hooks/useAuth";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isMobileView, setIsMobileView] = useState(false);
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isAnonymousModalOpen, setIsAnonymousModalOpen] = useState(false);
   const { userProfile, isLoading, checkAuthState } = useAuth();
+  const pathname = usePathname();
+  const locale = pathname.startsWith("/pt-br") ? "pt-br" : "en";
 
   useEffect(() => {
     const handleResize = () => {
@@ -51,7 +54,7 @@ export default function Header() {
           className={styles.headerLogo}
           style={{ display: isMobileView ? "none" : "block" }}
         >
-          <Link href="/" className={styles.ercLogo}>
+          <Link href={`/${locale}`} className={styles.ercLogo}>
             <svg 
               className={styles.logoIcon} 
               xmlns="http://www.w3.org/2000/svg" 
@@ -84,6 +87,7 @@ export default function Header() {
       <AccountModal 
         isOpen={isAccountModalOpen}
         onClose={() => setIsAccountModalOpen(false)}
+        userProfile={userProfile}
       />
       <AnonymousUserModal
         isOpen={isAnonymousModalOpen}
@@ -92,3 +96,5 @@ export default function Header() {
     </header>
   );
 }
+
+

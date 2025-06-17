@@ -2,8 +2,9 @@ import styles from "./AnimeCard.module.css";
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-
-import { useFavorites } from "../../contexts/FavoritesContext";
+import { useTranslations } from 'next-intl';
+import { useRouter, useParams } from "next/navigation";
+import { useFavorites } from "../../[locale]/contexts/FavoritesContext";
 import { useQuery } from '@apollo/client';
 import { GET_EPISODES } from "@/lib/queries/getEpisodes";
 import { Anime } from "@/types/anime";
@@ -15,10 +16,13 @@ import BookmarkButton from '../buttons/BookmarkButton';
 import AddButton from '../buttons/AddButton';
 
 const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
+  const t = useTranslations();
   const { favorites, addFavorite, removeFavorite } = useFavorites();
   const [showModal, setShowModal] = useState(false);
   const isFavorited = favorites.some((fav) => fav.id === anime.id);
-  
+  const router = useRouter();
+  const params = useParams();
+  const locale = params.locale as string;
   const [firstEpisode, setFirstEpisode] = useState<any | null>(null);
   const { loading: isLoading, data } = useQuery(GET_EPISODES);
   const episodes = data?.episodes || [];
@@ -43,7 +47,7 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
   return (
     <div className={styles.cardWrapper}>
       <div className={styles.card} title={anime.name}>
-        <Link href={`/series/${anime.publicCode}/${anime.slug}`} className={styles.animeLink}>
+        <Link href={`/${locale}/series/${anime.publicCode}/${anime.slug}`} className={styles.animeLink}>
           <img src={anime.imagePoster} alt={anime.name} className={styles.animeImage} />
           
           {isFavorited && (
@@ -60,7 +64,7 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
           )}        
           <div className={styles.nomeDataContainer}>
             <p className={styles.nome}>{anime.name}</p>
-            <p className={styles.data}>{anime.audioType}</p>
+            <p className={styles.data}>{t(`audioTypes.${anime.audioType}`)}</p>
           </div>
 
           <div className={styles.cardInfo}>
@@ -85,10 +89,10 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
               </span>
             </div>
             <span className={styles.seasonText}>
-              {anime.seasons?.length ?? "N/A"} Temporada{anime.seasons?.length !== 1 ? "s" : ""}
+              {anime.seasons?.length ?? "N/A"} {t(`seasons.${anime.seasons?.length === 1 ? 'singular' : 'plural'}`)}
             </span>
             <span className={styles.episodesText}>
-              {anime.totalEpisodes ?? "N/A"} Episódio{anime.totalEpisodes !== 1 ? "s" : ""}
+              {anime.totalEpisodes ?? "N/A"} {t(`episodes.${anime.totalEpisodes === 1 ? 'singular' : 'plural'}`)}
             </span>
 
             <p className={styles.synopsis}>{anime.synopsis}</p>
@@ -108,3 +112,4 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
 };
 
 export default AnimeCard;
+

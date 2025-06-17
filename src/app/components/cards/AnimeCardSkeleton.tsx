@@ -43,3 +43,4 @@ const AnimeCardSkeleton: React.FC = () => {
 };
 
 export default AnimeCardSkeleton; 
+

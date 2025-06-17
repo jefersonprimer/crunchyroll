@@ -1,0 +1,15 @@
+{
+    "seasons": {
+        "singular": "season",
+        "plural": "seasons"
+    },
+    "episodes": {
+        "singular": "episode",
+        "plural": "episodes"
+    },
+    "audioTypes": {
+        "subtitled": "Subtitled",
+        "dubbed": "Dubbed",
+        "subtitled_dubbed": "Sub | Dub"
+    }
+}

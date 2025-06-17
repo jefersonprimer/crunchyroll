@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './FavoritesCard.module.css';
 import { Anime } from '../../../types/anime';
 import MaturityRating from '@/app/components/utils/elements/SmallMaturityRating';
+import { useTranslations } from 'next-intl';
+import { AudioType } from '../../../types/enums';
 
 interface AnimeCardProps {
   anime: Anime;
@@ -9,6 +11,13 @@ interface AnimeCardProps {
 }
 
 const FavoritesCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
+  const t = useTranslations();
+
+  const getAudioTypeKey = (audioType?: AudioType) => {
+    if (!audioType) return 'subtitled';
+    return audioType.toLowerCase();
+  };
+
   return (
     <li className={styles.animeItem} title={anime.name}>
       <div className={styles.imageContainer}>
@@ -32,7 +41,7 @@ const FavoritesCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
         </h3>
         <span className={styles.play}>Comecar a Assistir: E1</span>
         <div className={styles.buttons}>
-          <span className={styles.audioType}>{anime.audioType}</span>
+          <span className={styles.audioType}>{t(`audioTypes.${getAudioTypeKey(anime.audioType)}`)}</span>
         </div>
       </div>
     </li>
@@ -40,3 +49,4 @@ const FavoritesCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
 };
 
 export default FavoritesCard; 
+

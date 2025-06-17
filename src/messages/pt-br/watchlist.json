@@ -1,0 +1,52 @@
+{
+    "Watchlist": {
+        "title": "Minhas Listas",
+        "queue": "FILA",
+        "crunchylists": "CRUNCHYLISTS",
+        "history": "HISTÓRICO"
+        },
+        "AnimeCardWatchlist": {
+            "audioTypes": {
+            "subtitled": "Legendado",
+            "dubbed": "Dublado",
+            "subtitled_dubbed": "Sub | Dublado"
+        },
+        "startWatching": "Começar a Assistir: E1"
+    },
+    "WatchlistHeader": {
+        "sortOptions": {
+          "mostRecentUpdate": "Atualização mais recente",
+          "updated": "Atualizado",
+          "watched": "Assistido",
+          "added": "Adicionado",
+          "alphabetical": "Alfabético"
+        },
+        "dateSortOptions": {
+          "mostRecent": "Mais recente",
+          "oldest": "Mais antigo"
+        },
+        "filterOptions": {
+          "favorites": {
+            "onlyFavorites": "Apenas favoritos"
+          },
+          "languages": {
+            "all": "Todos",
+            "subtitled": "Legendado",
+            "dubbed": "Dublado"
+          },
+          "mediaType": {
+            "all": "Todos",
+            "anime": "Anime",
+            "movies": "Filmes"
+          },
+          "sections": {
+            "languages": "Idiomas",
+            "mediaType": "Tipo de mídia"
+          }
+        },
+        "buttons": {
+          "sort": "ORDENAR",
+          "filter": "FILTRAR"
+        }
+      }
+}

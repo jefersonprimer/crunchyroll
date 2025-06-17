@@ -171,3 +171,5 @@ const AnimeCarouselGenre: React.FC<AnimeCarouselGenreProps> = ({ animes }) => {
 };
 
 export default AnimeCarouselGenre;
+
+

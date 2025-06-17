@@ -1,0 +1,52 @@
+{
+    "Watchlist": {
+        "title": "My lists",
+        "queue": "QUEUE",
+        "crunchylists": "CRUNCHYLISTS",
+        "history": "HISTORY"
+    },
+    "AnimeCardWatchlist": {
+        "audioTypes": {
+            "subtitled": "Subtitled",
+            "dubbed": "Dubbed",
+            "subtitled_dubbed": "Sub | Dub"
+        },
+        "startWatching": "Start Watching: E1"
+    },
+    "WatchlistHeader": {
+        "sortOptions": {
+            "mostRecentUpdate": "Most Recent Update",
+            "updated": "Updated",
+            "watched": "Watched",
+            "added": "Added",
+            "alphabetical": "Alphabetical"
+        },
+        "dateSortOptions": {
+            "mostRecent": "Most Recent",
+            "oldest": "Oldest"
+        },
+        "filterOptions": {
+            "favorites": {
+                "onlyFavorites": "Only Favorites"
+            },
+            "languages": {
+                "all": "All",
+                "subtitled": "Subtitled",
+                "dubbed": "Dubbed"
+            },
+            "mediaType": {
+                "all": "All",
+                "anime": "Anime",
+                "movies": "Movies"
+            },
+            "sections": {
+                "languages": "Languages",
+                "mediaType": "Media Type"
+            }
+        },
+        "buttons": {
+            "sort": "SORT",
+            "filter": "FILTER"
+        }
+    }
+}

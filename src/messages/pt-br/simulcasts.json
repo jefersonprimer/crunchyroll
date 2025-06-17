@@ -1,0 +1,14 @@
+{
+    "simulcasts": {
+        "season": {
+            "title": "Simulcasts da Temporada",
+            "noAnimesFound": "Nenhum anime encontrado para esta temporada",
+            "seasons": {
+                "spring": "Primavera",
+                "summer": "Verão",
+                "fall": "Outono",
+                "winter": "Inverno"
+            }
+        }
+    }
+}

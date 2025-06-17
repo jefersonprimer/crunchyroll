@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from 'next-intl';
 import React from "react";
 import Link from "next/link";
 import styles from "./EpisodioCard.module.css";
@@ -27,6 +28,8 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime }) => {
       return dateString;
     }
   };
+
+  const t = useTranslations();
 
   const getEpisodeNumber = (title: string) => {
     const match = title.match(/E(\d+)/);
@@ -103,7 +106,7 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime }) => {
         </p>
         {anime.audioType && (
           <div className={styles.audioTypeContainer}>
-            <span className={styles.audioType}>{anime.audioType}</span>
+            <span className={styles.audioType}>{t(`audioTypes.${anime.audioType}`)}</span>
             <button className={styles.audioTypeButton}>
               <svg className={styles.audioTypeIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 24" data-t="more-svg" aria-hidden="true" role="img"><path d="M6 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-2 4c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2zm2 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
             </button>
@@ -154,3 +157,5 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime }) => {
     </Link>
   );
 };
+
+

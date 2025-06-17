@@ -1,0 +1,25 @@
+{
+    "Watch": {
+        "watch": "mirar"
+    },
+    "EpisodeHeader": {
+        "addToQueue": "Añadir a la cola",
+        "removeFromQueue": "Eliminar de la cola",
+        "releasedOn": "Publicado el {date}",
+        "audioTypes": {
+            "sub": "Legendado",
+            "dub": "Dublado",
+            "subtitled_dubbed": "Leg | Dub"
+        }
+    },
+    "EpisodeNavigation": {
+        "previousEpisode": "EPISODIO ANTERIOR",
+        "nextEpisode": "SIGUIENTE EPISODIO",
+        "seeMoreEpisodes": "VER MÁS EPISODIOS",
+        "audioTypes": {
+            "sub": "Legendado",
+            "dub": "Dublado",
+            "subtitled_dubbed": "Leg | Dub"
+        }
+    }
+}

@@ -1,7 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import styles from "./Header.module.css";
 import { UserProfile } from "@/types/header";
 import { SearchIcon, WatchlistIcon, UserIcon, PremiumIcon, DropdownIcon } from "../icons/HeaderIcons";
@@ -21,6 +22,9 @@ export default function HeaderActions({
   isAnonymousModalOpen,
 }: HeaderActionsProps) {
   const router = useRouter();
+  const params = useParams();
+  const locale = params.locale as string;
+  const t = useTranslations("header");
 
   const handleSearchClick = () => {
     router.push("/search");
@@ -39,8 +43,8 @@ export default function HeaderActions({
               <div className={styles.ercHeaderSvgPopup}>
                 <PremiumIcon />
                 <div className={styles.textContainer}>
-                  <span className={styles.freeTrialText}>TESTE GRÁTIS</span>
-                  <span className={styles.premiumText}>PREMIUM</span>
+                  <span className={styles.freeTrialText}>{t("freeTrial")}</span>
+                  <span className={styles.premiumText}>{t("premium")}</span>
                 </div>
               </div>
               <PremiumPopup />
@@ -49,16 +53,16 @@ export default function HeaderActions({
         </div>
 
         <div className={styles.searchIcon}>
-          <button onClick={handleSearchClick} className={styles.searchButton}>
-            <div className={styles.iconBackground}>
+          <button className={styles.searchButton}>
+            <Link href={`/${locale}/search`} className={styles.iconBackground}>
               <div className={styles.ercHeaderSvg}>
                 <SearchIcon />
               </div>
-            </div>
+            </Link>
           </button>
         </div>
 
-        <Link href="/watchlist">
+        <Link href={`/${locale}/watchlist`}>
           <div className={styles.iconBackground}>
             <div className={styles.ercHeaderSvg} onClick={handleWatchlistClick}>
               <WatchlistIcon />
@@ -88,3 +92,4 @@ export default function HeaderActions({
     </div>
   );
 } 
+

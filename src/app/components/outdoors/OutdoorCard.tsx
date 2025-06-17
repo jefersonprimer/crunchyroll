@@ -35,3 +35,5 @@ const OutdoorCard: React.FC<OutdoorCardProps> = ({
 };
 
 export default OutdoorCard;
+
+

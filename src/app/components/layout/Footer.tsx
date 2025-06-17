@@ -2,27 +2,30 @@
 
 import React from 'react';
 import styles from './Footer.module.css';
+import { useTranslations } from 'next-intl';
 
 const Footer = () => {
+  const t = useTranslations('footer');
+
   return (
     <footer className={styles.footer}>
       {/* Colunas superiores */}
       <div className={styles.footerColumns}>
       {/* Seção de Navegação */}
         <div>
-          <h4 className={styles.title}>Navegação</h4>
+          <h4 className={styles.title}>{t('navigation')}</h4>
           <ul className="list">
-            <li><a href="/series-populares">Séries Populares</a></li>
-            <li><a href="/simulcasts">Séries em Simulcast</a></li>
-            <li><a href="/calendario-lancamentos">Calendário de Lançamentos</a></li>
-            <li><a href="/noticias">Notícias</a></li>
-            <li><a href="/jogos">Jogos</a></li>
+            <li><a href="/series-populares">{t('popular_series')}</a></li>
+            <li><a href="/simulcasts">{t('simulcasts')}</a></li>
+            <li><a href="/calendario-lancamentos">{t('release_calendar')}</a></li>
+            <li><a href="/noticias">{t('news')}</a></li>
+            <li><a href="/jogos">{t('games')}</a></li>
           </ul>
         </div>
         
         {/* Seção de Contato */}
         <div>
-          <h4 className={styles.title}>Contate-nos</h4>
+          <h4 className={styles.title}>{t('contact_us')}</h4>
           <ul className="list">
             <li><a href="https://youtube.com" target="_blank"><span className={styles.textIconWrapper}>
               <svg
@@ -112,7 +115,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h4 className={styles.title}>Crunchyroll</h4>
+          <h4 className={styles.title}>{t('crunchyroll')}</h4>
           <ul className="list">
             <li><a href="#"><span className={styles.textIconWrapper}>
               <svg
@@ -127,30 +130,30 @@ const Footer = () => {
                 <title id="premium-filled-svg">Premium</title>
                 <path d="M2.419 13L0 4.797 4.837 6.94 8 2l3.163 4.94L16 4.798 13.581 13z"></path>
               </svg>
-              <span className={styles.titlePremium}>Comece um Teste Gratuito</span>
+              <span className={styles.titlePremium}>{t('start_free_trial')}</span>
             </span></a></li>
 
-            <li><a href="#">Sobre</a></li>
-            <li><a href="#">Centro de Ajuda</a></li>
-            <li><a href="#">Termos de Uso</a></li>
-            <li><a href="#">Política de Privacidade</a></li>
-            <li><a href="#">Ferramenta de Consentimento de Cookies</a></li>
-            <li><a href="#">Solicitações de Imprensa</a></li>
-            <li><a href="#">Baixe o App</a></li>
-            <li><a href="#">Resgatar Código</a></li>
-            <li><a href="#">Vagas</a></li>
+            <li><a href="#">{t('about')}</a></li>
+            <li><a href="#">{t('help_center')}</a></li>
+            <li><a href="#">{t('terms_of_use')}</a></li>
+            <li><a href="#">{t('privacy_policy')}</a></li>
+            <li><a href="#">{t('cookie_consent_tool')}</a></li>
+            <li><a href="#">{t('press_requests')}</a></li>
+            <li><a href="#">{t('download_app')}</a></li>
+            <li><a href="#">{t('redeem_code')}</a></li>
+            <li><a href="#">{t('jobs')}</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 className={styles.title}>Conta</h4>
+          <h4 className={styles.title}>{t('account')}</h4>
           <ul className="list">
-            <li><a href="#">Trocar de Perfil</a></li>
-            <li><a href="#">Fila</a></li>
-            <li><a href="#">Crunchylistas</a></li>
-            <li><a href="#">Histórico</a></li>
-            <li><a href="#">Minha Conta</a></li>
-            <li><a href="#">Sair</a></li>
+            <li><a href="#">{t('switch_profile')}</a></li>
+            <li><a href="#">{t('queue')}</a></li>
+            <li><a href="#">{t('crunchylists')}</a></li>
+            <li><a href="#">{t('history')}</a></li>
+            <li><a href="#">{t('my_account')}</a></li>
+            <li><a href="#">{t('logout')}</a></li>
           </ul>
         </div>
       </div>
@@ -164,7 +167,7 @@ const Footer = () => {
             alt="Sony Pictures Logo"
           />
           <span className={styles.division}></span>
-          <p className={styles.copyright}>© Crunchyroll, LLC</p>
+          <p className={styles.copyright}>{t('copyright')}</p>
         </div>
         <div role="button" className={styles.dropdownTrigger}>
           <span className={styles.dropdownLanguage}>
@@ -179,3 +182,5 @@ const Footer = () => {
 };
 
 export default Footer;
+
+

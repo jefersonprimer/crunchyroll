@@ -1,0 +1,57 @@
+{
+    "accountModal": {
+        "freeTrial": "PRUEBA GRATUITA DE 7 DÍAS",
+        "switchProfile": "Cambiar de perfil",
+        "settings": "Configuración",
+        "queue": "Cola",
+        "crunchyLists": "CrunchyLists",
+        "history": "Historial",
+        "notifications": "Notificaciones",
+        "giftCard": "Tarjeta de regalo",
+        "signOut": "Cerrar sesión"
+    },
+    "anonymousUserModal": {
+        "createAccount": {
+            "title": "Crear cuenta",
+            "description": "Regístrate gratis o hazte Premium."
+        },
+        "login": {
+            "title": "Iniciar sesión",
+            "description": "¿Ya eres miembro de Crunchyroll? Bienvenido de nuevo."
+        },
+        "giftCard": {
+            "title": "Tarjeta de regalo",
+            "description": "¿Tienes una tarjeta de regalo? Canjéala aquí."
+        },
+        "freeTrial": "PRUEBA GRATUITA DE 7 DÍAS"
+    },
+    "addToListModal": {
+        "title": "Añadir a CrunchyList",
+        "newListName": "Nombre de la nueva lista",
+        "listCount": "listas",
+        "createNewList": "CREAR NUEVA LISTA",
+        "items": "elementos"
+    },
+    "imageSelectionModal": {
+        "profileTitle": "Select Profile Picture",
+        "backgroundTitle": "Select Background Image",
+        "selectedImage": "Selected Image",
+        "save": "Save",
+        "cancel": "Cancel",
+        "loading": "Loading images..."
+      },
+    "perfilModal": {
+        "title": "Nombre de usuario",
+        "freeTrial": "PRUEBA GRATUITA DE 7 DÍAS",
+        "switchProfile": "Cambiar de perfil",
+        "settings": "Configuración",
+        "queue": "Cola",
+        "crunchyLists": "CrunchyLists",
+        "history": "Historial",
+        "notifications": "Notificaciones",
+        "giftCard": {
+            "title": "Tarjeta de regalo",
+            "description": "¿Tienes una tarjeta de regalo? Canjéala aquí."
+        }
+    }
+}

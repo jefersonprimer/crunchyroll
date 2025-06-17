@@ -25,3 +25,5 @@ const AnimeList: React.FC = () => {
 };
 
 export default AnimeList;
+
+

@@ -102,3 +102,5 @@ const Outdoor: React.FC<OutdoorProps> = ({
 };
 
 export default Outdoor;
+
+

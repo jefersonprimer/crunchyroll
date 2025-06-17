@@ -5,7 +5,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 config.autoAddCss = false;
 
-import { ListsProvider } from './contexts/ListsContext';
+import { ListsProvider } from './[locale]/contexts/ListsContext';
 import { ApolloProvider } from '@apollo/client';
 import client from '@/lib/apollo-client';
 
@@ -26,3 +26,4 @@ export default function ClientLayout({
     </ApolloProvider>
   );
 } 
+

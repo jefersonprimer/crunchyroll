@@ -32,10 +32,10 @@ const AnimeCarouselPopularSeason: React.FC<AnimeCarouselPopularSeasonProps> = ({
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.titulo}>
+        <h2 className={styles.title}>
           Animes Populares da Temporada
         </h2>
-        <p className={styles.subtitulo}>
+        <p className={styles.subtitle}>
           Assista os três primeiros!
         </p>
       </div>
@@ -45,3 +45,4 @@ const AnimeCarouselPopularSeason: React.FC<AnimeCarouselPopularSeasonProps> = ({
 };
 
 export default AnimeCarouselPopularSeason;
+

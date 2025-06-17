@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { useLists } from "../../contexts/ListsContext";
+import { useLists } from "../../[locale]/contexts/ListsContext";
 import { Anime } from "@/types/anime";
+import { useTranslations } from 'next-intl';
 
 interface AddToListModalProps {
   anime: Anime;
@@ -12,6 +13,7 @@ interface AddToListModalProps {
 const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose, onAddToList }) => {
   const { lists, addItemToList, removeItemFromList, createList } = useLists();
   const [newListName, setNewListName] = useState("");
+  const t = useTranslations('addToListModal');
 
   const handleCreateList = () => {
     createList(newListName);
@@ -53,7 +55,7 @@ const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose, onAddTo
         >
           X
         </button>
-        <h3 className="text-xl text-center mt-5">Adicionar à Crunchylista</h3>
+        <h3 className="text-xl text-center mt-5">{t('title')}</h3>
 
         <div className="mt-5 p-2 max-h-[300px] overflow-y-auto">
           <div className="flex flex-col gap-2">
@@ -61,17 +63,17 @@ const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose, onAddTo
               type="text"
               value={newListName}
               onChange={(e) => setNewListName(e.target.value)}
-              placeholder="Nome da nova lista"
+              placeholder={t('newListName')}
               className="text-white border-b border-gray-500 bg-transparent p-2 outline-none transition duration-300 focus:border-orange-500"
             />
 
             <div className="flex justify-between items-center py-5 border-b border-gray-500">
-              <span>{lists.length}/10 listas</span>
+              <span>{lists.length}/10 {t('listCount')}</span>
               <button
                 onClick={handleCreateList}
                 className="bg-transparent border-none cursor-pointer text-gray-500 hover:text-white"
               >
-                CRIAR NOVA LISTA
+                {t('createNewList')}
               </button>
             </div>
           </div>
@@ -83,7 +85,7 @@ const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose, onAddTo
             >
               <div>
                 <p className="pb-2">{list.name}</p>
-                <span>{list.items.length} itens</span>
+                <span>{list.items.length} {t('items')}</span>
               </div>
               <button
                 onClick={() =>
@@ -106,3 +108,5 @@ const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose, onAddTo
 };
 
 export default AddToListModal;
+
+

@@ -1,4 +1,4 @@
-import { useHistory } from "@/app/contexts/HistoryContext";
+import { useHistory } from "@/app/[locale]/[locale]/contexts/HistoryContext";
 import HistoryCarousel from "../carousel/HistoryCarousel";
 
 const HistorySection = () => {
@@ -10,3 +10,4 @@ const HistorySection = () => {
   
     return <HistoryCarousel />;
   };
+

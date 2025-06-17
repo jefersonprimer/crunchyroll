@@ -1,4 +1,6 @@
 import styles from './AnonymousUserModal.module.css';
+import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 
 interface AnonymousUserModalProps {
   isOpen: boolean;
@@ -6,6 +8,10 @@ interface AnonymousUserModalProps {
 }
 
 export default function AnonymousUserModal({ isOpen, onClose }: AnonymousUserModalProps) {
+  const params = useParams();
+  const locale = params.locale as string;
+  const t = useTranslations('anonymousUserModal');
+
   if (!isOpen) return null;
 
   return (
@@ -15,40 +21,40 @@ export default function AnonymousUserModal({ isOpen, onClose }: AnonymousUserMod
           <div className={styles.userMenuScrollable}>
             <div className={styles.userMenuSection}>
               <a 
-                href="/register" 
+                href={`/${locale}/register`}
                 className={styles.userMenuItem}
                 tabIndex={0}
               >
                 <div className={styles.itemInfo}>
-                  <h5 className={styles.itemTitle}>Criar Conta</h5>
+                  <h5 className={styles.itemTitle}>{t('createAccount.title')}</h5>
                   <div className={styles.itemDescription}>
-                    <p>Cadastre-se de graça ou torne-se Premium.</p>
+                    <p>{t('createAccount.description')}</p>
                   </div>
                 </div>
               </a>
 
               <a 
-                href="/login" 
+                href={`/${locale}/login`}
                 className={styles.userMenuItem}
                 tabIndex={0}
               >
                 <div className={styles.itemInfo}>
-                  <h5 className={styles.itemTitle}>Login</h5>
+                  <h5 className={styles.itemTitle}>{t('login.title')}</h5>
                   <div className={styles.itemDescription}>
-                    <p>Já é membro da Crunchyroll? Seja bem-vindo.</p>
+                    <p>{t('login.description')}</p>
                   </div>
                 </div>
               </a>
 
               <a 
-                href="/pt-br/redeem" 
+                href={`/${locale}/redeem`}
                 className={styles.userMenuItem}
                 tabIndex={0}
               >
                 <div className={styles.itemInfo}>
-                  <h5 className={styles.itemTitle}>Cartão de Presente</h5>
+                  <h5 className={styles.itemTitle}>{t('giftCard.title')}</h5>
                   <div className={styles.itemDescription}>
-                    <p>Você tem um cartão de presente? Resgate aqui.</p>
+                    <p>{t('giftCard.description')}</p>
                   </div>
                 </div>
               </a>
@@ -65,7 +71,7 @@ export default function AnonymousUserModal({ isOpen, onClose }: AnonymousUserMod
                     <svg className={styles.premiumIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                       <path d="M18.188 17l1.667-5.606-4.26 1.864L12 7.688l-3.596 5.57-4.259-1.864L5.812 17h12.376zm-14.08 1.285L1.614 9.9a1 1 0 0 1 1.36-1.2l4.673 2.045 3.512-5.442a1 1 0 0 1 1.68 0l3.514 5.442 4.674-2.046a1 1 0 0 1 1.36 1.201l-2.494 8.386a1 1 0 0 1-.959.715H5.067a1 1 0 0 1-.959-.715z"></path>
                     </svg>
-                    TESTE GRATUITO DE 7 DIAS
+                    {t('freeTrial')}
                   </span>
                 </a>
               </div>
@@ -76,3 +82,4 @@ export default function AnonymousUserModal({ isOpen, onClose }: AnonymousUserMod
     </div>
   );
 } 
+

@@ -6,6 +6,7 @@ import { GET_DUBBED_ANIMES } from "@/lib/queries/getDubbedAnimes";
 import { Anime } from "@/types/anime";
 import AnimeCarousel from "./AnimeCarousel";
 import styles from "./styles.module.css";
+import { useTranslations } from 'next-intl';
 
 interface AnimeCarouselDubProps {
   itemsPerPage?: number;
@@ -22,6 +23,7 @@ const AnimeCarouselDub: React.FC<AnimeCarouselDubProps> = ({
 }) => {
   const { loading, error, data } = useQuery<GetDubbedAnimesData>(GET_DUBBED_ANIMES);
   const dubbedAnimes = data?.dubbedAnimes || [];
+  const t = useTranslations();
 
   if (loading) {
     return <Loading />;
@@ -38,9 +40,9 @@ const AnimeCarouselDub: React.FC<AnimeCarouselDubProps> = ({
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.titulo}>Dublagens em Português</h2>
-        <p className={styles.subtitulo}>
-          Descubra os animes disponíveis com áudio dublado!
+        <h2 className={styles.title}>{t('carousels.dubbed.title')}</h2>
+        <p className={styles.subtitle}>
+         {t('carousels.dubbed.subtitle')}
         </p>
       </div>
       <AnimeCarousel animes={dubbedAnimes} itemsPerPage={itemsPerPage} />
@@ -49,3 +51,5 @@ const AnimeCarouselDub: React.FC<AnimeCarouselDubProps> = ({
 };
 
 export default AnimeCarouselDub;
+
+

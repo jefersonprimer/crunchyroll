@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface ImageSelectionModalProps {
   isOpen: boolean;
@@ -21,6 +22,7 @@ const ImageSelectionModal: React.FC<ImageSelectionModalProps> = ({
   type,
   currentImage
 }) => {
+  const t = useTranslations('imageSelectionModal');
   const [images, setImages] = useState<Image[]>([]);
   const [selectedImage, setSelectedImage] = useState<string>(currentImage);
   const [loading, setLoading] = useState(true);
@@ -57,7 +59,7 @@ const ImageSelectionModal: React.FC<ImageSelectionModalProps> = ({
       <div className="bg-[#141519] p-6 rounded-lg w-[800px] max-h-[80vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-white">
-            {type === 'profile' ? 'Selecionar Foto de Perfil' : 'Selecionar Imagem de Fundo'}
+            {type === 'profile' ? t('profileTitle') : t('backgroundTitle')}
           </h2>
           <button onClick={onClose} className="text-gray-400 hover:text-white">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -68,7 +70,7 @@ const ImageSelectionModal: React.FC<ImageSelectionModalProps> = ({
 
         <div className="flex gap-6 mb-6">
           <div className="w-1/2">
-            <h3 className="text-white mb-2">Imagem Selecionada</h3>
+            <h3 className="text-white mb-2">{t('selectedImage')}</h3>
             <div className={`${type === 'profile' ? 'w-48 h-48 rounded-full' : 'w-full h-48'} overflow-hidden`}>
               <img 
                 src={selectedImage || (type === 'profile' ? '/default-avatar.jpg' : '/default-background.jpg')} 
@@ -83,13 +85,13 @@ const ImageSelectionModal: React.FC<ImageSelectionModalProps> = ({
                 onClick={() => onSelect(selectedImage)}
                 className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
               >
-                Salvar
+                {t('save')}
               </button>
               <button 
                 onClick={onClose}
                 className="px-6 py-2 bg-gray-700 text-white rounded hover:bg-gray-600"
               >
-                Cancelar
+                {t('cancel')}
               </button>
             </div>
           </div>
@@ -97,7 +99,7 @@ const ImageSelectionModal: React.FC<ImageSelectionModalProps> = ({
 
         <div className="grid grid-cols-4 gap-4">
           {loading ? (
-            <div className="col-span-4 text-center text-white">Carregando imagens...</div>
+            <div className="col-span-4 text-center text-white">{t('loading')}</div>
           ) : (
             images.map((image) => (
               <div 
@@ -123,3 +125,4 @@ const ImageSelectionModal: React.FC<ImageSelectionModalProps> = ({
 };
 
 export default ImageSelectionModal; 
+

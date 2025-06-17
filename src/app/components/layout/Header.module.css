@@ -394,7 +394,7 @@
   transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
   background: #000;
   color: #FFF;
-  padding: 10px 20px;
+  padding: 10px;
   width: 360px;
   height: 160px;
 }
@@ -487,13 +487,18 @@
 }
 
 .heading {
-  font-size: 20px;
-  font-weight: bold;
+  font-family: Lato,Helvetica Neue,helvetica,sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
   margin-bottom: 8px;
+  color: #FFFFFF;
 }
 
 .text {
-  font-size: 14px;
+  font-family: Lato, Helvetica Neue, helvetica, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #FFFFFF;
 }
 
 .textContainer {
@@ -611,6 +616,8 @@
 .content {
   position: relative;
   z-index: 1;
-  padding-top: 20px;
+  padding-top: 10px;
   text-align: center;
+  width: 320px;
+  height: 92px;
 }

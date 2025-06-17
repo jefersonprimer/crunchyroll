@@ -1,0 +1,30 @@
+{
+    "footer": {
+        "navigation": "Navegación",
+        "popular_series": "Series populares",
+        "simulcasts": "Series de transmisión simultánea",
+        "release_calendar": "Calendario de lanzamientos",
+        "news": "Noticias",
+        "games": "Juegos",
+        "contact_us": "Contáctanos",
+        "crunchyroll": "Crunchyroll",
+        "start_free_trial": "Prueba gratuita",
+        "about": "Acerca de",
+        "help_center": "Centro de ayuda",
+        "terms_of_use": "Condiciones de uso",
+        "privacy_policy": "Política de privacidad",
+        "cookie_consent_tool": "Herramienta de consentimiento de cookies",
+        "press_requests": "Solicitudes de prensa",
+        "download_app": "Descargar la aplicación",
+        "redeem_code": "Canjear código",
+        "jobs": "Empleos",
+        "account": "Cuenta",
+        "switch_profile": "Cambiar perfil",
+        "queue": "Cola",
+        "crunchylists": "Listas de Crunchy",
+        "history": "Historial",
+        "my_account": "Mi cuenta",
+        "logout": "Cerrar sesión",
+        "copyright": "© Crunchyroll, LLC"
+    }
+}

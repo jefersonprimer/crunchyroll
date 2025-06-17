@@ -1,0 +1,25 @@
+{
+    "Watch": {
+        "watch": "Watch"
+    },
+    "EpisodeHeader": {
+        "addToQueue": "Add to Queue",
+        "removeFromQueue": "Remove from Queue",
+        "releasedOn": "Released on {date}",
+        "audioTypes": {
+            "sub": "Subtitled",
+            "dub": "Dubbed",
+            "subtitled_dubbed": "Sub | Dub"
+        }
+    },
+    "EpisodeNavigation": {
+        "previousEpisode": "PREVIOUS EPISODE",
+        "nextEpisode": "NEXT EPISODE",
+        "seeMoreEpisodes": "SEE MORE EPISODES",
+        "audioTypes": {
+            "sub": "Subtitled",
+            "dub": "Dubbed",
+            "subtitled_dubbed": "Sub | Dub"
+        }
+    }
+}

@@ -5,12 +5,17 @@ import Link from "next/link";
 import styles from "./Header.module.css";
 import { DropdownIcon } from "../icons/HeaderIcons";
 import NewsMenu from "./NewsMenu";
-import { useDropdown } from "@/app/contexts/DropdownContext";
+import { useDropdown } from "@/app/[locale]/contexts/DropdownContext";
+import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 
 export default function NavigationMenu() {
   const { activeDropdown, setActiveDropdown } = useDropdown();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const locale = pathname.startsWith("/pt-br") ? "pt-br" : "en";
+  const t = useTranslations('navigation');
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -48,13 +53,13 @@ export default function NavigationMenu() {
   return (
     <ul className={styles.navList}>
       <li className={styles.navItem}>
-        <Link href="/videos/new" className={styles.navLink}>Novidades</Link>
+        <Link href={`/${locale}/videos/new`} className={styles.navLink}>{t('new')}</Link>
       </li>
       <li className={styles.navItem}>
-        <Link href="/videos/popular" className={styles.navLink}>Populares</Link>
+        <Link href={`/${locale}/videos/popular`} className={styles.navLink}>{t('popular')}</Link>
       </li>
       <li className={styles.navItem}>
-        <Link href="/simulcasts/seasons/spring-2025" className={styles.navLink}>Simulcasts</Link>
+        <Link href={`/${locale}/simulcasts/seasons/spring-2025`} className={styles.navLink}>{t('simulcasts')}</Link>
       </li>
       <li className={styles.navItem}>
         <div
@@ -62,35 +67,35 @@ export default function NavigationMenu() {
           className={`${styles.navLink} ${activeDropdown === "categorias" ? styles.activeNews : ""}`}
           onClick={handleButtonClick}
         >
-          Categorias
+          {t('categories')}
           <DropdownIcon />
         </div>
         {activeDropdown === "categorias" && (
           <div className={styles.dropdownMenu} ref={dropdownRef}>
             <div className={styles.navDropdown}>   
               <div className={styles.dropdownColumn}>
-                <Link href="/videos/alphabetical" className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>Explorar Tudo (A-Z)</Link>
-                <Link href="/simulcastcalendar" className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>Calendário de Lançamentos</Link>
-                <Link href="/series" className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>Videoclips & Shows</Link>
+                <Link href={`/${locale}/videos/alphabetical`} className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>{t('exploreAll')}</Link>
+                <Link href={`/${locale}/simulcastcalendar`} className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>{t('releaseCalendar')}</Link>
+                <Link href={`/${locale}/series`} className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>{t('videosAndShows')}</Link>
               </div>
               <div className={styles.dropdownColumn}>
-                <small className={styles.dropdownTitle}>gêneros</small>
+                <small className={styles.dropdownTitle}>{t('genres')}</small>
                 <div className={styles.genreGrid}>
-                  <Link href="/videos/action" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Ação</Link>
-                  <Link href="/videos/adventure" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Aventura</Link>
-                  <Link href="/videos/comedy" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Comédia</Link>
-                  <Link href="/videos/drama" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Drama</Link>
-                  <Link href="/videos/fantasy" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Fantasia</Link>
-                  <Link href="/videos/music" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Música</Link>
-                  <Link href="/videos/romance" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Romance</Link>
-                  <Link href="/videos/sci-fi" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Ficção Científica</Link>
-                  <Link href="/videos/seinen" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Seinen</Link>
-                  <Link href="/videos/shoujo" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Shoujo</Link>
-                  <Link href="/videos/shounen" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Shounen</Link>
-                  <Link href="/videos/slice-of-life" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Slice-of-Life</Link>
-                  <Link href="/videos/sports" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Esportes</Link>
-                  <Link href="/videos/supernatural" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Sobrenatural</Link>
-                  <Link href="/videos/thriller" className={styles.genreItem} onClick={() => setActiveDropdown(null)}>Suspense</Link>
+                  <Link href={`/${locale}/videos/action`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('action')}</Link>
+                  <Link href={`/${locale}/videos/adventure`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('adventure')}</Link>
+                  <Link href={`/${locale}/videos/comedy`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('comedy')}</Link>
+                  <Link href={`/${locale}/videos/drama`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('drama')}</Link>
+                  <Link href={`/${locale}/videos/fantasy`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('fantasy')}</Link>
+                  <Link href={`/${locale}/videos/music`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('music')}</Link>
+                  <Link href={`/${locale}/videos/romance`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('romance')}</Link>
+                  <Link href={`/${locale}/videos/sci-fi`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('sciFi')}</Link>
+                  <Link href={`/${locale}/videos/seinen`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('seinen')}</Link>
+                  <Link href={`/${locale}/videos/shoujo`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('shoujo')}</Link>
+                  <Link href={`/${locale}/videos/shounen`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('shounen')}</Link>
+                  <Link href={`/${locale}/videos/slice-of-life`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('sliceOfLife')}</Link>
+                  <Link href={`/${locale}/videos/sports`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('sports')}</Link>
+                  <Link href={`/${locale}/videos/supernatural`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('supernatural')}</Link>
+                  <Link href={`/${locale}/videos/thriller`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('thriller')}</Link>
                 </div>
               </div>
             </div>
@@ -99,12 +104,13 @@ export default function NavigationMenu() {
       </li>
       <div className={styles.navSeparator} />
       <li className={styles.navItem}>
-        <Link href="/games" className={styles.navLink}>Jogos</Link>
+        <Link href={`/${locale}/games`} className={styles.navLink}>{t('games')}</Link>
       </li>
       <li className={styles.navItem}>
-        <Link href="/store" className={styles.navLink}>Loja</Link>
+        <Link href={`/${locale}/store`} className={styles.navLink}>{t('store')}</Link>
       </li>
       <NewsMenu />
     </ul>
   );
 } 
+
