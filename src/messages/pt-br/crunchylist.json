@@ -32,7 +32,7 @@
     "ListDatils": {
         "backToLists": "VOLTAR PARA A CRUNCHYLISTS",
         "searchPlaceholder": "Pesquisar anime...",
-        "itemsCount": "{contagem} de 100 itens",
+        "itemsCount": "{count} de 100 itens",
         "settings": "CONFIGURAÇÕES",
         "editListName": "Editar nome da lista",
         "deleteList": "Excluir lista",

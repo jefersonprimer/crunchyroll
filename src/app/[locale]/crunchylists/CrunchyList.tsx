@@ -268,5 +268,3 @@ const CrunchyList = () => {
 };
 
 export default CrunchyList;
-
-

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import { useLists } from '../../contexts/ListsContext';
 import ReactDOM from 'react-dom';
 import AnimeCard from '../components/AnimeCard';
@@ -8,6 +7,7 @@ import { Anime } from '@/types/anime';
 import { useTranslations } from 'next-intl';
 import { useQuery } from '@apollo/client';
 import { GET_ANIMES } from '@/lib/queries/getAnimes';
+import { useRouter, useParams } from "next/navigation";
 
 import styles from "./ListDetails.module.css";
 
@@ -24,6 +24,9 @@ interface ListDetailsProps {
 
 const ListDetails: React.FC<ListDetailsProps> = ({ list }) => {
   const t = useTranslations('ListDatils');
+  const router = useRouter();
+  const params = useParams();
+  const locale = params.locale as string;
   const { listId } = useParams();
   const { lists, removeItemFromList, updateListName, removeList, addItemToList } = useLists();
   const [currentList, setCurrentList] = useState(() => list);
@@ -71,7 +74,7 @@ const ListDetails: React.FC<ListDetailsProps> = ({ list }) => {
   return (
     <div className={styles.container}>
       <div className={styles.heading}>
-        <Link href="/watchlist#">
+        <Link href={`/${locale}/crunchylists`}>
           <div>
             <span className={styles.beforeLink}>
               <svg
