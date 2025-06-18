@@ -1,20 +1,20 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import Link from "next/link";
-import styles from "./Header.module.css";
-import { DropdownIcon } from "../icons/HeaderIcons";
-import NewsMenu from "./NewsMenu";
-import { useDropdown } from "@/app/[locale]/contexts/DropdownContext";
+import { useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { usePathname } from "next/navigation";
+import styles from "./Header.module.css";
+import NewsMenu from "./NewsMenu";
+import { DropdownIcon } from "../icons/HeaderIcons";
+import { useDropdown } from "@/app/[locale]/contexts/DropdownContext";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 export default function NavigationMenu() {
   const { activeDropdown, setActiveDropdown } = useDropdown();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
-  const locale = pathname.startsWith("/pt-br") ? "pt-br" : "en";
+  const params = useParams();
+  const locale = params.locale as string;
   const t = useTranslations('navigation');
 
   useEffect(() => {
@@ -51,63 +51,83 @@ export default function NavigationMenu() {
   };
 
   return (
-    <ul className={styles.navList}>
-      <li className={styles.navItem}>
-        <Link href={`/${locale}/videos/new`} className={styles.navLink}>{t('new')}</Link>
+    <ul className="flex items-center list-none m-0 p-0 gap-0 h-[60px]">
+      <li className="relative h-full">
+        <Link href={`/${locale}/videos/new`} 
+          className="font-weight-500 text-[1rem] leading-[1.5rem] flex items-center gap-0.5 text-[#DADADA] no-underline cursor-pointer px-4 h-full whitespace-nowrap hover:text-[#ffffff] hover:bg-[#141519]"
+        >
+          {t('new')}
+        </Link>
       </li>
-      <li className={styles.navItem}>
-        <Link href={`/${locale}/videos/popular`} className={styles.navLink}>{t('popular')}</Link>
+      <li className="relative h-full">
+        <Link href={`/${locale}/videos/popular`}
+          className="font-weight-500 text-[1rem] leading-[1.5rem] flex items-center gap-0.5 text-[#DADADA] no-underline cursor-pointer px-4 h-full whitespace-nowrap hover:text-[#ffffff] hover:bg-[#141519]"
+        >
+          {t('popular')}
+        </Link>
       </li>
-      <li className={styles.navItem}>
-        <Link href={`/${locale}/simulcasts/seasons/spring-2025`} className={styles.navLink}>{t('simulcasts')}</Link>
+      <li className="relative h-full">
+        <Link href={`/${locale}/simulcasts/seasons/spring-2025`} 
+          className="font-weight-500 text-[1rem] leading-[1.5rem] flex items-center gap-0.5 text-[#DADADA] no-underline cursor-pointer px-4 h-full whitespace-nowrap hover:text-[#ffffff] hover:bg-[#141519]"
+        >
+          {t('simulcasts')}
+        </Link>
       </li>
-      <li className={styles.navItem}>
+      <li className="relative h-full">
         <div
           ref={buttonRef}
-          className={`${styles.navLink} ${activeDropdown === "categorias" ? styles.activeNews : ""}`}
+          className={`font-weight-500 text-[1rem] leading-[1.5rem] flex items-center gap-0.5 text-[#DADADA] no-underline cursor-pointer px-4 h-full whitespace-nowrap hover:text-[#ffffff] hover:bg-[#141519] 
+            ${activeDropdown === "categorias" ? "text-white bg-[#141519] [&_.dropdownIcon]:fill-[#f47521]" : ""}`}
           onClick={handleButtonClick}
         >
           {t('categories')}
           <DropdownIcon />
         </div>
         {activeDropdown === "categorias" && (
-          <div className={styles.dropdownMenu} ref={dropdownRef}>
-            <div className={styles.navDropdown}>   
-              <div className={styles.dropdownColumn}>
-                <Link href={`/${locale}/videos/alphabetical`} className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>{t('exploreAll')}</Link>
-                <Link href={`/${locale}/simulcastcalendar`} className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>{t('releaseCalendar')}</Link>
-                <Link href={`/${locale}/series`} className={styles.dropdownItem} onClick={() => setActiveDropdown(null)}>{t('videosAndShows')}</Link>
+          <div className="absolute top-full left-0 bg-[#141519] py-[0.8rem] px-0 w-[862px] h-[286px] z-[1000]" ref={dropdownRef}>
+            <div className="flex relative gap-0">   
+              <div className="w-px py-[6px] px-0 first:flex-1 first:border-r first:border-[#23252B] last:flex-3 last:pt-[16px]">
+                <Link href={`/${locale}/videos/alphabetical`} className="block text-[#F8F8EA] text-[0.875rem] font-weight-500 leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8]" onClick={() => setActiveDropdown(null)}>{t('exploreAll')}</Link>
+                <Link href={`/${locale}/simulcastcalendar`} className="block text-[#F8F8EA] text-[0.875rem] font-weight-500 leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8]" onClick={() => setActiveDropdown(null)}>{t('releaseCalendar')}</Link>
+                <Link href={`/${locale}/series`} className="block text-[#F8F8EA] text-[0.875rem] font-weight-500 leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8]" onClick={() => setActiveDropdown(null)}>{t('videosAndShows')}</Link>
               </div>
-              <div className={styles.dropdownColumn}>
-                <small className={styles.dropdownTitle}>{t('genres')}</small>
-                <div className={styles.genreGrid}>
-                  <Link href={`/${locale}/videos/action`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('action')}</Link>
-                  <Link href={`/${locale}/videos/adventure`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('adventure')}</Link>
-                  <Link href={`/${locale}/videos/comedy`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('comedy')}</Link>
-                  <Link href={`/${locale}/videos/drama`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('drama')}</Link>
-                  <Link href={`/${locale}/videos/fantasy`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('fantasy')}</Link>
-                  <Link href={`/${locale}/videos/music`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('music')}</Link>
-                  <Link href={`/${locale}/videos/romance`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('romance')}</Link>
-                  <Link href={`/${locale}/videos/sci-fi`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('sciFi')}</Link>
-                  <Link href={`/${locale}/videos/seinen`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('seinen')}</Link>
-                  <Link href={`/${locale}/videos/shoujo`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('shoujo')}</Link>
-                  <Link href={`/${locale}/videos/shounen`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('shounen')}</Link>
-                  <Link href={`/${locale}/videos/slice-of-life`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('sliceOfLife')}</Link>
-                  <Link href={`/${locale}/videos/sports`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('sports')}</Link>
-                  <Link href={`/${locale}/videos/supernatural`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('supernatural')}</Link>
-                  <Link href={`/${locale}/videos/thriller`} className={styles.genreItem} onClick={() => setActiveDropdown(null)}>{t('thriller')}</Link>
+              <div className="w-px py-[6px] px-0 first:flex-1 first:border-r first:border-[#23252B] last:flex-3 last:pt-[16px]">
+                <small className="text-[#a0a0a0] text-[.75rem] font-weight-600 leading-[1rem] mb-2 px-[1rem] py-[0.8125rem] uppercase">{t('genres')}</small>
+                <div className="grid grid-cols-3 gap-[2px] mt-[10px]">
+                  <Link href={`/${locale}/videos/action`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('action')}</Link>
+                  <Link href={`/${locale}/videos/adventure`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('adventure')}</Link>
+                  <Link href={`/${locale}/videos/comedy`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('drama')}</Link>
+                  <Link href={`/${locale}/videos/fantasy`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('fantasy')}</Link>
+                  <Link href={`/${locale}/videos/music`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('music')}</Link>
+                  <Link href={`/${locale}/videos/romance`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('romance')}</Link>
+                  <Link href={`/${locale}/videos/sci-fi`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('sciFi')}</Link>
+                  <Link href={`/${locale}/videos/seinen`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('seinen')}</Link>
+                  <Link href={`/${locale}/videos/shoujo`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('shoujo')}</Link>
+                  <Link href={`/${locale}/videos/shounen`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('shounen')}</Link>
+                  <Link href={`/${locale}/videos/slice-of-life`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('sliceOfLife')}</Link>
+                  <Link href={`/${locale}/videos/sports`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('sports')}</Link>
+                  <Link href={`/${locale}/videos/supernatural`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('supernatural')}</Link>
+                  <Link href={`/${locale}/videos/thriller`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('thriller')}</Link>
                 </div>
               </div>
             </div>
           </div>
         )}
       </li>
-      <div className={styles.navSeparator} />
-      <li className={styles.navItem}>
-        <Link href={`/${locale}/games`} className={styles.navLink}>{t('games')}</Link>
+      <div className="w-[1px] h-[20px] bg-[#4A4E58] my-0 mx-[4px]" />
+      <li className="relative h-full">
+        <Link href={`/${locale}/games`} 
+          className="font-weight-500 text-[1rem] leading-[1.5rem] flex items-center gap-0.5 text-[#DADADA] no-underline cursor-pointer px-4 h-full whitespace-nowrap hover:text-[#ffffff] hover:bg-[#141519]"
+        >
+        {t('games')}
+        </Link>
       </li>
-      <li className={styles.navItem}>
-        <Link href={`/${locale}/store`} className={styles.navLink}>{t('store')}</Link>
+      <li className="relative h-full">
+        <Link href={`/${locale}/store`} 
+          className="font-weight-500 text-[1rem] leading-[1.5rem] flex items-center gap-0.5 text-[#DADADA] no-underline cursor-pointer px-4 h-full whitespace-nowrap hover:text-[#ffffff] hover:bg-[#141519]"
+        >
+          {t('store')}
+        </Link>
       </li>
       <NewsMenu />
     </ul>
