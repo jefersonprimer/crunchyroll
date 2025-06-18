@@ -1,4 +1,5 @@
-.header {
+/*header styles*/
+/* .header {
   background-color: #23252B;
   padding: 0;
   position: sticky;
@@ -7,27 +8,55 @@
   width: 100vw;
   left: 0;
   right: 0;
-}
+} */
 
-.container {
+/* .container {
   width: 100%;
   margin: 0;
   padding: 0 1rem;
   gap: 1rem;
   display: flex;
   align-items: center;
-}
+} */
 
-.headerLogo {
-  flex: 0 0 auto;
-}
+/* .headerLogo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  width: 172px;
+  height: 60px;
+} */
 
-.headerMenu {
+/* .ercLogo:hover .logoIcon {
+  fill: #ffffff;
+} */
+
+/* .logoIcon {
+  width: 136px;
+  height: 60px;
+  fill: #f47521;
+  transition: fill 0.3s ease;
+} */
+
+/* .headerMenu {
   flex: 1;
   display: flex;
   justify-content: flex-start;
   
-}
+} */
+
+/*------------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
 
 .logoContainer {
   display: flex;
@@ -599,19 +628,11 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 0px;
+  
+
 }
 
-.logoIcon {
-  width: 136px;
-  height: 60px;
-  fill: #f47521;
-  transition: fill 0.3s ease;
-}
 
-.ercLogo:hover .logoIcon {
-  fill: #ffffff;
-}
 
 .content {
   position: relative;
