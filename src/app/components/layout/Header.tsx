@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import AccountModal from "../modals/AccountModal";
-import AnonymousUserModal from "../modals/AnonymousUserModal";
 import HeaderSkeleton from "./HeaderSkeleton";
+import { useState, useEffect } from "react";
 import NavigationMenu from "./NavigationMenu";
 import HeaderActions from "./HeaderActions";
 import MobileMenu from "./MobileMenu";
 import { useAuth } from "@/app/[locale]/hooks/useAuth";
+import AnonymousUserModal from "../modals/AnonymousUserModal";
+import AccountModal from "../modals/AccountModal";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 
 export default function Header() {
