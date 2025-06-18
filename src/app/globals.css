@@ -13,12 +13,12 @@
 }
 
 body {
-  color: #FFFFFF;
+  /* color: #FFFFFF; */
   background-color: #000000;
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
- 
+  /* font-family: 'Roboto', sans-serif; estava*/
+  font-family: Lato, Helvetica Neue, helvetica, sans-serif;
+  /* font-size: 14px;
+  font-weight: 400; */
 }
 
 /* Scrollbar para navegadores como Firefox */
