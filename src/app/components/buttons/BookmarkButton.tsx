@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './BookmarkButton.module.css';
+import { useTranslations } from 'next-intl';
 
 interface BookmarkButtonProps {
   isFavorited: boolean;
@@ -7,37 +7,49 @@ interface BookmarkButtonProps {
 }
 
 const BookmarkButton: React.FC<BookmarkButtonProps> = ({ isFavorited, onToggle }) => {
+  const t = useTranslations('BookmarkButton');
+
   return (
-    <div className={styles.tooltip} onClick={onToggle}>
-      <span className={styles.tooltipText}>
-        {isFavorited ? "Remover da Fila" : "Adicionar à Fila"}
+    <div 
+      className="relative inline-block cursor-pointer group" 
+      onClick={onToggle}
+    >
+      <span className="
+        absolute bottom-full left-1/2 -translate-x-1/2
+        px-3 py-2 bg-[#23252B] text-white text-xs
+        whitespace-nowrap mb-2 pointer-events-none
+        opacity-0 group-hover:opacity-100 transition-opacity duration-200
+        after:content-[''] after:absolute after:top-full after:left-1/2
+        after:-ml-1 after:border-4 after:border-t-[#23252B]
+        after:border-transparent after:border-x-transparent
+      ">
+        {isFavorited ? t('removeFromQueue') : t('addToQueue')}
       </span>
+      
       {isFavorited ? (
         <svg 
-          className={`${styles.iconBookmark} filled`}
+          className="w-6 h-6 fill-[#FF640A] transition-all duration-300 ease-in-out transform group-hover:scale-110"
           xmlns="http://www.w3.org/2000/svg" 
           viewBox="0 0 24 24" 
           data-t="watchlist-filled-svg" 
           aria-hidden="false" 
           role="img" 
-          aria-labelledby="watchlist-filled-svg-bdb1692f-63d6-46db-8a25-f70538841b69"
-          style={{ fill: "#FF640A", transition: "fill 0.3s ease-in-out" }}
+          aria-labelledby="watchlist-filled-svg"
         >
-          <title id="watchlist-filled-svg-bdb1692f-63d6-46db-8a25-f70538841b69">Remover da Lista</title>
+          <title id="watchlist-filled-svg">Remover da Lista</title>
           <path d="M18 2H6a1 1 0 0 0-1 1v17.056c0 .209.065.412.187.581a.994.994 0 0 0 1.394.233l4.838-3.455a1 1 0 0 1 1.162 0l4.838 3.455A1 1 0 0 0 19 20.056V3a1 1 0 0 0-1-1z"></path>
         </svg>
       ) : (
         <svg 
-          className={`${styles.iconBookmark} outline`}
+          className="w-6 h-6 fill-[#FF640A] transition-all duration-300 ease-in-out transform group-hover:scale-110"
           xmlns="http://www.w3.org/2000/svg" 
           viewBox="0 0 24 24" 
           data-t="watchlist-svg" 
           aria-hidden="false" 
           role="img" 
-          aria-labelledby="watchlist-svg-11a8bc49-a2a5-474f-94ea-d05d7a5967c5"
-          style={{ fill: "#FF640A", transition: "fill 0.3s ease-in-out" }}
+          aria-labelledby="watchlist-svg"
         >
-          <title id="watchlist-svg-11a8bc49-a2a5-474f-94ea-d05d7a5967c5">Lista</title>
+          <title id="watchlist-svg">Lista</title>
           <path d="M17 18.113l-3.256-2.326A2.989 2.989 0 0 0 12 15.228c-.629 0-1.232.194-1.744.559L7 18.113V4h10v14.113zM18 2H6a1 1 0 0 0-1 1v17.056c0 .209.065.412.187.581a.994.994 0 0 0 1.394.233l4.838-3.455a1 1 0 0 1 1.162 0l4.838 3.455A1 1 0 0 0 19 20.056V3a1 1 0 0 0-1-1z"></path>
         </svg>
       )}
@@ -45,5 +57,4 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ isFavorited, onToggle }
   );
 };
 
-export default BookmarkButton; 
-
+export default BookmarkButton;
