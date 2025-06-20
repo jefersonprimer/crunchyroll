@@ -4,19 +4,32 @@ import AnimeCardSkeleton from "../cards/AnimeCardSkeleton";
 import { Anime } from "@/types/anime";
 import { useRef, useState, useEffect } from "react";
 import AnimeCard from "../cards/AnimeCard";
+import { useOnScreen } from "@/hooks/useOnScreen";
 
 interface AnimeCarouselProps {
   animes: Anime[];
   itemsPerPage?: number;
   loading?: boolean;
+  useOnScreen?: boolean;
 }
 
-const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false }) => {
+const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false, useOnScreen: useOnScreenProp = true }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const { ref, isIntersecting } = useOnScreenProp
+    ? useOnScreen({ threshold: 0.9 })
+    : { ref: undefined, isIntersecting: true };
+
+  const [canLoad, setCanLoad] = useState(!useOnScreenProp);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
   const shouldShowArrows = animes.length > 5;
+
+  useEffect(() => {
+    if (useOnScreenProp && isIntersecting) setCanLoad(true);
+    if (!useOnScreenProp) setCanLoad(true);
+  }, [isIntersecting, useOnScreenProp]);
 
   const updateScrollState = () => {
     if (containerRef.current) {
@@ -45,6 +58,7 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false }
   const scrollRight = () => containerRef.current?.scrollBy({ left: 300, behavior: "smooth" });
 
   useEffect(() => {
+    if (!canLoad) return;
     updateScrollState();
     const handleResize = () => updateScrollState();
 
@@ -60,74 +74,87 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false }
         window.removeEventListener("resize", handleResize);
       }
     };
-  }, []);
+  }, [canLoad]);
 
   return (
-    <div className="flex items-center justify-center w-[1351px] h-[436.89px] m-0 relative overflow-hidden">
-      {shouldShowArrows && canScrollLeft && (
-        <button
-          onClick={scrollLeft}
-          className="text-2xl absolute top-[40%] -translate-y-1/2 h-full w-[60px] bg-transparent text-[#f8f8f8] border-none cursor-pointer z-10 flex justify-center items-center transition-colors duration-200 ease-in left-0"
-          aria-label="Scroll Left"
-        >
-          <svg
-            className="angle"
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 24 24" 
-            data-t="angle-left-svg" 
-            aria-hidden="true" 
-            role="img"
-            fill="currentColor"
-            width="44"
-            height="44"
-          >
-            <path d="M15.4 7.4L14 6l-6 6 6 6 1.4-1.4-4.6-4.6z"></path>
-          </svg>
-        </button>
-      )}
-
-      <div 
-        className="w-full flex items-center overflow-x-hidden scroll-smooth px-[50px] mx-auto justify-start" 
-        ref={containerRef}
-      >
-        {loading ? (
-          Array.from({ length: 5 }).map((_, index) => (
-            <div key={`skeleton-${index}`} className="card relative flex-none w-[250.59px] h-[436.89px] overflow-visible cursor-pointer text-left opacity-70">
-              <AnimeCardSkeleton />
-            </div>
-          ))
-        ) : (
-          animes.map((anime, index) => (
-            <div
-              key={anime.id}
-              className={`card relative flex-none w-[250.59px] h-[436.89px] overflow-visible cursor-pointer text-left opacity-70 ${visibleCards.has(index) ? 'opacity-100' : 'pointer-events-none'}`}
+    <div
+      ref={useOnScreenProp ? ref : undefined}
+      className="flex items-center justify-center w-[1351px] h-[436.89px] m-0 relative overflow-hidden"
+    >
+      {!canLoad ? (
+        Array.from({ length: 5 }).map((_, index) => (
+          <div key={`skeleton-${index}`} className="card relative flex-none w-[250.59px] h-[436.89px] overflow-visible cursor-pointer text-left opacity-70">
+            <AnimeCardSkeleton />
+          </div>
+        ))
+      ) : (
+        <>
+          {shouldShowArrows && canScrollLeft && (
+            <button
+              onClick={scrollLeft}
+              className="text-2xl absolute top-[40%] -translate-y-1/2 h-full w-[60px] bg-transparent text-[#f8f8f8] border-none cursor-pointer z-10 flex justify-center items-center transition-colors duration-200 ease-in left-0"
+              aria-label="Scroll Left"
             >
-              <AnimeCard anime={anime} />
-            </div>
-          ))
-        )}
-      </div>
+              <svg
+                className="angle"
+                xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 24 24" 
+                data-t="angle-left-svg" 
+                aria-hidden="true" 
+                role="img"
+                fill="currentColor"
+                width="44"
+                height="44"
+              >
+                <path d="M15.4 7.4L14 6l-6 6 6 6 1.4-1.4-4.6-4.6z"></path>
+              </svg>
+            </button>
+          )}
 
-      {shouldShowArrows && canScrollRight && (
-        <button
-          onClick={scrollRight}
-          className="text-2xl absolute top-[40%] -translate-y-1/2 h-full w-[60px] bg-transparent text-[#f8f8f8] border-none cursor-pointer z-10 flex justify-center items-center transition-colors duration-200 ease-in right-0"
-          aria-label="Scroll Right"
-        >
-          <svg 
-            className="angle" 
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 24 24" 
-            data-t="angle-right-svg" 
-            aria-hidden="true" 
-            role="img"
-            fill="currentColor"
-            width="44"
-            height="44"
+          <div 
+            className="w-full flex items-center overflow-x-hidden scroll-smooth px-[50px] mx-auto justify-start" 
+            ref={containerRef}
           >
-            <path d="M8.6 7.4L10 6l6 6-6 6-1.4-1.4 4.6-4.6z"></path>
-          </svg>
-        </button>
+            {loading ? (
+              Array.from({ length: 5 }).map((_, index) => (
+                <div key={`skeleton-${index}`} className="card relative flex-none w-[250.59px] h-[436.89px] overflow-visible cursor-pointer text-left opacity-70">
+                  <AnimeCardSkeleton />
+                </div>
+              ))
+            ) : (
+              animes.map((anime, index) => (
+                <div
+                  key={anime.id}
+                  className={`card relative flex-none w-[250.59px] h-[436.89px] overflow-visible cursor-pointer text-left opacity-70 ${visibleCards.has(index) ? 'opacity-100' : 'pointer-events-none'}`}
+                >
+                  <AnimeCard anime={anime} />
+                </div>
+              ))
+            )}
+          </div>
+
+          {shouldShowArrows && canScrollRight && (
+            <button
+              onClick={scrollRight}
+              className="text-2xl absolute top-[40%] -translate-y-1/2 h-full w-[60px] bg-transparent text-[#f8f8f8] border-none cursor-pointer z-10 flex justify-center items-center transition-colors duration-200 ease-in right-0"
+              aria-label="Scroll Right"
+            >
+              <svg 
+                className="angle" 
+                xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 24 24" 
+                data-t="angle-right-svg" 
+                aria-hidden="true" 
+                role="img"
+                fill="currentColor"
+                width="44"
+                height="44"
+              >
+                <path d="M8.6 7.4L10 6l6 6-6 6-1.4-1.4 4.6-4.6z"></path>
+              </svg>
+            </button>
+          )}
+        </>
       )}
     </div>
   );

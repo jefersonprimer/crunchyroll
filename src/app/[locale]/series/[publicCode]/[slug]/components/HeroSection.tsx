@@ -121,7 +121,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               episode={anime.episodes && anime.episodes.length > 0 ? anime.episodes[0] : null}
             />
             
-            <BookmarkButton 
+            <BookmarkButton
               isFavorited={isFavorited}
               onFavoriteClick={handleFavoriteClick}
             />
