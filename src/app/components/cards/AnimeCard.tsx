@@ -1,4 +1,5 @@
 import styles from "./AnimeCard.module.css";
+import { ImageSkeleton, NameSkeleton, AudioTypeSkeleton } from './AnimeCardSkeleton';
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -24,6 +25,9 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
   const params = useParams();
   const locale = params.locale as string;
   const [firstEpisode, setFirstEpisode] = useState<any | null>(null);
+  const [showText, setShowText] = useState(false);
+  const [showImage, setShowImage] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const { loading, data } = useQuery(GET_ANIMES);
 
@@ -43,6 +47,15 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
     }
   }, [data, loading, anime.id]);
 
+  useEffect(() => {
+    const textTimer = setTimeout(() => setShowText(true), 500);
+    const imageTimer = setTimeout(() => setShowImage(true), 1000);
+    return () => {
+      clearTimeout(textTimer);
+      clearTimeout(imageTimer);
+    };
+  }, []);
+
   const handleFavoriteClick = () => {
     if (isFavorited) {
       removeFavorite(anime.id);
@@ -55,7 +68,20 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
     <div className={styles.cardWrapper}>
       <div className={styles.card}>
         <Link href={`/${locale}/series/${anime.publicCode}/${anime.slug}`} className={styles.animeLink}>
-          <img src={anime.imagePoster} alt={anime.name} className={styles.animeImage} />
+          <div style={{ position: 'relative', width: '100%', height: '330.89px' }}>
+            {(!showImage || !imageLoaded) && (
+              <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2 }}>
+                <ImageSkeleton />
+              </div>
+            )}
+            <img
+              src={anime.imagePoster}
+              alt={anime.name}
+              className={styles.animeImage}
+              style={{ display: showImage ? (imageLoaded ? 'block' : 'none') : 'none' }}
+              onLoad={() => setImageLoaded(true)}
+            />
+          </div>
           
           {isFavorited && (
             <div className={styles.favoriteLabel}>
@@ -70,8 +96,17 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
             </div>
           )}        
           <div className={styles.nomeDataContainer}>
-            <p className={styles.nome}>{anime.name}</p>
-            <p className={styles.data}>{t(`audioTypes.${anime.audioType}`)}</p>
+            {showText ? (
+              <>
+                <p className={styles.nome}>{anime.name}</p>
+                <p className={styles.data}>{t(`audioTypes.${anime.audioType}`)}</p>
+              </>
+            ) : (
+              <>
+                <NameSkeleton />
+                <AudioTypeSkeleton />
+              </>
+            )}
           </div>
 
           <div className={styles.cardInfo}>
@@ -119,4 +154,3 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
 };
 
 export default AnimeCard;
-

@@ -82,11 +82,19 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false, 
       className="flex items-center justify-center w-[1351px] h-[436.89px] m-0 relative overflow-hidden"
     >
       {!canLoad ? (
-        Array.from({ length: 5 }).map((_, index) => (
-          <div key={`skeleton-${index}`} className="card relative flex-none w-[250.59px] h-[436.89px] overflow-visible cursor-pointer text-left opacity-70">
-            <AnimeCardSkeleton />
-          </div>
-        ))
+        <div 
+          className="w-full flex items-center overflow-x-hidden scroll-smooth px-[50px] mx-auto justify-start" 
+          ref={containerRef}
+        >
+          {[...Array(5)].map((_, idx) => (
+            <div
+              key={idx}
+              className="card relative flex-none w-[250.59px] h-[436.89px] overflow-visible cursor-pointer text-left opacity-70"
+            >
+              <AnimeCardSkeleton />
+            </div>
+          ))}
+        </div>
       ) : (
         <>
           {shouldShowArrows && canScrollLeft && (
@@ -115,22 +123,14 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false, 
             className="w-full flex items-center overflow-x-hidden scroll-smooth px-[50px] mx-auto justify-start" 
             ref={containerRef}
           >
-            {loading ? (
-              Array.from({ length: 5 }).map((_, index) => (
-                <div key={`skeleton-${index}`} className="card relative flex-none w-[250.59px] h-[436.89px] overflow-visible cursor-pointer text-left opacity-70">
-                  <AnimeCardSkeleton />
-                </div>
-              ))
-            ) : (
-              animes.map((anime, index) => (
-                <div
-                  key={anime.id}
-                  className={`card relative flex-none w-[250.59px] h-[436.89px] overflow-visible cursor-pointer text-left opacity-70 ${visibleCards.has(index) ? 'opacity-100' : 'pointer-events-none'}`}
-                >
-                  <AnimeCard anime={anime} />
-                </div>
-              ))
-            )}
+            {animes.map((anime, index) => (
+              <div
+                key={anime.id}
+                className={`card relative flex-none w-[250.59px] h-[436.89px] overflow-visible cursor-pointer text-left opacity-70 ${visibleCards.has(index) ? 'opacity-100' : 'pointer-events-none'}`}
+              >
+                <AnimeCard anime={anime} />
+              </div>
+            ))}
           </div>
 
           {shouldShowArrows && canScrollRight && (

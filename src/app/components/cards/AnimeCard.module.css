@@ -251,3 +251,7 @@
 .card:hover .skeleton {
   animation: loading 1.5s infinite;
 }
+
+.imageSkeleton {
+  margin-bottom: 12px;
+}

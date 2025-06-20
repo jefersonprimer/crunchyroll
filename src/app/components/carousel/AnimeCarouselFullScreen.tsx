@@ -1,7 +1,6 @@
 "use client";
 
-import Loading from "../../loading";
-import styles from "./AnimeCarouselFullScreen.module.css";
+import "../../globals.css";
 import { useQuery } from "@apollo/client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -11,7 +10,6 @@ import { useTranslations } from 'next-intl';
 import EpisodePlayButton from '../buttons/EpisodePlayButton';
 import BookmarkButton from '../buttons/BookmarkButton';
 
-// GraphQL query to fetch animes with thumbnails
 import { GET_HAS_THUMBNAIL } from "../../../lib/queries/getHasThumbnail";
 import { GET_EPISODES } from "../../../lib/queries/getEpisodes";
 
@@ -146,7 +144,7 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
       >
         {/* Imagem de fundo skeleton */}
         <div className="absolute top-0 left-0 w-full h-full bg-[#111214] animate-pulse z-[1]" />
-        <div className={styles.gradientOverlay}></div>
+        <div className='gradientOverlay'></div>
         {/* Wrapper centralizado das arrows e conteúdo */}
         <div className="relative w-[1351px] h-[432px] mx-auto my-0 p-0  top-0">
           {/* Arrow esquerda skeleton */}
@@ -256,7 +254,7 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
           : currentAnime.imageThumbnail}
         alt="Background"
       />
-      <div className={styles.gradientOverlay}></div>
+      <div className='gradientOverlay'></div>
 
       {/* Wrapper centralizado das arrows e conteúdo */}
       <div className="relative w-[1351px] h-[432px] mx-auto my-0 p-0  top-0">
