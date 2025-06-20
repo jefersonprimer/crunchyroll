@@ -1,11 +1,10 @@
 "use client";
 
-import { useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import styles from "./Header.module.css";
 import NewsMenu from "./NewsMenu";
-import { DropdownIcon } from "../icons/HeaderIcons";
+import { useRef, useEffect } from "react";
 import { useDropdown } from "@/app/[locale]/contexts/DropdownContext";
+import { DropdownIcon } from "./icons/HeaderIcons";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
@@ -86,27 +85,28 @@ export default function NavigationMenu() {
         {activeDropdown === "categorias" && (
           <div className="absolute top-full left-0 bg-[#141519] py-[0.8rem] px-0 w-[862px] h-[286px] z-[1000]" ref={dropdownRef}>
             <div className="flex relative gap-0">   
-              <div className="w-px py-[6px] px-0 first:flex-1 first:border-r first:border-[#23252B] last:flex-3 last:pt-[16px]">
+              <div className="w-px py-[6px] px-0 flex-[0.5] border-r border-[#23252B] last:pt-[16px]">
                 <Link href={`/${locale}/videos/alphabetical`} className="block text-[#F8F8EA] text-[0.875rem] font-weight-500 leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8]" onClick={() => setActiveDropdown(null)}>{t('exploreAll')}</Link>
                 <Link href={`/${locale}/simulcastcalendar`} className="block text-[#F8F8EA] text-[0.875rem] font-weight-500 leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8]" onClick={() => setActiveDropdown(null)}>{t('releaseCalendar')}</Link>
                 <Link href={`/${locale}/series`} className="block text-[#F8F8EA] text-[0.875rem] font-weight-500 leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8]" onClick={() => setActiveDropdown(null)}>{t('videosAndShows')}</Link>
               </div>
-              <div className="w-px py-[6px] px-0 first:flex-1 first:border-r first:border-[#23252B] last:flex-3 last:pt-[16px]">
+              <div className="w-px py-[6px] px-0 flex-[1.4] last:pt-[16px]">
                 <small className="text-[#a0a0a0] text-[.75rem] font-weight-600 leading-[1rem] mb-2 px-[1rem] py-[0.8125rem] uppercase">{t('genres')}</small>
                 <div className="grid grid-cols-3 gap-[2px] mt-[10px]">
                   <Link href={`/${locale}/videos/action`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('action')}</Link>
-                  <Link href={`/${locale}/videos/adventure`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('adventure')}</Link>
-                  <Link href={`/${locale}/videos/comedy`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('drama')}</Link>
-                  <Link href={`/${locale}/videos/fantasy`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('fantasy')}</Link>
                   <Link href={`/${locale}/videos/music`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('music')}</Link>
-                  <Link href={`/${locale}/videos/romance`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('romance')}</Link>
-                  <Link href={`/${locale}/videos/sci-fi`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('sciFi')}</Link>
-                  <Link href={`/${locale}/videos/seinen`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('seinen')}</Link>
-                  <Link href={`/${locale}/videos/shoujo`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('shoujo')}</Link>
                   <Link href={`/${locale}/videos/shounen`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('shounen')}</Link>
+                  <Link href={`/${locale}/videos/adventure`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('adventure')}</Link>
+                  <Link href={`/${locale}/videos/romance`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('romance')}</Link>
                   <Link href={`/${locale}/videos/slice-of-life`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('sliceOfLife')}</Link>
+                  <Link href={`/${locale}/videos/comedy`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('comedy')}</Link>
+                  <Link href={`/${locale}/videos/sci-fi`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('sciFi')}</Link>
                   <Link href={`/${locale}/videos/sports`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('sports')}</Link>
+                  <Link href={`/${locale}/videos/slice-of-life`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('drama')}</Link>
+                  <Link href={`/${locale}/videos/seinen`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('seinen')}</Link>
                   <Link href={`/${locale}/videos/supernatural`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('supernatural')}</Link>
+                  <Link href={`/${locale}/videos/fantasy`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('fantasy')}</Link>
+                  <Link href={`/${locale}/videos/shoujo`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('shoujo')}</Link>
                   <Link href={`/${locale}/videos/thriller`} className="text-[#dadada] no-underline py-[.75rem] px-[1rem] text-[.875rem] font-weight-500 leading-[1.125rem] hover:text-[#DADADA] hover:bg-[#23252B]" onClick={() => setActiveDropdown(null)}>{t('thriller')}</Link>
                 </div>
               </div>

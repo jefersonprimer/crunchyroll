@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from './AnimeCard.module.css';
 import { Anime } from '../../../../types/anime';
-import MaturityRating from '@/app/components/utils/elements/SmallMaturityRating';
+import MaturityRating from '@/app/components/elements/MaturityRating';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faBookmark as bookmarkSolid } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark as bookmarkOutline } from "@fortawesome/free-regular-svg-icons";
@@ -49,7 +49,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime }) => {
           <div className={styles.cardInfo}>
             <h3 className={styles.name}>{anime.name}</h3>
             <div className={styles.flexContainer2}>
-              <MaturityRating rating={Number(anime.rating) || 0} />
+              <MaturityRating rating={Number(anime.rating) || 0} size={4} />
               <span className={styles.score}>
                 {anime.score}
                 <FontAwesomeIcon icon={faStar} className={styles.iconStar} />

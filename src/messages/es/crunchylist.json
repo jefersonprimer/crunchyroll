@@ -29,7 +29,7 @@
         "addToQueue": "Añadir a la cola",
         "removeFromQueue": "Eliminar de la cola"
     },
-    "ListDatils": {
+    "ListDetails": {
         "backToLists": "VOLVER A CRUNCHYLISTS",
         "searchPlaceholder": "Buscar anime...",
         "itemsCount": "{count} de 100 elementos",
@@ -40,6 +40,15 @@
         "renameTitle": "Cambiar nombre de Crunchylist",
         "listName": "Nombre de la lista",
         "renameButton": "RENOMBRAR LISTA",
-        "cancelButton": "CANCELAR"
+        "cancelButton": "CANCELAR",
+        "searchMessage": "Empieza a escribir en el campo de búsqueda para encontrar una serie y añadirla a tu Crunchylist.",
+        "seasons": {
+            "singular": "temporada",
+            "plural": "temporadas"
+        },
+        "episodes": {
+            "singular": "episodio",
+            "plural": "episodios"
+        }
     }
 }

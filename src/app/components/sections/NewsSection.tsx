@@ -1,8 +1,8 @@
 "use client";
 
 import useFetchPosts from "../../[locale]/news/hooks/useFetchPosts";
-import PostCard from "./PostCard";
-import NewsCard from "./NewsCard";
+import PostCard from "./components/PostCard";
+import NewsCard from "./components/NewsCard";
 import { Post } from "../../[locale]/news/types/posts";
 import Link from "next/link";
 import Loading from "@/app/loading";

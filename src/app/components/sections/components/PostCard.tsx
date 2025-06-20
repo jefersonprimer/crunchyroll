@@ -1,6 +1,6 @@
 "use client";
 
-import { Post } from "../../[locale]/news/types/posts";
+import { Post } from "../../../[locale]/news/types/posts";
 import Link from "next/link";
 
 // Função para formatar a data no formato "Mar 17, 2025"

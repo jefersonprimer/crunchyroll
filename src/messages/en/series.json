@@ -18,6 +18,8 @@
       "audioTypes": {
         "sub": "Subtitled",
         "dub": "Dubbed",
+        "subtitled": "Subtitled",
+        "dubbed": "Dubbed",
         "subtitled_dubbed": "Sub | Dub"
       }
     },

@@ -1,11 +1,9 @@
 "use client";
 
 import AnimeCardSkeleton from "../cards/AnimeCardSkeleton";
-import styles from "./AnimeCarousel.module.css";
 import { Anime } from "@/types/anime";
 import { useRef, useState, useEffect } from "react";
 import AnimeCard from "../cards/AnimeCard";
-
 
 interface AnimeCarouselProps {
   animes: Anime[];
@@ -26,15 +24,14 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false }
       setCanScrollLeft(scrollLeft > 0);
       setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
 
-      // Atualiza os cards visíveis
-      const cards = containerRef.current.getElementsByClassName(styles.card);
+      // Update visible cards
+      const cards = containerRef.current.getElementsByClassName('card');
       const newVisibleCards = new Set<number>();
       
       Array.from(cards).forEach((card, index) => {
         const rect = card.getBoundingClientRect();
         const containerRect = containerRef.current!.getBoundingClientRect();
         
-        // Verifica se o card está totalmente visível dentro do container
         if (rect.left >= containerRect.left && rect.right <= containerRect.right) {
           newVisibleCards.add(index);
         }
@@ -66,34 +63,36 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false }
   }, []);
 
   return (
-    <div className={styles.carouselContainer}>
+    <div className="flex items-center justify-center w-[1351px] h-[436.89px] m-0 relative overflow-hidden">
       {shouldShowArrows && canScrollLeft && (
         <button
           onClick={scrollLeft}
-          className={`${styles.scrollButton} ${styles.scrollLeft}`}
+          className="text-2xl absolute top-[40%] -translate-y-1/2 h-full w-[60px] bg-transparent text-[#f8f8f8] border-none cursor-pointer z-10 flex justify-center items-center transition-colors duration-200 ease-in left-0"
           aria-label="Scroll Left"
         >
-          <svg className="angle"
-           xmlns="http://www.w3.org/2000/svg" 
-           viewBox="0 0 24 24" 
-           data-t="angle-left-svg" 
-           aria-hidden="true" 
-           role="img"
-           fill="currentColor"
-           width="44"
-           height="44"
-           >
-            <path d="M15.4 7.4L14 6l-6 6 6 6 1.4-1.4-4.6-4.6z">
-            </path>
+          <svg
+            className="angle"
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 24 24" 
+            data-t="angle-left-svg" 
+            aria-hidden="true" 
+            role="img"
+            fill="currentColor"
+            width="44"
+            height="44"
+          >
+            <path d="M15.4 7.4L14 6l-6 6 6 6 1.4-1.4-4.6-4.6z"></path>
           </svg>
         </button>
       )}
 
-      <div className={styles.flexContainer} ref={containerRef}>
+      <div 
+        className="w-full flex items-center overflow-x-hidden scroll-smooth px-[50px] mx-auto justify-start" 
+        ref={containerRef}
+      >
         {loading ? (
-          // Show 5 skeleton cards while loading
           Array.from({ length: 5 }).map((_, index) => (
-            <div key={`skeleton-${index}`} className={styles.card}>
+            <div key={`skeleton-${index}`} className="card relative flex-none w-[250.59px] h-[436.89px] overflow-visible cursor-pointer text-left opacity-70">
               <AnimeCardSkeleton />
             </div>
           ))
@@ -101,7 +100,7 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false }
           animes.map((anime, index) => (
             <div
               key={anime.id}
-              className={`${styles.card} ${visibleCards.has(index) ? styles.fullyVisible : ''}`}
+              className={`card relative flex-none w-[250.59px] h-[436.89px] overflow-visible cursor-pointer text-left opacity-70 ${visibleCards.has(index) ? 'opacity-100' : 'pointer-events-none'}`}
             >
               <AnimeCard anime={anime} />
             </div>
@@ -112,7 +111,7 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false }
       {shouldShowArrows && canScrollRight && (
         <button
           onClick={scrollRight}
-          className={`${styles.scrollButton} ${styles.scrollRight}`}
+          className="text-2xl absolute top-[40%] -translate-y-1/2 h-full w-[60px] bg-transparent text-[#f8f8f8] border-none cursor-pointer z-10 flex justify-center items-center transition-colors duration-200 ease-in right-0"
           aria-label="Scroll Right"
         >
           <svg 
@@ -125,9 +124,8 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false }
             fill="currentColor"
             width="44"
             height="44"
-            >
-            <path d="M8.6 7.4L10 6l6 6-6 6-1.4-1.4 4.6-4.6z">
-            </path>
+          >
+            <path d="M8.6 7.4L10 6l6 6-6 6-1.4-1.4 4.6-4.6z"></path>
           </svg>
         </button>
       )}

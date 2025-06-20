@@ -1,13 +1,15 @@
 'use client';
 
 import styles from "./AnimeGrid.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from 'next-intl';
+import { useQuery } from '@apollo/client';
+import { GET_ANIMES } from "@/lib/queries/getAnimes";
 import { Anime } from "@/types/anime";
 import { useFavorites } from "@/app/[locale]/contexts/FavoritesContext";
 import Link from "next/link";
 
-import MaturityRating from '../utils/elements/SmallMaturityRating';
+import MaturityRating from '../elements/MaturityRating';
 import PlayButton from '../buttons/PlayButton';
 import BookmarkButton from '../buttons/BookmarkButton';
 import AddButton from '../buttons/AddButton';
@@ -22,7 +24,31 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
+  const [firstEpisodes, setFirstEpisodes] = useState<{ [key: string]: any }>({});
   const { favorites, addFavorite, removeFavorite } = useFavorites();
+
+  const { loading, data } = useQuery(GET_ANIMES);
+
+  useEffect(() => {
+    if (!loading && data?.animes) {
+      const episodesMap: { [key: string]: any } = {};
+      
+      animes.forEach((anime) => {
+        const currentAnime = data.animes.find((a: Anime) => a.id === anime.id);
+        if (currentAnime?.episodes && currentAnime.episodes.length > 0) {
+          const firstEp = currentAnime.episodes[0];
+          episodesMap[anime.id] = {
+            id: firstEp.id,
+            slug: firstEp.slug,
+            videoUrl: firstEp.videoUrl,
+            publicCode: firstEp.publicCode
+          };
+        }
+      });
+      
+      setFirstEpisodes(episodesMap);
+    }
+  }, [data, loading, animes]);
 
   const handleFavoriteClick = (anime: Anime) => {
     const isFavorited = favorites.some((fav) => fav.id === anime.id);
@@ -37,6 +63,7 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
     <div className={styles.gridContainer}>
       {animes.map((anime) => {
         const isFavorited = favorites.some((fav) => fav.id === anime.id);
+        const firstEpisode = firstEpisodes[anime.id] || null;
         
         return (
           <div key={anime.id} className={styles.animeCard}
@@ -77,7 +104,7 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
                   <h3 className={styles.name}>{anime.name}</h3>
                   <div>
                     <div className={styles.flexContainer}>
-                      <MaturityRating rating={Number(anime.rating) || 0} />
+                      <MaturityRating rating={Number(anime.rating) || 0} size={4} />
                       <span className={styles.score}>
                         {anime.score}
                         <svg className={styles.iconStar} 
@@ -111,7 +138,7 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
             </Link>
             
             <div className={styles.playButton}>
-              <PlayButton firstEpisode={null} />
+              <PlayButton firstEpisode={firstEpisode} />
               <BookmarkButton isFavorited={isFavorited} onToggle={() => handleFavoriteClick(anime)} />
               <AddButton onClick={() => {
                 setSelectedAnime(anime);

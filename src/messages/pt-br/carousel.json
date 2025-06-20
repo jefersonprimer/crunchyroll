@@ -14,9 +14,17 @@
             "title": " Uma amostra da temporada de primavera 2025",
             "subtitle": " Assista os três primeiros episódios desses simulcasts da primavera 2025 de graça!"
         },
-        "nextSeason": {
+        "nextseason": {
             "title": "Animes da Próxima Temporada",
             "subtitle": "Confira os animes mais esperados para a próxima temporada!"
+        },
+        "popular": {
+            "title": "Animes Populares",
+            "subtitle": "Assista os três primeiros episódios desses simulcasts de outubro de 2024 de graça!"
+        },
+        "popularseason": {
+            "title": " Animes Populares da Temporada",
+            "subtitle": "Assista os três primeiros!"
         }
     }
 }

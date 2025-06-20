@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import './styles.css'; 
-import FooterSecundary from '@/app/components/layout/FooterSecundary';
+import MinimalFooter from '@/app/components/layout/MinimalFooter';
 import HeaderLogin from '@/app/components/layout/HeaderLogin';
 
 const Login = () => {
@@ -111,7 +111,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <FooterSecundary/>
+      <MinimalFooter/>
     </div>
   );
 };

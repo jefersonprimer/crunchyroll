@@ -1,10 +1,9 @@
 'use client'
 
-// src/app/register/page.tsx
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation'; 
 import './styles.css';
-import FooterSecundary from '../../components/layout/FooterSecundary';
+import MinimalFooter from '../../components/layout/MinimalFooter';
 import HeaderLogin from '../../components/layout/HeaderLogin';
 
 const Register = () => {
@@ -149,7 +148,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-      <FooterSecundary/>
+      <MinimalFooter/>
     </div>
   );
 };

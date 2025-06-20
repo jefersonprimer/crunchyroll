@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useRef, useEffect } from "react";
-import { DropdownIcon } from "../icons/HeaderIcons";
+import { DropdownIcon } from "./icons/HeaderIcons";
 import { useDropdown } from "@/app/[locale]/contexts/DropdownContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

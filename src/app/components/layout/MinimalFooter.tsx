@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTranslations } from 'next-intl';
 
-const FooterSecundary: React.FC = () => {
+const MinimalFooter: React.FC = () => {
+  const t = useTranslations('MinimalFooter');
+
   return (
     <div className="w-full bg-[#000000] text-white py-8">
       <div className="max-w-[1050px] mx-auto px-4">
@@ -9,35 +12,35 @@ const FooterSecundary: React.FC = () => {
           <ul className="flex space-x-4">
             <li>
               <a
-                aria-label="Termos de Uso - open in a new tab"
+                aria-label={`${t('termsOfUse')} - open in a new tab`}
                 tabIndex={0}
                 href="https://www.crunchyroll.com/pt-br/tos"
                 target="_blank"
                 data-t="terms-link"
                 className="text-gray-300 hover:text-white transition-colors"
               >
-                <span>Termos de Uso</span>
+                <span>{t('termsOfUse')}</span>
               </a>
             </li>
             <li>
               <a
-                aria-label="Política de Privacidade - open in a new tab"
+                aria-label={`${t('privacyPolicy')} - open in a new tab`}
                 tabIndex={0}
                 href="https://www.crunchyroll.com/privacy/index.html"
                 target="_blank"
                 data-t="privacy-link"
                 className="text-gray-300 hover:text-white transition-colors px-4 border-x-1 border-[#4A4E58]"
               >
-                <span>Política de Privacidade</span>
+                <span>{t('privacyPolicy')}</span>
               </a>
             </li>
             <li>
               <button
                 data-t="cookie-consent-tool"
                 className="text-gray-300 hover:text-white transition-colors"
-                aria-label="Cookie Consent Tool - open in modal popup"
+                aria-label={`${t('cookieConsentTool')} - open in modal popup`}
               >
-                <span>Ferramenta de Consentimento de Cookies</span>
+                <span>{t('cookieConsentTool')}</span>
               </button>
             </li>
           </ul>
@@ -51,7 +54,7 @@ const FooterSecundary: React.FC = () => {
               src="https://www.crunchyroll.com/build/assets/img/footer/sony_pictures_logo.png"
               alt="Sony Pictures"
             />
-            <p className="text-gray-400 text-sm pl-2 border-l-1 border-[#4A4E58]">© Crunchyroll, LLC</p>
+            <p className="text-gray-400 text-sm pl-2 border-l-1 border-[#4A4E58]">{t('copyright')}</p>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -76,7 +79,7 @@ const FooterSecundary: React.FC = () => {
                 >
                    <path d="M7 10h10l-5 5z" fill="#A0A0A0" />
                 </svg>
-                <span className="text-sm font-medium text-[#A0A0A0]">PORTUGUÊS (BRASIL)</span>
+                <span className="text-sm font-medium text-[#A0A0A0]">{t('language')}</span>
               </div>
             </div>
           </div>
@@ -86,5 +89,4 @@ const FooterSecundary: React.FC = () => {
   );
 };
 
-export default FooterSecundary;
-
+export default MinimalFooter;

@@ -1,5 +1,22 @@
 {
     "buttons": {
         "watch_episode": "start watching e1"  
+    },
+    "AddButton": {
+        "tooltiptext": "Add to CrunchyList"
+    },
+    "BookmarkButton": {
+        "addToQueue": "Add to Queue",
+        "removeFromQueue": "Remove from Queue"
+    },
+    "Play": {
+        "play": "Play E1"
+    },
+    "ShareButton": {
+        "copy": "Link copiado!",
+        "share": "Compartilhar"
+    },
+    "EpisodePlayButton": {
+        "watch_episode": "Start Watching"
     }
 }

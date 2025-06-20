@@ -49,6 +49,8 @@ export default function NextIntlProvider({
         const crunchylistMessages = await import(`../../messages/${locale}/crunchylist.json`);
         const historyMessages = await import(`../../messages/${locale}/history.json`);
         const simulcastcalendarMessages = await import(`../../messages/${locale}/simulcastcalendar.json`);
+        const minimalfooterMessages = await import(`../../messages/${locale}/minimalfooter.json`);
+        const notfoundpageMessages = await import(`../../messages/${locale}/notfoundpage.json`);
         
         const allMessages = {
           ...homeMessages.default,
@@ -66,7 +68,10 @@ export default function NextIntlProvider({
           ...watchlistMessages.default,
           ...crunchylistMessages.default,
           ...historyMessages.default,
-          ...simulcastcalendarMessages.default
+          ...simulcastcalendarMessages.default,
+          ...minimalfooterMessages.default,
+          ...notfoundpageMessages.default
+          
         };
 
         // Merge messages while preserving the structure needed by components

@@ -53,7 +53,18 @@ const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose, onAddTo
           className="absolute top-2 right-2 bg-transparent border-none text-2xl cursor-pointer text-white"
           onClick={onClose}
         >
-          X
+          <svg 
+            className="w-6 h-6" 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 24 24" 
+            data-t="cross-svg" 
+            aria-hidden="true" 
+            role="img"
+            fill="currentColor"
+          >
+            <path d="M13.414 12l5.293-5.293a.999.999 0 1 0-1.414-1.414L12 10.586 6.707 5.293a.999.999 0 1 0-1.414 1.414L10.586 12l-5.293 5.293a.999.999 0 0 0 0 1.414.993.993 0 0 0 1.414 0L12 13.414l5.293 5.293a.999.999 0 1 0 1.414-1.414L13.414 12z">
+            </path>
+          </svg>
         </button>
         <h3 className="text-xl text-center mt-5">{t('title')}</h3>
 

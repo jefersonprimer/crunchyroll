@@ -6,7 +6,7 @@ import Link from "next/link";
 import styles from "./EpisodioCard.module.css";
 import { Anime } from "@/types/anime";
 import { Episode } from "@/types/episode";
-import MaturityRating from "@/app/components/utils/elements/SmallMaturityRating";
+import MaturityRating from "@/app/components/elements/MaturityRating";
 
 interface EpisodeCardProps {
   episode: Episode;
@@ -124,7 +124,7 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime }) => {
           </p>
           {episode.releaseDate && (
             <div className={styles.releaseDateContainer}>
-              {rating !== undefined && <MaturityRating rating={rating} />}
+              {rating !== undefined && <MaturityRating rating={rating} size={4} />}
               <svg  className={styles.calendarIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-t="calendar-svg" aria-labelledby="calendar-svg" aria-hidden="true" role="img"><path d="M4 20h16v-8H4v8zM6 6v1a1 1 0 0 0 2 0V6h8v1a1 1 0 1 0 2 0V6h2v4H4V6h2zm15-2h-3V3a1 1 0 1 0-2 0v1H8V3a1 1 0 0 0-2 0v1H3a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z" fillRule="evenodd"></path></svg>
               <span className={styles.releaseDate}>
                 {formatReleaseDate(episode.releaseDate)}

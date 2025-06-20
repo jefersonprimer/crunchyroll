@@ -29,9 +29,9 @@
         "addToQueue": "Adicionar à fila",
         "removeFromQueue": "Remover da fila"
     },
-    "ListDatils": {
-        "backToLists": "VOLTAR PARA A CRUNCHYLISTS",
-        "searchPlaceholder": "Pesquisar anime...",
+    "ListDetails": {
+        "backToLists": "VOLTAR ÀS CRUNCHYLISTS",
+        "searchPlaceholder": "+ Adicionar Série",
         "itemsCount": "{count} de 100 itens",
         "settings": "CONFIGURAÇÕES",
         "editListName": "Editar nome da lista",
@@ -40,6 +40,20 @@
         "renameTitle": "Renomear Crunchylist",
         "listName": "Nome da lista",
         "renameButton": "RENOMEAR LISTA",
-        "cancelButton": "CANCELAR"
+        "cancelButton": "CANCELAR",
+        "searchMessage": "Comece a digitar no campo de buscas para encontrar uma série e adicioná-la à sua Crunchylista.",
+        "seasons": {
+            "singular": "Temporada",
+            "plural": "Temporadas"
+        },
+        "episodes": {
+            "singular": "Episódio",
+            "plural": "Episódios"
+        },
+        "audioTypes": {
+            "subtitled": "Legendado",
+            "dubbed": "Dublado",
+            "subtitled_dubbed": "Leg | Dub"
+        }
     }
 }

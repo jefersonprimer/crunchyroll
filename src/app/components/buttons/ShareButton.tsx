@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './ShareButton.module.css';
+import { useTranslations } from 'next-intl'; 
 
 interface ShareButtonProps {
   url: string;
@@ -7,6 +7,7 @@ interface ShareButtonProps {
 }
 
 const ShareButton: React.FC<ShareButtonProps> = ({ url, title }) => {
+  const t = useTranslations('ShareButton')
   const [showTooltip, setShowTooltip] = useState(false);
 
   const handleShare = async () => {
@@ -28,19 +29,28 @@ const ShareButton: React.FC<ShareButtonProps> = ({ url, title }) => {
   };
 
   return (
-    <div className={styles.tooltipContainer}>
+    <div className="relative inline-block">
       <button
         tabIndex={0}
-        className={styles.actionTooltip}
+        className="bg-transparent border-none p-2 cursor-pointer flex items-center justify-center"
         onClick={handleShare}
         data-t="share-btn"
       >
-        <div className={styles.tooltip}>
-          <span className={styles.tooltipText}>
-            {showTooltip ? 'Link copiado!' : 'Compartilhar'}
+        <div className="relative inline-flex items-center group">
+          <span className={`
+            absolute bottom-full left-1/2 -translate-x-1/2
+            px-3 py-2 bg-[#23252B] text-white text-xs
+            whitespace-nowrap mb-2 pointer-events-none
+            transition-opacity duration-200
+            after:content-[''] after:absolute after:top-full after:left-1/2
+            after:-ml-1 after:border-4 after:border-t-[#23252B]
+            after:border-transparent after:border-x-transparent
+            ${showTooltip ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}
+          `}>
+            {showTooltip ? t('copy') : t('share')}
           </span>
           <svg
-            className={styles.actionIcon}
+            className="w-6 h-6 fill-current text-[#ff640a] transition-all duration-300 ease-in-out hover:text-[#FF640A]"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
           >
@@ -52,5 +62,4 @@ const ShareButton: React.FC<ShareButtonProps> = ({ url, title }) => {
   );
 };
 
-export default ShareButton; 
-
+export default ShareButton;

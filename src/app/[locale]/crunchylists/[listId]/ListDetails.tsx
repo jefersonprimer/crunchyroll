@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useLists } from '../../contexts/ListsContext';
-import ReactDOM from 'react-dom';
 import AnimeCard from '../components/AnimeCard';
 import { Anime } from '@/types/anime';
 import { useTranslations } from 'next-intl';
 import { useQuery } from '@apollo/client';
 import { GET_ANIMES } from '@/lib/queries/getAnimes';
 import { useRouter, useParams } from "next/navigation";
+import SearchModal from './components/SearchModal';
+import RenameModal from './components/RenameModal';
 
 import styles from "./ListDetails.module.css";
 
@@ -23,7 +24,7 @@ interface ListDetailsProps {
 }
 
 const ListDetails: React.FC<ListDetailsProps> = ({ list }) => {
-  const t = useTranslations('ListDatils');
+  const t = useTranslations('ListDetails');
   const router = useRouter();
   const params = useParams();
   const locale = params.locale as string;
@@ -35,20 +36,35 @@ const ListDetails: React.FC<ListDetailsProps> = ({ list }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newListName, setNewListName] = useState(currentList?.name || '');
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
 
   const { data: animesData } = useQuery(GET_ANIMES);
+
+  const inputContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setCurrentList(list);
   }, [list]);
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        inputContainerRef.current &&
+        !inputContainerRef.current.contains(event.target as Node)
+      ) {
+        setShowAddModal(false);
+        setShowSearchResults(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   if (!currentList) {
     return <p>Lista não encontrada.</p>;
   }
-
-  const filteredAnimes = currentList.items.filter((anime) =>
-    anime.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   const searchResults = animesData?.animes?.filter((anime: Anime) =>
     anime.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -98,7 +114,7 @@ const ListDetails: React.FC<ListDetailsProps> = ({ list }) => {
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
           <div className='flex items-center justify-center gap-5'>
-            <div style={{ position: 'relative', width: '300px' }}>
+            <div ref={inputContainerRef} style={{ position: 'relative', width: '300px' }}>
               <input
                 type="text"
                 placeholder={t('searchPlaceholder')}
@@ -106,42 +122,28 @@ const ListDetails: React.FC<ListDetailsProps> = ({ list }) => {
                 onChange={(e) => {
                   setSearchTerm(e.target.value);
                   setShowSearchResults(true);
+                  if (e.target.value === '') {
+                    setShowAddModal(true);
+                  } else {
+                    setShowAddModal(false);
+                  }
                 }}
-                onFocus={() => setShowSearchResults(true)}
+                onFocus={() => {
+                  if (searchTerm === '') {
+                    setShowAddModal(true);
+                  }
+                  setShowSearchResults(true);
+                }}
                 className={styles.inputSearch}
               />
-              {showSearchResults && searchTerm && (
-                <div className={styles.searchResults}>
-                  {searchResults.map((anime: Anime) => {
-                    const isInList = currentList.items.some(item => item.id === anime.id);
-                    return (
-                      <div key={anime.id} className={styles.searchResultItem}>
-                        <div className={styles.searchResultInfo}>
-                          <img
-                            src={anime.imagePoster || anime.imageCardCompact}
-                            alt={anime.name}
-                            className={styles.searchResultImage}
-                          />
-                          <span>{anime.name}</span>
-                        </div>
-                        {!isInList && (
-                          <button
-                            onClick={() => handleAddAnime(anime)}
-                            className={styles.addButton}
-                          >
-                            +
-                          </button>
-                        )}
-                      </div>
-                    );
-                  })}
-                  {searchResults.length === 0 && (
-                    <div className={styles.noResults}>
-                      {t('noAnimeFound')}
-                    </div>
-                  )}
-                </div>
-              )}
+              <SearchModal
+                showAddModal={showAddModal}
+                showSearchResults={showSearchResults}
+                searchTerm={searchTerm}
+                searchResults={searchResults}
+                currentListItems={currentList.items}
+                onAddAnime={handleAddAnime}
+              />
             </div>
             <span>{t('itemsCount', { count: currentList.items.length })}</span>
           </div>
@@ -173,28 +175,13 @@ const ListDetails: React.FC<ListDetailsProps> = ({ list }) => {
         ))}
       </ul>
 
-      {isModalOpen &&
-        ReactDOM.createPortal(
-          <div className={styles.modalOverlay}>
-            <div className={styles.modalContent}>
-              <h2 className={styles.tilte}>{t('renameTitle')}</h2>
-              <div className={styles.inputSrcDiv}>
-                <label className={styles.label}>{t('listName')}</label>
-                <input
-                  type="text"
-                  value={newListName}
-                  onChange={(e) => setNewListName(e.target.value)}
-                  className={styles.inputSrc}
-                />
-              </div>
-              <div className={styles.modalActions}>
-                <button onClick={handleRename} className={styles.saveButton}>{t('renameButton')}</button>
-                <button onClick={() => setIsModalOpen(false)} className={styles.cancelButton}>{t('cancelButton')}</button>
-              </div>
-            </div>
-          </div>,
-          document.body
-        )}
+      <RenameModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onRename={handleRename}
+        newListName={newListName}
+        onNameChange={setNewListName}
+      />
     </div>
   );
 };

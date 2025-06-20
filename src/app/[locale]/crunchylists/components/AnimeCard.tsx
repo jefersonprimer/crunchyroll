@@ -4,7 +4,7 @@ import { Anime } from '../../../../types/anime';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark as bookmarkSolid, faStar } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark as bookmarkOutline } from "@fortawesome/free-regular-svg-icons";
-import MaturityRating from '@/app/components/utils/elements/SmallMaturityRating';
+import MaturityRating from '@/app/components/elements/MaturityRating';
 import { useFavorites } from '@/app/[locale]/contexts/FavoritesContext';
 import { useTranslations } from 'next-intl';
 
@@ -46,7 +46,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
           }}
         />
         <div className={styles.ratingContainer}>
-          <MaturityRating rating={Number(anime.rating)} />
+          <MaturityRating rating={Number(anime.rating)} size={4} />
         </div>
         {isFavorited && (
           <div className={styles.favoriteLabel}>

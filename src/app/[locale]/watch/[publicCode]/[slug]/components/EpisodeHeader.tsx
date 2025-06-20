@@ -11,6 +11,7 @@ import { faBookmark as bookmarkOutline } from "@fortawesome/free-regular-svg-ico
 import { useFavorites } from "@/app/[locale]/contexts/FavoritesContext";
 import { MouseEvent } from "react";
 import { useRouter, useParams } from "next/navigation";
+import BookmarkButton from "@/app/components/buttons/BookmarkButton";
 
 interface EpisodeHeaderProps {
   anime: LocalAnime;
@@ -25,8 +26,7 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ anime, episode }) => {
   const params = useParams();
   const locale = params.locale as string;
 
-  const handleFavoriteClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleFavoriteClick = () => {
     if (isFavorited) {
       removeFavorite(anime.id);
     } else {
@@ -43,6 +43,8 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ anime, episode }) => {
       addFavorite(animeForFavorites);
     }
   };
+
+  const handleFavoriteToggle = () => handleFavoriteClick();
 
    const formatDate = (dateString: string) => {
      const months = [
@@ -87,30 +89,11 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ anime, episode }) => {
         </div>
 
         <div className={styles.tooltipContainer}>
-          <button
-            tabIndex={0}
-            className={styles.buttonSecondary}
-            data-t="add-to-watchlist-btn"
-            onClick={handleFavoriteClick}
-          >
-            <span className={styles.callToAction}>
-              <div className={styles.tooltip}>
-                <span className={styles.tooltipText}>
-                  {isFavorited ? t('removeFromQueue') : t('addToQueue')}
-                </span>
-                <FontAwesomeIcon
-                  icon={isFavorited ? bookmarkSolid : bookmarkOutline}
-                  style={{
-                    color: isFavorited ? "#FF640A" : "#FF640A",
-                    transition: "color 0.3s ease-in-out",
-                  }}
-                  className={`${styles.iconBookmark} ${
-                    isFavorited ? "filled" : "outline"
-                  }`}
-                />
-              </div>
-            </span>
-          </button>
+          <BookmarkButton
+            isFavorited={isFavorited}
+            onToggle={handleFavoriteClick}
+            color='#FFF'
+          />
         </div>
       </div>
 
@@ -120,7 +103,7 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ anime, episode }) => {
         <div className={styles.metaLine}>
           {anime.rating && (
             <span className={styles.ratingBadge}>
-              <MaturityRating rating={parseInt(anime.rating)} />
+              <MaturityRating rating={parseInt(anime.rating)} size={5}/>
             </span>
           )}
           <span className={styles.metaItem}></span>

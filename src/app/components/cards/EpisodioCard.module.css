@@ -1,7 +1,8 @@
 .episodeCard {
   position: relative;
-  width: 295.25px;
-  height: 249.33px;
+  width: 293.25px;
+  height: auto;
+  min-height: 249.33px;
   padding: 10px;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -26,7 +27,7 @@
 
 .episodeImageContainer {
   position: relative;
-  width: 295.25px;
+  width: 293.25px;
   height: 159.33px;
   background: #2a2a2a;
 }
@@ -111,8 +112,9 @@
 }
 
 .episodeInfo {
-  width: 295.25px;
-  height: 90px;
+  width: 293.25px;
+  height: auto;
+  min-height: 90px;
   display: flex;
   flex-direction: column;
   gap: 5px;

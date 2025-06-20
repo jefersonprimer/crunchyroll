@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/app/hooks/useAuth';
 import Image from 'next/image';
-import { DropdownIcon } from '@/app/components/icons/HeaderIcons';
+import { DropdownIcon } from '@/app/components/layout/components/icons/HeaderIcons';
 
 interface UserProfileButtonProps {
   isDark: boolean;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './AnimeCard.module.css';
 import { Anime } from '../../../../../types/anime';
-import MaturityRating from '@/app/components/utils/elements/SmallMaturityRating';
+import MaturityRating from '@/app/components/elements/MaturityRating';
 import { useFilters } from '../../../contexts/FilterContext';
 import { useCardFavorites } from '../../../contexts/CardFavoritesContext';
 import { useTranslations } from 'next-intl';
@@ -47,7 +47,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
     <li className={styles.animeItem} title={anime.name}>
       <div className={styles.imageContainer}>
         <div className={styles.ratingContainer}>
-          <MaturityRating rating={Number(anime.rating) || 0} />
+          <MaturityRating rating={Number(anime.rating) || 0} size={4} />
         </div>
         <img 
           src={anime.imageCardCompact} 

@@ -2,7 +2,6 @@ import { useTranslations } from 'next-intl';
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./HeroSection.module.css";
 import MaturityRating from "@/app/components/elements/MaturityRating";
-import SmallMaturityRating from "@/app/components/utils/elements/SmallMaturityRating";
 import { Anime } from "@/types/anime";
 import { faBookmark as bookmarkSolid } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark as bookmarkOutline } from "@fortawesome/free-regular-svg-icons";
@@ -85,7 +84,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             <img src={anime.imageLogo} alt={anime.name} />
           </div>
           <div className={styles.metaInfoContainer}>
-            <MaturityRating rating={Number(anime.rating) || 0} />
+            <MaturityRating rating={Number(anime.rating) || 0} size={5} />
             <span className={styles.metaItem}>{t(`audioTypes.${anime.audioType}`)}</span>
             <span className={styles.metaItem}></span>
             <div className={styles.genresList}>
@@ -168,7 +167,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                   </div>
                   <div className={styles.metadataItem}>
                     <strong>{t('metadata.contentRating')}:</strong>
-                    <SmallMaturityRating rating={Number(anime.rating) || 0} /> {anime.contentAdvisory}
+                    <MaturityRating rating={Number(anime.rating) || 0} size={4} /> {anime.contentAdvisory}
                   </div>
                   <div className={styles.metadataItem}>
                     <strong>{t('metadata.genres')}:</strong>

@@ -5,7 +5,6 @@ import { Episode, Anime } from "../types/types";
 import styles from "./EpisodeNavigation.module.css";
 import { FaPlay } from "react-icons/fa";
 import MaturityRating from "@/app/components/elements/MaturityRating";
-import SmallMaturityRating from "@/app/components/utils/elements/SmallMaturityRating";
 
 interface EpisodeNavigationProps {
   currentEpisode: Episode;
@@ -79,7 +78,7 @@ const EpisodeNavigation: React.FC<EpisodeNavigationProps> = ({
           <div className={styles.cardContainer}>
             {/* Image with overlays */}
             <div className={styles.imageWrapper}>
-              <SmallMaturityRating rating={Number(anime.rating) || 0} />
+              <MaturityRating rating={Number(anime.rating) || 0} size={4} />
               <img
                 src={episode.image}
                 alt={episode.title}

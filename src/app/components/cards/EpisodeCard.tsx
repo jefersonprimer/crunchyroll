@@ -5,7 +5,7 @@ import Link from "next/link";
 import styles from "./EpisodeCard.module.css";
 import { Anime } from "@/types/anime";
 import { Episode } from "@/types/episode";
-import MaturityRating from "@/app/components/utils/elements/SmallMaturityRating";
+import MaturityRating from "@/app/components/elements/MaturityRating";
 import { useHistory } from '@/app/[locale]/contexts/HistoryContext';
 
 interface EpisodeCardProps {
@@ -91,7 +91,7 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime, watche
         />
         {rating && (
           <div className={styles.ratingBadge}>
-            <MaturityRating rating={rating} />
+            <MaturityRating rating={rating} size={4} />
           </div>
         )}
         {episode.duration && (

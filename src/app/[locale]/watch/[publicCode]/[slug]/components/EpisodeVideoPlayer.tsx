@@ -1,6 +1,6 @@
 import { Episode } from "@/types/episode";
 import styles from "./EpisodeVideoPlayer.module.css";
-import VideoPlayer from "@/app/components/video/VideoPlayer";
+import VideoPlayer from "@/app/[locale]/watch/[publicCode]/[slug]/components/VideoPlayer";
 
 interface EpisodeVideoPlayerProps {
   episode: Episode;

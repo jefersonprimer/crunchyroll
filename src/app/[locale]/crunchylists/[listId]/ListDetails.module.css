@@ -51,11 +51,15 @@
 .inputSearch {
   width: 100%;
   padding: 10px;
-  border: 1px solid #333;
-  border-radius: 4px;
-  background-color: #1a1a1a;
-  color: #fff;
+  border-bottom: 1px solid #59595B;
+  background-color: #000000;
+  color: #FFFFFF;
   margin-bottom: 10px;
+}
+
+.inputSearch:focus {
+  outline: none;
+  border-bottom: 1px solid #ff640a;
 }
 
 .settings {
@@ -187,21 +191,28 @@
   top: 100%;
   left: 0;
   right: 0;
-  background-color: #1a1a1a;
-  border: 1px solid #333;
-  border-radius: 4px;
-  max-height: 400px;
+  background-color: #23252B;
+  width: 370px;
+  height: auto;
+  max-height: 460px;
   overflow-y: auto;
   z-index: 1000;
   margin-top: 4px;
+  padding: 10px;
 }
 
 .searchResultItem {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 12px;
-  border-bottom: 1px solid #333;
+  justify-content: space-between;
+  padding: 2px;
+  margin: 2px 0;
+  border-bottom: 1px solid #4A4E58;
+  transition: background-color 0.2s;
+}
+
+.searchResultItem:hover {
+  background-color: #141519;
 }
 
 .searchResultItem:last-child {
@@ -210,15 +221,52 @@
 
 .searchResultInfo {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
+  padding: 10px;
+  width: 100%;
 }
 
 .searchResultImage {
-  width: 40px;
-  height: 60px;
+  width: 60px;
+  height: 90px;
   object-fit: cover;
-  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.searchResultInfo .flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-grow: 1;
+}
+
+.searchResultInfo .flex-col .animeName {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.searchResultInfo .flex-col {
+  color: #999;
+  font-size: 12px;
+  margin: 0;
+}
+
+.infoText {
+  color: #999;
+  font-size: 12px;
+  margin: 0;
+}
+
+.infoTextDiv {
+  display: flex;
+  align-self: center;
+  gap: 5px;
+  color: #999;
+  font-size: 12px;
+  margin: 0;
 }
 
 .addButton {
@@ -244,4 +292,33 @@
   padding: 16px;
   text-align: center;
   color: #666;
+}
+
+.addModal {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #23252B;
+  z-index: 1000;
+  margin-top: 4px;
+  padding: 16px 0 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.erc-add-item-dropdown-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 24px 0 12px 0;
+  text-align: center;
+}
+
+.erc-add-item-dropdown-empty svg {
+  display: block;
+  margin: 0 auto 12px auto;
 }

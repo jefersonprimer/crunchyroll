@@ -9,7 +9,9 @@
         "audioTypes": {
             "sub": "Subtitled",
             "dub": "Dubbed",
-            "subtitled_dubbed": "Sub | Dub"
+            "subtitled_dubbed": "Sub | Dub",
+            "subtitled": "Subtitled",
+            "dubbed": "Dubbed"
         }
     },
     "EpisodeNavigation": {
@@ -19,7 +21,9 @@
         "audioTypes": {
             "sub": "Subtitled",
             "dub": "Dubbed",
-            "subtitled_dubbed": "Sub | Dub"
+            "subtitled_dubbed": "Sub | Dub",
+            "subtitled": "Subtitled",
+            "dubbed": "Dubbed"
         }
     }
 }

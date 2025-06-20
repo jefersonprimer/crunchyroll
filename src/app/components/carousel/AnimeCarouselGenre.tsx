@@ -1,12 +1,10 @@
-"use client";
+'use client';
 
 import { useRef, useState, useEffect } from "react";
 import { Anime } from "@/types/anime";
-import styles from "./AnimeCarouselGenre.module.css";
-import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faChevronRight, faStar } from "@fortawesome/free-solid-svg-icons";
-import MaturityRating from "../utils/elements/SmallMaturityRating";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import AnimeGrid from "../cards/AnimeGrid";
 
 interface AnimeCarouselGenreProps {
   animes: Anime[];
@@ -20,8 +18,6 @@ const AnimeCarouselGenre: React.FC<AnimeCarouselGenreProps> = ({ animes }) => {
   const updateScrollState = () => {
     if (containerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
-
-      // Adiciona uma margem de erro para cálculos de scroll
       const isAtStart = scrollLeft <= 0;
       const isAtEnd = Math.ceil(scrollLeft + clientWidth) >= scrollWidth;
 
@@ -31,138 +27,55 @@ const AnimeCarouselGenre: React.FC<AnimeCarouselGenreProps> = ({ animes }) => {
   };
 
   const scrollLeft = () => {
-    if (containerRef.current) {
-      containerRef.current.scrollBy({
-        left: -300,
-        behavior: "smooth",
-      });
-    }
+    containerRef.current?.scrollBy({
+      left: -300,
+      behavior: "smooth",
+    });
   };
 
   const scrollRight = () => {
-    if (containerRef.current) {
-      containerRef.current.scrollBy({
-        left: 300,
-        behavior: "smooth",
-      });
-    }
+    containerRef.current?.scrollBy({
+      left: 300,
+      behavior: "smooth",
+    });
   };
 
   useEffect(() => {
     const container = containerRef.current;
     if (container) {
-      updateScrollState(); // Atualiza o estado inicial
+      updateScrollState();
       container.addEventListener("scroll", updateScrollState);
       return () => container.removeEventListener("scroll", updateScrollState);
     }
   }, []);
 
   return (
-    <div className={styles.carouselContainer}>
-      <div className={styles.outer}>
-        {/* Botão esquerdo */}
+    <div className="w-screen mx-auto pb-[60px] relative overflow-hidden flex flex-col items-center md:pb-[40px] sm:pb-[20px]">
+      <div className="w-full flex justify-center items-center relative">
         {canScrollLeft && (
           <button
-            className={`${styles.scrollButton} ${styles.scrollLeft}`}
             onClick={scrollLeft}
             aria-label="Scroll Left"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex justify-center items-center text-white bg-transparent border-none cursor-pointer text-2xl"
           >
-            <FontAwesomeIcon icon={faChevronLeft} className={styles.arrowIcon} />
+            <FontAwesomeIcon icon={faChevronLeft} />
           </button>
         )}
 
-        {/* Container dos cards */}
-        <div className={styles.flexContainer} ref={containerRef}>
-          {animes.map((anime) => (
-            <div key={anime.id} className={styles.card} title={anime.name}>
-              <Link href={`/series/${anime.id}/${anime.slug}`} className={styles.animeLink}>
-                <img src={anime.imagePoster} alt={anime.name} className={styles.animeImage} />
-                <div className={styles.nomeDataContainer}>
-                  <p className={styles.nome}>{anime.name}</p>
-                  <p className={styles.data}>{anime.audioType}</p>
-                </div>
-
-                <div className={styles.cardInfo}>
-                  <h3 className={styles.name}>{anime.name}</h3>
-                  <div className={styles.infoText}>
-                    <div className={styles.flexContainer2}>
-                      <MaturityRating rating={Number(anime.rating) || 0} />
-                      <span className={styles.score}>
-                        {anime.score}
-                        <FontAwesomeIcon icon={faStar} className={styles.iconStar} />
-                      </span>
-                    </div>
-                  </div>
-
-                  <p className={`${styles.infoText} ${styles.seasonText}`}>
-                    Season: {anime.seasons?.[0]?.seasonNumber || 1}
-                  </p>
-                  <p className={`${styles.infoText} ${styles.episodesText}`}>
-                    Episódios: {anime.totalEpisodes || 0}
-                  </p>
-                  <p className={`${styles.infoText} ${styles.synopsis}`}>{anime.synopsis}</p>
-                </div>
-
-                {/* Botões de Ação (Play, Watchlist, Primerlist) */}
-                <div className={styles.playButton}>
-                  <div className={styles.tooltip}>
-                    <span className={styles.tooltipText}>Play</span>
-                    <svg
-                      className={styles.iconPlay}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      aria-labelledby="play-svg"
-                      aria-hidden="false"
-                      role="img"
-                    >
-                      <title id="play-svg">Play</title>
-                      <path d="M5.944 3C5.385 3 5 3.445 5 4.22v16.018c0 .771.384 1.22.945 1.22.234 0 .499-.078.779-.243l13.553-7.972c.949-.558.952-1.468 0-2.028L6.724 3.243C6.444 3.078 6.178 3 5.944 3m1.057 2.726l11.054 6.503L7 18.732l.001-13.006" />
-                    </svg>
-                  </div>
-
-                  <div className={styles.tooltip}>
-                    <span className={styles.tooltipText}>Add to Watchlist</span>
-                    <svg
-                      className={styles.iconBookmark}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      aria-labelledby="watchlist-svg"
-                      aria-hidden="false"
-                      role="img"
-                    >
-                      <title id="watchlist-svg">Watchlist</title>
-                      <path d="M17 18.113l-3.256-2.326A2.989 2.989 0 0 0 12 15.228c-.629 0-1.232.194-1.744.559L7 18.113V4h10v14.113zM18 2H6a1 1 0 0 0-1 1v17.056c0 .209.065.412.187.581a.994.994 0 0 0 1.394.233l4.838-3.455a1 1 0 0 1 1.162 0l4.838 3.455A1 1 0 0 0 19 20.056V3a1 1 0 0 0-1-1z" />
-                    </svg>
-                  </div>
-
-                  <div className={styles.tooltip}>
-                    <span className={styles.tooltipText}>Add to Primerlist</span>
-                    <svg
-                      className={styles.iconPlus}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      aria-labelledby="add-svg"
-                      aria-hidden="false"
-                      role="img"
-                    >
-                      <title id="add-svg">Add</title>
-                      <path d="M13 3v8h8v2h-8v8h-2v-8H3v-2h8V3z" />
-                    </svg>
-                  </div>
-                </div>
-              </Link>
-            </div>
-          ))}
+        <div
+          ref={containerRef}
+          className="w-full flex items-center justify-center gap-6 overflow-x-auto scroll-smooth p-0"
+        >
+          <AnimeGrid animes={animes} />
         </div>
 
-        {/* Botão direito */}
         {canScrollRight && (
           <button
-            className={`${styles.scrollButton} ${styles.scrollRight}`}
             onClick={scrollRight}
             aria-label="Scroll Right"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex justify-center items-center text-white bg-transparent border-none cursor-pointer text-2xl"
           >
-            <FontAwesomeIcon icon={faChevronRight} className={styles.arrowIcon} />
+            <FontAwesomeIcon icon={faChevronRight} />
           </button>
         )}
       </div>
@@ -171,5 +84,3 @@ const AnimeCarouselGenre: React.FC<AnimeCarouselGenreProps> = ({ animes }) => {
 };
 
 export default AnimeCarouselGenre;
-
-

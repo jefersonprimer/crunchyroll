@@ -1,22 +1,21 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import styles from "./Header.module.css";
 
 export default function PremiumPopup() {
   const t = useTranslations("premiumPopup");
 
   return (
-    <div className={styles.ercUpsellPopup}>
+    <div className="absolute top-[calc(100%+15px)] left-1/2 -translate-x-1/2 z-[9999] bg-black text-white px-[15px] py-[10px] w-[360px] h-[166px]  shadow-md ercUpsellPopup">    
       <a
         tabIndex={0}
         href="https://www.crunchyroll.com/pt-br/premium?referrer=newweb_header_modal&amp;return_url=https%3A%2F%2Fwww.crunchyroll.com%2Fpt-br%2Fcrunchylists#plans"
-        className={styles.contentWrapper}
+        className="block text-[#FFFFFF] no-underline"
       >
-        <div className={styles.ercUpsellPopupBackground}>
-          <div className={styles.backgroundInner}>
+        <div className="absolute top-0 left-0 right-0 bottom-0 rounded-[4px]">
+          <div className="relative w-full h-full">
             <svg
-              className={styles.leftUpStars}
+              className="absolute opacity-100 w-[44px] h-[44px] top-0 left-0"
               viewBox="0 0 50 36"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -40,7 +39,7 @@ export default function PremiumPopup() {
             </svg>
 
             <svg
-              className={styles.rightUpStar}
+              className="absolute opacity-100 w-[24px] h-[24px] top-0 right-0"
               viewBox="0 0 17 16"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -56,7 +55,7 @@ export default function PremiumPopup() {
             </svg>
 
             <svg
-              className={styles.rightBottomLinesStar}
+              className="absolute opacity-100 w-[64px] h-[64px] bottom-0 right-0"
               viewBox="0 0 75 79"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -76,7 +75,7 @@ export default function PremiumPopup() {
             </svg>
 
             <svg
-              className={styles.leftBottomLines}
+              className="absolute opacity-100 w-[64px] h-[64px] bottom-0 left-0"
               viewBox="0 0 70 63"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -93,25 +92,26 @@ export default function PremiumPopup() {
           </div>
         </div>
 
-        <div className={styles.content}>
-          <div className={styles.headerPremium}>
+        <div className="relative z[1000] pt-[10px] items-center w-[320px] h-[92px]">
+          <div className="flex justify-center items-center">
             <span>
               <svg
-                className={styles.headerPremiumIcon}
+                className="w-[24px] h-[24px] text-[#FFFFFF]"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 data-t="premium-svg"
                 aria-labelledby="premium-svg"
                 aria-hidden="true"
                 role="img"
+                fill="currentColor"
               >
                 <title id="premium-svg">{t("premiumOnly")}</title>
                 <path d="M18.188 17l1.667-5.606-4.26 1.864L12 7.688l-3.596 5.57-4.259-1.864L5.812 17h12.376zm-14.08 1.285L1.614 9.9a1 1 0 0 1 1.36-1.2l4.673 2.045 3.512-5.442a1 1 0 0 1 1.68 0l3.514 5.442 4.674-2.046a1 1 0 0 1 1.36 1.201l-2.494 8.386a1 1 0 0 1-.959.715H5.067a1 1 0 0 1-.959-.715z"></path>
               </svg>
             </span>
-            <h3 className={styles.heading}>{t("freeTrial")}</h3>
+            <h3 className="text-[1.25rem] font-weight-600 mb-[8px] text-[#FFFFFF]">{t("freeTrial")}</h3>
           </div>
-          <p className={styles.text}>
+          <p className="text-[0.875rem] font-weight-600 text-[#FFFFFF]">
             {t("description")}
           </p>
         </div>

@@ -2,21 +2,20 @@
 
 import HeaderSkeleton from "./HeaderSkeleton";
 import { useState, useEffect } from "react";
-import NavigationMenu from "./NavigationMenu";
-import HeaderActions from "./HeaderActions";
-import MobileMenu from "./MobileMenu";
+import NavigationMenu from "./components/NavigationMenu";
+import MobileMenu from "./components/MobileMenu";
 import { useAuth } from "@/app/[locale]/hooks/useAuth";
 import AnonymousUserModal from "../modals/AnonymousUserModal";
 import AccountModal from "../modals/AccountModal";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import HeaderActions from "./components/HeaderActions";
 
 export default function Header() {
   const [isMobileView, setIsMobileView] = useState(false);
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isAnonymousModalOpen, setIsAnonymousModalOpen] = useState(false);
   const { userProfile, isLoading, checkAuthState } = useAuth();
-
   const params = useParams();
   const locale = params.locale as string;
 
@@ -48,7 +47,7 @@ export default function Header() {
 
   return (
     <header className="bg-[#23252B] p-0 sticky top-0 z-[1000] w-screen left-0 right-0">
-      <div className="w-full m-0 px-4 gap-4 flex items-center">
+      <div className="w-full m-0 px-4 gap-0 flex items-center">
         <div
           className="flex items-center no-underline w-[172px] h-[60px]"
           style={{ display: isMobileView ? "none" : "block" }}
@@ -69,7 +68,7 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="flex flex-1 justify-start">
+        <div className="flex flex-1 justify-start -ml-5">
           {isMobileView ? (
             <MobileMenu />
           ) : (

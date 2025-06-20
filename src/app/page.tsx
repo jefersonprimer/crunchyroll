@@ -1,5 +1,6 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import React, { memo, useState, useEffect } from "react";
 import { FavoritesProvider, useFavorites } from "./[locale]/contexts/FavoritesContext";
 import { ListsProvider } from "./[locale]/contexts/ListsContext";
@@ -49,6 +50,8 @@ const FavoritesSection = memo(() => {
 FavoritesSection.displayName = 'FavoritesSection';
 
 const HomePage = () => {
+  const params = useParams();
+  const locale = params.locale as string;
   const t = useTranslations("fallback_recommendation");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -56,13 +59,23 @@ const HomePage = () => {
     // Simulate loading time for demonstration
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
-    return <PageLoading />;
+    return (
+      <ApolloProvider client={client}>
+        <FavoritesProvider>
+          <ListsProvider>
+            <Header />
+            <div style={{ minHeight: '759.94px', width: '100%' }} />
+            <PageLoading />
+          </ListsProvider>
+        </FavoritesProvider>
+      </ApolloProvider>
+    );
   }
 
   return (
@@ -98,9 +111,9 @@ const HomePage = () => {
             <AnimeCarouselPopular />
           </SpacedSection>
 
-          <SpacedSection>
+          {/* <SpacedSection>
             <AnimeCarouselNextSeason />
-          </SpacedSection>
+          </SpacedSection> */}
 
           <SpacedSection>
             <AnimeCarouselDub />
@@ -158,7 +171,7 @@ const HomePage = () => {
             <a
               className="mt-[20px] no-underline"
               data-t="view-all-btn"
-              href="/videos/popular"
+              href={`/${locale}/videos/popular`}
             >
               <span className="py-[10px] px-[20px] border-2 border-solid border-[#ff640a] text-[#ff640a] no-underline">
                 {t('button')}

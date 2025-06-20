@@ -1,10 +1,10 @@
-import { useHistory } from "@/app/[locale]/[locale]/contexts/HistoryContext";
+import { useHistory } from "@/app/[locale]/contexts/HistoryContext";
 import HistoryCarousel from "../carousel/HistoryCarousel";
 
 const HistorySection = () => {
-    const { history } = useHistory(); // Pega o histórico do contexto
+    const { watchedEpisodes } = useHistory(); // Pega o histórico do contexto
   
-    if (history.length === 0) {
+    if (watchedEpisodes.length === 0) {
       return null; // Não renderiza o HistoryCarousel se não houver episódios no histórico
     }
   

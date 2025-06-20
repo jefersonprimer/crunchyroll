@@ -6,10 +6,10 @@ import { useTranslations } from 'next-intl';
 import { useRouter, useParams } from "next/navigation";
 import { useFavorites } from "../../[locale]/contexts/FavoritesContext";
 import { useQuery } from '@apollo/client';
-import { GET_EPISODES } from "@/lib/queries/getEpisodes";
+import { GET_ANIMES } from "@/lib/queries/getAnimes";
 import { Anime } from "@/types/anime";
 
-import MaturityRating from '../utils/elements/SmallMaturityRating';
+import MaturityRating from '../elements/MaturityRating';
 import AddToListModal from "../modals/AddToListModal";
 import PlayButton from '../buttons/PlayButton';
 import BookmarkButton from '../buttons/BookmarkButton';
@@ -24,17 +24,24 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
   const params = useParams();
   const locale = params.locale as string;
   const [firstEpisode, setFirstEpisode] = useState<any | null>(null);
-  const { loading: isLoading, data } = useQuery(GET_EPISODES);
-  const episodes = data?.episodes || [];
+
+  const { loading, data } = useQuery(GET_ANIMES);
 
   useEffect(() => {
-    if (!isLoading && episodes) {
-      const animeEpisodes = episodes.filter((ep: any) => ep.animeId === anime.id);
-      if (animeEpisodes.length > 0) {
-        setFirstEpisode(animeEpisodes[0]); 
+    if (!loading && data?.animes) {
+      const currentAnime = data.animes.find((a: Anime) => a.id === anime.id);
+      if (currentAnime?.episodes && currentAnime.episodes.length > 0) {
+        const firstEp = currentAnime.episodes[0];
+        console.log('Setting first episode:', firstEp);
+        setFirstEpisode({
+          id: firstEp.id,
+          slug: firstEp.slug,
+          videoUrl: firstEp.videoUrl,
+          publicCode: firstEp.publicCode
+        });
       }
     }
-  }, [episodes, isLoading, anime.id]);
+  }, [data, loading, anime.id]);
 
   const handleFavoriteClick = () => {
     if (isFavorited) {
@@ -46,7 +53,7 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
 
   return (
     <div className={styles.cardWrapper}>
-      <div className={styles.card} title={anime.name}>
+      <div className={styles.card}>
         <Link href={`/${locale}/series/${anime.publicCode}/${anime.slug}`} className={styles.animeLink}>
           <img src={anime.imagePoster} alt={anime.name} className={styles.animeImage} />
           
@@ -70,7 +77,7 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
           <div className={styles.cardInfo}>
             <h3 className={styles.name}>{anime.name}</h3>
             <div className={styles.flexContainer2}>
-              <MaturityRating rating={anime.rating} />
+              <MaturityRating rating={anime.rating} size={4} />
               <span className={styles.score}>
                 {anime.score}
                 <svg className={styles.iconStar} 

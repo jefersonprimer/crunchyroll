@@ -1,6 +1,6 @@
 import { Anime, Episode } from "../types/types";
 import { safeJoin } from "../utils/utils";
-import MaturityRating from "@/app/components/utils/elements/SmallMaturityRating";
+import MaturityRating from "@/app/components/elements/MaturityRating";
 import styles from "./EpisodeSynopsis.module.css";
 
 interface EpisodeSynopsisProps {
@@ -43,14 +43,14 @@ const EpisodeSynopsis: React.FC<EpisodeSynopsisProps> = ({
               {/* Legendas */}
               <div className={styles.metadataItem}>
                 <strong>Legendas</strong>
-                <span>{safeJoin(anime.subtitles)}</span>
+                <span>{safeJoin(Array.isArray(anime.subtitles) ? anime.subtitles : [])}</span>
               </div>
 
               {/* Classificação */}
               <div className={styles.metadataItem}>
                 <strong>Classificação de Conteúdo</strong>
                 <span>
-                <MaturityRating rating={anime.rating} /> {anime.contentAdvisory}
+                <MaturityRating rating={Number(anime.rating) || 0} size={4} /> {anime.contentAdvisory}
                 </span>
               </div>
             </div>

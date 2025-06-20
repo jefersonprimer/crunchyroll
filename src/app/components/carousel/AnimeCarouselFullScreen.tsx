@@ -2,19 +2,14 @@
 
 import Loading from "../../loading";
 import styles from "./AnimeCarouselFullScreen.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { faBookmark as bookmarkSolid } from "@fortawesome/free-solid-svg-icons";
-import { faBookmark as bookmarkOutline } from "@fortawesome/free-regular-svg-icons";
 import { useQuery } from "@apollo/client";
-import { gql } from "@apollo/client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import MaturityRating from "../elements/MaturityRating";
 import { useFavorites } from "../../[locale]/contexts/FavoritesContext";
-import AnimeCarouselFullScreenSkeleton from "./AnimeCarouselFullScreenSkeleton";
 import { useTranslations } from 'next-intl';
 import EpisodePlayButton from '../buttons/EpisodePlayButton';
+import BookmarkButton from '../buttons/BookmarkButton';
 
 // GraphQL query to fetch animes with thumbnails
 import { GET_HAS_THUMBNAIL } from "../../../lib/queries/getHasThumbnail";
@@ -36,6 +31,7 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
   const [touchEndX, setTouchEndX] = useState<number | null>(null);
   const [firstEpisode, setFirstEpisode] = useState<Episode | null>(null);
   const { favorites, addFavorite, removeFavorite } = useFavorites();
+  const [minLoading, setMinLoading] = useState(true);
 
   const t = useTranslations();
 
@@ -88,6 +84,11 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
     }
   }, [thumbnailAnimes]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => setMinLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const nextPage = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % thumbnailAnimes.length);
   };
@@ -128,8 +129,7 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
     setTouchEndX(null);
   };
 
-  const handleFavoriteClick = (e: React.MouseEvent, anime: Anime) => {
-    e.preventDefault();
+  const handleFavoriteClick = (anime: Anime) => {
     const isFavorited = favorites.some((fav) => fav.id === anime.id);
     if (isFavorited) {
       removeFavorite(anime.id);
@@ -138,8 +138,97 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
     }
   };
 
-  if (animesLoading) {
-    return <AnimeCarouselFullScreenSkeleton />;
+  if (animesLoading || minLoading) {
+    // Skeleton visual durante o loading
+    return (
+      <div
+        className={`relative w-[1351px] h-[759.94px] aspect-[16/9] bg-black overflow-hidden flex justify-center items-start ${className}`}
+      >
+        {/* Imagem de fundo skeleton */}
+        <div className="absolute top-0 left-0 w-full h-full bg-[#111214] animate-pulse z-[1]" />
+        <div className={styles.gradientOverlay}></div>
+        {/* Wrapper centralizado das arrows e conteúdo */}
+        <div className="relative w-[1351px] h-[432px] mx-auto my-0 p-0  top-0">
+          {/* Arrow esquerda skeleton */}
+          <div className="absolute left-0 top-0 h-[432px] w-[64px] flex flex-col justify-center items-center z-[3]">
+            <button
+              className="w-[64px] h-full animate-pulse flex items-center justify-center  opacity-100 border-none p-0"
+              tabIndex={-1}
+              aria-label="Anterior (skeleton)"
+              disabled
+            >
+              <svg
+                className="text-[#24262C]"
+                width="46"
+                height="46"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                role="img"
+                fill="currentColor"
+              >
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+              </svg>
+            </button>
+          </div>
+          {/* Conteúdo central skeleton */}
+          <div className="absolute py-[60px] top-0 left-1/2 -translate-x-1/2 w-[1223px] text-white z-[2] flex flex-col items-start justify-start h-[432px]">
+            <div className="flex flex-col items-start justify-start h-[432px]">
+              <div className="w-[387.66px] h-[360px] mb-8">
+                {/* Logo skeleton */}
+                <div className="w-auto max-w-[283.25px] h-[127.06px] bg-[#1F2025] animate-pulse mb-4" />
+                <div className='w-[387.66px] h-[216.94px] mt-6'>
+                  <div className='flex items-center mb-3'>
+                    <div className="w-[290px] h-[20px] bg-[#1C1D23] animate-pulse" />
+                  </div>
+                  {/* Sinopse skeleton */}
+                  <div className="border-none flex-col items-center mb-8">
+                    <div className="w-[380px] h-[20px] mb-2 bg-[#1C1D23] animate-pulse" />
+                    <div className="w-[380px] h-[20px] mb-2 bg-[#1C1D23] animate-pulse" />
+                    <div className="w-[380px] h-[20px] mb-2 bg-[#1C1D23] animate-pulse" />
+                  </div>
+                  {/* Botões skeleton */}
+                  <div className="border-none flex items-center mt-2">
+                    <div className="w-[160px] h-[40px] bg-[#1C1D23] animate-pulse" />
+                  </div>
+                </div>
+              </div>
+              {/* Indicadores skeleton */}
+              <div className="flex justify-center gap-[10px]">
+                {Array.from({ length: 5 }).map((_, idx) => (
+                  <div
+                    key={idx}
+                    className="border border-[#1C1D23] rounded-[5px] w-[20px] h-[8px] bg-[#1C1D23] animate-pulse"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+          {/* Arrow direita skeleton */}
+          <div className="absolute right-0 top-0 h-[432px] w-[64px] flex flex-col justify-center items-center z-[3]">
+            <button
+              className="w-[64px] h-full animate-pulse flex items-center justify-center opacity-100 border-none p-0"
+              tabIndex={-1}
+              aria-label="Próximo (skeleton)"
+              disabled
+            >
+              <svg
+                className="text-[#24262C]"
+                width="46"
+                height="46"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                role="img"
+                fill="currentColor"
+              >
+                <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (animesError) {
@@ -155,13 +244,13 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
 
   return (
     <div
-      className={`${styles.carouselContainer} ${className}`}
+      className={`relative w-[1351px] h-[759.94px] aspect-[16/9] bg-black overflow-hidden flex justify-center items-start ${className}`}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
       <img
-        className={styles.backgroundImage}
+        className="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat z-[1]"
         src={isMobile
           ? currentAnime.imagePoster
           : currentAnime.imageThumbnail}
@@ -169,93 +258,131 @@ const AnimeCarouselFullScreen: React.FC<AnimeCarouselFullScreenProps> = ({
       />
       <div className={styles.gradientOverlay}></div>
 
-      <div className={styles.blurOverlay}></div>
-      <div className={styles.cardContainer}>
-        <div className={styles.cardContent}>
-          <div className={styles.logoAnime}>
-            {currentAnime && (
-              <Link href={`/series/${currentAnime.publicCode}/${currentAnime.slug}`}>
-                <img
-                  className={styles.logoAnime}
-                  src={currentAnime.imageLogo}
-                  alt={currentAnime.name}
-                />
-              </Link>
-            )}
-          </div>
-          <div className={styles.leftColumn}>
-            <div className={styles.ratingAndAudioType}>
-            <MaturityRating rating={currentAnime.rating} />
-            <span className={styles.metaItem}></span>
-              <p className={styles.audioType}>
-     
-                {t(`audioTypes.${currentAnime.audioType}`)}
-              </p>
-            </div>
-            <p className={styles.synopsis}>
-              {currentAnime.synopsis}
-            </p>
-
-            <div className={styles.buttonsContainer}>
-              <EpisodePlayButton 
-                episode={currentAnime.episodes && currentAnime.episodes.length > 0 ? currentAnime.episodes[0] : null}
-              />
-
-              <div className={styles.buttonBookmark} onClick={(e) => handleFavoriteClick(e, currentAnime)}>
-                <div className={styles.tooltip}>
-                  <span className={styles.tooltipText}>
-                    {isFavorited ? "Remover da Fila" : "Adicionar à Fila"}
-                  </span>
-                  <FontAwesomeIcon
-                    icon={isFavorited ? bookmarkSolid : bookmarkOutline}
-                    className={`${styles.iconBookmark} ${isFavorited ? "filled" : "outline"}`}
-                    style={{ color: "#FF640A" }}
-                    title="Fila"
+      {/* Wrapper centralizado das arrows e conteúdo */}
+      <div className="relative w-[1351px] h-[432px] mx-auto my-0 p-0  top-0">
+        {/* Arrow esquerda */}
+        <div className="absolute left-0 top-0 h-[432px] w-[64px] flex flex-col justify-center items-center z-[3]">
+          <button
+            className='cursor-pointer w-[64px] h-full p-0 flex items-center justify-center z-[3]'
+            onClick={prevPage}
+            aria-label="Anterior"
+          >
+            <svg 
+              className="text-[#FFFFFF] hover:text-[#A0A0A0]" 
+              width="46" 
+              height="46" 
+              xmlns="http://www.w3.org/2000/svg" 
+              viewBox="0 0 24 24" 
+              aria-labelledby="angle-svg" 
+              aria-hidden="true" 
+              role="img"
+              fill="currentColor"
+            >
+              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+            </svg>
+          </button>
+        </div>
+        {/* Conteúdo central */}
+        <div className="absolute py-[60px] top-0 left-1/2 -translate-x-1/2 w-[1223px] text-white z-[2] flex flex-col items-start justify-start h-[432px]">
+          <div className="flex flex-col items-start justify-start h-[432px]">
+            <div className="w-[387.66px] h-[360px]">
+              <div className="w-auto max-w-[283.25px] h-auto max-h-[103.06px] overflow-hidden">
+                <Link
+                  href={`/series/${currentAnime.publicCode}/${currentAnime.slug}`}
+                  tabIndex={0}
+                >
+                  <img
+                    alt={currentAnime.name}
+                    className="max-h-[103.06px] max-w-[283.25px] w-auto h-auto object-contain"
+                    loading="eager"
+                    sizes="(max-width: 960px) 320px, (max-width: 1260px) 480px, 600px"
+                    src={currentAnime.imageLogo}
+                    srcSet={`
+                      ${currentAnime.imageLogo} 320w,
+                      ${currentAnime.imageLogo} 480w,
+                      ${currentAnime.imageLogo} 600w
+                    `}
+                  />
+                </Link>
+              </div>
+              <div className='w-[387.66px] h-[216.94px] mt-6'>
+                <div className='flex items-center gap-[5px]'>
+                <MaturityRating rating={currentAnime.rating} size={5} />
+                <span className="flex items-center text-[0.9rem] relative pl-[14px] 
+                  before:content-['◆'] before:text-[#A0A0A0] before:text-[0.6rem] 
+                  before:absolute before:left-[4px] before:top-1/2 before:-translate-y-1/2 
+                  before:mr-[8px] first:before:hidden">
+                </span>
+                  <p className="text-[0.9rem] text-[#A0A0A0] my-[5px] mx-0">
+                    {t(`audioTypes.${currentAnime.audioType}`)}
+                  </p>
+                </div>
+                <p className="w-[380px] h-[96px] mb-6 text-[#DADADA] text-base leading-6 overflow-hidden text-ellipsis [display:-webkit-box] [webkitLineClamp:4] [webkitBoxOrient:vertical]">
+                  {currentAnime.synopsis}
+                </p>
+                <div className="border-none flex items-center gap-2">
+                  <EpisodePlayButton
+                    episode={currentAnime.episodes && currentAnime.episodes.length > 0 ? currentAnime.episodes[0] : null}
+                  />
+                  
+                  <BookmarkButton
+                    isFavorited={isFavorited}
+                    onToggle={() => handleFavoriteClick(currentAnime)}
+                    color="#FF640A"
+                    outline
                   />
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className={styles.pageIndicator}>
-            {thumbnailAnimes.map((anime: Anime, index: number) => (
-              <button
-                key={anime.id}
-                className={`${styles.pageDot} ${
-                  currentIndex === index ? styles.active : ""
-                }`}
-                onClick={() => navigateToPage(index)}
-              >
-                <span className={styles.pageLoader}></span>
-              </button>
-            ))}
+            <div className="flex justify-center gap-[10px]">
+              {thumbnailAnimes.map((anime: Anime, index: number) => (
+                <button
+                  key={anime.id}
+                  className={`
+                    border border-[#868789] rounded-[5px] w-[20px] h-[8px] relative
+                    bg-[#868789] cursor-pointer flex justify-center items-center
+                    overflow-hidden transition-all duration-300 ease-in-out
+                    hover:bg-[#FF4500] hover:border-[#FF4500]
+                    ${currentIndex === index ? 'w-[40px]' : ''}
+                  `}
+                  onClick={() => navigateToPage(index)}
+                >
+                  <span className={`
+                    absolute top-0 left-0 h-full bg-[#ff640a] rounded-[5px]
+                    transition-all duration-[10s] ease-linear opacity-0
+                    ${currentIndex === index ? 'w-full opacity-100' : 'w-0'}
+                  `}></span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-
-      <div className={styles.navigationButtons}>
-        <button
-          className={styles.arrowButton}
-          onClick={prevPage}
-          aria-label="Anterior"
-        >
-          <svg className={styles.arrowIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-labelledby="angle-svg" aria-hidden="true" role="img">
-            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
-          </svg>
-        </button>
-        <button
-          className={styles.arrowButton}
-          onClick={nextPage}
-          aria-label="Próximo"
-        >
-          <svg className={styles.arrowIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-labelledby="angle-svg" aria-hidden="true" role="img">
-            <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"></path>
-          </svg>
-        </button>
+        {/* Arrow direita */}
+        <div className="absolute right-0 top-0 h-[432px] w-[64px] flex flex-col justify-center items-center z-[3]">
+          <button
+            className='cursor-pointer w-[64px] h-full p-0 flex items-center justify-center z-[3]'
+            onClick={nextPage}
+            aria-label="Próximo"
+          >
+            <svg 
+              className="text-[#FFFFFF] hover:text-[#A0A0A0]" 
+              width="46" 
+              height="46" 
+              xmlns="http://www.w3.org/2000/svg" 
+              viewBox="0 0 24 24" 
+              aria-labelledby="angle-svg" 
+              aria-hidden="true" 
+              role="img"
+              fill="currentColor"  
+            >
+              <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"></path>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
 export default AnimeCarouselFullScreen;
-

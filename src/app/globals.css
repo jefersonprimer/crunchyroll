@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@layer components {
+  .ercUpsellPopup::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #000;
+  }
+}
+
+
 :root {
   --card-spacing-vertical: 10px 0px;
 }
@@ -13,12 +29,12 @@
 }
 
 body {
-  /* color: #FFFFFF; */
+  color: #FFFFFF;
   background-color: #000000;
   /* font-family: 'Roboto', sans-serif; estava*/
   font-family: Lato, Helvetica Neue, helvetica, sans-serif;
-  /* font-size: 14px;
-  font-weight: 400; */
+  font-size: 14px;
+  font-weight: 400;
 }
 
 /* Scrollbar para navegadores como Firefox */

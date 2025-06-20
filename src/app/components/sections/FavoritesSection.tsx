@@ -1,7 +1,7 @@
 // Coloque a importação logo no topo do arquivo
 'use client';
 
-import { useFavorites } from "../../contexts/FavoritesContext";  // Importando o hook
+import { useFavorites } from "../../[locale]/contexts/FavoritesContext";  // Importando o hook
 import { useState, useEffect } from "react";
 import FavoritesCarousel from "../carousel/FavoritesCarousel";
 

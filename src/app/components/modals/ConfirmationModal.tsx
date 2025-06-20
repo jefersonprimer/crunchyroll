@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import './ConfirmationModal.css';
 
 interface ConfirmationModalProps {
   isOpen: boolean;
@@ -21,15 +20,21 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <h2>{title}</h2>
-        <p>{message}</p>
-        <div className="modal-buttons">
-          <button onClick={onConfirm} className="confirm-button">
+    <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-[1000]">
+      <div className="bg-[#1a1a1a] p-8 rounded-lg max-w-[400px] w-[90%] text-white shadow-lg">
+        <h2 className="m-0 mb-4 text-xl text-white">{title}</h2>
+        <p className="m-0 mb-6 text-[#ccc]">{message}</p>
+        <div className="flex justify-end gap-4">
+          <button 
+            onClick={onConfirm} 
+            className="px-4 py-2 bg-[#f47521] text-white rounded border-none cursor-pointer font-medium transition-colors duration-200 hover:bg-[#e06a1b]"
+          >
             Confirm
           </button>
-          <button onClick={onClose} className="cancel-button">
+          <button 
+            onClick={onClose} 
+            className="px-4 py-2 bg-[#333] text-white rounded border-none cursor-pointer font-medium transition-colors duration-200 hover:bg-[#444]"
+          >
             Cancel
           </button>
         </div>
@@ -38,5 +43,4 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   );
 };
 
-export default ConfirmationModal; 
-
+export default ConfirmationModal;

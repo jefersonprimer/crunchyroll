@@ -14,9 +14,17 @@
             "title": "A preview of the spring 2025 season",
             "subtitle": "Watch the first three episodes of these Spring 2025 simulcasts for free!"
         },
-       "next season": {
+       "nextseason": {
             "title": "Next Season Anime",
             "subtitle": "Check out the most anticipated anime for the next season!"
+        },
+        "popular": {
+            "title": "Popular Anime",
+            "subtitle": "Watch the first three episodes of these October 2024 simulcasts for free!"
+        },
+        "popularseason": {
+            "title": " Popular Anime of the Season",
+            "subtitle": "Watch the top three!"
         }
     }
 }

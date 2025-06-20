@@ -4,6 +4,7 @@ import ClientBody from "./ClientBody";
 import { Providers } from './providers';
 import { DropdownProvider } from "./[locale]/contexts/DropdownContext";
 import RootLayoutClient from "./RootLayoutClient";
+import { useTranslations } from "next-intl";
 
 export const metadata: Metadata = {
   title: "Crunchyroll - Assista a Animes, Jogue Games e Compre Online",
@@ -22,7 +23,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/favicon.webp" id="favicon" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" id="favicon" />
       </head>
       <body suppressHydrationWarning>
         <DropdownProvider>

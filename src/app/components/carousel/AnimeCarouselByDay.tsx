@@ -1,12 +1,11 @@
 "use client";
 
-import Loading from "@/app/loading";
 import { useQuery } from "@apollo/client";
 import { GET_ANIME_OF_DAY } from "@/lib/queries/getAnimeOfTheDay";
 import { Anime } from "@/types/anime";
 import AnimeCarousel from "./AnimeCarousel";
-import styles from "./styles.module.css";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 
 interface AnimeCarouselByDayProps {
   itemsPerPage?: number;
@@ -14,7 +13,7 @@ interface AnimeCarouselByDayProps {
 }
 
 interface GetAnimeOfTheDayData {
-  animeOfTheDay: Anime | Anime[]; // Pode ser um único anime ou um array
+  animeOfTheDay: Anime | Anime[];
 }
 
 const AnimeCarouselByDay: React.FC<AnimeCarouselByDayProps> = ({
@@ -24,32 +23,43 @@ const AnimeCarouselByDay: React.FC<AnimeCarouselByDayProps> = ({
   const t = useTranslations("carousels.animeOfTheDay");
   const { loading, error, data } = useQuery<GetAnimeOfTheDayData>(GET_ANIME_OF_DAY);
   
-  if (loading) {
-    return <Loading />;
-  }
+  // Timer para skeleton
+  const [showSkeleton, setShowSkeleton] = useState(true);
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    if (loading) {
+      setShowSkeleton(true);
+      timeout = setTimeout(() => setShowSkeleton(false), 1000);
+    } else {
+      setShowSkeleton(false);
+    }
+    return () => clearTimeout(timeout);
+  }, [loading]);
 
   if (error) {
     return <div>Erro ao carregar os dados: {error.message}</div>;
   }
 
-  if (!data?.animeOfTheDay) {
-    return <div className={styles.noAnimes}></div>;
+  if (!data?.animeOfTheDay && !showSkeleton) {
+    return <div></div>;
   }
 
-  // Normaliza os dados para sempre trabalhar com um array
-  const animes: Anime[] = Array.isArray(data.animeOfTheDay) 
-    ? data.animeOfTheDay 
-    : [data.animeOfTheDay];
+  // Normalize data to always work with an array
+  const animes: Anime[] = Array.isArray(data?.animeOfTheDay)
+    ? data.animeOfTheDay
+    : data?.animeOfTheDay
+    ? [data.animeOfTheDay]
+    : [];
 
-  if (animes.length === 0) {
-    return <div className={styles.noAnimes}></div>;
+  if (animes.length === 0 && !showSkeleton) {
+    return <div className="w-full h-[508.89px] flex items-center justify-center"></div>;
   }
 
-  // Verifica o dia a partir do primeiro anime (assumindo que todos têm o mesmo airingDay)
-  const airingDay = animes[0].airingDay || "Unknown";
+  // Get day from first anime (assuming all have the same airingDay)
+  const airingDay = animes[0]?.airingDay || "Unknown";
 
-  // Texto condicional baseado na quantidade de animes
-  const titleText = animes.length === 1 
+  // Conditional text based on number of animes
+  const titleText = animes.length === 1
     ? t("title", { day: airingDay })
     : t("titlePlural", { day: airingDay });
 
@@ -58,15 +68,31 @@ const AnimeCarouselByDay: React.FC<AnimeCarouselByDayProps> = ({
     : t("subtitlePlural");
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h2 className={styles.title}>{titleText}</h2>
-        <p className={styles.subtitle}>{subtitleText}</p>
+    <div className={`w-[1351px] h-[508.89px] text-left flex flex-col items-center ${className}`}>
+      {/* Header: mostra skeleton ou real */}
+      {loading ? (
+        <div className="w-[1223px] flex flex-col items-start justify-center mx-auto max-md:w-full max-md:px-5">
+          <div className="h-8 w-[40%] mb-2 bg-[#141519] bg-[length:200%_100%] animate-[loading_1.5s_infinite]" />
+          <div className="h-5 w-[40%] mb-4 bg-[#141519] bg-[length:200%_100%] animate-[loading_1.5s_infinite]" />
+        </div>
+      ) : (
+        <div className="w-[1223px] flex flex-col items-start justify-center my-0 mx-auto">
+          <h2 className="text-[1.74rem] mb-[4px] text-[#FFFFFF] font-bold">
+            {titleText}
+          </h2>
+          <p className="text-[0.97rem] mb-[4px] text-[#A0A0A0] font-medium">
+            {subtitleText}
+          </p>
+        </div>
+      )}
+      {/* Cards: apenas AnimeCarousel com loading controlado por prop */}
+      <div className="w-[1351px] h-[436.89px] mx-auto flex justify-center items-center relative overflow-hidden max-md:w-full">
+        <div className="w-full flex items-center justify-start overflow-x-hidden scroll-smooth mx-auto max-md:px-5 max-md:gap-2 max-md:items-start">
+          <AnimeCarousel animes={animes} itemsPerPage={itemsPerPage} loading={showSkeleton} />
+        </div>
       </div>
-      <AnimeCarousel animes={animes} itemsPerPage={itemsPerPage} />
     </div>
   );
 };
 
 export default AnimeCarouselByDay;
-

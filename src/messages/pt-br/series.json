@@ -18,6 +18,8 @@
             "audioTypes": {
             "sub": "Legendado",
             "dub": "Dublado",
+            "subtitled": "Legendado",
+            "dubbed": "Dublado",
             "subtitled_dubbed": "Leg | Dub"
         }
     },

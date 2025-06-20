@@ -67,6 +67,7 @@ export const GET_EPISODES = gql`
   query GetEpisodes($animeId: ID!) {
     episodesByAnime(animeId: $animeId) {
       id
+      publicCode
       title
       slug
       duration

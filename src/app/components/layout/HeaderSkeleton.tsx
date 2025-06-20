@@ -28,19 +28,19 @@ export default function HeaderSkeleton() {
           {/* Navigation Links Skeleton */}
           <ul className="flex list-none p-0 m-0">
             <li className="relative">
-              <div className="w-[80px] h-[20px] bg-[#1a1a1a] animate-pulse mx-4" />
+              <div className="w-[80px] h-[20px] bg-[#141519] animate-pulse mx-4" />
             </li>
             <li className="relative">
-              <div className="w-[60px] h-[20px] bg-[#1a1a1a] animate-pulse mx-4" />
+              <div className="w-[60px] h-[20px] bg-[#141519] animate-pulse mx-4" />
             </li>
             <li className="relative">
-              <div className="w-[60px] h-[20px] bg-[#1a1a1a] animate-pulse mx-4" />
+              <div className="w-[60px] h-[20px] bg-[#141519] animate-pulse mx-4" />
             </li>
             <li className="relative">
-              <div className="w-[60px] h-[20px] bg-[#1a1a1a] animate-pulse mx-4" />
+              <div className="w-[60px] h-[20px] bg-[#141519] animate-pulse mx-4" />
             </li>
             <li className="relative">
-              <div className="w-[80px] h-[20px] bg-[#1a1a1a] animate-pulse mx-4" />
+              <div className="w-[80px] h-[20px] bg-[#141519] animate-pulse mx-4" />
             </li>
           </ul>
         </div>
@@ -49,13 +49,13 @@ export default function HeaderSkeleton() {
         <div className="flex items-center ml-auto text-white">
           <div className="flex items-center">
             <div className="p-[18px]">
-              <div className="w-[24px] h-[24px] bg-[#1a1a1a] rounded-full animate-pulse" />
+              <div className="w-[24px] h-[24px] bg-[#141519] rounded-full animate-pulse" />
             </div>
             <div className="p-[18px]">
-              <div className="w-[24px] h-[24px] bg-[#1a1a1a] rounded-full animate-pulse mx-3" />
+              <div className="w-[24px] h-[24px] bg-[#141519] rounded-full animate-pulse mx-3" />
             </div>
             <div className="flex">
-              <div className="w-[34px] h-[34px] bg-[#1a1a1a] rounded-full animate-pulse " />
+              <div className="w-[34px] h-[34px] bg-[#141519] rounded-full animate-pulse " />
               <svg className="w-[24px] h-[24px]  rounded-full animate-pulse mt-1 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-t="dropdown-svg" aria-labelledby="dropdown-svg" aria-hidden="true" role="img"><path d="M7 10h10l-5 5z"></path></svg>
             </div>
           </div>

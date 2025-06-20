@@ -9,7 +9,9 @@
         "audioTypes": {
             "sub": "Legendado",
             "dub": "Dublado",
-            "subtitled_dubbed": "Leg | Dub"
+            "subtitled_dubbed": "Leg | Dub",
+            "subtitled": "Legendado",
+            "dubbed": "Dublado"
         }
     },
     "EpisodeNavigation": {
@@ -19,7 +21,9 @@
         "audioTypes": {
             "sub": "Legendado",
             "dub": "Dublado",
-            "subtitled_dubbed": "Leg | Dub"
+            "subtitled_dubbed": "Leg | Dub",
+            "subtitled": "Legendado",
+            "dubbed": "Dublado"
         }
     }
 }

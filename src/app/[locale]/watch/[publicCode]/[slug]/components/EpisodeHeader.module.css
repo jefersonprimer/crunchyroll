@@ -134,15 +134,15 @@
   align-items: center;
   font-size: 0.9rem;
   position: relative;
-  padding-left: 14px;
+  padding-left: 6px;
 }
 
 .metaItem:not(:first-child)::before {
   content: "◆";
-  color: #DADADA; 
+  color: #A0A0A0; 
   font-size: 0.6rem;
   position: absolute;
-  left: 4px;
+  left: 0px;
   top: 50%;
   transform: translateY(-50%);
   margin-right: 8px;

@@ -10,6 +10,7 @@ import styles from "./styles.module.css";
 import { useTranslations } from "next-intl";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
+import { FavoritesProvider } from '../../contexts/FavoritesContext';
 
 interface Genre {
   id: string;
@@ -93,6 +94,7 @@ const GenrePage: React.FC<GenrePageProps> = ({ params }) => {
   return (
     <div>
       <Header />
+      <FavoritesProvider>
       <div className={styles.mainContainer}>
         <h1 className={styles.mainTitle}>{t('title', { genre: genreInfo.pt })}</h1>
         {/* AnimeCarousel para Populares do gênero */}
@@ -134,6 +136,7 @@ const GenrePage: React.FC<GenrePageProps> = ({ params }) => {
           ))}
         </div>
       </div>
+      </FavoritesProvider>
       <Footer />
     </div>
   );
