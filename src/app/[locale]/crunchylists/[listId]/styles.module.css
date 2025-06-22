@@ -64,11 +64,6 @@
 
 .settings {
   position: relative;
-  padding: 8px 16px;
-}
-
-.settings:hover {
-  background-color: #23252B;
 }
 
 .settingDiv {
@@ -76,6 +71,15 @@
   align-items: center;
   cursor: pointer;
   color: #fff;
+  padding: 8px 16px;
+}
+
+.settingDiv:hover {
+  background-color: #23252B;
+}
+
+.settingDiv:active {
+  background-color: #23252B;
 }
 
 .trashIcon {
@@ -89,14 +93,16 @@
   color: #fff;
 }
 
-
+.active {
+  background-color: #23252B;
+}
 
 .dropdownMenu {
   position: absolute;
   top: 100%;
   right: 0;
   background-color: #23252B;
-  padding: 8px 0;
+  padding: 12px 0;
   z-index: 1000;
   width: 200px;
   height: 108px;
@@ -105,7 +111,7 @@
 .dropdownMenu button {
   display: block;
   width: 100%;
-  padding: 8px 16px;
+  padding: 10px 16px;
   text-align: left;
   background: none;
   border: none;
@@ -123,11 +129,6 @@
   padding: 0;
   margin: 0;
 }
-
-
-
-
-
 
 .searchResultInfo .flex-col {
   display: flex;
@@ -148,9 +149,6 @@
   font-size: 12px;
   margin: 0;
 }
-
-
-
 
 .addButton {
   background-color: #f47521;

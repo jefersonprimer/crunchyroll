@@ -22,7 +22,7 @@ const RenameModal: React.FC<RenameModalProps> = ({
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-[1000]">
+    <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-[1000] bg-[#23252B]/60">
       <div className="bg-[#23252B] p-[20px] w-[720px] h-[336px]">
         <div className='cursor-pointer flex justify-end'>
           <button onClick={onClose} className='cursor-pointer'>
@@ -52,8 +52,8 @@ const RenameModal: React.FC<RenameModalProps> = ({
             />
           </div>
           <div className="flex justify-end gap-[10px]">
-            <button onClick={onRename} className="py-[8px] px-[16px] cursor-pointer bg-[#FF640A] text-[#000000]">{t('renameButton')}</button>
-            <button onClick={onClose} className="py-[8px] px-[16px] cursor-pointer border-1 border-[#FF640A] text-[#FF640A]">{t('cancelButton')}</button>
+            <button onClick={onRename} className="py-[8px] px-[32px] cursor-pointer bg-[#FF640A] text-[#000000] font-bold">{t('renameButton')}</button>
+            <button onClick={onClose} className="py-[8px] px-[32px] cursor-pointer border-1 border-[#FF640A] text-[#FF640A] font-bold">{t('cancelButton')}</button>
           </div>
         </div>
       </div>
