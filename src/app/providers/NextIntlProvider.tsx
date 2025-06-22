@@ -50,6 +50,7 @@ export default function NextIntlProvider({
         const historyMessages = await import(`../../messages/${locale}/history.json`);
         const simulcastcalendarMessages = await import(`../../messages/${locale}/simulcastcalendar.json`);
         const minimalfooterMessages = await import(`../../messages/${locale}/minimalfooter.json`);
+        const newssectionMessages = await import(`../../messages/${locale}/newssection.json`);
         const notfoundpageMessages = await import(`../../messages/${locale}/notfoundpage.json`);
         
         const allMessages = {
@@ -70,6 +71,7 @@ export default function NextIntlProvider({
           ...historyMessages.default,
           ...simulcastcalendarMessages.default,
           ...minimalfooterMessages.default,
+          ...newssectionMessages.default,
           ...notfoundpageMessages.default
           
         };

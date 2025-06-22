@@ -1,0 +1,174 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  width: 100%;
+  text-decoration: none;
+}
+
+.heading a {
+  text-decoration: none;
+}
+
+.heading > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.angleLeftIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  fill: currentColor;
+}
+
+.beforeLink {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.nameList {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.inputSearch {
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #59595B;
+  background-color: #000000;
+  color: #FFFFFF;
+  margin-bottom: 10px;
+}
+
+.inputSearch:focus {
+  outline: none;
+  border-bottom: 1px solid #ff640a;
+}
+
+.settings {
+  position: relative;
+  padding: 8px 16px;
+}
+
+.settings:hover {
+  background-color: #23252B;
+}
+
+.settingDiv {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #fff;
+}
+
+.trashIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  fill: currentColor;
+}
+
+.configuracoes {
+  color: #fff;
+}
+
+
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #23252B;
+  padding: 8px 0;
+  z-index: 1000;
+  width: 200px;
+  height: 108px;
+}
+
+.dropdownMenu button {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #A0A0A0;
+  cursor: pointer;
+}
+
+.dropdownMenu button:hover {
+  color: #FFFFFF;
+  background-color: #141519;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+
+
+
+.searchResultInfo .flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-grow: 1;
+}
+
+.searchResultInfo .flex-col {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.searchResultInfo .flex-col {
+  color: #999;
+  font-size: 12px;
+  margin: 0;
+}
+
+
+
+
+.addButton {
+  background-color: #f47521;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.addButton:hover {
+  background-color: #d65a0f;
+}
+
+

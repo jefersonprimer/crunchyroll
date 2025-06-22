@@ -1,9 +1,43 @@
 import Link from "next/link";
-import { Post } from "../../[locale]/news/types/posts";
+import { Post } from "../../../[locale]/news/types/posts";
+import React from "react";
+import { useTranslations } from "next-intl";
 
 interface NewsCardProps {
-  post: Post;
+  post?: Post;
+  loading?: boolean;
+  skeletonText?: boolean;
+  skeletonImage?: boolean;
 }
+
+const NewsCardSkeleton: React.FC<{ skeletonText?: boolean; skeletonImage?: boolean }> = ({ skeletonText = true, skeletonImage = true }) => {
+  return (
+    <div className="flex gap-4 p-2 w-[850px] animate-pulse">
+      <div>
+        {skeletonImage ? (
+          <div className="w-[138px] h-[78px] bg-[#141519]" />
+        ) : (
+          <div className="w-[138px] h-[78px] bg-[#23252B] flex items-center justify-center text-[#A0A0A0] text-center"></div>
+        )}
+      </div>
+      <div className="flex flex-col justify-center w-full">
+        {skeletonText ? (
+          <>
+            <div className="h-5 w-5/6 bg-[#141519] mb-2" />
+            <div className="h-3 w-2/3 bg-[#141519] mb-1" />
+            <div className="h-3 w-1/2 bg-[#141519]" />
+          </>
+        ) : (
+          <>
+            <div className="h-5 w-5/6 bg-[#23252B] mb-2 flex items-center pl-2 text-[#A0A0A0]"></div>
+            <div className="h-3 w-2/3 bg-[#23252B] mb-1 flex items-center pl-2 text-[#A0A0A0]"></div>
+            <div className="h-3 w-1/2 bg-[#23252B] flex items-center pl-2 text-[#A0A0A0]"></div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -42,7 +76,13 @@ const getPostUrl = (post: Post) => {
   }
 };
 
-const NewsCard = ({ post }: NewsCardProps) => {
+const NewsCard: React.FC<NewsCardProps> = ({ post, loading = false, skeletonText = true, skeletonImage = true }) => {
+  const t = useTranslations('Common');
+
+  if (loading || !post) {
+    return <NewsCardSkeleton skeletonText={skeletonText} skeletonImage={skeletonImage} />;
+  }
+
   return (
     <Link href={getPostUrl(post)}>
       <div className="flex gap-4 hover:bg-[#23252B] p-2 transition-colors duration-200 w-[850px]">
@@ -58,7 +98,7 @@ const NewsCard = ({ post }: NewsCardProps) => {
             {post.title}
           </h3>
           <small className="text-[#A0A0A0] line-clamp-2 text-[.75rem]">{formatDate(post.created_at)}</small>
-          <small className="flex items-center gap-2 text-[.75rem] text-[#A0A0A0]">por {post.author.name}</small>
+          <small className="flex items-center gap-2 text-[.75rem] text-[#A0A0A0]">{t('by')} {post.author.name}</small>
         </div>
       </div>
     </Link>

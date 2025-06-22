@@ -25,6 +25,10 @@
         "popularseason": {
             "title": " Popular Anime of the Season",
             "subtitle": "Watch the top three!"
+        },
+        "movies": {
+            "title": "Movies",
+            "subtitle": "Check out the available movies!"
         }
     }
 }

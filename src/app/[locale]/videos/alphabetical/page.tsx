@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark as bookmarkSolid } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark as bookmarkOutline } from "@fortawesome/free-regular-svg-icons";
 import { useFavorites } from "../../contexts/FavoritesContext";
-import MaturityRating from "../../../components/utils/elements/SmallMaturityRating";
+import MaturityRating from "../../../components/elements/MaturityRating";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import { useDropdown } from "@/hooks/useDropdown";

@@ -25,6 +25,10 @@
         "popularseason": {
             "title": " Animes Populares da Temporada",
             "subtitle": "Assista os três primeiros!"
+        },
+        "movies": {
+            "title": "Filmes",
+            "subtitle": "Confira os filmes disponíveis!"
         }
     }
 }

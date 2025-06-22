@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from 'next-intl';
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from "./EpisodioCard.module.css";
 import { Anime } from "@/types/anime";
@@ -14,6 +14,19 @@ interface EpisodeCardProps {
 }
 
 export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime }) => {
+  const [showText, setShowText] = useState(false);
+  const [showImage, setShowImage] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  useEffect(() => {
+    const textTimer = setTimeout(() => setShowText(true), 500);
+    const imageTimer = setTimeout(() => setShowImage(true), 1000);
+    return () => {
+      clearTimeout(textTimer);
+      clearTimeout(imageTimer);
+    };
+  }, []);
+
   const formatReleaseDate = (dateString?: string) => {
     if (!dateString) return "";
 
@@ -64,53 +77,69 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime }) => {
       }}
     >
       <div className={styles.episodeImageContainer}>
+        {(!showImage || !imageLoaded) && <div className={`${styles.skeleton} ${styles.skeletonImage}`} />}
         <img
           src={episode.image || "/placeholder-episode.jpg"}
           alt={episode.title}
           className={styles.episodeImage}
+          style={{ display: showImage && imageLoaded ? 'block' : 'none' }}
+          onLoad={() => setImageLoaded(true)}
         />
-        {rating && (
-          <div className={styles.ratingBadge}>
-            <MaturityRating rating={rating} />
-          </div>
-        )}
-        {episode.duration && (
-          <div className={styles.durationBadge}>{episode.duration}</div>
-        )}
-        {hasVideoUrl && (
-          <div className={styles.playIconContainer}>
-            <svg
-              className={styles.playIcon}
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              data-t="play-filled-svg"
-              aria-labelledby="play-filled-svg"
-              aria-hidden="true"
-              role="img"
-            >
-              <path d="m4 2 16 10L4 22z" />
-            </svg>
-          </div>
-        )}
-        {!hasVideoUrl && (
-          <div className={styles.comingSoonBadge}>Em breve</div>
+        {showImage && imageLoaded && (
+          <>
+            {rating && (
+              <div className={styles.ratingBadge}>
+                <MaturityRating rating={rating} />
+              </div>
+            )}
+            {episode.duration && (
+              <div className={styles.durationBadge}>{episode.duration}</div>
+            )}
+            {hasVideoUrl && (
+              <div className={styles.playIconContainer}>
+                <svg
+                  className={styles.playIcon}
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  data-t="play-filled-svg"
+                  aria-labelledby="play-filled-svg"
+                  aria-hidden="true"
+                  role="img"
+                >
+                  <path d="m4 2 16 10L4 22z" />
+                </svg>
+              </div>
+            )}
+            {!hasVideoUrl && (
+              <div className={styles.comingSoonBadge}>Em breve</div>
+            )}
+          </>
         )}
       </div>
 
       <div className={styles.episodeInfo}>
-        <h3 className={styles.name}>{anime.name}</h3>
-        <p className={styles.episodeTitle}>
-          {seasonNumber && <span className={styles.episodeNumber}>T{seasonNumber}</span>}
-          {episodeNumber && <span className={styles.episodeNumber}>E{episodeNumber} - </span>}
-          {episode.title.replace(/^E\d+\s*-\s*/, "")}
-        </p>
-        {anime.audioType && (
-          <div className={styles.audioTypeContainer}>
-            <span className={styles.audioType}>{t(`audioTypes.${anime.audioType}`)}</span>
-            <button className={styles.audioTypeButton}>
-              <svg className={styles.audioTypeIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 24" data-t="more-svg" aria-hidden="true" role="img"><path d="M6 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-2 4c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2zm2 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
-            </button>
-          </div>
+        {showText ? (
+          <>
+            <h3 className={styles.name}>{anime.name}</h3>
+            <p className={styles.episodeTitle}>
+              {seasonNumber && <span className={styles.episodeNumber}>T{seasonNumber}</span>}
+              {episodeNumber && <span className={styles.episodeNumber}>E{episodeNumber} - </span>}
+              {episode.title.replace(/^E\d+\s*-\s*/, "")}
+            </p>
+            {anime.audioType && (
+              <div className={styles.audioTypeContainer}>
+                <span className={styles.audioType}>{t(`audioTypes.${anime.audioType}`)}</span>
+                <button className={styles.audioTypeButton}>
+                  <svg className={styles.audioTypeIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 24" data-t="more-svg" aria-hidden="true" role="img"><path d="M6 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-2 4c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2zm2 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
+                </button>
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            <div className={`${styles.skeleton} ${styles.skeletonTitle}`} />
+            <div className={`${styles.skeleton} ${styles.skeletonAudioType}`} style={{ marginTop: '8px' }} />
+          </>
         )}
       </div>
 

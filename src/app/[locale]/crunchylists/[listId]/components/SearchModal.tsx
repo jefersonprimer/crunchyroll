@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Anime } from '@/types/anime';
-import styles from '../ListDetails.module.css';
 import AnimeSearchCard from './AnimeSearchCard';
 
 interface SearchModalProps {
@@ -25,14 +24,13 @@ const SearchModal: React.FC<SearchModalProps> = ({
 
   if (showAddModal && searchTerm === '') {
     return (
-      <div className={styles.addModal} style={{ position: 'absolute', top: '100%', left: 0, width: '370px', height: '255px', zIndex: 10 }}>
-        <div className="dropdown-content__children--HW28H">
-          <span className="dropdown-content__marker--kViWn"></span>
+      <div className="absolute top-[100%] left-0 w-[370px] min-h-[260px] max-h-[460px] bg-[#23252B] z-[1000] mt-[4px] pt-4 pb-3 flex items-center justify-center">
+        <div>          
           <div>
-            <div className="erc-add-item-dropdown-empty">
-              <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+            <div className="flex flex-col items-center justify-center w-full pt-6 pb-3 text-center">
+              <div className='flex justify-center w-full'>
                 <svg 
-                  className="w-[4rem] h-[4rem]"
+                  className="w-[4rem] h-[4rem] block mx-auto mb-3"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24" data-t="search-svg"
                   aria-hidden="true"
@@ -47,7 +45,6 @@ const SearchModal: React.FC<SearchModalProps> = ({
               </div>
             </div>
           </div>
-          <span className="dropdown-content__marker--kViWn"></span>
         </div>
       </div>
     );
@@ -55,7 +52,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
 
   if (showSearchResults && searchTerm) {
     return (
-      <div className={styles.searchResults}>
+      <div className="absolute top-[100%] left-0 right-0 bg-[#23252B] w-[370px] h-auto max-h-[460px] overflow-x-auto z-[1000] mt-[4px] p-[10px]">
         {searchResults.map((anime: Anime) => {
           const isInList = currentListItems.some(item => item.id === anime.id);
           return (
@@ -68,7 +65,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
           );
         })}
         {searchResults.length === 0 && (
-          <div className={styles.noResults}>
+          <div className="p-[16px] text-center text-[#666]">
             {t('noAnimeFound')}
           </div>
         )}

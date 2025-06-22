@@ -15,7 +15,6 @@ import AnimeCarouselDub from "./components/carousel/AnimeCarouselDub";
 import AnimeCarouselNextSeason from "./components/carousel/AnimeCarouselNextSeason";
 import AnimeCarouselPopular from "./components/carousel/AnimeCarouselPopular";
 import AnimeCarouselPopularSeason from "./components/carousel/AnimeCarouselPopularSeason";
-import MovieCard from "./components/cards/MovieCard";
 import Episodios from "./components/cards/Episodios";
 import OutdoorCard from "./components/outdoors/OutdoorCard";
 import Outdoor from "./components/outdoors/Outdoor";
@@ -26,6 +25,7 @@ import client from "@/lib/apollo-client";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import NewsSection from "./components/sections/NewsSection";
+import MovieCarousel from "./components/carousel/MovieCarousel";
 
 // Memoize the HistorySection component
 const HistorySection = memo(() => {
@@ -119,9 +119,9 @@ const HomePage = () => {
             <AnimeCarouselDub />
           </SpacedSection>
 
-          <SpacedSection>
-            <MovieCard />
-          </SpacedSection>
+          {/* <SpacedSection>
+            <MovieCarousel />
+          </SpacedSection> */}
 
           <SpacedSection>
             <Outdoor

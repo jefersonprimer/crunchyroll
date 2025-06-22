@@ -1,139 +1,152 @@
-.appLayoutContent {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   
-    height: 100vh;
-    margin-bottom: 600px;
+
+
+
+.crunchyListContainer {
+  font-family: Arial, sans-serif;
+}
+
+.header {
+ padding: 30px 0px;
+}
+
+.createListBtn {
+  font-size: 0.9rem;
+  margin-right: 15px;
+  padding: 10px 14px;
+  border: 1px solid #FF640A;
+  color: #FF640A;
+  background-color: #000;
+  cursor: pointer;
+}
+
+.listLength {
+  color: #A0A0A0;
+  font-size: 1rem;
+}
+
+.listsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0px;
+}
+
+@media (max-width: 768px) {
+  .listsContainer {
+    grid-template-columns: 1fr;
   }
+}
+
+.listItem {
+  padding: 20px;
+  background-color: #141519;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.listItem:hover {
+  background-color: #23252B;
+}
+
+.listTitle {
+  font-size: 1.5rem;
+  margin: 0;
+  cursor: pointer;
+}
+
+.listInfo {
+  margin-top: 10px;
+  display: flex;
+  gap: 5px;
+  font-size: 0.9rem;
+  color: #A0A0A0;
+}
+
+.updatedAt {
   
-  .appLayoutContent a {
-    text-decoration: none;
-    color: gray;
-  }
-  
-  .appLayoutContent a:hover {
-    text-decoration: none;
-    color: white;
-  }
-  
-  .appLayoutContent a:active {
-    color: white;
-  }
-  
-  .iconBookMark {
-    width: 32px;
-    height: 32px;
-  }
-  
-  .iconBookMark path {
-    fill: #FFF;
-  }
-  
-  .title {
-    font-size: 1.9rem;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-  }
-  
-  .pageWrapper {
-    width: 100%;
-    max-width: 1100px; /* Ajuste conforme necessário */
-    height: 100vh;
-    margin: 0 auto;
-  }
-  
-  .contentWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centraliza o conteúdo verticalmente */
-    width: 100%;
-  }
-  
-  .myListsHeader {
-    width: 100%;
-    text-align: center;
-    
-  }
-  
-  .heading {
-    font-size: 24px;
-    margin-bottom: 40px;
-    margin-top: 60px;
-    gap: 10px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-  }
-  
-  .tabs {
-    display: flex;
-    justify-content: center;
-    gap: 20px; /* Espaço entre as abas */
-    border-bottom: 2px solid gray; /* Borda com espessura ajustada */
-    width: 96.5%; /* Largura reduzida */
-    margin: 0 auto; /* Centraliza o container */
-    margin-bottom: 5px;
-  }
-  
-  
-  .tabsContentWrapper {
-    display: flex;
-    gap: 15px;
-   
-  }
-  
-  .tabsScroller {
-    display: flex;
-   
-  }
-  
-  .tabsItem {
-    padding: 20px;
-    cursor: pointer;
-  }
-  
-  .tabsItemText {
-    font-size: 14px;
-  }
-  
-  /* .active {
-    font-weight: bold;
-    color: #ff6f00;
-  } */
-  
-  .active {
-    border-bottom: 3px solid #FF640A;
-  }
-  
-  .watchlistBody {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
-  }
-  
-  .ercWatchlist {
-    width: 100%;
-  }
-  
-  .tabsItem {
-    text-decoration: none;
-    padding: 16px 32px;
-    color: black;
-    background-color: transparent;
-    transition: all 0.3s ease;
-  }
-  
-  .tabsItem:hover {
-    background-color: #23252B; /* Fundo ao passar o mouse */
-  }
-  
-  .tabsItem.active {
-    color: white;
-    background-color: black; /* Aba ativa */
-    font-weight: bold; /* Opcional: destaque no texto */
-  }
-  
+}
+
+.listItems {
+  margin-top: 15px;
+}
+
+.animeItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.animeImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.removeButton {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.removeButton:hover {
+  background-color: #e63939;
+}
+
+.renameListContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.menuContainer {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.menuIcon {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #A0A0A0;
+}
+
+.menuIcon:hover {
+  color: #FFF;
+}
+
+.dropdownMenu {
+  width: 200px;
+  position: absolute;
+  top: 35px;
+  right: 0;
+  background-color: #23252B;
+  z-index: 10;
+  padding: 10px 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdownItem {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 15px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #A0A0A0;
+}
+
+.dropdownItem:hover {
+  background-color: #141519;
+  color: #FFF;
+}

@@ -6,19 +6,93 @@ import NewsCard from "./components/NewsCard";
 import { Post } from "../../[locale]/news/types/posts";
 import Link from "next/link";
 import Loading from "@/app/loading";
+import { useOnScreen } from "@/hooks/useOnScreen";
+import React, { useMemo } from "react";
+import { useTranslations } from "next-intl";
+
+
+const PostCardOnScreen = ({ post }: { post: Post }) => {
+  const { ref, isIntersecting } = useOnScreen({ threshold: 0.1 });
+  const [showText, setShowText] = React.useState(false);
+  const [showImage, setShowImage] = React.useState(false);
+
+  React.useEffect(() => {
+    let textTimeout: NodeJS.Timeout;
+    let imageTimeout: NodeJS.Timeout;
+    if (isIntersecting) {
+      textTimeout = setTimeout(() => setShowText(true), 500);
+      imageTimeout = setTimeout(() => setShowImage(true), 1000);
+    }
+    return () => {
+      clearTimeout(textTimeout);
+      clearTimeout(imageTimeout);
+    };
+  }, [isIntersecting]);
+
+  const loading = !(showText && showImage);
+
+  return (
+    <div ref={ref}>
+      <PostCard
+        post={post}
+        loading={loading}
+        skeletonText={!showText}
+        skeletonImage={!showImage}
+      />
+    </div>
+  );
+};
+
+const NewsCardOnScreen = ({ post }: { post: Post }) => {
+  const { ref, isIntersecting } = useOnScreen({ threshold: 0.1 });
+  const [showText, setShowText] = React.useState(false);
+  const [showImage, setShowImage] = React.useState(false);
+
+  React.useEffect(() => {
+    let textTimeout: NodeJS.Timeout;
+    let imageTimeout: NodeJS.Timeout;
+    if (isIntersecting) {
+      textTimeout = setTimeout(() => setShowText(true), 500);
+      imageTimeout = setTimeout(() => setShowImage(true), 1000);
+    }
+    return () => {
+      clearTimeout(textTimeout);
+      clearTimeout(imageTimeout);
+    };
+  }, [isIntersecting]);
+
+  const loading = !(showText && showImage);
+
+  return (
+    <div ref={ref}>
+      <NewsCard
+        post={post}
+        loading={loading}
+        skeletonText={!showText}
+        skeletonImage={!showImage}
+      />
+    </div>
+  );
+};
 
 const NewsSection = () => {
+  const t = useTranslations('NewsSection');
   const { posts, loading, error } = useFetchPosts();
 
   // Filter posts by category
-  const announcements = posts
-    .filter((post: Post) => post.category.toLowerCase() === 'quizzes') /*estava 'announcements'*/
-    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-    .slice(0, 2);
-  const latestPosts = posts
-    .filter((post: Post) => post.category.toLowerCase() === 'quizzes') /*estava 'latest'*/
-    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-    .slice(0, 6);
+  const announcements = useMemo(() =>
+    posts
+      .filter((post: Post) => post.category.toLowerCase() === 'quizzes')
+      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+      .slice(0, 2)
+  , [posts]);
+
+  const latestPosts = useMemo(() =>
+    posts
+      .filter((post: Post) => post.category.toLowerCase() === 'quizzes')
+      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+      .slice(0, 6)
+  , [posts]);
 
   if (loading) {
     return (
@@ -85,10 +159,10 @@ const NewsSection = () => {
                     </path>
                   </svg>
                 </span>
-                <h1 className="text-2xl font-bold text-white">Crunchyroll Notícias</h1>
+                <h1 className="text-2xl font-bold text-white">{t('title')}</h1>
               </div>
               <div className="flex items-center gap-1 text-[#A0A0A0] hover:text-[#FFFFFF]">
-                <Link href="/news" className=" font-weight-900 text-[0.875rem]">VER TUDO</Link>
+                <Link href="/news" className=" font-weight-900 text-[0.875rem]">{t('link')}</Link>
                 <span>
                 <svg
                 className="w-6 h-6"
@@ -111,7 +185,7 @@ const NewsSection = () => {
               </h4>
               <div className="grid grid-cols-1 gap-1">
                 {announcements.map((post: Post) => (
-                  <PostCard key={post.id} post={post} />
+                  <PostCardOnScreen key={post.id} post={post} />
                 ))}
               </div>
             </div>
@@ -123,7 +197,7 @@ const NewsSection = () => {
               </h4>
               <div className="grid grid-cols-1">
                 {latestPosts.map((post: Post) => (
-                  <NewsCard key={post.id} post={post} />
+                  <NewsCardOnScreen key={post.id} post={post} />
                 ))}
               </div>
             </div>

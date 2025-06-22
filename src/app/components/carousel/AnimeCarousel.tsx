@@ -17,7 +17,7 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false, 
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { ref, isIntersecting } = useOnScreenProp
-    ? useOnScreen({ threshold: 0.9 })
+    ? useOnScreen({ threshold: 0.1 })
     : { ref: undefined, isIntersecting: true };
 
   const [canLoad, setCanLoad] = useState(!useOnScreenProp);

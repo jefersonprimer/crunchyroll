@@ -4,7 +4,6 @@ import ClientBody from "./ClientBody";
 import { Providers } from './providers';
 import { DropdownProvider } from "./[locale]/contexts/DropdownContext";
 import RootLayoutClient from "./RootLayoutClient";
-import { useTranslations } from "next-intl";
 
 export const metadata: Metadata = {
   title: "Crunchyroll - Assista a Animes, Jogue Games e Compre Online",
