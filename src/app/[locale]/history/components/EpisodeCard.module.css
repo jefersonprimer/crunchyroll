@@ -167,8 +167,7 @@
 }
 
 .skeleton {
-  background: #333;
-  border-radius: 4px;
+  background: #141519;
   animation: pulse 1.5s infinite ease-in-out;
 }
 

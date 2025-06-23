@@ -21,8 +21,8 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime, watche
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    const textTimer = setTimeout(() => setShowText(true), 5000);
-    const imageTimer = setTimeout(() => setShowImage(true), 10000);
+    const textTimer = setTimeout(() => setShowText(true), 500);
+    const imageTimer = setTimeout(() => setShowImage(true), 1000);
     return () => {
       clearTimeout(textTimer);
       clearTimeout(imageTimer);

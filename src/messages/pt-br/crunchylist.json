@@ -18,7 +18,8 @@
         "renameList": "Renomear Crunchylist",
         "cancel": "CANCELAR",
         "renameButton": "RENOMEAR LISTA",
-        "listLimit": "Você atingiu o limite de 10 listas."
+        "listLimit": "Você atingiu o limite de 10 listas.",
+        "listName": "Nome da lista"
     },
     "AnimeCardCrunchylist": {
         "audioTypes": {

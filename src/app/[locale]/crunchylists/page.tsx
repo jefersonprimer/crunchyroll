@@ -160,6 +160,7 @@ const CrunchyListPage = () => {
             fila: tTabs('queue'),
             crunchylists: tTabs('crunchylists'),
             historico: tTabs('history'),
+            'Minhas Listas': tTabs('title')
           }}
         >
           <div className={styles.crunchyListContainer}>

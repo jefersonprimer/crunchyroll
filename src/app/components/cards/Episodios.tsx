@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { GET_ANIMES } from '../../../lib/queries/getAnimes';
 import { Episode } from '../../../types/episode';
 import { Anime } from '../../../types/anime';
-import { EpisodeCard } from './EpisodeCard';
+import { EpisodeCard } from '../../[locale]/history/components/EpisodeCard';
 
 interface EpisodesGrouped {
   hoje: Episode[];

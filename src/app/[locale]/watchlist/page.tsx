@@ -1,18 +1,70 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { FavoritesProvider } from '../contexts/FavoritesContext';
-import Fila from './Fila/page';
-import styles from './styles.module.css';
+import { FavoritesProvider, useFavorites } from '../contexts/FavoritesContext';
 import Header from '@/app/components/layout/Header';
 import Footer from '@/app/components/layout/Footer';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import TabsNavigation from '@/app/components/layout/TabsNavigation';
+import { FilterProvider } from '@/app/[locale]/contexts/FilterContext';
+import { CardFavoritesProvider } from '@/app/[locale]/contexts/CardFavoritesContext';
+import AnimeCard from './components/AnimeCard';
+import WatchlistHeader from './components/watchlistHeader';
+import type { Anime } from '@/types/anime';
+import Link from 'next/link';
+
+const WatchlistContent = () => {
+  const { favorites, removeFavorite } = useFavorites();
+
+  const handleRemoveFavorite = (id: string) => {
+    removeFavorite(id);
+  };
+
+  return (
+    <CardFavoritesProvider>
+      <FilterProvider>
+        <div className='w-full min-h-[400px] flex items-center justify-center'>
+          {favorites.length === 0 ? (
+            <div className='text-center'>
+              <img
+                src="https://www.crunchyroll.com/build/assets/img/empty_list_state/empty-watchlist.png"
+                alt="Empty Watchlist"
+                className='max-w-[300px] mb-[1rem]'
+              />
+              <h4 className='text-[#666] mb-[1rem] leading-[1.5]'>
+                Sua Fila merece mais amor. <br /> Vamos enchê-la com animes incríveis.
+              </h4>
+              <div className='mt-[1rem]'>
+                <Link href="/" className='inline-block py-[0.75rem] px-[1.5rem] bg-[#FF640A] text-white no-underline rounded font-weight-600 hover:text-[#E55A00]'>
+                  VOLTAR PARA A TELA INICIAL
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <WatchlistHeader/>
+              <ul className="list-none m-0 w-[1066px] grid grid-cols-4 gap-2 mx-auto">
+                {favorites.map((anime: Anime) => (
+                  <AnimeCard
+                    key={anime.id}
+                    anime={anime}
+                    onRemove={handleRemoveFavorite}
+                  />
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </FilterProvider>
+    </CardFavoritesProvider>
+  );
+};
 
 const WatchlistPage = () => {
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
-  const t = useTranslations('Watchlist');
+  const tTabs = useTranslations('Watchlist');
 
   useEffect(() => {
     setIsMounted(true);
@@ -20,7 +72,10 @@ const WatchlistPage = () => {
 
   const handleTabClick = (tab: string) => {
     switch (tab) {
-      case 'crunchylist':
+      case 'fila':
+        router.push('/watchlist');
+        break;
+      case 'crunchylists':
         router.push('/crunchylists');
         break;
       case 'historico':
@@ -31,6 +86,11 @@ const WatchlistPage = () => {
     }
   };
 
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+  let selectedTab = 'fila';
+  if (pathname.includes('crunchylists')) selectedTab = 'crunchylists';
+  else if (pathname.includes('history')) selectedTab = 'historico';
+
   if (!isMounted) {
     return null;
   }
@@ -38,48 +98,22 @@ const WatchlistPage = () => {
   return (
     <FavoritesProvider>
       <Header/>
-      <div className={styles.appLayoutContent}>
-        <div className={styles.pageWrapper}>
-          <div className={styles.contentWrapper}>
-            <div className={styles.myListsHeader}>
-              <h1 className={styles.heading}>
-                <svg className={styles.iconBookMark} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-t="watchlist-svg" aria-labelledby="watchlist-svg" aria-hidden="true" role="img">
-                  <path d="M17 18.113l-3.256-2.326A2.989 2.989 0 0 0 12 15.228c-.629 0-1.232.194-1.744.559L7 18.113V4h10v14.113zM18 2H6a1 1 0 0 0-1 1v17.056c0 .209.065.412.187.581a.994.994 0 0 0 1.394.233l4.838-3.455a1 1 0 0 1 1.162 0l4.838 3.455A1 1 0 0 0 19 20.056V3a1 1 0 0 0-1-1z"></path>
-                </svg>
-                <span className={styles.title}>{t('title')}</span>
-              </h1>
-              <div className={styles.tabs}>
-                <div className={styles.tabsContentWrapper}>
-                  <div role="tablist" className={styles.tabsScroller}>
-                    <a
-                      className={`${styles.tabsItem} ${styles.active}`}
-                    >
-                      <span className={styles.tabsItemText}>{t('queue')}</span>
-                    </a>
-                    <a
-                      onClick={() => handleTabClick('crunchylist')}
-                      className={styles.tabsItem}
-                    >
-                      <span className={styles.tabsItemText}>{t('crunchylists')}</span>
-                    </a>
-                    <a
-                      onClick={() => handleTabClick('historico')}
-                      className={styles.tabsItem}
-                    >
-                      <span className={styles.tabsItemText}>{t('history')}</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={styles.watchlistBody}>
-              <div className={styles.ercWatchlist}>
-                <Fila />
-              </div>
-            </div>
+      <TabsNavigation
+        selectedTab={selectedTab}
+        onTabChange={handleTabClick}
+        labels={{
+          fila: tTabs('queue'),
+          crunchylists: tTabs('crunchylists'),
+          historico: tTabs('history'),
+          'Minhas Listas': tTabs('title')
+        }}
+      >
+        <div className="flex justify-center items-center w-full">
+          <div className="w-full">
+            <WatchlistContent />
           </div>
         </div>
-      </div>
+      </TabsNavigation>
       <Footer/>
     </FavoritesProvider>
   );

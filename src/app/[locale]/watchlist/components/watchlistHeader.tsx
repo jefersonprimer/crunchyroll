@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useFilters } from '../../../contexts/FilterContext';
+import { useFilters } from '../../contexts/FilterContext';
 import { useTranslations } from 'next-intl';
 
 const useDropdown = () => {
@@ -52,7 +52,7 @@ const WatchlistHeader: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-between gap-4 p-4">
+    <div className="flex justify-between gap-4 px-2 w-[1050px] h-[44px]">
       <div className="flex items-center justify-between">
         <h2 className="text-[#FFFFFF] text-[1.25rem] font-weight-700">{t('sortOptions.mostRecentUpdate')}</h2>
       </div>
