@@ -110,3 +110,42 @@
 .favoriteIconFilled:hover {
   color: #FFFFFF;
 }
+
+.skeleton {
+  background: #141519;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.skeletonImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.skeletonTitle {
+  background: #141519;
+  width: 80%;
+  height: 20px;
+  margin: 0;
+}
+
+.skeletonAudioType {
+  margin-top: 80px;
+  background: #141519;
+  width: 50%;
+  height: 16px;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
