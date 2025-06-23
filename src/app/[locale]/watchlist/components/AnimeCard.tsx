@@ -56,19 +56,19 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
   if (!shouldShow()) return null;
 
   return (
-    <div className={styles.wrapper}>
-      <li className={styles.animeItem} title={anime.name}>
-        <div className={styles.imageContainer}>
-          <div className={styles.ratingContainer}>
+    <div className="flex justify-center items-center flex-col w-[255px] h-auto min-h-[264px] overflow-hidden cursor-pointer hover:bg-[#23252B]">
+      <li className="flex flex-col w-[240px] h-[249px] overflow-hidden">
+        <div className="w-[240px] h-auto min-h-[135px] relative my-0 mx-auto">
+          <div className="absolute top-[4px] left-[4px] z-1">
             <MaturityRating rating={Number(anime.rating) || 0} size={4} />
           </div>
           {(!showImage || !imageLoaded) && (
-            <div className={`${styles.skeleton} ${styles.skeletonImage}`} />
+            <div className="bg-[#141519] animate-pulse absolute top-0 left-0 w-full h-full "/>
           )}
           <img
             src={anime.imageCardCompact}
             alt={anime.name}
-            className={styles.animeImage}
+            className="w-[240px] h-auto min-h-[135px] object-cover"
             style={{ display: showImage && imageLoaded ? 'block' : 'none' }}
             onLoad={() => setImageLoaded(true)}
             onError={(e) => {
@@ -77,24 +77,24 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
             }}
           />
         </div>
-        <div className={styles.texts}>
+        <div className="py-[1rem] px-0 flex flex-col w-[240px] h-auto min-h-[114px]">
           {showText ? (
             <>
-              <span className={styles.name}>
+              <span className="text-[1rem] font-weight-600 text-[#FFFFFF] m-0 leading-[1.4]">
                 {anime.name}
               </span>
-              <span className={styles.play}>{t('startWatching')}</span>
-              <div className={styles.buttons}>
-                <span className={styles.audioType}>{t(`audioTypes.${anime.audioType}`)}</span>
+              <span className="text-[#A0A0A0]">{t('startWatching')}</span>
+              <div className="flex items-center justify-between mt-[2rem]">
+                <span className="text-[#A0A0A0]">{t(`audioTypes.${anime.audioType}`)}</span>
                 <div className='flex gap-2'>
                   <button
                     onClick={() => toggleCardFavorite(anime.id)}
-                    className={styles.removeButton}
+                    className="bg-none border-none cursor-pointer flex items-center justify-center"
                     title={isFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
                   >
                     {isFavorite ? (
                       <svg
-                        className={styles.favoriteIconFilled}
+                        className="w-6 h-6 text-[#A0A0A0] hover:text-[#FFFFFF]"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         data-t="favorite-filled-svg"
@@ -107,7 +107,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
                       </svg>
                     ) : (
                       <svg
-                        className={styles.favoriteIcon}
+                        className="w-6 h-6 text-[#A0A0A0] hover:text-[#FFFFFF]"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         data-t="favorite-svg"
@@ -122,12 +122,11 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
                     )}
                   </button>
                   <button
-                    className={styles.removeButton}
                     onClick={() => onRemove(anime.id)}
                     title="Remover da fila"
                   >
                     <svg
-                      className={styles.trashIcon}
+                      className="w-6 h-6 text-[#A0A0A0] hover:text-[#FFFFFF]"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       data-t="trash-svg"
@@ -145,8 +144,8 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
             </>
           ) : (
             <>
-              <div className={`${styles.skeleton} ${styles.skeletonTitle}`} />
-              <div className={`${styles.skeleton} ${styles.skeletonAudioType}`} style={{ marginTop: '12px' }} />
+              <div className="bg-[#141519] animate-pulse w-[80%] h-[20px] m-0" />
+              <div className="bg-[#141519] animate-pulse w-[50%] h-[16px] m-0 mt-[12px]"/>
             </>
           )}
         </div>

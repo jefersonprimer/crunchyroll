@@ -19,7 +19,7 @@
           "updated": "Atualizado",
           "watched": "Assistido",
           "added": "Adicionado",
-          "alphabetical": "Alfabético"
+          "alphabetical": "Ordem Alfabética"
         },
         "dateSortOptions": {
           "mostRecent": "Mais recente",
@@ -45,7 +45,7 @@
           }
         },
         "buttons": {
-          "sort": "ORDENAR",
+          "sort": "ORDENAÇÃO",
           "filter": "FILTRAR"
         }
       }

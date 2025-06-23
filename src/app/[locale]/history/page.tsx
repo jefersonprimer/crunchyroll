@@ -31,7 +31,7 @@ const HistoryPage = () => {
       case 'fila':
         router.push('/watchlist');
         break;
-      case 'crunchylist':
+      case 'crunchylists':
         router.push('/crunchylists');
         break;
       default:

@@ -13,6 +13,7 @@ import AnimeCard from './components/AnimeCard';
 import WatchlistHeader from './components/watchlistHeader';
 import type { Anime } from '@/types/anime';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const WatchlistContent = () => {
   const { favorites, removeFavorite } = useFavorites();
@@ -27,10 +28,13 @@ const WatchlistContent = () => {
         <div className='w-full min-h-[400px] flex items-center justify-center'>
           {favorites.length === 0 ? (
             <div className='text-center'>
-              <img
+              <Image
                 src="https://www.crunchyroll.com/build/assets/img/empty_list_state/empty-watchlist.png"
                 alt="Empty Watchlist"
-                className='max-w-[300px] mb-[1rem]'
+                width={300}
+                height={200}
+                className='mb-[1rem] mx-auto'
+                style={{ maxWidth: '100%', height: 'auto' }}
               />
               <h4 className='text-[#666] mb-[1rem] leading-[1.5]'>
                 Sua Fila merece mais amor. <br /> Vamos enchê-la com animes incríveis.
@@ -42,17 +46,19 @@ const WatchlistContent = () => {
               </div>
             </div>
           ) : (
-            <div>
-              <WatchlistHeader/>
-              <ul className="list-none m-0 w-[1066px] grid grid-cols-4 gap-2 mx-auto">
-                {favorites.map((anime: Anime) => (
-                  <AnimeCard
-                    key={anime.id}
-                    anime={anime}
-                    onRemove={handleRemoveFavorite}
-                  />
-                ))}
-              </ul>
+            <div className="flex justify-center w-full">
+              <div>
+                <WatchlistHeader/>
+                <ul className="list-none my-0 w-[1050px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mx-auto">
+                  {favorites.map((anime: Anime) => (
+                    <AnimeCard
+                      key={anime.id}
+                      anime={anime}
+                      onRemove={handleRemoveFavorite}
+                    />
+                  ))}
+                </ul>
+              </div>
             </div>
           )}
         </div>
@@ -63,11 +69,18 @@ const WatchlistContent = () => {
 
 const WatchlistPage = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const [selectedTab, setSelectedTab] = useState('fila');
   const router = useRouter();
   const tTabs = useTranslations('Watchlist');
 
   useEffect(() => {
     setIsMounted(true);
+    if (typeof window !== 'undefined') {
+      const pathname = window.location.pathname;
+      if (pathname.includes('crunchylists')) setSelectedTab('crunchylists');
+      else if (pathname.includes('history')) setSelectedTab('historico');
+      else setSelectedTab('fila');
+    }
   }, []);
 
   const handleTabClick = (tab: string) => {
@@ -86,11 +99,6 @@ const WatchlistPage = () => {
     }
   };
 
-  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
-  let selectedTab = 'fila';
-  if (pathname.includes('crunchylists')) selectedTab = 'crunchylists';
-  else if (pathname.includes('history')) selectedTab = 'historico';
-
   if (!isMounted) {
     return null;
   }
@@ -108,8 +116,8 @@ const WatchlistPage = () => {
           'Minhas Listas': tTabs('title')
         }}
       >
-        <div className="flex justify-center items-center w-full">
-          <div className="w-full">
+        <div className="flex justify-center items-center w-full h-auto">
+          <div className="w-full h-auto">
             <WatchlistContent />
           </div>
         </div>

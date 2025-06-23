@@ -10,7 +10,7 @@ const Footer = () => {
     <footer 
       className="flex flex-col gap-5 py-5 px-5 bg-gradient-to-b from-black to-[#1C3039] text-white items-center pb-9 font-roboto text-sm font-normal w-[1351px]">
       {/* Colunas superiores */}
-      <div className="w-[1100px] flex  flex-wrap gap-20 border-b border-[#323D46]">
+      <div className="w-[1050px] flex flex-wrap gap-20 border-b border-[#323D46]">
         {/* Seção de Navegação */}
         <div>
           <h4 className="text-lg mb-2.5">{t('navigation')}</h4>
@@ -184,7 +184,7 @@ const Footer = () => {
       </div>
 
       {/* Parte inferior */}
-      <div className="w-[1100px] flex justify-between items-center py-3">
+      <div className="w-[1050px] flex justify-between items-center py-3">
         <div className="flex items-center justify-center">
           <img
             className="w-[158px] h-3"

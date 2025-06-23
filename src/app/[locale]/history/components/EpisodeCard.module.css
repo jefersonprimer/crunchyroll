@@ -1,9 +1,8 @@
-.episodeCard {
+.wrapper {
   position: relative;
-  width: 260px;
+  width: 255px;
   height: auto;
-  min-height: 249px;
-  padding: 10px;
+  min-height: 264px;
   overflow: hidden;
   transition: all 0.3s ease;
   cursor: pointer;
@@ -11,10 +10,28 @@
   color: inherit;
   display: block;
   box-sizing: border-box;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.episodeCard:hover {
- background-color: #23252B;
+.wrapper:hover {
+  background-color: #23252B;
+}
+
+.episodeCard {
+  position: relative;
+  width: 240px;
+  height: auto;
+  min-height: 249px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  box-sizing: border-box;
 }
 
 .episodeImageContainer {

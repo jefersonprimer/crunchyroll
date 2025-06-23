@@ -88,93 +88,94 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime, watche
   return (
     <Link
       href={hasVideoUrl ? `/watch/${episode.publicCode}/${episode.slug}` : "#"}
-      className={`${styles.episodeCard} ${!hasVideoUrl ? styles.disabled : ""}`} title={episode.title}
+      className={`${styles.wrapper} ${!hasVideoUrl ? styles.disabled : ""}`} title={episode.title}
       onClick={(e) => {
         if (!hasVideoUrl) {
           e.preventDefault();
         }
       }}
     >
-      <div className={styles.episodeImageContainer}>
-        {(!showImage || !imageLoaded) && <div className={`${styles.skeleton} ${styles.skeletonImage}`} />}
-        <img
-          src={episode.image || "/placeholder-episode.jpg"}
-          alt={episode.title}
-          className={styles.episodeImage}
-          style={{ display: showImage && imageLoaded ? 'block' : 'none' }}
-          onLoad={() => setImageLoaded(true)}
-        />
-        {showImage && imageLoaded && (
-          <>
-            {rating && (
-              <div className={styles.ratingBadge}>
-                <MaturityRating rating={rating} size={4} />
-              </div>
-            )}
-            {episode.duration && (
-              <div className={styles.durationBadge}>{episode.duration}</div>
-            )}
-            {hasVideoUrl && (
-              <div className={styles.playIconContainer}>
-                <svg
-                  className={styles.playIcon}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  data-t="play-filled-svg"
-                  aria-labelledby="play-filled-svg"
-                  aria-hidden="true"
-                  role="img"
-                >
-                  <path d="m4 2 16 10L4 22z" />
-                </svg>
-              </div>
-            )}
-            {!hasVideoUrl && (
-              <div className={styles.comingSoonBadge}>Em breve</div>
-            )}
-          </>
-        )}
-      </div>
-
-      <div className={styles.episodeInfo}>
-        {showText ? (
-          <>
-            <h3 className={styles.name}>{anime.name}</h3>
-            <p className={styles.episodeTitle}>
-              {seasonNumber && <span className={styles.episodeNumber}>T{seasonNumber}</span>}
-              {episodeNumber && <span className={styles.episodeNumber}>E{episodeNumber} - </span>}
-              {episode.title.replace(/^E\d+\s*-\s*/, "")}
-            </p>
-          
-            {watchedAt && (
-              <div className={styles.watchDateContainer}>
-                <span className={styles.watchDate}>{formatWatchDate(watchedAt)}</span>
-                <button 
-                  onClick={handleDelete}
-                  className={styles.deleteButton}
-                  aria-label="Remover do histórico"
-                >
-                  <svg 
-                    className={styles.trashIcon} 
-                    xmlns="http://www.w3.org/2000/svg" 
+      <div className={styles.episodeCard}>
+        <div className={styles.episodeImageContainer}>
+          {(!showImage || !imageLoaded) && <div className={`${styles.skeleton} ${styles.skeletonImage}`} />}
+          <img
+            src={episode.image || "/placeholder-episode.jpg"}
+            alt={episode.title}
+            className={styles.episodeImage}
+            style={{ display: showImage && imageLoaded ? 'block' : 'none' }}
+            onLoad={() => setImageLoaded(true)}
+          />
+          {showImage && imageLoaded && (
+            <>
+              {rating && (
+                <div className={styles.ratingBadge}>
+                  <MaturityRating rating={rating} size={4} />
+                </div>
+              )}
+              {episode.duration && (
+                <div className={styles.durationBadge}>{episode.duration}</div>
+              )}
+              {hasVideoUrl && (
+                <div className={styles.playIconContainer}>
+                  <svg
+                    className={styles.playIcon}
+                    xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
+                    data-t="play-filled-svg"
+                    aria-labelledby="play-filled-svg"
                     aria-hidden="true"
                     role="img"
-                    fill="#A0A0A0"
                   >
-                    <title>Remover</title>
-                    <path d="M13 2h-2a1 1 0 0 0-1 1v1H4a1 1 0 0 0 0 2h1v15a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6h1a1 1 0 1 0 0-2h-6V3a1 1 0 0 0-1-1m-1 2v2h5v14H7V6h5V4zm-2 5a1 1 0 0 0-1 1v6a1 1 0 1 0 2 0v-6a1 1 0 0 0-1-1zm4 0a1 1 0 0 0-1 1v6a1 1 0 1 0 2 0v-6a1 1 0 0 0-1-1z" />
+                    <path d="m4 2 16 10L4 22z" />
                   </svg>
-                </button>
-              </div>
-            )}
-          </>
-        ) : (
-          <>
-            <div className={`${styles.skeleton} ${styles.skeletonTitle}`} />
-            <div className={`${styles.skeleton} ${styles.skeletonAudioType}`} style={{ marginTop: '8px' }} />
-          </>
-        )}
+                </div>
+              )}
+              {!hasVideoUrl && (
+                <div className={styles.comingSoonBadge}>Em breve</div>
+              )}
+            </>
+          )}
+        </div>
+        <div className={styles.episodeInfo}>
+          {showText ? (
+            <>
+              <h3 className={styles.name}>{anime.name}</h3>
+              <p className={styles.episodeTitle}>
+                {seasonNumber && <span className={styles.episodeNumber}>T{seasonNumber}</span>}
+                {episodeNumber && <span className={styles.episodeNumber}>E{episodeNumber} - </span>}
+                {episode.title.replace(/^E\d+\s*-\s*/, "")}
+              </p>
+        
+              {watchedAt && (
+                <div className={styles.watchDateContainer}>
+                  <span className={styles.watchDate}>{formatWatchDate(watchedAt)}</span>
+                  <button
+                    onClick={handleDelete}
+                    className={styles.deleteButton}
+                    aria-label="Remover do histórico"
+                  >
+                    <svg
+                      className={styles.trashIcon}
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      role="img"
+                      fill="#A0A0A0"
+                    >
+                      <title>Remover</title>
+                      <path d="M13 2h-2a1 1 0 0 0-1 1v1H4a1 1 0 0 0 0 2h1v15a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6h1a1 1 0 1 0 0-2h-6V3a1 1 0 0 0-1-1m-1 2v2h5v14H7V6h5V4zm-2 5a1 1 0 0 0-1 1v6a1 1 0 1 0 2 0v-6a1 1 0 0 0-1-1zm4 0a1 1 0 0 0-1 1v6a1 1 0 1 0 2 0v-6a1 1 0 0 0-1-1z" />
+                    </svg>
+                  </button>
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              <div className={`${styles.skeleton} ${styles.skeletonTitle}`} />
+              <div className={`${styles.skeleton} ${styles.skeletonAudioType}`} style={{ marginTop: '8px' }} />
+            </>
+          )}
+        </div>
       </div>
     </Link>
   );
