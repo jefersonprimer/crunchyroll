@@ -3,7 +3,9 @@
         "title": "My lists",
         "queue": "QUEUE",
         "crunchylists": "CRUNCHYLISTS",
-        "history": "HISTORY"
+        "history": "HISTORY",
+        "emptyMessage": "Your queue deserves more love. <br /> Let's fill it with amazing anime.",
+        "backToHome": "BACK TO HOME"
     },
     "AnimeCardWatchlist": {
         "audioTypes": {

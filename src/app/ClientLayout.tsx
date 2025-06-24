@@ -20,7 +20,9 @@ export default function ClientLayout({
   return (
     <ApolloProvider client={client}>
       <div>   {/* className="pt-[60px]" */}
-        <ListsProvider>{children}</ListsProvider>
+        <ListsProvider>
+          {children}
+        </ListsProvider>
       </div>
       
     </ApolloProvider>

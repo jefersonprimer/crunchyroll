@@ -9,6 +9,8 @@ import { useFavorites } from "../../[locale]/contexts/FavoritesContext";
 import { useQuery } from '@apollo/client';
 import { GET_ANIMES } from "@/lib/queries/getAnimes";
 import { Anime } from "@/types/anime";
+import { useLists } from "../../[locale]/contexts/ListsContext";
+import CreateModal from "../../[locale]/crunchylists/[listId]/components/CreateModal";
 
 import MaturityRating from '../elements/MaturityRating';
 import AddToListModal from "../modals/AddToListModal";
@@ -19,7 +21,11 @@ import AddButton from '../buttons/AddButton';
 const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
   const t = useTranslations();
   const { favorites, addFavorite, removeFavorite } = useFavorites();
+  const { lists, createList } = useLists();
   const [showModal, setShowModal] = useState(false);
+  const [showAddToListModal, setShowAddToListModal] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [newListName, setNewListName] = useState("");
   const isFavorited = favorites.some((fav) => fav.id === anime.id);
   const router = useRouter();
   const params = useParams();
@@ -61,6 +67,23 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
       removeFavorite(anime.id);
     } else {
       addFavorite(anime);
+    }
+  };
+
+  const handleAddButtonClick = () => {
+    if (lists.length === 0) {
+      setShowCreateModal(true);
+    } else {
+      setShowAddToListModal(true);
+    }
+  };
+
+  const handleCreateList = () => {
+    if (newListName.trim()) {
+      createList(newListName);
+      setShowCreateModal(false);
+      setNewListName("");
+      setShowAddToListModal(true);
     }
   };
 
@@ -144,10 +167,26 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
         <div className={styles.playButton}>
           <PlayButton firstEpisode={firstEpisode} />
           <BookmarkButton isFavorited={isFavorited} onToggle={handleFavoriteClick} />
-          <AddButton onClick={() => setShowModal(true)} />
+          <AddButton onClick={handleAddButtonClick} />
         </div>
 
-        {showModal && <AddToListModal anime={anime} onClose={() => setShowModal(false)} />}
+        {showAddToListModal && (
+          <AddToListModal 
+            anime={anime} 
+            onClose={() => setShowAddToListModal(false)} 
+          />
+        )}
+        {showCreateModal && (
+          <CreateModal
+            isOpen={showCreateModal}
+            onClose={() => setShowCreateModal(false)}
+            onCreate={handleCreateList}
+            newListName={newListName}
+            onNameChange={setNewListName}
+            characterCount={newListName.length}
+            maxCharacters={50}
+          />
+        )}
       </div>
     </div>
   );

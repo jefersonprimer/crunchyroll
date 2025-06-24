@@ -3,50 +3,52 @@
         "title": "Mis listas",
         "queue": "COLA",
         "crunchylists": "LISTAS DE CRUNCHY",
-        "history": "HISTORIAL"
-        },
-        "AnimeCardWatchlist": {
-            "audioTypes": {
+        "history": "HISTORIAL",
+        "emptyMessage": "Tu cola merece más amor. <br /> Vamos a llenarla con animes increíbles.",
+        "backToHome": "VOLVER AL INICIO"
+    },
+    "AnimeCardWatchlist": {
+        "audioTypes": {
             "subtitled": "Subtitulado",
             "dubbed": "Doblado",
             "subtitled_dubbed": "Sub | Doblado"
         },
         "startWatching": "Comenzar a ver: E1"
     },
-        "WatchlistHeader": {
-          "sortOptions": {
+    "WatchlistHeader": {
+        "sortOptions": {
             "mostRecentUpdate": "Actualización más reciente",
             "updated": "Actualizado",
             "watched": "Visto",
             "added": "Añadido",
             "alphabetical": "Alfabético"
-          },
-          "dateSortOptions": {
+        },
+        "dateSortOptions": {
             "mostRecent": "Más reciente",
             "oldest": "Más antiguo"
-          },
-          "filterOptions": {
+        },
+        "filterOptions": {
             "favorites": {
-              "onlyFavorites": "Solo favoritos"
+                "onlyFavorites": "Solo favoritos"
             },
             "languages": {
-              "all": "Todos",
-              "subtitled": "Subtitulado",
-              "dubbed": "Doblado"
+                "all": "Todos",
+                "subtitled": "Subtitulado",
+                "dubbed": "Doblado"
             },
             "mediaType": {
-              "all": "Todos",
-              "anime": "Anime",
-              "movies": "Películas"
+                "all": "Todos",
+                "anime": "Anime",
+                "movies": "Películas"
             },
             "sections": {
-              "languages": "Idiomas",
-              "mediaType": "Tipo de medio"
+                "languages": "Idiomas",
+                "mediaType": "Tipo de medio"
             }
-          },
-          "buttons": {
+        },
+        "buttons": {
             "sort": "ORDENAR",
             "filter": "FILTRAR"
-          }
         }
+    }
 }

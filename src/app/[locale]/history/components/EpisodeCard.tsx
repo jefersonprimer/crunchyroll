@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import styles from "./EpisodeCard.module.css";
+import Image from "next/image";
 import { Anime } from "@/types/anime";
 import { Episode } from "@/types/episode";
 import MaturityRating from "@/app/components/elements/MaturityRating";
@@ -88,37 +88,47 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime, watche
   return (
     <Link
       href={hasVideoUrl ? `/watch/${episode.publicCode}/${episode.slug}` : "#"}
-      className={`${styles.wrapper} ${!hasVideoUrl ? styles.disabled : ""}`} title={episode.title}
+      className={`relative w-64 h-auto min-h-[264px] overflow-hidden transition-all duration-300 ease-in-out cursor-pointer no-underline text-inherit block box-border mx-auto flex justify-center items-center ${
+        !hasVideoUrl ? "pointer-events-none" : "hover:bg-[#23252B]"
+      }`}
+      title={episode.title}
       onClick={(e) => {
         if (!hasVideoUrl) {
           e.preventDefault();
         }
       }}
     >
-      <div className={styles.episodeCard}>
-        <div className={styles.episodeImageContainer}>
-          {(!showImage || !imageLoaded) && <div className={`${styles.skeleton} ${styles.skeletonImage}`} />}
+      <div className="relative w-[240px] h-auto min-h-[249px] overflow-hidden transition-all duration-300 ease-in-out cursor-pointer no-underline text-inherit block box-border">
+        <div className="relative w-full h-[135px] mx-auto bg-[#2a2a2a] box-border">
+          {(!showImage || !imageLoaded) && (
+            <div className="absolute top-0 left-0 w-full h-full bg-[#141519] animate-pulse" />
+          )}
           <img
             src={episode.image || "/placeholder-episode.jpg"}
             alt={episode.title}
-            className={styles.episodeImage}
-            style={{ display: showImage && imageLoaded ? 'block' : 'none' }}
+            width={240}
+            height={135}
+            className={`absolute top-0 left-0 w-full h-full object-cover object-center transition-transform duration-300 ease-in-out ${
+              showImage && imageLoaded ? "block" : "hidden"
+            }`}
             onLoad={() => setImageLoaded(true)}
           />
           {showImage && imageLoaded && (
             <>
               {rating && (
-                <div className={styles.ratingBadge}>
+                <div className="absolute top-px left-px z-10">
                   <MaturityRating rating={rating} size={4} />
                 </div>
               )}
               {episode.duration && (
-                <div className={styles.durationBadge}>{episode.duration}</div>
+                <div className="absolute bottom-px right-0.5 bg-black/80 text-white px-2 py-1 text-xs z-10">
+                  {episode.duration}
+                </div>
               )}
               {hasVideoUrl && (
-                <div className={styles.playIconContainer}>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[68px] h-[68px] bg-black/40 rounded-full flex items-center justify-center z-10 transition-opacity duration-300 ease-in-out">
                   <svg
-                    className={styles.playIcon}
+                    className="w-11 h-11 fill-white"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     data-t="play-filled-svg"
@@ -131,31 +141,41 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime, watche
                 </div>
               )}
               {!hasVideoUrl && (
-                <div className={styles.comingSoonBadge}>Em breve</div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#ff640a] text-white px-4 py-2 rounded text-sm font-medium z-30">
+                  Em breve
+                </div>
               )}
             </>
           )}
         </div>
-        <div className={styles.episodeInfo}>
+        <div className="w-full h-[114px] mx-auto flex flex-col gap-1 relative z-10">
           {showText ? (
             <>
-              <h3 className={styles.name}>{anime.name}</h3>
-              <p className={styles.episodeTitle}>
-                {seasonNumber && <span className={styles.episodeNumber}>T{seasonNumber}</span>}
-                {episodeNumber && <span className={styles.episodeNumber}>E{episodeNumber} - </span>}
+              <h3 className="text-[#A0A0A0] font-bold text-xs py-1 uppercase">
+                {anime.name}
+              </h3>
+              <p className="m-0 text-sm font-medium text-white line-clamp-2">
+                {seasonNumber && (
+                  <span className="text-white mr-1">T{seasonNumber}</span>
+                )}
+                {episodeNumber && (
+                  <span className="text-white mr-1">E{episodeNumber} - </span>
+                )}
                 {episode.title.replace(/^E\d+\s*-\s*/, "")}
               </p>
-        
+
               {watchedAt && (
-                <div className={styles.watchDateContainer}>
-                  <span className={styles.watchDate}>{formatWatchDate(watchedAt)}</span>
+                <div className="w-full flex items-center justify-between mt-2 box-border">
+                  <span className="text-sm text-[#A0A0A0]">
+                    {formatWatchDate(watchedAt)}
+                  </span>
                   <button
                     onClick={handleDelete}
-                    className={styles.deleteButton}
+                    className="bg-none border-none cursor-pointer flex items-center justify-center p-1 ml-2"
                     aria-label="Remover do histórico"
                   >
                     <svg
-                      className={styles.trashIcon}
+                      className="w-6 h-6 text-[#A0A0A0]"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       aria-hidden="true"
@@ -171,8 +191,8 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime, watche
             </>
           ) : (
             <>
-              <div className={`${styles.skeleton} ${styles.skeletonTitle}`} />
-              <div className={`${styles.skeleton} ${styles.skeletonAudioType}`} style={{ marginTop: '8px' }} />
+              <div className="w-4/5 h-5 bg-[#141519] animate-pulse mt-2.5 mb-2" />
+              <div className="w-1/2 h-4 bg-[#141519] animate-pulse mt-2" />
             </>
           )}
         </div>
@@ -180,5 +200,3 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime, watche
     </Link>
   );
 };
-
-

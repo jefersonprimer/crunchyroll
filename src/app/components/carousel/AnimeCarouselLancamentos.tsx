@@ -68,7 +68,7 @@ const AnimeCarouselLancamentos: React.FC<AnimeCarouselLancamentosProps> = ({
         {/* Cards: apenas AnimeCarousel com loading controlado por prop */}
         <div className="w-[1351px] h-[436.89px] mx-auto flex justify-center items-center relative overflow-hidden max-md:w-full">
           <div className="w-full flex items-center justify-start overflow-x-hidden scroll-smooth mx-auto max-md:px-5 max-md:gap-2 max-md:items-start">
-            <AnimeCarousel animes={releasingAnimes} itemsPerPage={itemsPerPage} loading={showSkeleton} useOnScreen={false} />
+            <AnimeCarousel animes={releasingAnimes} itemsPerPage={itemsPerPage} loading={showSkeleton} />
           </div>
         </div>
       </div>

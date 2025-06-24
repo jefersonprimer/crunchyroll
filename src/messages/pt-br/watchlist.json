@@ -3,10 +3,12 @@
         "title": "Minhas Listas",
         "queue": "FILA",
         "crunchylists": "CRUNCHYLISTS",
-        "history": "HISTÓRICO"
-        },
-        "AnimeCardWatchlist": {
-            "audioTypes": {
+        "history": "HISTÓRICO",
+        "emptyMessage": "Sua Fila merece mais amor. <br /> Vamos enchê-la com animes incríveis.",
+        "backToHome": "VOLTAR PARA A TELA INICIAL"
+    },
+    "AnimeCardWatchlist": {
+        "audioTypes": {
             "subtitled": "Legendado",
             "dubbed": "Dublado",
             "subtitled_dubbed": "Leg | Dub"

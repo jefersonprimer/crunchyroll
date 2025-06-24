@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import styles from './AnimeCard.module.css';
 import { Anime } from '../../../../types/anime';
 import MaturityRating from '@/app/components/elements/MaturityRating';
 import { useFilters } from '../../contexts/FilterContext';
 import { useCardFavorites } from '../../contexts/CardFavoritesContext';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 
 interface AnimeCardProps {
   anime: Anime & { isMovie?: boolean };
@@ -57,7 +57,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
 
   return (
     <div className="flex justify-center items-center flex-col w-[255px] h-auto min-h-[264px] overflow-hidden cursor-pointer hover:bg-[#23252B]">
-      <li className="flex flex-col w-[240px] h-[249px] overflow-hidden">
+      <div className="flex flex-col w-[240px] h-[249px] overflow-hidden">
         <div className="w-[240px] h-auto min-h-[135px] relative my-0 mx-auto">
           <div className="absolute top-[4px] left-[4px] z-1">
             <MaturityRating rating={Number(anime.rating) || 0} size={4} />
@@ -68,6 +68,8 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
           <img
             src={anime.imageCardCompact}
             alt={anime.name}
+            width={240}
+            height={135}
             className="w-[240px] h-auto min-h-[135px] object-cover"
             style={{ display: showImage && imageLoaded ? 'block' : 'none' }}
             onLoad={() => setImageLoaded(true)}
@@ -149,7 +151,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
             </>
           )}
         </div>
-      </li>
+      </div>
     </div>
   );
 };

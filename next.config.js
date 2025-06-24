@@ -5,8 +5,8 @@ const withNextIntl = createNextIntlPlugin('./src/i18n.ts');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['imgsrv.crunchyroll.com', 'www.crunchyroll.com'],
+    domains: ['imgsrv.crunchyroll.com', 'www.crunchyroll.com', 'res.cloudinary.com', 'a.storyblok.com'],
   },
 };
 
-module.exports = withNextIntl(nextConfig); 
+module.exports = withNextIntl(nextConfig);

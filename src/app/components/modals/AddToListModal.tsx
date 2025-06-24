@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { useLists } from "../../[locale]/contexts/ListsContext";
 import { Anime } from "@/types/anime";
 import { useTranslations } from 'next-intl';
+import CreateModal from "../../[locale]/crunchylists/[listId]/components/CreateModal";
 
 interface AddToListModalProps {
   anime: Anime;
@@ -12,12 +13,14 @@ interface AddToListModalProps {
 
 const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose, onAddToList }) => {
   const { lists, addItemToList, removeItemFromList, createList } = useLists();
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [newListName, setNewListName] = useState("");
   const t = useTranslations('addToListModal');
 
   const handleCreateList = () => {
     createList(newListName);
     setNewListName("");
+    setIsCreateModalOpen(false);
   };
 
   const handleAddToList = (listId: string) => {
@@ -81,7 +84,7 @@ const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose, onAddTo
             <div className="flex justify-between items-center py-5 border-b border-gray-500">
               <span>{lists.length}/10 {t('listCount')}</span>
               <button
-                onClick={handleCreateList}
+                onClick={() => setIsCreateModalOpen(true)}
                 className="bg-transparent border-none cursor-pointer text-gray-500 hover:text-white"
               >
                 {t('createNewList')}
@@ -112,6 +115,18 @@ const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose, onAddTo
           ))}
         </div>
       </div>
+
+      {isCreateModalOpen && (
+        <CreateModal
+          isOpen={isCreateModalOpen}
+          onClose={() => setIsCreateModalOpen(false)}
+          onCreate={handleCreateList}
+          newListName={newListName}
+          onNameChange={setNewListName}
+          characterCount={newListName.length}
+          maxCharacters={50}
+        />
+      )}
     </div>
   );
 

@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { FavoritesProvider } from '../contexts/FavoritesContext';
 import { useHistory } from '../contexts/HistoryContext';
-import styles from './styles.module.css';
 import { EpisodeCard } from '@/app/[locale]/history/components/EpisodeCard';
 import Header from '@/app/components/layout/Header';
 import Footer from '@/app/components/layout/Footer';
@@ -46,30 +45,30 @@ const HistoryPage = () => {
   const renderHistoryContent = () => {
     if (!watchedEpisodes) {
       return (
-        <div className={styles.emptyState}>
-          <h2>Carregando...</h2>
+        <div className="flex flex-col items-center justify-center py-[48px] px-[20px] text-center">
+          <h2 className='font-medium text-[24px] text-white mb-[8px]'>Carregando...</h2>
         </div>
       );
     }
 
     if (watchedEpisodes.length === 0) {
       return (
-        <div className={styles.emptyState}>
-          <h2>Nenhum episódio assistido</h2>
-          <p>Os episódios que você assistir aparecerão aqui.</p>
+        <div className="flex flex-col items-center justify-center py-[48px] px-[20px] text-center">
+          <h2 className='font-medium text-[24px] text-white mb-[8px]'>Nenhum episódio assistido</h2>
+          <p className='font-medium text-[24px] text-white'>Os episódios que você assistir aparecerão aqui.</p>
         </div>
       );
     }
 
     return (
-      <div className={styles.historyContainer}>
-        <div className={styles.historyHeader}>
-          <h2>{t('historyHeaderTitle')}</h2>
-          <button onClick={clearHistory} className={styles.clearButton}>
-            <span className='text-[#A0A0A0] font-bold'>{t('clearHistory')}</span>
+      <div className="w-[1066px]">
+        <div className="flex w-[1050px] justify-between items-center mb-[10px] py-0 px-[5px]">
+          <h2 className="text-[20px] font-semibold text-white">{t('historyHeaderTitle')}</h2>
+          <button onClick={clearHistory} className="py-[8px] px-[16px] cursor-pointer">
+            <span className="text-[#A0A0A0] hover:text-white font-bold">{t('clearHistory')}</span>
           </button>
         </div>
-        <div className={styles.episodesGrid}>
+        <div className="grid grid-cols-4 gap-[5px]">
           {watchedEpisodes.map(({ episode, anime, watchedAt }) => (
             <EpisodeCard 
               key={episode.id} 

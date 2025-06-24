@@ -10,13 +10,14 @@ import TabsNavigation from '@/app/components/layout/TabsNavigation';
 import { FilterProvider } from '@/app/[locale]/contexts/FilterContext';
 import { CardFavoritesProvider } from '@/app/[locale]/contexts/CardFavoritesContext';
 import AnimeCard from './components/AnimeCard';
-import WatchlistHeader from './components/watchlistHeader';
+import FilterableHeader from './components/FilterableHeader';
 import type { Anime } from '@/types/anime';
 import Link from 'next/link';
 import Image from 'next/image';
 
 const WatchlistContent = () => {
   const { favorites, removeFavorite } = useFavorites();
+  const tTabs = useTranslations('Watchlist');
 
   const handleRemoveFavorite = (id: string) => {
     removeFavorite(id);
@@ -30,26 +31,24 @@ const WatchlistContent = () => {
             <div className='text-center'>
               <Image
                 src="https://www.crunchyroll.com/build/assets/img/empty_list_state/empty-watchlist.png"
-                alt="Empty Watchlist"
+                alt={tTabs('emptyMessage')}
                 width={300}
                 height={200}
                 className='mb-[1rem] mx-auto'
                 style={{ maxWidth: '100%', height: 'auto' }}
               />
-              <h4 className='text-[#666] mb-[1rem] leading-[1.5]'>
-                Sua Fila merece mais amor. <br /> Vamos enchê-la com animes incríveis.
-              </h4>
+              <h4 className='text-[#666] mb-[1rem] leading-[1.5]' dangerouslySetInnerHTML={{ __html: tTabs('emptyMessage') }} />
               <div className='mt-[1rem]'>
                 <Link href="/" className='inline-block py-[0.75rem] px-[1.5rem] bg-[#FF640A] text-white no-underline rounded font-weight-600 hover:text-[#E55A00]'>
-                  VOLTAR PARA A TELA INICIAL
+                  {tTabs('backToHome')}
                 </Link>
               </div>
             </div>
           ) : (
             <div className="flex justify-center w-full">
               <div>
-                <WatchlistHeader/>
-                <ul className="list-none my-0 w-[1050px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mx-auto">
+                <FilterableHeader/>
+                <div className="w-full max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                   {favorites.map((anime: Anime) => (
                     <AnimeCard
                       key={anime.id}
@@ -57,7 +56,7 @@ const WatchlistContent = () => {
                       onRemove={handleRemoveFavorite}
                     />
                   ))}
-                </ul>
+                </div>
               </div>
             </div>
           )}
@@ -68,13 +67,11 @@ const WatchlistContent = () => {
 };
 
 const WatchlistPage = () => {
-  const [isMounted, setIsMounted] = useState(false);
   const [selectedTab, setSelectedTab] = useState('fila');
   const router = useRouter();
   const tTabs = useTranslations('Watchlist');
 
   useEffect(() => {
-    setIsMounted(true);
     if (typeof window !== 'undefined') {
       const pathname = window.location.pathname;
       if (pathname.includes('crunchylists')) setSelectedTab('crunchylists');
@@ -83,25 +80,15 @@ const WatchlistPage = () => {
     }
   }, []);
 
-  const handleTabClick = (tab: string) => {
-    switch (tab) {
-      case 'fila':
-        router.push('/watchlist');
-        break;
-      case 'crunchylists':
-        router.push('/crunchylists');
-        break;
-      case 'historico':
-        router.push('/history');
-        break;
-      default:
-        break;
-    }
+  const tabRoutes: Record<string, string> = {
+    fila: '/watchlist',
+    crunchylists: '/crunchylists',
+    historico: '/history',
   };
 
-  if (!isMounted) {
-    return null;
-  }
+  const handleTabClick = (tab: string) => {
+    if (tabRoutes[tab]) router.push(tabRoutes[tab]);
+  };
 
   return (
     <FavoritesProvider>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useAuth } from '@/app/hooks/useAuth';
+import { useAuth } from '@/app/[locale]/hooks/useAuth';
 import Image from 'next/image';
 import { DropdownIcon } from '@/app/components/layout/components/icons/HeaderIcons';
 

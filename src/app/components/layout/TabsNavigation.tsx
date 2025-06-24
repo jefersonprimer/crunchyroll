@@ -18,7 +18,7 @@ const TabsNavigation: React.FC<TabsNavigationProps> = ({ selectedTab, onTabChang
   const params = useParams();
   const locale = params?.locale as string || 'pt-br';
   return (
-    <div className="flex justify-center items-center h-full mb-[60px]">
+    <div className="flex justify-center items-center h-full mt-[60px] mb-[60px]">
       <div className="w-[1066px] h-auto mx-auto">
         <div className="flex flex-col items-center w-full">
           <div className="w-full text-center">

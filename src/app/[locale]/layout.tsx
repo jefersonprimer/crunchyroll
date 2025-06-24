@@ -23,7 +23,9 @@ export default function LocaleLayout({
 
   return (
     <div className={inter.className}>
-      <NextIntlProvider>{children}</NextIntlProvider>
+      <NextIntlProvider>
+        {children}
+      </NextIntlProvider>
     </div>
   );
 } 

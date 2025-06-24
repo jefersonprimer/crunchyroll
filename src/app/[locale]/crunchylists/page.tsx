@@ -8,11 +8,12 @@ import Footer from '@/app/components/layout/Footer';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import TabsNavigation from '@/app/components/layout/TabsNavigation';
-import styles from './styles.module.css';
 import { useLists } from '../contexts/ListsContext';
 import AddToListModal from '../../components/modals/AddToListModal';
 import { Anime } from '@/types/anime';
 import RenameModal from './components/RenameModal';
+import CreateModal from '../crunchylists/[listId]/components/CreateModal';
+import DeleteModal from './[listId]/components/DeleteModal';
 
 interface List {
   id: string;
@@ -61,6 +62,10 @@ const CrunchyListPage = () => {
   const [newListName, setNewListName] = useState('');
   const [visibleMenu, setVisibleMenu] = useState<string | null>(null);
   const [localLists, setLocalLists] = useState<List[]>(lists);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [createListName, setCreateListName] = useState('');
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [listToDelete, setListToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     setLocalLists(lists);
@@ -116,16 +121,16 @@ const CrunchyListPage = () => {
   };
 
   const handleCreateList = () => {
-    if (localLists.length < 10) {
-      const newList: List = {
-        id: Date.now().toString(),
-        name: `Minha Lista ${localLists.length + 1}`,
-        items: [],
-        updatedAt: new Date().toISOString(),
-      };
-      createList(newList.name);
-      setLocalLists(prevLists => [...prevLists, newList]);
-    } else {
+    setIsCreateModalOpen(true);
+    setCreateListName('');
+  };
+
+  const handleConfirmCreateList = () => {
+    if (createListName.trim() && localLists.length < 10) {
+      createList(createListName);
+      setIsCreateModalOpen(false);
+      setCreateListName('');
+    } else if (localLists.length >= 10) {
       alert(t('listLimit'));
     }
   };
@@ -143,6 +148,23 @@ const CrunchyListPage = () => {
           : list
       )
     );
+  };
+
+  const openDeleteModal = (listId: string) => {
+    setListToDelete(listId);
+    setDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteModalOpen(false);
+    setListToDelete(null);
+  };
+
+  const confirmDeleteList = () => {
+    if (listToDelete) {
+      handleDeleteList(listToDelete);
+      closeDeleteModal();
+    }
   };
 
   if (!isMounted) {
@@ -163,50 +185,58 @@ const CrunchyListPage = () => {
             'Minhas Listas': tTabs('title')
           }}
         >
-          <div className={styles.crunchyListContainer}>
-            <div className={styles.header}>
-              <button onClick={handleCreateList} className={styles.createListBtn}>
+          <div className="w-full max-w-5xl mx-auto ">
+            <div className="flex flex-col sm:flex-row sm:items-center mb-4 w-full">
+              <button
+                onClick={handleCreateList}
+                className="text-sm mr-4 px-4 py-2 border border-[#FF640A] text-[#FF640A] bg-black cursor-pointer disabled:opacity-50"
+                disabled={localLists.length >= 10}
+                aria-label={t('createNewList')}
+              >
                 {t('createNewList')}
               </button>
-              <span className={styles.listLength}>{t('listsCount', { count: localLists.length })}</span>
+              <span className="text-[#A0A0A0] text-base">{t('listsCount', { count: localLists.length })}</span>
             </div>
 
-            <div className={styles.listsContainer}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-6">
               {localLists.length === 0 ? (
                 <p>{t('noLists')}</p>
               ) : (
                 localLists.map((list) => (
-                  <div key={list.id} className={styles.listItem}>
-                    <div className={styles.listTitleContainer}>
+                  <div key={list.id} className="p-5 bg-[#141519] hover:bg-[#23252B] relative w-full max-w-xl mx-auto">
+                    <div>
                       <h3
-                        className={styles.listTitle}
+                        className="text-xl m-0 cursor-pointer"
                         onClick={() => handleNavigateToList(list.id)}
+                        tabIndex={0}
+                        aria-label={list.name}
                       >
                         {list.name}
                       </h3>
                     </div>
-                    <div className={styles.listInfo}>
+                    <div className="mt-2 flex gap-2 text-sm text-[#A0A0A0] flex-wrap">
                       <p>{`${list.items.length} ${t('items')}`}</p>
-                      <p className={styles.updatedAt}>
+                      <p>
                         - {t('updatedAt')} {formatDate(list.updatedAt)}
                       </p>
                     </div>
                     {expandedList === list.id && (
-                      <div className={styles.listItems}>
+                      <div className="mt-4">
                         {list.items.length === 0 ? (
                           <p>{t('noItems')}</p>
                         ) : (
                           list.items.map((anime) => (
-                            <div key={anime.id} className={styles.animeItem}>
+                            <div key={anime.id} className="flex items-center gap-2 mb-2">
                               <img
                                 src={anime.imageCardCompact}
                                 alt={anime.name}
-                                className={styles.animeImage}
+                                className="w-12 h-12 object-cover"
                               />
                               <span>{anime.name}</span>
                               <button
-                                className={styles.removeButton}
+                                className="bg-[#ff4d4d] text-white border-none py-1 px-2 hover:bg-[#e63939]"
                                 onClick={() => handleRemoveItem(list.id, anime.id)}
+                                aria-label={t('remove')}
                               >
                                 {t('remove')}
                               </button>
@@ -215,30 +245,37 @@ const CrunchyListPage = () => {
                         )}
                       </div>
                     )}
-                    <div className={styles.menuContainer}>
+                    <div className="absolute top-4 right-4">
                       <button
-                        className={styles.menuIcon}
+                        className="border-none text-2xl cursor-pointer text-[#A0A0A0] hover:text-white"
                         onClick={() => setVisibleMenu(visibleMenu === list.id ? null : list.id)}
+                        aria-label={t('openMenu')}
                       >
-                        &#x22EE;
+                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <circle cx="12" cy="5" r="2" />
+                          <circle cx="12" cy="12" r="2" />
+                          <circle cx="12" cy="19" r="2" />
+                        </svg>
                       </button>
                       {visibleMenu === list.id && (
-                        <div className={styles.dropdownMenu}>
+                        <div className="w-48 absolute top-8 right-0 bg-[#23252B] z-10 py-2 flex flex-col shadow-lg rounded">
                           <button
                             onClick={() => {
                               handleRenameList(list.id, list.name);
                               setVisibleMenu(null);
                             }}
-                            className={styles.dropdownItem}
+                            className="border-none text-left py-3 px-5 cursor-pointer text-base text-[#A0A0A0] hover:bg-[#141519] hover:text-white"
+                            aria-label={t('rename')}
                           >
                             {t('rename')}
                           </button>
                           <button
                             onClick={() => {
-                              handleDeleteList(list.id);
+                              openDeleteModal(list.id);
                               setVisibleMenu(null);
                             }}
-                            className={styles.dropdownItem}
+                            className="border-none text-left py-3 px-5 cursor-pointer text-base text-[#A0A0A0] hover:bg-[#141519] hover:text-white"
+                            aria-label={t('deleteList')}
                           >
                             {t('deleteList')}
                           </button>
@@ -264,6 +301,20 @@ const CrunchyListPage = () => {
                 onAddToList={handleAddToList}
               />
             )}
+            <CreateModal
+              isOpen={isCreateModalOpen}
+              onClose={() => setIsCreateModalOpen(false)}
+              onCreate={handleConfirmCreateList}
+              newListName={createListName}
+              onNameChange={setCreateListName}
+              characterCount={createListName.length}
+              maxCharacters={50}
+            />
+            <DeleteModal
+              isOpen={deleteModalOpen}
+              onClose={closeDeleteModal}
+              onDelete={confirmDeleteList}
+            />
           </div>
         </TabsNavigation>
         <Footer/>

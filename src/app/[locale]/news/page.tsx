@@ -63,7 +63,7 @@ const HomePage = () => {
 
           {/* Terceira coluna - Artigos Especiais */}
           <div className="md:col-span-1 lg:col-span-3">
-            <SpecialArticles />
+            <SpecialArticles/>
           </div>
         </div>
 

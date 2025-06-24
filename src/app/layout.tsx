@@ -3,7 +3,6 @@ import "./globals.css";
 import ClientBody from "./ClientBody";
 import { Providers } from './providers';
 import { DropdownProvider } from "./[locale]/contexts/DropdownContext";
-import RootLayoutClient from "./RootLayoutClient";
 
 export const metadata: Metadata = {
   title: "Crunchyroll - Assista a Animes, Jogue Games e Compre Online",
@@ -28,7 +27,7 @@ export default function RootLayout({
         <DropdownProvider>
           <Providers>
             <ClientBody>
-              <RootLayoutClient>{children}</RootLayoutClient>
+              {children}
             </ClientBody>
           </Providers>
         </DropdownProvider>

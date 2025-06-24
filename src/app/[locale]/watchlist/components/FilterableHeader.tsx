@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useId } from 'react';
 import { useFilters } from '../../contexts/FilterContext';
 import { useTranslations } from 'next-intl';
 
@@ -16,11 +16,13 @@ const useDropdown = () => {
   return { toggleDropdown, isDropdownOpen };
 };
 
-const WatchlistHeader: React.FC = () => {
+const FilterableHeader: React.FC = () => {
   const t = useTranslations('WatchlistHeader');
   const { toggleDropdown, isDropdownOpen } = useDropdown();
   const [selectedSortOption, setSelectedSortOption] = useState('atualizacao-mais-recente');
   const { filters, setFilters } = useFilters();
+  const sortDropdownId = useId();
+  const filterDropdownId = useId();
 
   // Handler para acessibilidade de teclado
   const handleDropdownKeyDown = (e: React.KeyboardEvent, dropdownId: string) => {
@@ -63,25 +65,25 @@ const WatchlistHeader: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-between gap-4 w-full max-w-[1050px] mb-2 px-2 mx-auto">
-      <div className="flex items-center justify-between">
+    <div className="flex flex-wrap justify-between gap-4 w-full max-w-[1050px] mb-2 px-2 mx-auto">
+      <div className="flex items-center justify-between flex-wrap">
         <h2 className="text-[#FFFFFF] text-[1.25rem] font-weight-700">{t('sortOptions.mostRecentUpdate')}</h2>
       </div>
-      <ul className="flex gap-4">
-        <li className='text-[#A0A0A0] hover:text-[#FFF] hover:bg-[#23252B]'>
-          <div className="relative">
+      <div className="flex gap-4 flex-wrap">
+        <div className='text-[#A0A0A0] hover:text-[#FFF] hover:bg-[#23252B]'>
+          <div className="relative min-w-[150px]">
             <div className="dropdown">
               <div
                 role="button"
                 aria-label="Ordenar"
                 tabIndex={0}
                 className={`flex justify-center items-center gap-2 px-4 py-2 cursor-pointer border-none ${
-                  isDropdownOpen('sort') ? 'bg-[#23252B] text-[#FFF]' : 'text-[#A0A0A0] hover:text-[#FFF] hover:bg-[#23252B]'
-                }`}
+                  isDropdownOpen('sort') ? 'bg-[#23252B] text-[#FFF] shadow-lg' : 'text-[#A0A0A0] hover:text-[#FFF] hover:bg-[#23252B]'
+                } transition-colors duration-200`}
                 aria-haspopup="listbox"
                 aria-expanded={isDropdownOpen('sort')}
                 data-t="sorting-button"
-                aria-controls="3f455acd-d5a8-47d4-9e14-df62da78b314"
+                aria-controls={sortDropdownId}
                 onClick={() => toggleDropdown('sort')}
                 onKeyDown={(e) => handleDropdownKeyDown(e, 'sort')}
               >
@@ -104,13 +106,14 @@ const WatchlistHeader: React.FC = () => {
               
               {isDropdownOpen('sort') && (
                 <div
-                  className="absolute top-full right-0 min-w-[16rem] bg-[#23252B] shadow-lg z-50 transition-all duration-200 opacity-100 scale-100"
+                  id={sortDropdownId}
+                  className="absolute top-full right-0 min-w-[180px] max-w-[90vw] max-h-[70vh] overflow-y-auto bg-[#23252B] shadow-lg z-50 transition-all duration-200 opacity-100 scale-100"
                   role="menu"
                   aria-label={t('buttons.sort')}
                 >
-                  <ul className="py-2">
+                  <div className="py-2">
                     {sortOptions.map((option) => (
-                      <li
+                      <div
                         key={option.id}
                         role="menuitem"
                         aria-selected={selectedSortOption === option.id}
@@ -132,11 +135,11 @@ const WatchlistHeader: React.FC = () => {
                           }`} />
                         </div>
                         <span className="text-[#FFFFFF]">{option.label}</span>
-                      </li>
+                      </div>
                     ))}
-                    <li className="px-4 py-2 text-[#FFFFFF] text-sm font-medium">{t('buttons.sort')}</li>
+                    <div className="px-4 py-2 text-[#FFFFFF] text-sm font-medium">{t('buttons.sort')}</div>
                     {dateSortOptions.map((option) => (
-                      <li
+                      <div
                         key={option.id}
                         role="menuitem"
                         aria-selected={selectedSortOption === option.id}
@@ -158,29 +161,29 @@ const WatchlistHeader: React.FC = () => {
                           }`} />
                         </div>
                         <span className="text-[#FFFFFF]">{option.label}</span>
-                      </li>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               )}
             </div>
           </div>
-        </li>
+        </div>
         
-        <li className='text-[#A0A0A0] hover:text-[#FFF] hover:bg-[#23252B]'>
-          <div className="relative">
+        <div className='text-[#A0A0A0] hover:text-[#FFF] hover:bg-[#23252B]'>
+          <div className="relative min-w-[150px]">
             <div className="dropdown">
               <div
                 role="button"
                 aria-label="Filtrar"
                 tabIndex={0}
                 className={`flex justify-center items-center gap-2 px-4 py-2 cursor-pointer border-none ${
-                  isDropdownOpen('filter') ? 'bg-[#23252B] text-[#FFF]' : 'text-[#A0A0A0] hover:text-[#FFF] hover:bg-[#23252B]'
-                }`}
+                  isDropdownOpen('filter') ? 'bg-[#23252B] text-[#FFF] shadow-lg' : 'text-[#A0A0A0] hover:text-[#FFF] hover:bg-[#23252B]'
+                } transition-colors duration-200`}
                 aria-haspopup="listbox"
                 aria-expanded={isDropdownOpen('filter')}
                 data-t="filter-button"
-                aria-controls="61bd6b12-b2ad-4cc2-bc15-5cb02a2be575"
+                aria-controls={filterDropdownId}
                 onClick={() => toggleDropdown('filter')}
                 onKeyDown={(e) => handleDropdownKeyDown(e, 'filter')}
               >
@@ -204,14 +207,15 @@ const WatchlistHeader: React.FC = () => {
               
               {isDropdownOpen('filter') && (
                 <div
-                  className="absolute top-full right-0 w-[200px] h-[426px] bg-[#23252B] shadow-lg z-50 transition-all duration-200 opacity-100 scale-100"
+                  id={filterDropdownId}
+                  className="absolute top-full right-0 min-w-[180px] max-w-[90vw] max-h-[70vh] overflow-y-auto bg-[#23252B] shadow-lg z-50 transition-all duration-200 opacity-100 scale-100"
                   role="menu"
                   aria-label={t('buttons.filter')}
                 >
-                  <ul className="py-2">
+                  <div className="py-2">
                     {/* Favoritos Section */}
                     {filterOptions.favoritos.map((option) => (
-                      <li
+                      <div
                         key={option.id}
                         role="menuitem"
                         aria-selected={!!filters.favoritos}
@@ -235,13 +239,13 @@ const WatchlistHeader: React.FC = () => {
                           }`} />
                         </div>
                         <span className="text-[#FFFFFF]">{option.label}</span>
-                      </li>
+                      </div>
                     ))}
 
                     {/* Idiomas Section */}
-                    <li className="px-4 py-2 text-[#FFFFFF] text-[1.125rem] font-medium">{t('filterOptions.sections.languages')}</li>
+                    <div className="px-4 py-2 text-[#FFFFFF] text-[1.125rem] font-medium">{t('filterOptions.sections.languages')}</div>
                     {filterOptions.idiomas.map((option) => (
-                      <li
+                      <div
                         key={option.id}
                         role="menuitem"
                         aria-selected={filters.idioma === option.id}
@@ -265,13 +269,13 @@ const WatchlistHeader: React.FC = () => {
                           }`} />
                         </div>
                         <span className="text-[#FFFFFF]">{option.label}</span>
-                      </li>
+                      </div>
                     ))}
 
                     {/* Tipo de Mídia Section */}
-                    <li className="px-4 py-2 text-[#FFFFFF] text-[1.125rem] font-medium">{t('filterOptions.sections.mediaType')}</li>
+                    <div className="px-4 py-2 text-[#FFFFFF] text-[1.125rem] font-medium">{t('filterOptions.sections.mediaType')}</div>
                     {filterOptions.tipoMidia.map((option) => (
-                      <li
+                      <div
                         key={option.id}
                         role="menuitem"
                         aria-selected={filters.tipoMidia === option.id}
@@ -295,18 +299,18 @@ const WatchlistHeader: React.FC = () => {
                           }`} />
                         </div>
                         <span className="text-[#FFFFFF]">{option.label}</span>
-                      </li>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               )}
             </div>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default WatchlistHeader;
+export default FilterableHeader;
 
