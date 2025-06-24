@@ -11,7 +11,7 @@ import { GET_LATEST_RELEASES } from "@/lib/queries/getLatestReleases";
 import { FavoritesProvider } from "../../contexts/FavoritesContext";
 import Footer from "@/app/components/layout/Footer";
 import Header from "@/app/components/layout/Header";
-import { useDropdown } from "@/hooks/useDropdown";
+import { useDropdown } from "@/app/[locale]/hooks/useDropdown";
 import Loading from "@/app/loading";
 
 type AudioFilter = "subtitled_dubbed" | "subtitled" | "dubbed";

@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ClientBody from "./ClientBody";
-import { Providers } from './providers';
-import { DropdownProvider } from "./[locale]/contexts/DropdownContext";
+import { Providers } from './providers/providers';
 
 export const metadata: Metadata = {
   title: "Crunchyroll - Assista a Animes, Jogue Games e Compre Online",
@@ -24,16 +22,10 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" id="favicon" />
       </head>
       <body suppressHydrationWarning>
-        <DropdownProvider>
-          <Providers>
-            <ClientBody>
-              {children}
-            </ClientBody>
-          </Providers>
-        </DropdownProvider>
+        <Providers>
+          {children}  
+        </Providers>
       </body>
     </html>
   );
 }
-
-

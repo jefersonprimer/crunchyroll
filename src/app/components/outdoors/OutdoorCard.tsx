@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useOnScreen } from "@/hooks/useOnScreen";
+import { useOnScreen } from "@/app/[locale]/hooks/useOnScreen";
 
 interface OutdoorCardProps {
   link: string;

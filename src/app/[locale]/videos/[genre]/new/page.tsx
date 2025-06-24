@@ -9,7 +9,7 @@ import styles from './styles.module.css';
 import { useTranslations } from 'next-intl'; 
 import Header from '@/app/components/layout/Header';
 import Footer from '@/app/components/layout/Footer';
-import { useDropdown } from '@/hooks/useDropdown';
+import { useDropdown } from '@/app/[locale]/hooks/useDropdown';
 import type { Anime } from '@/types/anime';
 import { FavoritesProvider } from '@/app/[locale]/contexts/FavoritesContext';
 

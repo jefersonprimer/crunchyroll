@@ -11,7 +11,7 @@ import { GET_POPULAR_ANIMES } from "@/lib/queries/getPopularAnimes";
 import { FavoritesProvider } from "../../contexts/FavoritesContext";
 import Footer from "@/app/components/layout/Footer";
 import Header from "@/app/components/layout/Header";
-import { useDropdown } from "@/hooks/useDropdown";
+import { useDropdown } from "@/app/[locale]/hooks/useDropdown";
 
 type AudioFilter = "subtitled_dubbed" | "subtitled" | "dubbed";
 

@@ -6,7 +6,7 @@ import NewsCard from "./components/NewsCard";
 import { Post } from "../../[locale]/news/types/posts";
 import Link from "next/link";
 import Loading from "@/app/loading";
-import { useOnScreen } from "@/hooks/useOnScreen";
+import { useOnScreen } from "@/app/[locale]/hooks/useOnScreen";
 import React, { useMemo } from "react";
 import { useTranslations } from "next-intl";
 

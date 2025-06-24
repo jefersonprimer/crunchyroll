@@ -5,7 +5,7 @@ import { useFavorites } from "../../[locale]/contexts/FavoritesContext";
 import Link from "next/link";
 import FavoritesCard from "../cards/FavoritesCard";
 import { useParams } from "next/navigation";
-import { useOnScreen } from "@/hooks/useOnScreen";
+import { useOnScreen } from "@/app/[locale]/hooks/useOnScreen";
 
 interface FavoritesCarouselProps {
   useOnScreen?: boolean;

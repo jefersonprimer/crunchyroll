@@ -4,7 +4,7 @@ import AnimeCardSkeleton from "../cards/AnimeCardSkeleton";
 import { Anime } from "@/types/anime";
 import { useRef, useState, useEffect } from "react";
 import AnimeCard from "../cards/AnimeCard";
-import { useOnScreen } from "@/hooks/useOnScreen";
+import { useOnScreen } from "@/app/[locale]/hooks/useOnScreen";
 
 interface AnimeCarouselProps {
   animes: Anime[];
@@ -17,7 +17,7 @@ const AnimeCarousel: React.FC<AnimeCarouselProps> = ({ animes, loading = false, 
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { ref, isIntersecting } = useOnScreenProp
-    ? useOnScreen({ threshold: 0.1 })
+    ? useOnScreen({ threshold: 0.1 }) //estava  threshold: 0.1
     : { ref: undefined, isIntersecting: true };
 
   const [canLoad, setCanLoad] = useState(!useOnScreenProp);

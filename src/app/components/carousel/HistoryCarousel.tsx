@@ -5,7 +5,7 @@ import { useHistory } from '@/app/[locale]/contexts/HistoryContext';
 import { EpisodeCard } from '../cards/EpisodioCard';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { useOnScreen } from '@/hooks/useOnScreen';
+import { useOnScreen } from '@/app/[locale]/hooks/useOnScreen';
 
 interface HistoryCarouselProps {
   useOnScreen?: boolean;

@@ -16,7 +16,7 @@ import { useFavorites } from "../../contexts/FavoritesContext";
 import MaturityRating from "../../../components/elements/MaturityRating";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
-import { useDropdown } from "@/hooks/useDropdown";
+import { useDropdown } from "@/app/[locale]/hooks/useDropdown";
 import Loading from "@/app/loading";
 import { AudioType } from "@/types/enums";
 import AnimeCard from "./components/AnimeCard";
