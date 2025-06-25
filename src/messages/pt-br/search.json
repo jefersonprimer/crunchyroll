@@ -1,7 +1,7 @@
 {
     "Search": {
         "searchPlaceholder": "Pesquisar...",
-        "searchResults": "Resultados da Pesquisa",
+        "searchResults": "Melhores Resultados",
         "noResults": "Nenhum anime encontrado.",
         "loading": "Carregando resultados...",
         "clearSearch": "Limpar pesquisa",
@@ -12,8 +12,8 @@
     },
     "AnimeCardSearch": {
         "audioTypes": {
-            "sub": "Legendado",
-            "dub": "Dublado",
+            "subtitled": "Legendado",
+            "dubbed": "Dublado",
             "subtitled_dubbed": "Leg | Dub"
         }
     }

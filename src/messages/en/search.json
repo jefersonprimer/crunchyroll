@@ -12,9 +12,9 @@
     },
     "AnimeCardSearch": {
         "audioTypes": {
-            "sub": "Subtitled",
-            "dub": "Dubbed",
-            "subtitled_dubbed": "Sub | Dub"
+            "subtitled": "Legendado",
+            "dubbed": "Dublado",
+            "subtitled_dubbed": "Leg | Dub"
         }
     }
 }
