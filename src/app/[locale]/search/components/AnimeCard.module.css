@@ -122,7 +122,6 @@
 .audioType {
   font-size: 0.8rem;
   color: #FF640A;
-  text-transform: uppercase;
 }
 
 .play {
@@ -157,6 +156,14 @@
   display: flex;
   gap: 15px;
   z-index: 3;
+}
+
+.showOnHover {
+  display: none;
+}
+
+.animeItem:hover .showOnHover {
+  display: flex;
 }
 
 .tooltip {
@@ -235,8 +242,9 @@
   transition: opacity 0.3s ease;
 }
 
-.favoriteLabel svg {
-  width: 14px;
-  height: 14px;
-  transform: translate(32px, 2px);
+
+.favoriteIcon {
+  width: 1rem;
+  margin: 2px -35px 0 0;
+  fill: #FF640A;
 }
