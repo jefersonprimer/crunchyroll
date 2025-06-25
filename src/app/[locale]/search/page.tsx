@@ -109,14 +109,14 @@ export default function Search() {
           searchTerm && (
             <>
               <h2 className="text-white text-2xl font-semibold mb-6 text-left w-full">{t('searchResults')}</h2>
-              <ul className="grid grid-cols-3 gap-8 p-0 m-0 list-none md:grid-cols-3 sm:grid-cols-1">
+              <div className="grid grid-cols-3 gap-8 p-0 m-0 list-none md:grid-cols-3 sm:grid-cols-1">
                 {filteredAnimes.map((anime) => (
                   <AnimeCard
                     key={anime.id}
                     anime={anime}
                   />
                 ))}
-              </ul>
+              </div>
             </>
           )
         )}
