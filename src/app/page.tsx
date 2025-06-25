@@ -66,122 +66,112 @@ const HomePage = () => {
 
   if (isLoading) {
     return (
-      <ApolloProvider client={client}>
-        <FavoritesProvider>
-          <ListsProvider>
-            <Header />
-            <div style={{ minHeight: '759.94px', width: '100%' }} />
-            <PageLoading />
-          </ListsProvider>
-        </FavoritesProvider>
-      </ApolloProvider>
+      <>
+        <Header />
+        <div style={{ minHeight: '759.94px', width: '100%' }} />
+        <PageLoading />
+      </>
     );
   }
 
   return (
-    <ApolloProvider client={client}>
-      <FavoritesProvider>
-        <ListsProvider>
-          <Header />
-          <AnimeCarouselFullScreen />
-          <AnimeCarouselLancamentos className="relative z-[2]  backdrop-blur-sm" />
+    <>
+      <Header />
+      <AnimeCarouselFullScreen />
+      <AnimeCarouselLancamentos className="relative z-[2]  backdrop-blur-sm" />
 
-          <HistoryProvider>
-            <HistorySection />
-          </HistoryProvider>
+      <HistorySection />
 
-          <SpacedSection>
-            <div className="flex justify-center items-center text-center flex-col">
-              <OutdoorCard
-                link="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
-                imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
-              />
-            </div>
-          </SpacedSection>
-
-          <SpacedSection>
-            <AnimeCarouselByDay />
-          </SpacedSection>
-
-          <SpacedSection className="relative z-[2] backdrop-blur-sm">
-            <AnimeCarouselPopularSeason />
-          </SpacedSection>
-
-          <SpacedSection className="relative z-[2] backdrop-blur-sm">
-            <AnimeCarouselPopular />
-          </SpacedSection>
-
-          {/* <SpacedSection>
-            <AnimeCarouselNextSeason />
-          </SpacedSection> */}
-
-          <SpacedSection>
-            <AnimeCarouselDub />
-          </SpacedSection>
-
-          {/* <SpacedSection>
-            <MovieCarousel />
-          </SpacedSection> */}
-
-          <SpacedSection>
-            <Outdoor
-              imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
-              audiotype="Dub | Leg"
-              description="Milhares de anos após um misterioso fenômeno transformar a humanidade inteira em pedra, desperta um garoto extraordinariamente inteligente e motivado pela ciência - Senku Ishigami. Diante de um mundo de pedra e do colapso generalizado da civilização, Senku decide usar sua..."
-              buttonLink="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
-              addToQueueLink="#"
-              title="The Apothecary Diaries"
-            />
-          </SpacedSection>
-
-          <SpacedSection>
-            <FavoritesSection />
-          </SpacedSection>
-
-          <SpacedSection>
-            <Episodios />
-          </SpacedSection>
-
-          <SpacedSection>
-            <NewsSection />
-          </SpacedSection>
-
-          <SpacedSection>
-            <div className="flex justify-center items-center text-center flex-col">
-              <OutdoorCard
-                link="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
-                imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
-              />
-            </div>
-          </SpacedSection>
-        </ListsProvider>
-
-        <div className="flex justify-center items-center py-[50px] px-[80px] pb-[80px]">
-          <div className="text-center">
-            <img
-              className="max-w-full h-auto"
-              src="https://www.crunchyroll.com/build/assets/img/home/yuzu.png"
-              srcSet="https://www.crunchyroll.com/build/assets/img/home/yuzu@2x.png 2x"
-              alt="Yuzu."
-            />
-            <h3 className="pb-[40px]">
-              {t('title')} <br />
-              {t('subtitle')}
-            </h3>
-            <a
-              className="mt-[20px] no-underline"
-              data-t="view-all-btn"
-              href={`/${locale}/videos/popular`}
-            >
-              <span className="py-[10px] px-[20px] border-2 border-solid border-[#ff640a] text-[#ff640a] no-underline">
-                {t('button')}
-              </span>
-            </a>
-          </div>
+      <SpacedSection>
+        <div className="flex justify-center items-center text-center flex-col">
+          <OutdoorCard
+            link="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
+            imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
+          />
         </div>
-        <Footer />
-      </FavoritesProvider>
-    </ApolloProvider>
+      </SpacedSection>
+
+      <SpacedSection>
+        <AnimeCarouselByDay />
+      </SpacedSection>
+
+      <SpacedSection className="relative z-[2] backdrop-blur-sm">
+        <AnimeCarouselPopularSeason />
+      </SpacedSection>
+
+      <SpacedSection className="relative z-[2] backdrop-blur-sm">
+        <AnimeCarouselPopular />
+      </SpacedSection>
+
+      {/* <SpacedSection>
+        <AnimeCarouselNextSeason />
+      </SpacedSection> */}
+
+      <SpacedSection>
+        <AnimeCarouselDub />
+      </SpacedSection>
+
+      {/* <SpacedSection>
+        <MovieCarousel />
+      </SpacedSection> */}
+
+      <SpacedSection>
+        <Outdoor
+          imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
+          audiotype="Dub | Leg"
+          description="Milhares de anos após um misterioso fenômeno transformar a humanidade inteira em pedra, desperta um garoto extraordinariamente inteligente e motivado pela ciência - Senku Ishigami. Diante de um mundo de pedra e do colapso generalizado da civilização, Senku decide usar sua..."
+          buttonLink="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
+          addToQueueLink="#"
+          title="The Apothecary Diaries"
+        />
+      </SpacedSection>
+
+      <SpacedSection>
+        <FavoritesSection />
+      </SpacedSection>
+
+      <SpacedSection>
+        <Episodios />
+      </SpacedSection>
+
+      <SpacedSection>
+        <NewsSection />
+      </SpacedSection>
+
+      <SpacedSection>
+        <div className="flex justify-center items-center text-center flex-col">
+          <OutdoorCard
+            link="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
+            imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
+          />
+        </div>
+      </SpacedSection>
+
+      <div className="flex justify-center items-center py-[50px] px-[80px] pb-[80px]">
+        <div className="text-center">
+          <img
+            className="max-w-full h-auto"
+            src="https://www.crunchyroll.com/build/assets/img/home/yuzu.png"
+            srcSet="https://www.crunchyroll.com/build/assets/img/home/yuzu@2x.png 2x"
+            alt="Yuzu."
+          />
+          <h3 className="pb-[40px]">
+            {t('title')} <br />
+            {t('subtitle')}
+          </h3>
+          <a
+            className="mt-[20px] no-underline"
+            data-t="view-all-btn"
+            href={`/${locale}/videos/popular`}
+          >
+            <span className="py-[10px] px-[20px] border-2 border-solid border-[#ff640a] text-[#ff640a] no-underline">
+              {t('button')}
+            </span>
+          </a>
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 };
 
