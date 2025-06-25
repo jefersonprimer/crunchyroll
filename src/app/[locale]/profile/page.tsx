@@ -6,6 +6,9 @@ import ConfirmationModal from '@/app/components/modals/ConfirmationModal';
 import ImageSelectionModal from '@/app/components/modals/ImageSelectionModal';
 import Header from '@/app/components/layout/Header';
 import Footer from '@/app/components/layout/Footer';
+import { useAuth } from '@/app/[locale]/hooks/useAuth';
+import { useUpdateProfile } from '@/app/[locale]/hooks/useUpdateProfile';
+import PageLoading from '@/app/components/loading/PageLoading';
 
 interface UserProfile {
   id: string;
@@ -19,7 +22,6 @@ interface UserProfile {
 }
 
 const Profile = () => {
-  const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
@@ -30,68 +32,37 @@ const Profile = () => {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showBackgroundModal, setShowBackgroundModal] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
   const router = useRouter();
   const params = useParams();
   const locale = params.locale as string;
+  const { userProfile, isLoading, checkAuthState } = useAuth();
+  const { updateProfile, isSaving, error } = useUpdateProfile();
 
   useEffect(() => {
-    fetchProfile();
-  }, []);
+    if (userProfile) {
+      setFormData({
+        display_name: userProfile.display_name,
+        profile_image_url: userProfile.profile_image_url || '',
+        background_image_url: userProfile.background_image_url || ''
+      });
+    }
+  }, [userProfile]);
 
   useEffect(() => {
-    if (profile) {
+    if (userProfile) {
       const hasProfileChanges = 
-        formData.display_name !== profile.display_name ||
-        formData.profile_image_url !== (profile.profile_image_url || '') ||
-        formData.background_image_url !== (profile.background_image_url || '');
+        formData.display_name !== userProfile.display_name ||
+        formData.profile_image_url !== (userProfile.profile_image_url || '') ||
+        formData.background_image_url !== (userProfile.background_image_url || '');
       setHasChanges(hasProfileChanges);
     }
-  }, [formData, profile]);
+  }, [formData, userProfile]);
 
-  const fetchProfile = async () => {
-    try {
-      // Check token in both localStorage and cookies
-      const getToken = () => {
-        // Check localStorage first
-        const localToken = localStorage.getItem('token');
-        if (localToken) return localToken;
-
-        // If not in localStorage, check cookies
-        const cookies = document.cookie.split(';');
-        const tokenCookie = cookies.find(cookie => cookie.trim().startsWith('token='));
-        return tokenCookie ? tokenCookie.split('=')[1] : null;
-      };
-
-      const token = getToken();
-      if (!token) {
-        router.push(`/${locale}/login`);
-        return;
-      }
-
-      const response = await fetch('http://localhost:3000/api/profile', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setProfile(data);
-        setFormData({
-          display_name: data.display_name,
-          profile_image_url: data.profile_image_url || '',
-          background_image_url: data.background_image_url || ''
-        });
-      } else if (response.status === 401) {
-        // If unauthorized, redirect to login
-        router.push(`/${locale}/login`);
-      }
-    } catch (error) {
-      console.error('Error fetching profile:', error);
+  useEffect(() => {
+    if (!isLoading && !userProfile) {
       router.push(`/${locale}/login`);
     }
-  };
+  }, [isLoading, userProfile, locale, router]);
 
   const handleEdit = () => {
     setShowModal(true);
@@ -109,29 +80,17 @@ const Profile = () => {
 
   const handleSave = async () => {
     if (!hasChanges) return;
-    
-    setIsSaving(true);
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3000/api/profile', {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
+      const updatedProfile = await updateProfile(formData);
+      setFormData({
+        display_name: updatedProfile.display_name,
+        profile_image_url: updatedProfile.profile_image_url || '',
+        background_image_url: updatedProfile.background_image_url || ''
       });
-
-      if (response.ok) {
-        const updatedProfile = await response.json();
-        setProfile(updatedProfile);
-        setIsEditing(false);
-        setHasChanges(false);
-      }
+      setIsEditing(false);
+      setHasChanges(false);
     } catch (error) {
-      console.error('Error updating profile:', error);
-    } finally {
-      setIsSaving(false);
+      // erro já tratado no hook
     }
   };
 
@@ -145,14 +104,18 @@ const Profile = () => {
     setShowBackgroundModal(false);
   };
 
-  if (!profile) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <PageLoading/>;
+  }
+
+  if (!userProfile) {
+    return null; // Redirecionamento já será feito pelo useEffect
   }
 
   return (
     <div>
       <Header/>
-      <div className="profile-container flex flex-col items-center justify-center min-h-screen bg-[#000000]">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-[#000000]">
         <span className="text-[#FFFFFF] text-4xl mb-6">Editar Perfil</span>
         <div className="flex items-center justify-center bg-[#141519] w-[510px] shadow-xl pb-4">
           <div className="w-full relative">
@@ -170,7 +133,7 @@ const Profile = () => {
                 </svg>
               </div>
             </div>
-            <div className="profile-image absolute top-20 left-1/2 transform -translate-x-1/2 w-[96px] h-[96px] rounded-full overflow-hidden shadow-lg z-50 group">
+            <div className="absolute top-20 left-1/2 transform -translate-x-1/2 w-[96px] h-[96px] rounded-full overflow-hidden shadow-lg z-50 group">
               <img
                 src={formData.profile_image_url || '/default-avatar.jpg'}
                 alt="Profile"
@@ -185,9 +148,9 @@ const Profile = () => {
                 </svg>
               </div>
             </div>
-            <div className="profile-content flex flex-col items-center mt-20 px-6">
-              <div className="edit-form w-full space-y-6">
-                <div className="form-group">
+            <div className="flex flex-col items-center mt-20 px-6">
+              <div className="w-full space-y-6">
+                <div>
                   <label className="block text-sm font-medium mb-1 text-white">Nome do Perfil</label>
                   <input
                     type="text"
@@ -199,17 +162,17 @@ const Profile = () => {
                   <p className="text-gray-400 text-sm mt-1">Este é visualizado dentro da sua casa e pode ser alterado a qualquer tempo.</p>
                 </div>
       
-                <div className="form-group">
+                <div>
                   <label className="block text-sm font-medium mb-1 text-white">Nome de usuário (Opcional)</label>
                   <input
                     type="text"
-                    value={profile.username}
+                    value={userProfile.username}
                     disabled
                     className="w-full p-2 border rounded bg-gray-800 text-white border-gray-700 opacity-50"
                   />
                   <p className="text-gray-400 text-sm mt-1">Crie um nome de usuário para estar pronto para experiências futuras que vão compartilhar o seu amor por anime! Escolha um que ama, você não pode mudar depois!</p>
                 </div>
-                <div className="button-group flex gap-4 justify-center mt-6">
+                <div className="flex gap-4 justify-center mt-6">
                   <button
                     onClick={handleSave}
                     disabled={!hasChanges || isSaving}
@@ -217,7 +180,7 @@ const Profile = () => {
                   >
                     {isSaving ? (
                       <>
-                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <svg className="ah-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
