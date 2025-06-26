@@ -2,8 +2,6 @@ import { useTranslations } from 'next-intl';
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { Episode, Anime } from "../types/types";
-import styles from "./EpisodeNavigation.module.css";
-import { FaPlay } from "react-icons/fa";
 import MaturityRating from "@/app/components/elements/MaturityRating";
 
 interface EpisodeNavigationProps {
@@ -21,47 +19,26 @@ const EpisodeNavigation: React.FC<EpisodeNavigationProps> = ({
   onShowAllEpisodes,
   selectedSeason,
 }) => {
-  // Função para extrair número do episódio do título
   const getEpisodeNumber = (title: string) => {
     const match = title?.match(/\d+/);
     return match ? parseInt(match[0]) : 0;
   };
 
-  console.log('Current Episode:', currentEpisode);
-  console.log('All Episodes:', allEpisodes);
-  console.log('Anime:', anime);
-
-  // Filtra todos os episódios do anime e ordena por número
   const allAnimeEpisodes = [...allEpisodes]
     .sort((a, b) => getEpisodeNumber(a.title) - getEpisodeNumber(b.title));
 
-  console.log('Sorted Episodes:', allAnimeEpisodes);
-
-  // Encontra o índice do episódio atual na lista completa
   const currentIndex = allAnimeEpisodes.findIndex(
     (ep) => ep?.title === currentEpisode?.title
   );
 
-  console.log('Current Index:', currentIndex);
-
-  // Verifica se é o último episódio
   const isLastEpisode = currentIndex === allAnimeEpisodes.length - 1;
-
-  // Episódio anterior
-  const prevEpisode =
-    currentIndex > 0 ? allAnimeEpisodes[currentIndex - 1] : null;
-
-  // Próximo episódio
+  const prevEpisode = currentIndex > 0 ? allAnimeEpisodes[currentIndex - 1] : null;
   const nextEpisode = !isLastEpisode ? allAnimeEpisodes[currentIndex + 1] : null;
 
-  console.log('Previous Episode:', prevEpisode);
-  console.log('Next Episode:', nextEpisode);
-
   const t = useTranslations('EpisodeNavigation');
-  const router = useRouter();
   const params = useParams();
   const locale = params.locale as string;
-  // Episode card component
+
   const EpisodeCard: React.FC<{ episode: Episode | null; label: string }> = ({
     episode,
     label,
@@ -69,32 +46,32 @@ const EpisodeNavigation: React.FC<EpisodeNavigationProps> = ({
     if (!episode) return null;
 
     return (
-      <div className={styles.navigationCard}>
-        <h3 className={styles.cardLabel}>{label}</h3>
+      <div className="overflow-hidden">
+        <h3 className="text-sm text-white font-bold m-1">{label}</h3>
         <Link
           href={`/${locale}/watch/${episode.publicCode}/${episode.slug}`}
-          className={styles.cardLink}
+          className="no-underline text-inherit"
         >
-          <div className={styles.cardContainer}>
-            {/* Image with overlays */}
-            <div className={styles.imageWrapper}>
-              <MaturityRating rating={Number(anime.rating) || 0} size={4} />
+          <div className="flex gap-4 p-1 hover:bg-[#23252B]">
+            <div className="relative w-40 min-w-[160px] h-[90px] overflow-hidden flex-shrink-0">
+              <div className="absolute top-1 left-1 z-10">
+                <MaturityRating rating={Number(anime.rating) || 0} size={4} />
+              </div>
               <img
                 src={episode.image}
                 alt={episode.title}
-                className={styles.episodeImage}
+                className="w-full h-full object-cover transition-transform duration-300"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src =
                     "https://via.placeholder.com/300x169";
                 }}
               />
-              <div className={styles.durationBadge}>
+              <div className="absolute bottom-1 right-1 bg-black/60 text-white px-1 text-xs">
                 {episode.duration}
               </div>
-              {/* Play button */}
-              <div className={styles.playIconContainer}>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 bg-black/40 rounded-full flex items-center justify-center z-20">
                 <svg
-                  className={styles.playIcon}
+                  className="w-6 h-6 fill-white"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   data-t="play-filled-svg"
@@ -107,10 +84,9 @@ const EpisodeNavigation: React.FC<EpisodeNavigationProps> = ({
               </div>
             </div>
 
-            {/* Text content */}
-            <div className={styles.textContent}>
-              <h4 className={styles.episodeTitle}>{episode.title}</h4>
-              <h4 className={styles.audioType}>{t(`audioTypes.${anime.audioType}`)}</h4>
+            <div className="flex flex-col justify-center">
+              <h4 className="m-0 text-sm font-medium text-white mb-2">{episode.title}</h4>
+              <h4 className="text-sm text-[#A0A0A0]">{t(`audioTypes.${anime.audioType}`)}</h4>
             </div>
           </div>
         </Link>
@@ -119,31 +95,30 @@ const EpisodeNavigation: React.FC<EpisodeNavigationProps> = ({
   };
 
   return (
-    <div className={styles.container}>
-      {/* Previous and next episodes */}
-      <div className={styles.episodesContainer}>
+    <div className="w-full max-w-[800px] mx-auto p-0">
+      <div className="flex flex-col gap-6 mb-4">
         {prevEpisode && (
           <EpisodeCard episode={prevEpisode} label={t('previousEpisode')} />
         )}
 
-        {/* Mostra o próximo episódio apenas se não for o último */}
         {!isLastEpisode && nextEpisode && (
           <EpisodeCard episode={nextEpisode} label={t('nextEpisode')} />
         )}
       </div>
 
-      {/* All episodes button */}
-      <button onClick={onShowAllEpisodes} className={styles.allEpisodesButton}>
+      <button
+        onClick={onShowAllEpisodes}
+        className="flex items-center justify-center gap-1 py-1.5 px-3 text-white border border-white text-base cursor-pointer transition-colors duration-200 m-1 hover:bg-[#444]"
+      >
         <span>
           <svg
-            className={styles.btnMoreContentIcon}
+            className="w-6 h-6 fill-white"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             data-t="episodes-svg"
             aria-labelledby="episodes-svg"
             aria-hidden="true"
             role="img"
-            fill="#FFFFFF"
           >
             <title id="episodes-svg">More content</title>
             <path d="M21 10a1 1 0 011 1v9a1 1 0 01-1 1H3a1 1 0 01-1-1v-9a1 1 0 011-1h18zm-1 2H4v7h16v-7zm0-5a1 1 0 010 2H4a1 1 0 110-2h16zm-2-3a1 1 0 010 2H6a1 1 0 110-2h12z"></path>

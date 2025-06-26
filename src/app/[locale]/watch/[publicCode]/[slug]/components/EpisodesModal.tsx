@@ -41,59 +41,60 @@ const EpisodesModal: React.FC<EpisodesModalProps> = ({
   });
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modal}>
-        <div className={styles.modalContent}>
-          <div className={styles.modalHeader}>
-            <h2>
-              {allSeasons.length === 1 ? `Todos os Episódios` : `Episódios`}
-            </h2>
-            <button
-              onClick={onClose}
-              className={styles.closeButton}
-              aria-label="Fechar modal"
+    <div className="fixed inset-0 bg-black/50 z-[1000]">
+    <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-[1000]">
+      <div className="bg-[#23252B] w-[90%] max-w-[1000px] max-h-[90vh] overflow-y-auto p-6">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="m-0 text-2xl">
+            {allSeasons.length === 1 ? `Todos os Episódios` : `Episódios`}
+          </h2>
+          <button
+            onClick={onClose}
+            className="bg-none border-none text-2xl cursor-pointer"
+            aria-label="Fechar modal"
+          >
+            &times;
+          </button>
+        </div>
+  
+        {/* Season selector - only show if there are multiple seasons */}
+        {allSeasons.length > 1 && (
+          <div className="mb-6">
+            <select
+              value={selectedSeason}
+              onChange={(e) =>
+                setSelectedSeason(
+                  e.target.value === "all" ? "all" : Number(e.target.value)
+                )
+              }
+              className="w-full p-2 bg-gray-800 text-white rounded"
             >
-              &times;
-            </button>
+              <option value="all">Todas as Temporadas</option>
+              {allSeasons.map((season) => (
+                <option key={season} value={season}>
+                  Temporada {season}
+                </option>
+              ))}
+            </select>
           </div>
-
-          {/* Season selector - only show if there are multiple seasons */}
-          {allSeasons.length > 1 && (
-            <div className={styles.seasonSelector}>
-              <select
-                value={selectedSeason}
-                onChange={(e) =>
-                  setSelectedSeason(
-                    e.target.value === "all" ? "all" : Number(e.target.value)
-                  )
-                }
-                className={styles.seasonSelect}
-              >
-                <option value="all">Todas as Temporadas</option>
-                {allSeasons.map((season) => (
-                  <option key={season} value={season}>
-                    Temporada {season}
-                  </option>
-                ))}
-              </select>
+        )}
+  
+        <div className="grid grid-cols-3 gap-4 md:grid-cols-3 sm:grid-cols-1">
+          {filteredEpisodes.map((episode) => (
+            <div
+              key={episode.publicCode}
+              className={`
+                ${episode.publicCode === currentEpisodePublicCode ? 
+                  '[&>div]:border-2 [&>div]:border-blue-500' : ''}
+              `}
+            >
+              <EpisodeCard episode={episode} anime={anime} />
             </div>
-          )}
-
-          <div className={styles.episodesGrid}>
-            {filteredEpisodes.map((episode) => (
-              <div
-                key={episode.publicCode}
-                className={`${styles.episodeGridItem} ${
-                  episode.publicCode === currentEpisodePublicCode ? styles.currentEpisode : ""
-                }`}
-              >
-                <EpisodeCard episode={episode} anime={anime} />
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
     </div>
+  </div>
   );
 };
 
