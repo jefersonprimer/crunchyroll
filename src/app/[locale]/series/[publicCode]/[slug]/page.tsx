@@ -8,7 +8,7 @@ import { Episode } from "@/types/episode";
 import { GET_ANIMES } from "@/lib/queries/getAnimes";
 import RecommendationCarousel from "./components/RecommendationCarousel";
 import { EpisodesSection } from "./components/EpisodesSection";
-import { ClientMetadata } from "./components/ClientMetadata";
+import { ClientMetadata } from "../../../../components/metadata/ClientMetadata";
 import PremiumUpsell from "./components/PremiumUpsell";
 import HeroSection from "./components/HeroSection";
 import Header from "@/app/components/layout/Header";

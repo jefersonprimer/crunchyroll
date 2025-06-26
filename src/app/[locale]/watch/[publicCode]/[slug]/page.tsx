@@ -12,7 +12,7 @@ import EpisodeSynopsis from "./components/EpisodeSynopsis";
 import EpisodeNavigation from "./components/EpisodeNavigation";
 import EpisodesModal from "./components/EpisodesModal";
 import styles from "./styles.module.css";
-import { ClientMetadata } from "@/app/[locale]/series/[publicCode]/[slug]/components/ClientMetadata";
+import { ClientMetadata } from "@/app/components/metadata/ClientMetadata";
 import { FavoritesProvider } from "@/app/[locale]/contexts/FavoritesContext";
 import { useHistory } from "@/app/[locale]/contexts/HistoryContext";
 import Loading from "@/app/loading";
