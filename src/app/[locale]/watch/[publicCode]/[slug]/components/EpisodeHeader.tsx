@@ -1,15 +1,9 @@
 import { useTranslations } from 'next-intl';
 import { Anime as LocalAnime, Episode as LocalEpisode } from "../types/types";
 import { Anime } from "@/types/anime";
-import { Episode } from "@/types/episode";
 import MaturityRating from "@/app/components/elements/MaturityRating";
-import styles from "./EpisodeHeader.module.css";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark as bookmarkSolid } from "@fortawesome/free-solid-svg-icons";
-import { faBookmark as bookmarkOutline } from "@fortawesome/free-regular-svg-icons";
 import { useFavorites } from "@/app/[locale]/contexts/FavoritesContext";
-import { MouseEvent } from "react";
 import { useRouter, useParams } from "next/navigation";
 import BookmarkButton from "@/app/components/buttons/BookmarkButton";
 
@@ -66,21 +60,22 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ anime, episode }) => {
    };
 
   return (
-    <div className={styles.headerContainer}>
-      <div className={styles.titleRow}>
-        <div className={styles.titleContainer}>
+    <div className="relative">
+      <div className="flex items-center justify-between w-full gap-4">
+        <div className="flex items-center gap-1 w-full relative">
           <Link href={`/${locale}/series/${anime.publicCode}/${anime.slug}`} key={anime.id}>
-            <h1 className={styles.animeTitle}>{anime.name}</h1>
+            <h1 className="text-[16px] text-orange-600 hover:text-white hover:underline relative pr-3 after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-[60%] after:w-px after:bg-white/30">
+              {anime.name}
+            </h1>
           </Link>
           {anime.score && (
-            <div className={styles.scoreContainer}>
-              <span className={styles.animeScore}>{anime.score}</span>
+            <div className="flex items-center gap-1 ml-3">
+              <span className="font-bold text-gray-300">{anime.score}</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                className={styles.starIcon}
+                className="w-4 h-4 fill-gray-300"
                 aria-hidden="true"
-                fill="#DADADA"
               >
                 <path d="M15.266 8.352L11.988 1.723 8.73 8.352 1.431 9.397 6.71 14.528 5.465 21.849 11.999 18.39 18.544 21.85 17.285 14.528 22.57 9.398z" />
               </svg>
@@ -88,7 +83,7 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ anime, episode }) => {
           )}
         </div>
 
-        <div className={styles.tooltipContainer}>
+        <div className="relative inline-block">
           <BookmarkButton
             isFavorited={isFavorited}
             onToggle={handleFavoriteClick}
@@ -97,23 +92,23 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ anime, episode }) => {
         </div>
       </div>
 
-      <h2 className={styles.episodeTitle}>{episode.title}</h2>
+      <h2 className="text-2xl text-white">{episode.title}</h2>
 
-      <div className={styles.metaInfo}>
-        <div className={styles.metaLine}>
+      <div className="flex flex-col">
+        <div className="flex items-center gap-2 mb-1">
           {anime.rating && (
-            <span className={styles.ratingBadge}>
+            <span className="rating-badge">
               <MaturityRating rating={parseInt(anime.rating)} size={5}/>
             </span>
           )}
-          <span className={styles.metaItem}></span>
+          <span className="flex items-center text-sm relative pl-1.5 before:content-['◆'] before:text-gray-400 before:text-xs before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2"></span>
           {anime.audioType && (
-            <span className={styles.audioType}>{t(`audioTypes.${anime.audioType}`)}</span>
+            <span className="text-gray-400">{t(`audioTypes.${anime.audioType}`)}</span>
           )}
         </div>
 
         {episode.releaseDate && (
-          <div className={styles.releaseDate}>
+          <div className="text-white">
             {t('releasedOn', { date: formatDate(episode.releaseDate) })}
           </div>
         )}
