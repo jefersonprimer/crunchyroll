@@ -1,7 +1,6 @@
 import { Anime, Episode } from "../types/types";
 import { safeJoin } from "../utils/utils";
 import MaturityRating from "@/app/components/elements/MaturityRating";
-import styles from "./EpisodeSynopsis.module.css";
 
 interface EpisodeSynopsisProps {
   episode: Episode;
@@ -17,55 +16,58 @@ const EpisodeSynopsis: React.FC<EpisodeSynopsisProps> = ({
   onToggle,
 }) => {
   return (
-    <div className={styles.synopsisContainer}>
-      <div
-        className={`${styles.synopsisWrapper} ${
-          expanded ? styles.expanded : ""
-        }`}
-      >
-        <div className={styles.synopsisColumns}>
-          <div className={styles.synopsisColumn}>
-            <p>{episode.synopsis || "Sinopse não disponível"}</p>
-          </div>
-
-          <div className={styles.synopsisColumn}>
-            <div className={styles.metadata}>
-              {/* Áudio */}
-              <div className={styles.metadataItem}>
-              <strong>Áudio</strong>
-                  <span>
-                    {Array.isArray(anime.audioLanguages) 
-                      ? anime.audioLanguages.join(', ')
-                      : anime.audioLanguages || "Não disponível"}
-                  </span>
-              </div>
-
-              {/* Legendas */}
-              <div className={styles.metadataItem}>
-                <strong>Legendas</strong>
-                <span>{safeJoin(Array.isArray(anime.subtitles) ? anime.subtitles : [])}</span>
-              </div>
-
-              {/* Classificação */}
-              <div className={styles.metadataItem}>
-                <strong>Classificação de Conteúdo</strong>
-                <span>
-                <MaturityRating rating={Number(anime.rating) || 0} size={4} /> {anime.contentAdvisory}
-                </span>
-              </div>
+    <div className="bg-black rounded-lg mb-6">
+    <div
+      className={`transition-[max-height] duration-300 ease-in-out overflow-hidden ${
+        expanded ? "max-h-[1000px]" : "max-h-[100px]"
+      } mb-8`}
+    >
+      <div className="flex flex-col gap-4">
+        <div className="flex-1">
+          <p className="m-0 leading-relaxed">
+            {episode.synopsis || "Sinopse não disponível"}
+          </p>
+        </div>
+  
+        <div className="flex-1">
+          <div className="flex flex-col gap-2">
+            {/* Áudio */}
+            <div className="flex justify-between py-2.5 border-b border-[#454852]">
+              <strong className="text-white">Áudio</strong>
+              <span>
+                {Array.isArray(anime.audioLanguages)
+                  ? anime.audioLanguages.join(', ')
+                  : anime.audioLanguages || "Não disponível"}
+              </span>
+            </div>
+  
+            {/* Legendas */}
+            <div className="flex justify-between py-2.5 border-b border-[#454852]">
+              <strong className="text-white">Legendas</strong>
+              <span>{safeJoin(Array.isArray(anime.subtitles) ? anime.subtitles : [])}</span>
+            </div>
+  
+            {/* Classificação */}
+            <div className="flex justify-between py-2.5 border-b border-[#454852]">
+              <strong className="text-white">Classificação de Conteúdo</strong>
+              <span className="flex items-center gap-1">
+                <MaturityRating rating={Number(anime.rating) || 0} size={4} />
+                {anime.contentAdvisory}
+              </span>
             </div>
           </div>
         </div>
       </div>
-
-      <button
-        onClick={onToggle}
-        className={styles.moreDetailsButton}
-        aria-expanded={expanded}
-      >
-        {expanded ? "MENOS DETALHES" : "MAIS DETALHES"}
-      </button>
     </div>
+  
+    <button
+      onClick={onToggle}
+      className="bg-transparent border-none text-orange-600 cursor-pointer font-bold"
+      aria-expanded={expanded}
+    >
+      {expanded ? "MENOS DETALHES" : "MAIS DETALHES"}
+    </button>
+  </div>
   );
 };
 

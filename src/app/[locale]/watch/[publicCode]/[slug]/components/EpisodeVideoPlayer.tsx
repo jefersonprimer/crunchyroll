@@ -1,5 +1,4 @@
 import { Episode } from "@/types/episode";
-import styles from "./EpisodeVideoPlayer.module.css";
 import VideoPlayer from "@/app/[locale]/watch/[publicCode]/[slug]/components/VideoPlayer";
 
 interface EpisodeVideoPlayerProps {
@@ -8,8 +7,8 @@ interface EpisodeVideoPlayerProps {
 
 const EpisodeVideoPlayer: React.FC<EpisodeVideoPlayerProps> = ({ episode }) => {
   return (
-    <div className={styles.videoPlayerContainer}>
-      <div className={styles.videoWrapper}>
+    <div className="w-full mb-8">
+      <div className="w-full h-[450px] relative">
         <VideoPlayer videoUrl={episode.videoUrl} posterImage={episode.image} />
       </div>
     </div>
