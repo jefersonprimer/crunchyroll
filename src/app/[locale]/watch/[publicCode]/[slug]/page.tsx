@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { FC, useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useQuery } from "@apollo/client";
@@ -11,14 +12,12 @@ import EpisodeVideoPlayer from "./components/EpisodeVideoPlayer";
 import EpisodeSynopsis from "./components/EpisodeSynopsis";
 import EpisodeNavigation from "./components/EpisodeNavigation";
 import EpisodesModal from "./components/EpisodesModal";
-import styles from "./styles.module.css";
 import { ClientMetadata } from "@/app/components/metadata/ClientMetadata";
-import { FavoritesProvider } from "@/app/[locale]/contexts/FavoritesContext";
 import { useHistory } from "@/app/[locale]/contexts/HistoryContext";
-import Loading from "@/app/loading";
+
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
-import { useTranslations } from "next-intl";
+import PageLoading from "@/app/components/loading/PageLoading";
 
 const EpisodePage: FC = () => {
   const t = useTranslations('Watch');
@@ -46,15 +45,15 @@ const EpisodePage: FC = () => {
   }, [currentEpisode, anime, addToHistory]);
 
   if (!publicCode || !slug || loading) {
-    return <Loading />;
+    return <PageLoading />;
   }
 
   if (!anime) {
-    return <div className={styles.errorContainer}>Anime não encontrado.</div>;
+    return <div>Anime não encontrado.</div>;
   }
 
   if (!currentEpisode) {
-    return <div className={styles.errorContainer}>Episódio não encontrado.</div>;
+    return <div>Episódio não encontrado.</div>;
   }
 
   const toggleSynopsis = () => setExpandedSynopsis(!expandedSynopsis);
@@ -62,49 +61,47 @@ const EpisodePage: FC = () => {
 
   return (
     <div>
-      <Header/>
-      <div className={styles.episodePage}>
-        <ClientMetadata
-          title={`${t('watch')} ${anime.name} - ${currentEpisode.title}`}
-          description={`${t('watch')} ${anime.name}: ${anime.synopsis?.substring(0, 160) || ''}...`}
-        />
-        <div className={styles.videoPlayerContainer}>
-          <EpisodeVideoPlayer episode={currentEpisode} />
-        </div>
-        <div className={styles.mainContent}>
-          <div className={styles.contentColumns}>
-            <div className={styles.leftColumn}>
-              <FavoritesProvider>
-                <EpisodeHeader anime={anime} episode={currentEpisode} />
-              </FavoritesProvider>
-              <EpisodeSynopsis
-                episode={currentEpisode}
-                anime={anime}
-                expanded={expandedSynopsis}
-                onToggle={toggleSynopsis}
-              />
-            </div>
-            <div className={styles.rightColumn}>
-              <EpisodeNavigation
-                currentEpisode={currentEpisode}
-                allEpisodes={allEpisodes}
-                anime={anime}
-                onShowAllEpisodes={toggleEpisodesModal}
-              />
-            </div>
+    <Header/>
+    <div className="flex flex-col items-center w-[1351px] mx-auto">
+      <ClientMetadata
+        title={`${t('watch')} ${anime.name} - ${currentEpisode.title}`}
+        description={`${t('watch')} ${anime.name}: ${anime.synopsis?.substring(0, 160) || ''}...`}
+      />
+      <div className="w-[1351px]">
+        <EpisodeVideoPlayer episode={currentEpisode} />
+      </div>
+      <div className="w-[1100px] mb-[60px] box-border">
+        <div className="flex w-full gap-8">
+          <div className="flex-[2] min-w-0"> 
+            <EpisodeHeader anime={anime} episode={currentEpisode} />
+            <EpisodeSynopsis
+              episode={currentEpisode}
+              anime={anime}
+              expanded={expandedSynopsis}
+              onToggle={toggleSynopsis}
+            />
+          </div>
+          <div className="flex-[1] min-w-0 md:w-full"> 
+            <EpisodeNavigation
+              currentEpisode={currentEpisode}
+              allEpisodes={allEpisodes}
+              anime={anime}
+              onShowAllEpisodes={toggleEpisodesModal}
+            />
           </div>
         </div>
-        {showEpisodesModal && (
-          <EpisodesModal
-            episodes={allEpisodes}
-            currentEpisodePublicCode={currentEpisode.publicCode}
-            anime={anime}
-            onClose={toggleEpisodesModal}
-          />
-        )}
       </div>
-      <Footer/>
+      {showEpisodesModal && (
+        <EpisodesModal
+          episodes={allEpisodes}
+          currentEpisodePublicCode={currentEpisode.publicCode}
+          anime={anime}
+          onClose={toggleEpisodesModal}
+        />
+      )}
     </div>
+    <Footer/>
+  </div>
   );
 };
 
