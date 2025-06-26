@@ -3,20 +3,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useQuery } from "@apollo/client";
-import styles from "./styles.module.css";
 import { Anime } from "@/types/anime";
 import { Episode } from "@/types/episode";
 import { GET_ANIMES } from "@/lib/queries/getAnimes";
-import { FavoritesProvider } from "@/app/[locale]/contexts/FavoritesContext";
 import RecommendationCarousel from "./components/RecommendationCarousel";
 import { EpisodesSection } from "./components/EpisodesSection";
-import MaturityRating from "@/app/components/elements/MaturityRating";
 import { ClientMetadata } from "./components/ClientMetadata";
 import PremiumUpsell from "./components/PremiumUpsell";
 import HeroSection from "./components/HeroSection";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import { useTranslations } from "next-intl";
+import PageLoading from "@/app/components/loading/PageLoading";
 
 const Page = () => {
   const t = useTranslations('Series');
@@ -55,12 +53,12 @@ const Page = () => {
   };
 
   if (loading) {
-    return <div className={styles.loadingContainer}>Carregando...</div>;
+    return <PageLoading/>;
   }
 
   if (error) {
     return (
-      <div className={styles.errorContainer}>
+      <div>
         Erro ao carregar dados: {error.message}
       </div>
     );
@@ -68,44 +66,36 @@ const Page = () => {
 
   if (!anime) {
     return (
-      <div className={styles.notFoundContainer}>Anime não encontrado.</div>
+      <div></div>
     );
   }
 
   return (
-    <div className={styles.container}>
-      <Header/>
+    <div className="w-full mx-auto">
+      <Header />
       <ClientMetadata
         title={`${t('watch')} ${anime.name}`}
         description={`${t('watch')} ${anime.synopsis?.substring(0, 160) || ''}...`}
       />
-
-      <FavoritesProvider>
-        <HeroSection
-          anime={anime}
-          expandedSynopsis={expandedSynopsis}
-          toggleSynopsis={toggleSynopsis}
-        />
-      </FavoritesProvider>
-
+      <HeroSection
+        anime={anime}
+        expandedSynopsis={expandedSynopsis}
+        toggleSynopsis={toggleSynopsis}
+      />
       <PremiumUpsell />
-
-      <div className={styles.epidodesSection}>
+      <div className="px-10">
         <EpisodesSection anime={anime} />
       </div>
-
-      <div className={styles.recommendationsContainer}>
-        <div className={styles.header}>
-          <h2 className={styles.recommendationsTitle}>{t('recommendationsTitle')}</h2>
+      <div className="py-6 w-[1351px] mx-auto">
+        <div className="flex justify-between items-center w-[1254px] h-[46px] text-center">
+          <h2 className="text-2xl text-white ">{t('recommendationsTitle')}</h2>
         </div>
-        <div className={styles.recommendationsSection}>
-          <FavoritesProvider>
-            <RecommendationCarousel animes={recommendations} />
-          </FavoritesProvider>
+        <div className="flex flex-col items-center justify-center text-center max-w-[1200px] mx-auto p-5">
+          <RecommendationCarousel animes={recommendations} />
         </div>
       </div>
-      <Footer/>
-    </div>
+      <Footer />
+  </div>
   );
 };
 
