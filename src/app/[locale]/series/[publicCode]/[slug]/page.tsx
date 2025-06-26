@@ -87,15 +87,15 @@ const Page = () => {
         <EpisodesSection anime={anime} />
       </div>
       <div className="py-6 w-[1351px] mx-auto">
-        <div className="flex justify-between items-center w-[1254px] h-[46px] text-center">
-          <h2 className="text-2xl text-white ">{t('recommendationsTitle')}</h2>
+        <div className="w-full flex justify-center">
+          <h2 className="text-2xl text-white text-center">{t('recommendationsTitle')}</h2>
         </div>
         <div className="flex flex-col items-center justify-center text-center max-w-[1200px] mx-auto p-5">
           <RecommendationCarousel animes={recommendations} />
         </div>
       </div>
       <Footer />
-  </div>
+    </div>
   );
 };
 
