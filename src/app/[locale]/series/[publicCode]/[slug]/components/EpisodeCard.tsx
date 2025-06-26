@@ -107,15 +107,15 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime }) => {
           )}
         </div>
         {/* EPISODE INFO */}
-        <div className="p-0 relative z-10 flex flex-col gap-1 w-[283.25px] h-[90px]">
+        <div className="p-0 relative z-10 flex flex-col gap-1 w-[283.25px] h-auto min-h-[90px]">
           {showText ? (
             <>
               <div>
                 <small className="text-[0.625rem] font-semibold text-[#A0A0A0] uppercase">{anime.name}</small>
               </div>
-              <h3 className="flex items-center gap-1 text-sm text-white mb-4">
-                {seasonNumber && <span className="font-semibold text-[0.875rem]">T{seasonNumber}</span>}
-                {episodeNumber && <span className="font-semibold text-[0.875rem]">E{episodeNumber} - </span>}
+              <h3 className="text-sm text-white mb-4 line-clamp-2">
+                {seasonNumber && <span className="font-semibold text-[0.875rem] mr-1">T{seasonNumber}</span>}
+                {episodeNumber && <span className="font-semibold text-[0.875rem] mr-1">E{episodeNumber} - </span>}
                 {episode.title.replace(/^E\d+\s*-\s*/, '')}
               </h3>
               {anime.audioType && (
@@ -151,9 +151,9 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime }) => {
             <div>
               <small className="text-[0.625rem] font-semibold text-[#A0A0A0] uppercase">{anime.name}</small>
             </div>
-            <h3 className="flex items-center gap-1 text-sm text-white">
-              {seasonNumber && <span className="font-semibold text-[0.875rem]">T{seasonNumber}</span>}
-              {episodeNumber && <span className="font-semibold text-[0.875rem]">E{episodeNumber} - </span>}
+            <h3 className="text-sm text-white mb-4 line-clamp-2">
+              {seasonNumber && <span className="font-semibold text-[0.875rem] mr-1">T{seasonNumber}</span>}
+              {episodeNumber && <span className="font-semibold text-[0.875rem] mr-1">E{episodeNumber} - </span>}
               {episode.title.replace(/^E\d+\s*-\s*/, '')}
             </h3>
             {episode.releaseDate && (
