@@ -6,12 +6,9 @@ import { GET_POPULAR_ANIMES } from "@/lib/queries/getPopularAnimes";
 import { GET_LATEST_RELEASES } from "@/lib/queries/getLatestReleases";
 import AnimeCarouselGenre from "../../../components/carousel/AnimeCarouselGenre";
 import Link from "next/link";
-import styles from "./styles.module.css";
 import { useTranslations } from "next-intl";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
-import { FavoritesProvider } from '../../contexts/FavoritesContext';
-
 interface Genre {
   id: string;
   name: string;
@@ -93,52 +90,64 @@ const GenrePage: React.FC<GenrePageProps> = ({ params }) => {
 
   return (
     <div>
-      <Header />
-      <FavoritesProvider>
-      <div className={styles.mainContainer}>
-        <h1 className={styles.mainTitle}>{t('title', { genre: genreInfo.pt })}</h1>
-        {/* AnimeCarousel para Populares do gênero */}
-        {filteredPopularAnimes.length > 0 && (
-          <div>
-            <div className={styles.sectionHeader}>
-              <h3 className={styles.sectionTitle}>{t('popular')}</h3>
-              <Link href={`/videos/${genre}/popular`} className={styles.viewAll}>
-                {t('viewAll')}
-              </Link>
-            </div>
-            <AnimeCarouselGenre animes={filteredPopularAnimes} />
+    <Header />
+    <div className="flex w-[1351px] my-0 mx-auto flex-col items-center text-center py-8 pt-[60px] px-8">
+      <h1 className="text-3xl text-gray-800 m-0">
+        {t('title', { genre: genreInfo.pt })}
+      </h1>
+  
+      {/* AnimeCarousel para Populares do gênero */}
+      {filteredPopularAnimes.length > 0 && (
+        <div className="w-[1050px] my-0 mx-auto mb-8">
+          <div className="flex justify-between items-center mb-4 gap-2.5">
+            <h3 className="text-xl text-gray-600 m-0">{t('popular')}</h3>
+            <Link 
+              href={`/videos/${genre}/popular`} 
+              className="text-base text-[#ff640a] cursor-pointer underline m-0"
+            >
+              {t('viewAll')}
+            </Link>
           </div>
-        )}
-        {/* AnimeCarousel para Novidades do gênero */}
-        {filteredNewAnimes.length > 0 && (
-          <div>
-            <div className={styles.sectionHeader}>
-              <h3 className={styles.sectionTitle}>{t('newReleases')}</h3>
-              <Link href={`/videos/${genre}/new`} className={styles.viewAll}>
-                {t('viewAll')}
-              </Link>
-            </div>
-            <AnimeCarouselGenre animes={filteredNewAnimes} />
-          </div>
-        )}
-        {/* AnimeCarousel para os outros gêneros */}
-        <div>
-          {otherGenresAnimes.map(({ genre, genreKey, animes }) => (
-            <div key={genre}>
-              <div className={styles.sectionHeader}>
-                <h3>{genre}</h3>
-                <Link href={`/videos/${genreKey}`} className={styles.viewAll}>
-                  {t('viewAll')}
-                </Link>
-              </div>
-              <AnimeCarouselGenre animes={animes} />
-            </div>
-          ))}
+          <AnimeCarouselGenre animes={filteredPopularAnimes} />
         </div>
+      )}
+  
+      {/* AnimeCarousel para Novidades do gênero */}
+      {filteredNewAnimes.length > 0 && (
+        <div className="w-[1050px] my-0 mx-auto mb-8">
+          <div className="flex justify-between items-center mb-4 gap-2.5">
+            <h3 className="text-xl text-gray-600 m-0">{t('newReleases')}</h3>
+            <Link 
+              href={`/videos/${genre}/new`} 
+              className="text-base text-[#ff640a] cursor-pointer underline m-0"
+            >
+              {t('viewAll')}
+            </Link>
+          </div>
+          <AnimeCarouselGenre animes={filteredNewAnimes} />
+        </div>
+      )}
+  
+      {/* AnimeCarousel para os outros gêneros */}
+      <div className="w-[1050px] my-0 mx-auto">
+        {otherGenresAnimes.map(({ genre, genreKey, animes }) => (
+          <div key={genre} className="mb-8">
+            <div className="flex justify-between items-center mb-4 gap-2.5">
+              <h3 className="text-xl text-gray-600 m-0">{genre}</h3>
+              <Link 
+                href={`/videos/${genreKey}`} 
+                className="text-base text-[#ff640a] cursor-pointer underline m-0"
+              >
+                {t('viewAll')}
+              </Link>
+            </div>
+            <AnimeCarouselGenre animes={animes} />
+          </div>
+        ))}
       </div>
-      </FavoritesProvider>
-      <Footer />
     </div>
+    <Footer />
+  </div>
   );
 };
 
