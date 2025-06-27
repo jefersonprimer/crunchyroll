@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import AnimeCard from "../../../../../components/cards/AnimeCard";
-import AnimeCardSkeleton from "../../../../../components/cards/AnimeCardSkeleton";
+import { AnimeCardSkeleton } from "../../../../../components/cards/AnimeCardSkeleton";
 import { Anime } from "@/types/anime";
 
 import { useRef, useState, useEffect } from "react";

@@ -1,6 +1,6 @@
 "use client";
 
-import AnimeCardSkeleton from "../cards/AnimeCardSkeleton";
+import { AnimeCardSkeleton } from "../cards/AnimeCardSkeleton";
 import { Anime } from "@/types/anime";
 import { useRef, useState, useEffect } from "react";
 import AnimeCard from "../cards/AnimeCard";

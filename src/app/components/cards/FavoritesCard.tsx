@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styles from './FavoritesCard.module.css';
 import { Anime } from '../../../types/anime';
 import MaturityRating from '@/app/components/elements/MaturityRating';
 import { useTranslations } from 'next-intl';
@@ -31,43 +30,49 @@ const FavoritesCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
   };
 
   return (
-    <div className={styles.animeItem} title={anime.name}>
-      <div className={styles.imageContainer}>
-        <div className={styles.ratingContainer}>
-          <MaturityRating rating={Number(anime.rating) || 0} size={4} />
-        </div>
-        {(!showImage || !imageLoaded) && <div className={`${styles.skeleton} ${styles.skeletonImage}`} />}
-        <img 
-          src={anime.imageCardCompact} 
-          alt={anime.name} 
-          className={styles.animeImage}
-          style={{ display: showImage && imageLoaded ? 'block' : 'none' }}
-          onLoad={() => setImageLoaded(true)}
-          onError={(e) => {
-            console.error('Error loading image:', e);
-            // Fallback to a default image if needed
-            e.currentTarget.src = 'https://via.placeholder.com/300x400?text=No+Image';
-            setImageLoaded(true);
-          }}
-        />
+    <div className="flex flex-col w-[300.25px] h-[273.33px] p-2.5 overflow-hidden transition-transform duration-200 ease-in hover:bg-[#23252B]">
+    <div className="w-full h-40 relative">
+      <div className="absolute top-1 left-1 z-10">
+        <MaturityRating rating={Number(anime.rating) || 0} size={4} />
       </div>
-      <div className={styles.texts}>
-        {showText ? (
-          <>
-            <h3 className={styles.name}>{anime.name}</h3>
-            <span className={styles.play}>Comecar a Assistir: E1</span>
-            <div className={styles.buttons}>
-              <span className={styles.audioType}>{t(`audioTypes.${getAudioTypeKey(anime.audioType)}`)}</span>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className={`${styles.skeleton} ${styles.skeletonTitle}`} />
-            <div className={`${styles.skeleton} ${styles.skeletonAudioType}`} style={{ marginTop: '8px' }} />
-          </>
-        )}
-      </div>
+      {(!showImage || !imageLoaded) && (
+        <div className="absolute top-0 left-0 w-full h-full bg-[#141519] animate-pulse" />
+      )}
+      <img 
+        src={anime.imageCardCompact} 
+        alt={anime.name} 
+        className={`w-full h-full object-cover ${showImage && imageLoaded ? 'block' : 'hidden'}`}
+        onLoad={() => setImageLoaded(true)}
+        onError={(e) => {
+          console.error('Error loading image:', e);
+          e.currentTarget.src = 'https://via.placeholder.com/300x400?text=No+Image';
+          setImageLoaded(true);
+        }}
+      />
     </div>
+    <div className="pt-2 flex flex-col gap-0.5">
+      {showText ? (
+        <>
+          <h3 className="font-sans text-sm font-semibold text-white m-0 leading-[1.4]">
+            {anime.name}
+          </h3>
+          <span className="font-sans text-[#A0A0A0] font-medium text-sm">
+            Comecar a Assistir: E1
+          </span>
+          <div className="flex items-center justify-between mt-8">
+            <span className="font-sans text-[#A0A0A0] font-medium text-sm">
+              {t(`audioTypes.${getAudioTypeKey(anime.audioType)}`)}
+            </span>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="w-4/5 h-5 mb-2 bg-[#141519] animate-pulse" />
+          <div className="w-1/2 h-4 bg-[#141519] animate-pulse mt-2" />
+        </>
+      )}
+    </div>
+  </div>
   );
 };
 

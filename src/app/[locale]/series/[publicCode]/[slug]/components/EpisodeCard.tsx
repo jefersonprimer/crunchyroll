@@ -74,7 +74,7 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime }) => {
     >
       <div className="w-[283.25px] h-auto min-h-[249.33px]">
         <div className="relative w-full pt-[56.25%] bg-[#2a2a2a]">
-          {(!showImage || !imageLoaded) && <div className="absolute top-0 left-0 w-full h-full bg-[#2a2a2a] animate-pulse rounded" />}
+          {(!showImage || !imageLoaded) && <div className="absolute top-0 left-0 w-full h-full bg-[#141519] animate-pulse" />}
           <img
             src={episode.image}
             alt={episode.title}
@@ -140,8 +140,8 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime }) => {
             </>
           ) : (
             <>
-              <div className="bg-[#2a2a2a] w-4/5 h-5 mb-2 animate-pulse rounded" />
-              <div className="bg-[#2a2a2a] w-1/2 h-4 animate-pulse rounded" />
+              <div className="bg-[#141519] w-4/5 h-5 my-2 animate-pulse" />
+              <div className="bg-[#141519] w-1/2 h-4 animate-pulse" />
             </>
           )}
         </div>

@@ -5,7 +5,6 @@ import { useParams } from 'next/navigation';
 import { useQuery } from '@apollo/client';
 import { GET_ANIMES } from '@/lib/queries/getAnimes';
 import AnimeCarouselGenre from '../../../../components/carousel/AnimeCarouselGenre';
-import styles from './styles.module.css';
 import { useTranslations } from 'next-intl'; 
 import Header from '@/app/components/layout/Header';
 import Footer from '@/app/components/layout/Footer';

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Episode } from "../types/types";
 import { Anime } from "@/types/anime";
 import { extractEpisodeNumber } from "../utils/utils";
-import styles from "./EpisodesModal.module.css";
 import { EpisodeCard } from "@/app/[locale]/series/[publicCode]/[slug]/components/EpisodeCard";
 
 interface EpisodesModalProps {

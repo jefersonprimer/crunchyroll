@@ -88,7 +88,7 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime, watche
   return (
     <Link
       href={hasVideoUrl ? `/watch/${episode.publicCode}/${episode.slug}` : "#"}
-      className={`relative w-64 h-auto min-h-[264px] overflow-hidden transition-all duration-300 ease-in-out cursor-pointer no-underline text-inherit block box-border mx-auto flex justify-center items-center ${
+      className={`relative w-64 h-auto min-h-[264px] overflow-hidden transition-all duration-300 ease-in-out cursor-pointer no-underline text-inherit box-border mx-auto flex justify-center items-center ${
         !hasVideoUrl ? "pointer-events-none" : "hover:bg-[#23252B]"
       }`}
       title={episode.title}
@@ -116,7 +116,7 @@ export const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, anime, watche
           {showImage && imageLoaded && (
             <>
               {rating && (
-                <div className="absolute top-px left-px z-10">
+                <div className="absolute top-1 left-1 z-10">
                   <MaturityRating rating={rating} size={4} />
                 </div>
               )}

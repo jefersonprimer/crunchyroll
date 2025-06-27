@@ -1,4 +1,3 @@
-import styles from "./AnimeCard.module.css";
 import { ImageSkeleton, NameSkeleton, AudioTypeSkeleton } from './AnimeCardSkeleton';
 
 import React, { useState, useEffect } from 'react';
@@ -88,107 +87,107 @@ const AnimeCard: React.FC<{ anime: Anime }> = ({ anime }) => {
   };
 
   return (
-    <div className={styles.cardWrapper}>
-      <div className={styles.card}>
-        <Link href={`/${locale}/series/${anime.publicCode}/${anime.slug}`} className={styles.animeLink}>
-          <div style={{ position: 'relative', width: '100%', height: '330.89px' }}>
-            {(!showImage || !imageLoaded) && (
-              <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2 }}>
-                <ImageSkeleton />
-              </div>
-            )}
-            <img
-              src={anime.imagePoster}
-              alt={anime.name}
-              className={styles.animeImage}
-              style={{ display: showImage ? (imageLoaded ? 'block' : 'none') : 'none' }}
-              onLoad={() => setImageLoaded(true)}
-            />
-          </div>
-          
-          {isFavorited && (
-            <div className={styles.favoriteLabel}>
-              <svg className={styles.favoriteIcon} 
-                xmlns="http://www.w3.org/2000/svg" 
-                viewBox="0 0 16 16" data-t="watchlist-filled-small-svg" 
-                aria-hidden="true" 
-                role="img">
-                  <path d="M4 2h8a1 1 0 0 1 1 1v9.92a1 1 0 0 1-1.625.78L8 11l-3.375 2.7A1 1 0 0 1 3 12.92V3a1 1 0 0 1 1-1z">
-                  </path>
-              </svg>
+    <div className="w-[250.59px] h-[436.89px] flex justify-center items-center mx-auto hover:w-[236.59px] hover:h-[422.89px]">
+    <div className="relative w-[220.59px] h-[406.89px] overflow-hidden cursor-pointer text-left group hover:w-[236.59px] hover:h-[422.89px]">
+      <Link href={`/${locale}/series/${anime.publicCode}/${anime.slug}`} className="block w-full h-full text-inherit no-underline">
+        <div className="relative w-full h-[330.89px]">
+          {(!showImage || !imageLoaded) && (
+            <div className="absolute top-0 left-0 w-full h-full z-[2]">
+              <ImageSkeleton />
             </div>
-          )}        
-          <div className={styles.nomeDataContainer}>
-            {showText ? (
-              <>
-                <p className={styles.nome}>{anime.name}</p>
-                <p className={styles.data}>{t(`audioTypes.${anime.audioType}`)}</p>
-              </>
-            ) : (
-              <>
-                <NameSkeleton />
-                <AudioTypeSkeleton />
-              </>
-            )}
-          </div>
-
-          <div className={styles.cardInfo}>
-            <h3 className={styles.name}>{anime.name}</h3>
-            <div className={styles.flexContainer2}>
-              <MaturityRating rating={anime.rating} size={4} />
-              <span className={styles.score}>
-                {anime.score}
-                <svg className={styles.iconStar} 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  viewBox="0 0 24 24" 
-                  data-t="star-svg" 
-                  aria-labelledby="star-svg" 
-                  aria-hidden="false" 
-                  role="img"
-                  fill="#f1f1f1"
-                >
-                  <title id="star-svg">Avaliação</title>
-                  <path d="M15.266 8.352L11.988 1.723 8.73 8.352 1.431 9.397 6.71 14.528 5.465 21.849 11.999 18.39 18.544 21.85 17.285 14.528 22.57 9.398z">
-                  </path>
-                </svg>
-              </span>
-            </div>
-            <span className={styles.seasonText}>
-              {anime.seasons?.length ?? "N/A"} {t(`seasons.${anime.seasons?.length === 1 ? 'singular' : 'plural'}`)}
-            </span>
-            <span className={styles.episodesText}>
-              {anime.totalEpisodes ?? "N/A"} {t(`episodes.${anime.totalEpisodes === 1 ? 'singular' : 'plural'}`)}
-            </span>
-
-            <p className={styles.synopsis}>{anime.synopsis}</p>
-          </div>
-        </Link>      
-
-        <div className={styles.playButton}>
-          <PlayButton firstEpisode={firstEpisode} />
-          <BookmarkButton isFavorited={isFavorited} onToggle={handleFavoriteClick} />
-          <AddButton onClick={handleAddButtonClick} />
+          )}
+          <img
+            src={anime.imagePoster}
+            alt={anime.name}
+            className="w-[220.59px] h-[330.89px] object-cover group-hover:w-[236.59px] group-hover:h-[422.89px]"
+            style={{ display: showImage ? (imageLoaded ? 'block' : 'none') : 'none' }}
+            onLoad={() => setImageLoaded(true)}
+          />
         </div>
 
-        {showAddToListModal && (
-          <AddToListModal 
-            anime={anime} 
-            onClose={() => setShowAddToListModal(false)} 
-          />
+        {isFavorited && (
+          <div className="absolute top-0 right-0 z-[3] w-0 h-0 border-[36px] border-t-0 border-l-transparent border-r-black border-b-transparent flex items-start justify-end text-[#FF640A] opacity-100 transition-opacity duration-200 group-hover:opacity-0">
+            <svg
+              className="w-4 mt-[2px] mr-[-35px] fill-[#FF640A]"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              aria-hidden="true"
+              role="img"
+            >
+              <path d="M4 2h8a1 1 0 0 1 1 1v9.92a1 1 0 0 1-1.625.78L8 11l-3.375 2.7A1 1 0 0 1 3 12.92V3a1 1 0 0 1 1-1z" />
+            </svg>
+          </div>
         )}
-        {showCreateModal && (
-          <CreateModal
-            isOpen={showCreateModal}
-            onClose={() => setShowCreateModal(false)}
-            onCreate={handleCreateList}
-            newListName={newListName}
-            onNameChange={setNewListName}
-            characterCount={newListName.length}
-            maxCharacters={50}
-          />
-        )}
+
+        <div className="absolute bottom-0 w-[220.59px] h-[76px] bg-black/50 text-white flex flex-col justify-start opacity-100 transition-opacity duration-300 group-hover:opacity-0">
+          {showText ? (
+            <>
+              <p className="pt-[10px] truncate text-[14px] font-bold">{anime.name}</p>
+              <p className="pt-[10px] text-[12px] m-0">{t(`audioTypes.${anime.audioType}`)}</p>
+            </>
+          ) : (
+            <>
+              <NameSkeleton />
+              <AudioTypeSkeleton />
+            </>
+          )}
+        </div>
+
+        <div className="absolute top-0 left-0 right-0 bottom-0 p-3 text-white text-left opacity-0 bg-[rgba(20,21,25,0.8)] transition-opacity duration-200 z-[2] w-full h-full flex flex-col justify-start items-start group-hover:opacity-100 group-hover:bg-[rgba(20,21,25,0.9)]">
+          <h3 className="truncate overflow-hidden text-ellipsis line-clamp-3 w-[220px] text-sm font-medium my-2">{anime.name}</h3>
+          <div className="w-full flex items-center gap-2 m-0">
+            <MaturityRating rating={anime.rating} size={4} />
+            <span className="flex items-center gap-[5px]">
+              {anime.score}
+              <svg
+                className="w-4 h-4 text-[#f1f1f1] inline-flex items-center"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                role="img"
+                fill="#f1f1f1"
+              >
+                <title>Avaliação</title>
+                <path d="M15.266 8.352L11.988 1.723 8.73 8.352 1.431 9.397 6.71 14.528 5.465 21.849 11.999 18.39 18.544 21.85 17.285 14.528 22.57 9.398z" />
+              </svg>
+            </span>
+          </div>
+          <span className="text-sm font-semibold text-[#A0A0A0] m-0">
+            {anime.seasons?.length ?? "N/A"} {t(`seasons.${anime.seasons?.length === 1 ? 'singular' : 'plural'}`)}
+          </span>
+          <span className="text-sm font-semibold text-[#A0A0A0] m-0">
+            {anime.totalEpisodes ?? "N/A"} {t(`episodes.${anime.totalEpisodes === 1 ? 'singular' : 'plural'}`)}
+          </span>
+          <p className="overflow-hidden text-ellipsis line-clamp-6 w-[208px] mt-2 text-sm font-medium">
+            {anime.synopsis}
+          </p>
+        </div>
+      </Link>
+
+      <div className="absolute bottom-[10px] left-[10px] rounded-full p-0 cursor-pointer opacity-0 transition-opacity duration-300 z-[3] flex items-center gap-4 group-hover:opacity-100">
+        <PlayButton firstEpisode={firstEpisode} />
+        <BookmarkButton isFavorited={isFavorited} onToggle={handleFavoriteClick} />
+        <AddButton onClick={handleAddButtonClick} />
       </div>
+
+      {showAddToListModal && (
+        <AddToListModal
+          anime={anime}
+          onClose={() => setShowAddToListModal(false)}
+        />
+      )}
+      {showCreateModal && (
+        <CreateModal
+          isOpen={showCreateModal}
+          onClose={() => setShowCreateModal(false)}
+          onCreate={handleCreateList}
+          newListName={newListName}
+          onNameChange={setNewListName}
+          characterCount={newListName.length}
+          maxCharacters={50}
+        />
+      )}
     </div>
+  </div>
   );
 };
 
