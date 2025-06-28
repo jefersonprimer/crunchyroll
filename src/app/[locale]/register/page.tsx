@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import MinimalFooter from '../../components/layout/MinimalFooter';
 import HeaderLogin from '../../components/layout/HeaderLogin';
 import useRegister from '../hooks/useRegister';
+import { ClientMetadata } from '@/app/components/metadata/ClientMetadata';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -40,6 +41,10 @@ const Register = () => {
 
   return (
     <div className='flex flex-col min-h-screen bg-black'>
+      <ClientMetadata
+        title="Cadastre-se no Crunchyroll: curta anime a qualquer hora!"
+        description="curta anime a qualquer hora!"
+      />
       <HeaderLogin />
       <div className="flex justify-center items-center flex-1 flex-col py-10 w-full max-w-[1200px] mx-auto">
         <h1 className='text-[34px] font-normal'>Criar Conta</h1>

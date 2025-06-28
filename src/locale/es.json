@@ -1,0 +1,656 @@
+{
+    "seasons": {
+        "singular": "temporada",
+        "plural": "temporadas"
+    },
+    "episodes": {
+        "singular": "episodio",
+        "plural": "episodios"
+    },
+    "audioTypes": {
+        "subtitled": "Subtitulado",
+        "dubbed": "Doblado",
+        "subtitled_dubbed": "Sub | Dub"
+    },
+    "buttons": {
+        "watch_episode": "empezar a ver e1"
+    },
+    "AddButton": {
+        "tooltiptext": "Añadir a CrunchyList"
+    },
+    "BookmarkButton": {
+        "addToQueue": "Añadir a la cola",
+        "removeFromQueue": "Eliminar de la cola"
+    },
+    "Play": {
+        "play": "Reproducir E1"
+    },
+    "ShareButton": {
+        "copy": "¡Enlace copiado!",
+        "share": "Compartir"
+    },
+    "EpisodePlayButton": {
+        "watch_episode": "Empezar a ver"
+    },
+    "carousels": {
+        "animeOfTheDay": {
+            "title": "Anime del día ({day})",
+            "titlePlural": "Animes del día ({day})",
+            "subtitle": "¡Mira el anime que se emite hoy!",
+            "subtitlePlural": "¡Mira los animes que se emiten hoy!"
+        },
+        "dubbed": {
+            "title": "Doblados al portugués",
+            "subtitle": "¡Descubre anime disponible con audio doblado!"
+        },
+        "releases": {
+            "title": "Un avance de la temporada de primavera 2025",
+            "subtitle": "¡Mira los tres primeros episodios de estos simulcasts de primavera 2025 gratis!"
+        },
+        "nextseason": {
+            "title": "Anime de la próxima temporada",
+            "subtitle": "¡Echa un vistazo a los anime más esperados para la próxima temporada!"
+        },
+        "popular": {
+            "title": "Anime popular",
+            "subtitle": "¡Mira los tres primeros episodios de estos simulcasts de octubre 2024 gratis!"
+        },
+        "popularseason": {
+            "title": "Anime popular de la temporada",
+            "subtitle": "¡Mira los tres mejores!"
+        },
+        "movies": {
+            "title": "Películas",
+            "subtitle": "¡Echa un vistazo a las películas disponibles!"
+        }
+    },
+    "Crunchylist": {
+        "title": "Mis listas",
+        "queue": "cola",
+        "crunchylists": "crunchylists",
+        "history": "historial"
+    },
+    "CrunchylistComponent": {
+        "createNewList": "crear nueva lista",
+        "listsCount": "{count}/10 listas",
+        "noLists": "Aún no hay listas creadas.",
+        "items": "Elementos",
+        "updatedAt": "Actualizado el",
+        "noItems": "No hay elementos en la lista.",
+        "remove": "Eliminar",
+        "rename": "Renombrar",
+        "deleteList": "Eliminar lista",
+        "renameList": "Renombrar Crunchylist",
+        "cancel": "cancelar",
+        "renameButton": "renombrar lista",
+        "listLimit": "Has alcanzado el límite de 10 listas.",
+        "listName": "Nombre de la lista"
+    },
+    "AnimeCardCrunchylist": {
+        "audioTypes": {
+            "subtitled": "Subtitulado",
+            "dubbed": "Doblado",
+            "subtitled_dubbed": "Sub | Dub"
+        },
+        "addToQueue": "Añadir a la cola",
+        "removeFromQueue": "Eliminar de la cola"
+    },
+    "ListDetails": {
+        "backToLists": "volver a crunchyLists",
+        "searchPlaceholder": "Buscar anime...",
+        "itemsCount": "{count} de 100 elementos",
+        "settings": "Ajustes",
+        "editListName": "Editar nombre de lista",
+        "deleteList": "Eliminar lista",
+        "noAnimeFound": "No se encontró anime.",
+        "renameTitle": "Renombrar Crunchylist",
+        "listName": "Nombre de la lista",
+        "renameButton": "renombrar lista",
+        "cancelButton": "cancelar",
+        "searchMessage": "Empieza a escribir en el campo de búsqueda para encontrar una serie y añadirla a tu Crunchylist.",
+        "seasons": {
+            "singular": "temporada",
+            "plural": "temporadas"
+        },
+        "episodes": {
+            "singular": "episodio",
+            "plural": "episodios"
+        },
+        "audioTypes": {
+            "subtitled": "Subtitulado",
+            "dubbed": "Doblado",
+            "subtitled_dubbed": "Sub | Dub"
+        },
+        "close": "Cerrar"
+    },
+    "navigation": {
+        "new": "Nuevo",
+        "popular": "Popular",
+        "simulcasts": "Simulcasts",
+        "categories": "Categorías",
+        "exploreAll": "Explorar Todo (A-Z)",
+        "releaseCalendar": "Calendario de lanzamientos",
+        "videosAndShows": "Vídeos y programas",
+        "genres": "géneros",
+        "action": "Acción",
+        "adventure": "Aventura",
+        "comedy": "Comedia",
+        "drama": "Drama",
+        "fantasy": "Fantasía",
+        "music": "Música",
+        "romance": "Romance",
+        "sciFi": "Ciencia ficción",
+        "seinen": "Seinen",
+        "shoujo": "Shoujo",
+        "shounen": "Shounen",
+        "sliceOfLife": "Recuentos de la vida",
+        "sports": "Deportes",
+        "supernatural": "Sobrenatural",
+        "thriller": "Thriller",
+        "games": "Juegos",
+        "store": "Tienda",
+        "news": "Noticias",
+        "allNews": "Todas las noticias",
+        "animeAwards": "Premios de anime",
+        "experiencesAndEvents": "Experiencias y eventos"
+    },
+    "premiumPopup": {
+        "premiumOnly": "Solo Premium",
+        "freeTrial": "Prueba gratuita de 7 días",
+        "description": "Premium incluye acceso ilimitado a todo el anime, sin anuncios, con nuevos lanzamientos justo después de su emisión en Japón. ¡Pruébalo hoy!"
+    },
+    "header": {
+        "freeTrial": "prueba gratuita",
+        "premium": "premium"
+    },
+    "footer": {
+        "navigation": "Navegación",
+        "popular_series": "Series populares",
+        "simulcasts": "Series Simulcast",
+        "release_calendar": "Calendario de lanzamientos",
+        "news": "Noticias",
+        "games": "Juegos",
+        "contact_us": "Contáctanos",
+        "crunchyroll": "Crunchyroll",
+        "start_free_trial": "Comenzar prueba gratuita",
+        "about": "Acerca de",
+        "help_center": "Centro de ayuda",
+        "terms_of_use": "Términos de uso",
+        "privacy_policy": "Política de privacidad",
+        "cookie_consent_tool": "Herramienta de consentimiento de cookies",
+        "press_requests": "Solicitudes de prensa",
+        "download_app": "Descargar aplicación",
+        "redeem_code": "Canjear código",
+        "jobs": "Trabajos",
+        "account": "Cuenta",
+        "switch_profile": "Cambiar perfil",
+        "queue": "Cola",
+        "crunchylists": "Crunchylists",
+        "history": "Historial",
+        "my_account": "Mi cuenta",
+        "logout": "Cerrar sesión",
+        "copyright": "© Crunchyroll, LLC"
+    },
+    "History": {
+        "historyHeaderTitle": "Más reciente",
+        "clearHistory": "limpiar historial",
+        "title": "Mis listas",
+        "queue": "cola",
+        "crunchylists": "crunchylists",
+        "history": "historial"
+    },
+    "fallback_recommendation": {
+        "title": "¿Sigues buscando algo para ver?",
+        "subtitle": "Echa un vistazo a nuestra biblioteca completa",
+        "button": "ver todo"
+    },
+    "MinimalFooter": {
+        "termsOfUse": "Términos de uso",
+        "privacyPolicy": "Política de privacidad",
+        "cookieConsentTool": "Herramienta de consentimiento de cookies",
+        "copyright": "© Crunchyroll, LLC",
+        "language": "ESPAÑOL (ES)"
+    },
+    "accountModal": {
+        "freeTrial": "PRUEBA GRATUITA DE 7 DÍAS",
+        "switchProfile": "Cambiar perfil",
+        "settings": "Ajustes",
+        "queue": "Cola",
+        "crunchyLists": "CrunchyLists",
+        "history": "Historial",
+        "notifications": "Notificaciones",
+        "giftCard": "Tarjeta regalo",
+        "signOut": "Cerrar sesión"
+    },
+    "anonymousUserModal": {
+        "createAccount": {
+            "title": "Crear cuenta",
+            "description": "Regístrate gratis o hazte Premium."
+        },
+        "login": {
+            "title": "Iniciar sesión",
+            "description": "¿Ya eres miembro de Crunchyroll? Bienvenido de nuevo."
+        },
+        "giftCard": {
+            "title": "Tarjeta regalo",
+            "description": "¿Tienes una tarjeta regalo? Cánjela aquí."
+        },
+        "freeTrial": "Prueba gratuita de 7 días"
+    },
+    "addToListModal": {
+        "title": "Añadir a CrunchyList",
+        "newListName": "Nombre de la nueva lista",
+        "listCount": "listas",
+        "createNewList": "crear nueva lista",
+        "items": "elementos"
+    },
+    "imageSelectionModal": {
+        "profileTitle": "Seleccionar imagen de perfil",
+        "backgroundTitle": "Seleccionar imagen de fondo",
+        "selectedImage": "Imagen seleccionada",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "loading": "Cargando imágenes..."
+    },
+    "perfilModal": {
+        "title": "Nombre de usuario",
+        "freeTrial": "Prueba gratuita de 7 días",
+        "switchProfile": "Cambiar perfil",
+        "settings": "Ajustes",
+        "queue": "Cola",
+        "crunchyLists": "CrunchyLists",
+        "history": "Historial",
+        "notifications": "Notificaciones",
+        "giftCard": {
+            "title": "Tarjeta regalo",
+            "description": "¿Tienes una tarjeta regalo? Cánjela aquí."
+        }
+    },
+    "NewsSection": {
+        "title": "Noticias de Crunchyroll",
+        "link": "ver todo"
+    },
+    "Common": {
+        "by": "por"
+    },
+    "NotFoundPage": {
+        "title": "404 - Página no encontrada",
+        "message": "¡Yuzu dice que no hay nada aquí!",
+        "button": "llévame de aquí"
+    },
+    "Search": {
+        "searchPlaceholder": "Buscar...",
+        "searchResults": "Resultados de búsqueda",
+        "noResults": "No se encontró anime.",
+        "loading": "Cargando resultados...",
+        "clearSearch": "Limpiar búsqueda",
+        "searchTitle": "Buscaste \"{searchTerm}\" - Bakashi TV",
+        "defaultTitle": "Búsqueda de Anime - Bakashi TV",
+        "searchDescription": "Resultados de búsqueda para \"{searchTerm}\" en Bakashi TV. ¡Explora animes populares y descubre nuevas series!",
+        "defaultDescription": "Busca tus animes favoritos en Bakashi TV, el mejor portal para fans del anime!"
+    },
+    "AnimeCardSearch": {
+        "audioTypes": {
+            "subtitled": "Subtitulado",
+            "dubbed": "Doblado",
+            "subtitled_dubbed": "Sub | Dub"
+        }
+    },
+    "Series": {
+        "watch": "Ver",
+        "recommendationsTitle": "Similar a esto"
+    },
+    "HeroSection": {
+        "metadata": {
+            "audio": "Audio",
+            "subtitles": "Subtítulos",
+            "contentRating": "Clasificación de contenido",
+            "genres": "Géneros",
+            "notAvailable": "No disponible"
+        },
+        "buttons": {
+            "showMore": "Mostrar más",
+            "showLess": "Mostrar menos"
+        },
+        "audioTypes": {
+            "sub": "Subtitulado",
+            "dub": "Doblado",
+            "subtitled": "Subtitulado",
+            "dubbed": "Doblado",
+            "subtitled_dubbed": "Sub | Dub"
+        }
+    },
+    "EpisodeSection": {
+        "sort": {
+            "newest": "más nuevo",
+            "oldest": "más antiguo",
+            "newestLabel": "Más nuevo",
+            "oldestLabel": "Más antiguo"
+        },
+        "options": {
+            "label": "opciones",
+            "markAllWatched": "Marcar todos como vistos",
+            "markAllUnwatched": "Marcar todos como no vistos"
+        },
+        "episodes": {
+            "count": "Episodios",
+            "noEpisodes": "No se encontraron episodios para esta temporada"
+        },
+        "season": {
+            "label": "Temporada",
+            "episodeCount": "{count} Episodios"
+        }
+    },
+    "AnimeHoverModal": {
+        "buttons": {
+            "watch": "Ver",
+            "addToFavorites": "Añadir a favoritos",
+            "removeFromFavorites": "Eliminar de favoritos"
+        },
+        "episode": "Episodio {number}"
+    },
+    "DayCarousel": {
+        "today": "hoy",
+        "days": {
+            "mondayShort": "LUN",
+            "tuesdayShort": "MAR",
+            "wednesdayShort": "MIÉ",
+            "thursdayShort": "JUE",
+            "fridayShort": "VIE",
+            "saturdayShort": "SÁB",
+            "sundayShort": "DOM"
+        },
+        "episodeAvailable": "Episodio {number} Disponible"
+    },
+    "footersimulcastcalendar": {
+        "sections": {
+            "mostWatched": "Series Más Vistas",
+            "platforms": "Plataformas y Dispositivos",
+            "premium": "Suscripciones Premium",
+            "language": "Idioma",
+            "support": "Soporte",
+            "crunchyroll": "Crunchyroll"
+        },
+        "premium": {
+            "twoWeekTrial": "Prueba Gratuita de Dos Semanas",
+            "buyGiftSubscriptions": "Comprar Suscripciones de Regalo",
+            "activateGiftCard": "Activar Tarjeta Regalo de Crunchyroll/VRV"
+        },
+        "language": {
+            "detectedLocation": "Tu ubicación detectada es Brasil.",
+            "englishUS": "Inglés (EE.UU.)",
+            "spanishLatin": "Español (América Latina)",
+            "spanishSpain": "Español (España)",
+            "portugueseBrazil": "Portugués (Brasil)",
+            "portuguesePortugal": "Portugués (Portugal)",
+            "french": "Francés (Francia)",
+            "german": "Alemán",
+            "arabic": "Árabe",
+            "italian": "Italiano",
+            "russian": "Ruso",
+            "hindi": "Hindi",
+            "indonesian": "Indonesio"
+        },
+        "support": {
+            "helpFAQ": "Ayuda/Preguntas frecuentes"
+        },
+        "crunchyroll": {
+            "about": "Acerca de",
+            "careers": "Carreras",
+            "advertising": "Publicidad",
+            "copyrightPolicy": "Política de Copyright",
+            "termsOfService": "Términos de Servicio",
+            "privacyPolicy": "Política de Privacidad",
+            "cookieConsentTool": "Herramienta de Consentimiento de Cookies"
+        },
+        "footer": {
+            "sonyPicturesLogo": "Logo de Sony Pictures"
+        },
+        "social": {
+            "followTwitter": "Seguir @crunchyroll_pt"
+        }
+    },
+    "headersimulcastcalendar": {
+        "navigation": {
+            "series": "Series",
+            "news": "Noticias",
+            "games": "Juegos",
+            "premium": "Premium"
+        },
+        "userPanel": {
+            "queue": "Cola",
+            "random": "Aleatorio",
+            "profile": "Perfil",
+            "login": "Iniciar sesión",
+            "notifications": "Notificaciones",
+            "settings": "Ajustes",
+            "orderHistory": "Historial de pedidos",
+            "logout": "Cerrar sesión",
+            "search": "Buscar"
+        }
+    },
+    "simulcastcalendarfooter": {
+        "goToPremium": "Ir a",
+        "premium": "Premium",
+        "toWatchSimulcasts": "para ver los simulcasts más nuevos",
+        "happyHimeAlt": "Personaje Happy Hime"
+    },
+    "simulcastcalendarheader": {
+        "releaseCalendars": "calendarios de lanzamiento",
+        "spring2025Lineup": "alineación de primavera 2025",
+        "filters": {
+            "premiumEpisodes": "episodios premium",
+            "freeEpisodes": "episodios nuevos gratis"
+        },
+        "premiumBanner": {
+            "access": "Acceso a los últimos anime y dramas el mismo día de su emisión en Japón.",
+            "premium": "Premium",
+            "trial": "Prueba 7 días gratis."
+        }
+    },
+    "simulcasts": {
+        "season": {
+            "title": "Simulcasts de Temporada",
+            "noAnimesFound": "No se encontraron animes para esta temporada",
+            "seasons": {
+                "spring": "Primavera",
+                "summer": "Verano",
+                "fall": "Otoño",
+                "winter": "Invierno"
+            }
+        }
+    },
+    "newReleases": {
+        "title": "Anime Recién Añadido",
+        "subtitle": "Últimos Lanzamientos",
+        "latestReleases": "Últimos",
+        "filters": {
+            "sort": {
+                "label": "Ordenar",
+                "options": {
+                    "mostPopular": "Más Popular",
+                    "newest": "Más Reciente",
+                    "alphabetical": "Orden Alfabético"
+                }
+            },
+            "audio": {
+                "label": "Filtrar",
+                "language": "Idioma",
+                "options": {
+                    "all": "Todos",
+                    "subtitled": "Subtitulado",
+                    "dubbed": "Doblado"
+                }
+            }
+        }
+    },
+    "popular": {
+        "title": "Anime Más Popular",
+        "subtitle": "Lanzamientos Populares",
+        "filters": {
+            "sort": {
+                "label": "Ordenar",
+                "options": {
+                    "mostPopular": "Más Popular",
+                    "newest": "Más Reciente",
+                    "alphabetical": "Orden Alfabético"
+                }
+            },
+            "audio": {
+                "label": "Filtrar",
+                "language": "Idioma",
+                "options": {
+                    "all": "Todos",
+                    "subtitled": "Subtitulado",
+                    "dubbed": "Doblado"
+                }
+            }
+        }
+    },
+    "alphabetical": {
+        "title": "Orden Alfabético",
+        "filters": {
+            "alphabetical": "orden alfabético",
+            "mostPopular": "Más Popular",
+            "mostRecent": "Más Reciente",
+            "alphabeticalOrder": "Orden Alfabético",
+            "filter": "filtrar",
+            "language": "Idioma",
+            "all": "todos",
+            "subtitled": "Subtitulado",
+            "dubbed": "Doblado"
+        },
+        "noResults": "No se encontró anime con la letra \"{letter}\"",
+        "actions": {
+            "play": "Reproducir",
+            "removeFromQueue": "Eliminar de la cola",
+            "addToQueue": "Añadir a la cola",
+            "addToPrimerlist": "Añadir a Primerlist"
+        },
+        "tooltips": {
+            "play": "Reproducir",
+            "removeFromQueue": "Eliminar de la cola",
+            "addToQueue": "Añadir a la cola",
+            "addToPrimerlist": "Añadir a Primerlist"
+        },
+        "sort": {
+            "label": "Ordenar",
+            "title": "Ordenar"
+        },
+        "filter": {
+            "label": "Filtrar",
+            "title": "Filtrar"
+        }
+    },
+    "genre": {
+        "filters": {
+            "audio": {
+                "label": "Filtrar",
+                "language": "Idioma",
+                "options": {
+                    "all": "Todos",
+                    "subtitled": "Subtitulado",
+                    "dubbed": "Doblado"
+                }
+            }
+        },
+        "title": "Anime de {genre}",
+        "popular": "Popular",
+        "newReleases": "Nuevos Lanzamientos",
+        "viewAll": "ver todo",
+        "loading": "Cargando...",
+        "error": "Ocurrió un error: {error}",
+        "genreNotFound": "Género \"{genre}\" no encontrado.",
+        "genrePopularPage": {
+            "title": "Todo el Anime de {genre}",
+            "loading": "Cargando...",
+            "error": "Ocurrió un error: {error}",
+            "genreNotFound": "Género \"{genre}\" no encontrado."
+        },
+        "genreNewPage": {
+            "title": "Todo el Anime de {genre}",
+            "loading": "Cargando...",
+            "error": "Ocurrió un error: {error}",
+            "genreNotFound": "Género \"{genre}\" no encontrado."
+        }
+    },
+    "Watch": {
+        "watch": "Ver"
+    },
+    "EpisodeHeader": {
+        "addToQueue": "Añadir a la cola",
+        "removeFromQueue": "Eliminar de la cola",
+        "releasedOn": "Publicado el {date}",
+        "audioTypes": {
+            "sub": "Subtitulado",
+            "dub": "Doblado",
+            "subtitled_dubbed": "Sub | Dub",
+            "subtitled": "Subtitulado",
+            "dubbed": "Doblado"
+        }
+    },
+    "EpisodeNavigation": {
+        "previousEpisode": "episodio anterior",
+        "nextEpisode": "siguiente episodio",
+        "seeMoreEpisodes": "ver más episodios",
+        "audioTypes": {
+            "sub": "Subtitulado",
+            "dub": "Doblado",
+            "subtitled_dubbed": "Sub | Dub",
+            "subtitled": "Subtitulado",
+            "dubbed": "Doblado"
+        }
+    },
+    "Watchlist": {
+        "title": "Mis listas",
+        "queue": "cola",
+        "crunchylists": "crunchylists",
+        "history": "historial",
+        "emptyMessage": "Tu cola merece más amor. <br /> Vamos a llenarla con anime increíble.",
+        "backToHome": "volver a inicio"
+    },
+    "AnimeCardWatchlist": {
+        "audioTypes": {
+            "subtitled": "Subtitulado",
+            "dubbed": "Doblado",
+            "subtitled_dubbed": "Sub | Dub"
+        },
+        "startWatching": "Empezar a ver: E1"
+    },
+    "WatchlistHeader": {
+        "sortOptions": {
+            "mostRecentUpdate": "Actualización Más Reciente",
+            "updated": "Actualizado",
+            "watched": "Visto",
+            "added": "Añadido",
+            "alphabetical": "Alfabético"
+        },
+        "dateSortOptions": {
+            "mostRecent": "Más Reciente",
+            "oldest": "Más Antiguo"
+        },
+        "filterOptions": {
+            "favorites": {
+                "onlyFavorites": "Solo Favoritos"
+            },
+            "languages": {
+                "all": "Todos",
+                "subtitled": "Subtitulado",
+                "dubbed": "Doblado"
+            },
+            "mediaType": {
+                "all": "Todos",
+                "anime": "Anime",
+                "movies": "Películas"
+            },
+            "sections": {
+                "languages": "Idiomas",
+                "mediaType": "Tipo de Medio"
+            }
+        },
+        "buttons": {
+            "sort": "ordenar",
+            "filter": "filtrar"
+        }
+    }
+}

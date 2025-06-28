@@ -37,7 +37,7 @@ const TabsNavigation: React.FC<TabsNavigationProps> = ({ selectedTab, onTabChang
                       selectedTab === 'fila' ? 'text-white font-bold border-b-3 border-[#FF640A]' : 'text-[#A0A0A0] hover:text-white active:text-white'
                     }`}
                   >
-                    <span>{labels.fila}</span>
+                    <span className="uppercase">{labels.fila}</span>
                   </Link>
                   <Link
                     href={`/${locale}/crunchylists`}
@@ -45,7 +45,7 @@ const TabsNavigation: React.FC<TabsNavigationProps> = ({ selectedTab, onTabChang
                       selectedTab === 'crunchylists' ? 'text-white font-bold border-b-3 border-[#FF640A]' : 'text-[#A0A0A0] hover:text-white active:text-white'
                     }`}
                   >
-                    <span>{labels.crunchylists}</span>
+                    <span className="uppercase">{labels.crunchylists}</span>
                   </Link>
                   <Link
                     href={`/${locale}/history`}
@@ -53,7 +53,7 @@ const TabsNavigation: React.FC<TabsNavigationProps> = ({ selectedTab, onTabChang
                       selectedTab === 'historico' ? 'text-white font-bold border-b-3 border-[#FF640A]' : 'text-[#A0A0A0] hover:text-white active:text-white'
                     }`}
                   >
-                    <span>{labels.historico}</span>
+                    <span className="uppercase">{labels.historico}</span>
                   </Link>
                 </div>
               </div>

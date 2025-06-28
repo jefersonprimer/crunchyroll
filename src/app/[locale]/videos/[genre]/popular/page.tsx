@@ -10,6 +10,7 @@ import Header from '@/app/components/layout/Header';
 import Footer from '@/app/components/layout/Footer';
 import { useDropdown } from '@/app/[locale]/hooks/useDropdown';
 import { Anime } from '@/types/anime';
+import { ClientMetadata } from '@/app/components/metadata/ClientMetadata';
 
 type AudioFilter = "subtitled_dubbed" | "subtitled" | "dubbed";
 
@@ -77,6 +78,10 @@ const GenrePopularPage: React.FC = () => {
 
   return (
     <div>
+      <ClientMetadata
+        title={`Animes, Séries de ${genre} - Em Alta - Crunchyroll`}
+        description={`Animes, Séries de ${genre} - Em Alta - Crunchyroll`}
+      />
     <Header />
     <div className="px-8 py-8 max-w-full mx-auto">
       <div className="flex justify-between items-center mb-8">

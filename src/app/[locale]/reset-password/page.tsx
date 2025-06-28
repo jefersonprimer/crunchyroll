@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import useResetPassword from '../hooks/useResetPassword';
 import HeaderLogin from '@/app/components/layout/HeaderLogin';
 import MinimalFooter from '@/app/components/layout/MinimalFooter';
+import { ClientMetadata } from '@/app/components/metadata/ClientMetadata';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
@@ -41,6 +42,10 @@ const ResetPassword = () => {
 
   return (
     <div>
+       <ClientMetadata
+        title="Redefinir senha para Crunchyroll"
+        description="Redefinir senha para Crunchyroll"
+      />
       <HeaderLogin/>
       <div className="flex flex-col items-center justify-center bg-[#000000] text-white p-5">
         <div className="w-[416px] h-[396px]">

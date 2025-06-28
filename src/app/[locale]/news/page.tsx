@@ -13,7 +13,7 @@ import { useTheme } from './context/ThemeContext';
 import CustomTagPanel from './components/CustomTagPanel';
 import { useRef } from 'react';
 import Link from 'next/link'
-import Loading from '../../loading';
+import Loading from '../loading';
 
 const HomePage = () => {
   const { isDark } = useTheme(); 

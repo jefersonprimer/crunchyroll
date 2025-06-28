@@ -1,11 +1,11 @@
-import React from 'react';
-import { useParams } from "next/navigation";
+// app/components/layout/MinimalHeader.tsx (ou onde quer que ele esteja)
 import Link from 'next/link';
+import React from 'react'; // Ainda necessário para o tipo React.FC
 
-const MinimalHeader: React.FC = () => {
-  const params = useParams();
-  const locale = (params?.locale as string) || 'pt-br';
-
+interface MinimalHeaderProps {
+  locale: string;
+}
+const MinimalHeader: React.FC<MinimalHeaderProps> = ({ locale }) => {
   return (
     <header>
       <div className="w-full h-[60px] bg-gradient-to-b from-transparent bg-[#23252B] shadow-lg flex items-center justify-center">

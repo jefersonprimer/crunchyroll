@@ -72,6 +72,10 @@ const FavoritesCarousel: React.FC<FavoritesCarouselProps> = ({ useOnScreen: useO
 
   console.log('[FavoritesCarousel] Renderizando favoritos', favorites);
 
+  if (!favorites || favorites.length === 0) {
+    return null;
+  }
+
   return (
     <div ref={useOnScreenProp ? ref : undefined} className="items-center justify-center w-[1351px] h-auto min-h-[325.33px] bg-[#000000]">
       <div className="w-[1223px] h-[52px] my-0 mx-auto flex justify-between items-center bg-[#000000]">
@@ -95,29 +99,15 @@ const FavoritesCarousel: React.FC<FavoritesCarouselProps> = ({ useOnScreen: useO
         </div>
       </div>
 
-      {favorites.length === 0 ? (
-        <div className="align-middle p-[40px]">
-          <img
-            src="https://www.crunchyroll.com/build/assets/img/empty_list_state/empty-watchlist.png"
-            alt="Empty Watchlist"
-            className="w-[200px] mb-[15px]"
+      <div className="w-[1233px] h-auto min-h-[273.33px] flex gap-[.75rem] pb-[10px] my-0 mx-auto">
+        {favorites.slice(-4).map((anime) => (
+          <FavoritesCard
+            key={anime.id}
+            anime={anime}
+            onRemove={removeFavorite}
           />
-          <h4 className="text-[1rem] text-[#FFFFFF] mb-[10px]">
-            Sua Fila merece mais amor. <br /> Vamos enchê-la com animes incríveis.
-          </h4>
-          <a href="/" className="bg-[#ffcc00] py-[10px] px-[15px] no-underline text-[#000000] font-bold inline-block">VOLTAR PARA A TELA INICIAL</a>
-        </div>
-      ) : (
-        <div className="w-[1233px] h-auto min-h-[273.33px] flex gap-[.75rem] pb-[10px] my-0 mx-auto">
-          {favorites.slice(-4).map((anime) => (
-            <FavoritesCard
-              key={anime.id}
-              anime={anime}
-              onRemove={removeFavorite}
-            />
-          ))}
-        </div>
-      )}
+        ))}
+      </div>
     </div>
   );
 };

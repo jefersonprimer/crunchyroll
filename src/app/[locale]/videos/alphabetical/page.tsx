@@ -13,6 +13,7 @@ import { useDropdown } from "@/app/[locale]/contexts/DropdownContext";
 import { AudioType } from "@/types/enums";
 import AnimeCard from "./components/AnimeCard";
 import PageLoading from "@/app/components/loading/PageLoading";
+import { ClientMetadata } from "@/app/components/metadata/ClientMetadata";
 
 type AudioFilter = "subtitled_dubbed" | "subtitled" | "dubbed";
 
@@ -95,6 +96,10 @@ const AnimeList = () => {
 
   return (
     <div>
+    <ClientMetadata
+      title="Lista de Animes e Filmes - Crunchyroll"
+      description="Lista de Animes e Filmes"
+    />
     <Header />
     <div className="w-[1351px] my-0 mx-auto py-15 flex flex-col items-center">
       {/* Header com título e filtros */}

@@ -6,6 +6,7 @@ import MinimalFooter from '@/app/components/layout/MinimalFooter';
 import HeaderLogin from '@/app/components/layout/HeaderLogin';
 import useLogin from '../hooks/useLogin';
 import Link from 'next/link';
+import { ClientMetadata } from '@/app/components/metadata/ClientMetadata';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -30,6 +31,10 @@ const Login = () => {
 
   return (
     <div className='flex flex-col min-h-screen bg-black'>
+      <ClientMetadata
+        title="Crunchyroll Login: Stream Anime Online Com Sua Conta"
+        description="Stream Anime Online Com Sua Conta"
+      />
       <HeaderLogin />
       <div className="flex justify-center items-center flex-1 flex-col py-10 w-full max-w-[1200px] mx-auto">
         <h1 className='text-[34px] font-normal text-center mb-[30px] text-white'>Login</h1>

@@ -15,6 +15,7 @@ import { GET_ANIMES } from '@/lib/queries/getAnimes';
 import SearchModal from './components/SearchModal';
 import RenameModal from './components/RenameModal';
 import DeleteModal from './components/DeleteModal';
+import { ClientMetadata } from '@/app/components/metadata/ClientMetadata';
 
 interface List {
   id: string;
@@ -94,7 +95,7 @@ export default function Page() {
     return (
       <div>
         <Header />
-        <FavoritesProvider>
+        <div>
           <div className="flex flex-col max-w-[1050px] mx-auto py-5">
             <div className="flex flex-col items-start mb-5 w-full no-underline">
               <Link href={`/${locale}/crunchylists`}>
@@ -144,7 +145,7 @@ export default function Page() {
               </div>
             </div>
           </div>
-        </FavoritesProvider>
+        </div>
         <Footer />
       </div>
     );
@@ -152,8 +153,12 @@ export default function Page() {
 
   return (
     <div>
+        <ClientMetadata
+          title="Gerencie sua Crunchylistas | Crunchyroll"
+          description="Gerencie sua Crunchylistas | Crunchyroll"
+        />
       <Header />
-      <FavoritesProvider>
+      <div>
         <div className="flex flex-col max-w-[1050px] mx-auto py-5">
           <div className="flex flex-col items-start mb-5 w-full no-underline">
             <Link href={`/${locale}/crunchylists`}>
@@ -262,7 +267,7 @@ export default function Page() {
             onDelete={handleDelete}
           />
         </div>
-      </FavoritesProvider>
+      </div>
       <Footer />
     </div>
   );

@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
+import { ClientMetadata } from "@/app/components/metadata/ClientMetadata";
 interface Genre {
   id: string;
   name: string;
@@ -90,6 +91,10 @@ const GenrePage: React.FC<GenrePageProps> = ({ params }) => {
 
   return (
     <div>
+      <ClientMetadata
+        title={`${genre} - Animes, Séries e Filmes - Crunchyroll`}
+        description="Calendário de Transmissão Simultânea"
+      />
     <Header />
     <div className="flex w-[1351px] my-0 mx-auto flex-col items-center text-center py-8 pt-[60px] px-8">
       <h1 className="text-3xl text-gray-800 m-0">

@@ -6,9 +6,10 @@ import { GET_ANIMES } from "@/lib/queries/getAnimes";
 import { Anime } from "@/types/anime";
 import Header from "./components/Header";
 import DayCarousel from "./components/DayCarousel";
-import Loading from "../../loading";
+import Loading from "../loading";
 import Footer from "./components/Footer";
 import { FavoritesProvider } from '@/app/[locale]/contexts/FavoritesContext';
+import { ClientMetadata } from "@/app/components/metadata/ClientMetadata";
 
 const CalendarPage = () => {
   const { data, loading, error } = useQuery(GET_ANIMES);
@@ -118,8 +119,11 @@ const CalendarPage = () => {
 
   return (
     <div>
+      <ClientMetadata
+        title="Crunchyroll - Calendário de Transmissão Simultânea"
+        description="Calendário de Transmissão Simultânea"
+      />
       <Header/>
-      
       <div className="flex flex-col items-center  p-4 min-h-screen text-center box-border bg-[#F2F2F2]">
         <div >
           <FavoritesProvider>

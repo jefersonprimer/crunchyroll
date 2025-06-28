@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
+// app/layout.tsx
 import "./globals.css";
+import type { Metadata } from "next";
 import { Providers } from './providers/providers';
 
 export const metadata: Metadata = {
@@ -13,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning>
+    <html suppressHydrationWarning lang="en">
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
@@ -23,7 +24,7 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <Providers>
-          {children}  
+          {children} 
         </Providers>
       </body>
     </html>

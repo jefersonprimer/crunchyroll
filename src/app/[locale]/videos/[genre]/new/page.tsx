@@ -10,6 +10,7 @@ import Header from '@/app/components/layout/Header';
 import Footer from '@/app/components/layout/Footer';
 import { useDropdown } from '@/app/[locale]/hooks/useDropdown';
 import type { Anime } from '@/types/anime';
+import { ClientMetadata } from '@/app/components/metadata/ClientMetadata';
 
 type AudioFilter = "subtitled_dubbed" | "subtitled" | "dubbed";
 
@@ -77,6 +78,10 @@ const GenreNewPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <ClientMetadata
+        title={`Animes, Séries de ${genre} - Novidades - Crunchyroll`}
+        description={`Animes, Séries de ${genre} - Novidades - Crunchyroll`}
+      />
     <Header />
     
     <main className="flex-1 px-8 py-8 max-w-full mx-auto">

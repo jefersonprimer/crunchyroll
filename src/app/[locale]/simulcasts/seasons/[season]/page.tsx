@@ -5,11 +5,12 @@ import { useParams, useRouter } from 'next/navigation';
 import { useQuery } from '@apollo/client';
 import { GET_ANIMES_BY_SEASON } from '@/lib/queries/getAnimesBySeason';
 import AnimeGrid from '@/app/components/cards/AnimeGrid';
-import Loading from '@/app/loading';
+import Loading from '@/app/[locale]/loading';
 import { FavoritesProvider } from '@/app/[locale]/contexts/FavoritesContext';
 import { useState } from 'react';
 import Header from '@/app/components/layout/Header';
 import Footer from '@/app/components/layout/Footer';
+import { ClientMetadata } from '@/app/components/metadata/ClientMetadata';
 
 export default function SeasonPage() {
   const t = useTranslations();
@@ -90,6 +91,10 @@ export default function SeasonPage() {
 
     return (
       <div className="relative">
+        <ClientMetadata
+          title="Crunchyroll - Confira Animes Em Simulcast"
+          description="Confira Animes em Simulcast"
+        />
         <div 
           className={`flex items-center px-4 py-2 cursor-pointer text-[#A0A0A0] hover:text-[#fff] 
           ${isDropdownOpen ? 'text-[#fff] bg-[#23262F]' : 'hover:bg-[#23262F]'}`}

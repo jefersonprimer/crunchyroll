@@ -1,6 +1,6 @@
 import React from "react";
 import HeaderSkeleton from "../layout/HeaderSkeleton";
-import Loading from "@/app/loading";
+import Loading from "@/app/[locale]/loading";
 
 const PageLoading: React.FC = () => {
   return (

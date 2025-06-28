@@ -11,6 +11,7 @@ import Footer from "@/app/components/layout/Footer";
 import Header from "@/app/components/layout/Header";
 import { useDropdown } from "@/app/[locale]/hooks/useDropdown";
 import PageLoading from "@/app/components/loading/PageLoading";
+import { ClientMetadata } from "@/app/components/metadata/ClientMetadata";
 
 type AudioFilter = "subtitled_dubbed" | "subtitled" | "dubbed";
 
@@ -62,6 +63,10 @@ export default function PopularPage() {
 
   return (
     <div>
+      <ClientMetadata
+        title="Animes e Filmes Mais Populares - Crunchyroll"
+        description="Assista a Animes e Filmes Mais Populares - Crunchyroll"
+      />
     <Header />
       <div className="w-full py-15 flex flex-col items-center">
         <div className="w-4/5 px-[22px] flex justify-between items-center mb-8 relative">
