@@ -1,1 +1,0 @@
-branch antes de eu mudar o que estava bom na pagina de detalhes do anime , o que faltou como content divisory

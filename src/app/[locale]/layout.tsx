@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { use } from "react";
 import { NextIntlClientProvider } from "next-intl";
+import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 const locales = ["en", "pt-br", "es"];

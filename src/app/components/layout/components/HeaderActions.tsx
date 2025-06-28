@@ -33,8 +33,8 @@ export default function HeaderActions({
               <div className="flex items-center justify-center w-[120px] h-[60px] gap-[8px]">
                 <PremiumIcon />
                 <div className="flex flex-col items-start justify-center text-left">
-                  <span className="text-[10px] text-[#ffb300]">{t("freeTrial")}</span>
-                  <span className="text-[10px] text-[#DADADA]">{t("premium")}</span>
+                  <span className="text-[10px] text-[#ffb300] uppercase">{t("freeTrial")}</span>
+                  <span className="text-[10px] text-[#DADADA] uppercase">{t("premium")}</span>
                 </div>
               </div>
               <div className="opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
