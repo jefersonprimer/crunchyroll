@@ -1,55 +1,19 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import TabsNavigation from '@/app/components/layout/TabsNavigation';
 import { useLists } from '../contexts/ListsContext';
-import AddToListModal from '../../components/modals/AddToListModal';
-import { Anime } from '@/types/anime';
 import RenameModal from './components/RenameModal';
 import CreateModal from '../crunchylists/[listId]/components/CreateModal';
 import DeleteModal from './[listId]/components/DeleteModal';
 
-interface List {
-  id: string;
-  name: string;
-  items: Anime[];
-  updatedAt: string;
-}
-
 const CrunchyListPageClient = () => {
-  const tTabs = useTranslations('Crunchylist');
-  const t = useTranslations('CrunchylistComponent');
+  const t = useTranslations('Crunchylist');
   const router = useRouter();
-  const pathname = usePathname();
-
-  // Tabs logic
-  let selectedTab = 'crunchylists';
-  if (pathname.includes('watchlist')) selectedTab = 'fila';
-  else if (pathname.includes('history')) selectedTab = 'historico';
-
-  const handleTabClick = (tab: string) => {
-    switch (tab) {
-      case 'fila':
-        router.push('/watchlist');
-        break;
-      case 'historico':
-        router.push('/history');
-        break;
-      case 'crunchylists':
-        router.push('/crunchylists');
-        break;
-      default:
-        break;
-    }
-  };
 
   // CrunchyList logic
-  const { lists, addItemToList, removeItemFromList, removeList, updateListName, createList } = useLists();
-  const [showModal, setShowModal] = useState(false);
-  const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
-  const [expandedList, setExpandedList] = useState<string | null>(null);
+  const { lists, removeList, updateListName, createList } = useLists();
   const [editingListId, setEditingListId] = useState<string | null>(null);
   const [newListName, setNewListName] = useState('');
   const [visibleMenu, setVisibleMenu] = useState<string | null>(null);
@@ -60,10 +24,6 @@ const CrunchyListPageClient = () => {
 
   const handleNavigateToList = (listId: string) => {
     router.push(`/crunchylists/${listId}`);
-  };
-
-  const handleRemoveItem = (listId: string, itemId: string) => {
-    removeItemFromList(listId, itemId);
   };
 
   const handleDeleteList = (listId: string) => {
@@ -103,10 +63,6 @@ const CrunchyListPageClient = () => {
     }
   };
 
-  const handleAddToList = (listId: string, anime: Anime) => {
-    addItemToList(listId, anime);
-  };
-
   const openDeleteModal = (listId: string) => {
     setListToDelete(listId);
     setDeleteModalOpen(true);
@@ -126,16 +82,6 @@ const CrunchyListPageClient = () => {
 
   return (
     <div>
-      <TabsNavigation
-        selectedTab={selectedTab}
-        onTabChange={handleTabClick}
-        labels={{
-          fila: tTabs('queue'),
-          crunchylists: tTabs('crunchylists'),
-          historico: tTabs('history'),
-          'Minhas Listas': tTabs('title')
-        }}
-      >
         <div className="w-full max-w-5xl mx-auto ">
           <div className="flex flex-col sm:flex-row sm:items-center mb-4 w-full">
             <button
@@ -173,31 +119,6 @@ const CrunchyListPageClient = () => {
                       - {t('updatedAt')} {formatDate(list.updatedAt)}
                     </p>
                   </div>
-                  {expandedList === list.id && (
-                    <div className="mt-4">
-                      {list.items.length === 0 ? (
-                        <p>{t('noItems')}</p>
-                      ) : (
-                        list.items.map((anime) => (
-                          <div key={anime.id} className="flex items-center gap-2 mb-2">
-                            <img
-                              src={anime.imageCardCompact}
-                              alt={anime.name}
-                              className="w-12 h-12 object-cover"
-                            />
-                            <span>{anime.name}</span>
-                            <button
-                              className="bg-[#ff4d4d] text-white border-none py-1 px-2 hover:bg-[#e63939]"
-                              onClick={() => handleRemoveItem(list.id, anime.id)}
-                              aria-label={t('remove')}
-                            >
-                              {t('remove')}
-                            </button>
-                          </div>
-                        ))
-                      )}
-                    </div>
-                  )}
                   <div className="absolute top-4 right-4">
                     <button
                       className="border-none text-2xl cursor-pointer text-[#A0A0A0] hover:text-white"
@@ -247,13 +168,6 @@ const CrunchyListPageClient = () => {
               onClose={() => setEditingListId(null)}
             />
           )}
-          {showModal && selectedAnime && (
-            <AddToListModal
-              anime={selectedAnime}
-              onClose={() => setShowModal(false)}
-              onAddToList={handleAddToList}
-            />
-          )}
           <CreateModal
             isOpen={isCreateModalOpen}
             onClose={() => setIsCreateModalOpen(false)}
@@ -269,7 +183,6 @@ const CrunchyListPageClient = () => {
             onDelete={confirmDeleteList}
           />
         </div>
-      </TabsNavigation>
     </div>
   );
 };

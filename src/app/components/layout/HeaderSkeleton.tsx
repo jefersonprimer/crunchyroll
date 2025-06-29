@@ -2,8 +2,7 @@ import Link from "next/link"
 
 export default function HeaderSkeleton() {
   return (
-    <header className="fixed top-0 left-0 w-full h-[60px] bg-[#23252B] 
-    shadow-md flex items-center justify-between  z-[999]">
+    <header className="fixed top-0 left-0 w-full h-[60px] bg-[#23252B] shadow-md flex items-center justify-between  z-[999]">
       <div className="flex justify-between w-full items-center bg-[#23252B]">
         {/* Logo Skeleton */}
         <div className="flex items-center ">

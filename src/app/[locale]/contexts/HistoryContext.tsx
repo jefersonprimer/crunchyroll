@@ -14,6 +14,7 @@ interface HistoryContextType {
   addToHistory: (episode: Episode, anime: Anime) => void;
   clearHistory: () => void;
   removeFromHistory: (episodeId: string) => void;
+  loading: boolean;
 }
 
 const HistoryContext = createContext<HistoryContextType | undefined>(undefined);
@@ -31,6 +32,7 @@ export const HistoryProvider: React.FC<{ children: React.ReactNode }> = ({ child
     watchedAt: string;
   }>>(defaultHistory);
   const [isClient, setIsClient] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Load history from localStorage only once on mount
   useEffect(() => {
@@ -50,6 +52,7 @@ export const HistoryProvider: React.FC<{ children: React.ReactNode }> = ({ child
       console.error('Error loading history from localStorage:', error);
       localStorage.removeItem('watchHistory');
     }
+    setLoading(false);
   }, []); // Empty dependency array ensures this only runs once
 
   // Memoize the addToHistory function
@@ -116,7 +119,8 @@ export const HistoryProvider: React.FC<{ children: React.ReactNode }> = ({ child
     addToHistory,
     clearHistory,
     removeFromHistory,
-  }), [watchedEpisodes, addToHistory, clearHistory, removeFromHistory]);
+    loading,
+  }), [watchedEpisodes, addToHistory, clearHistory, removeFromHistory, loading]);
 
   return (
     <HistoryContext.Provider value={value}>

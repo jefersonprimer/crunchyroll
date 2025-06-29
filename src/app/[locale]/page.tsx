@@ -1,7 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
-import React, { memo, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/layout/Header";
 import PageLoading from "../components/loading/PageLoading";
 import AnimeCarouselFullScreen from "../components/carousel/AnimeCarouselFullScreen";
@@ -22,8 +21,6 @@ import YuzuSection from "./components/YuzuSection";
 
 
 const HomePage = () => {
-  const params = useParams();
-  const locale = params.locale as string;
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -74,17 +71,9 @@ const HomePage = () => {
         <AnimeCarouselPopular />
       </SpacedSection>
 
-      {/* <SpacedSection>
-        <AnimeCarouselNextSeason />
-      </SpacedSection> */}
-
       <SpacedSection>
         <AnimeCarouselDub />
       </SpacedSection>
-
-      {/* <SpacedSection>
-        <MovieCarousel />
-      </SpacedSection> */}
 
       <SpacedSection>
         <Outdoor

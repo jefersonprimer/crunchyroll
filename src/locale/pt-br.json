@@ -65,12 +65,12 @@
         }
     },
     "Crunchylist": {
-        "title": "Minhas listas",
+        "title": "Crie e Gerencie Crunchylistas | Crunchyroll",
+        "description": "Crie e Gerencie Crunchylistas | Crunchyroll",
+        "mylists": "Minhas listas",
         "queue": "fila",
         "crunchylists": "crunchylists",
-        "history": "histórico"
-    },
-    "CrunchylistComponent": {
+        "history": "histórico",
         "createNewList": "criar nova lista",
         "listsCount": "{count}/10 listas",
         "noLists": "Nenhuma lista criada ainda.",
@@ -125,11 +125,11 @@
         "close": "Fechar"
     },
     "navigation": {
-        "new": "Novos",
+        "new": "Novidades",
         "popular": "Populares",
         "simulcasts": "Simulcasts",
         "categories": "Categorias",
-        "exploreAll": "Explorar Todos (A-Z)",
+        "exploreAll": "Explorar Tudo (A-Z)",
         "releaseCalendar": "Calendário de Lançamentos",
         "videosAndShows": "Vídeos e Programas",
         "genres": "gêneros",
@@ -193,9 +193,11 @@
         "copyright": "© Crunchyroll, LLC"
     },
     "History": {
+        "title": "Histórico de Animes Recentes | Crunchyroll",
+        "description": "Gerencie sua Crunchylistas | Crunchyroll",
         "historyHeaderTitle": "Mais Recentes",
         "clearHistory": "limpar histórico",
-        "title": "Minhas listas",
+        "mylists": "Minhas listas",
         "queue": "fila",
         "crunchylists": "crunchylists",
         "history": "histórico"
@@ -515,11 +517,12 @@
             "mostPopular": "Mais Populares",
             "mostRecent": "Mais Recentes",
             "alphabeticalOrder": "Ordem Alfabética",
-            "filter": "FILTRAR",
+            "filter": "filtrar",
             "language": "Idioma",
             "all": "Todos",
             "subtitled": "Legendado",
-            "dubbed": "Dublado"
+            "dubbed": "Dublado",
+            "subtitled_dubbed": "Leg | Dub"
         },
         "noResults": "Nenhum anime encontrado com a letra \"{letter}\"",
         "actions": {
@@ -603,11 +606,9 @@
         }
     },
     "WatchlistPage": {
-        "title": "Crie sua lista personalizada | Crunchyroll",
-        "description": "Crie sua lista personalizada | Crunchyroll"
-    },
-    "Watchlist": {
-        "title": "Minhas listas",
+        "title": "Faça a Curadoria da sua Lista Customizada | Crunchyroll",
+        "description": "Faça a Curadoria da sua Lista Customizada",
+        "mylists": "Minhas listas",
         "queue": "fila",
         "crunchylists": "crunchylists",
         "history": "histórico",

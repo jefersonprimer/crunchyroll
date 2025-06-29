@@ -63,18 +63,19 @@ export const UserIcon = () => (
 );
 
 export const PremiumIcon = () => (
-  <svg
+  <svg 
     className="w-[24px] h-[24px] cursor-pointer"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 16 16"
-    data-t="premium-filled-svg"
-    aria-labelledby="premium-filled-svg"
-    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 24 24" 
+    data-t="premium-filled-svg" 
+    aria-hidden="true" 
     role="img"
     fill="#FAB818"
   >
-    <title id="premium-filled-svg">Premium</title>
-    <path d="M2.419 13L0 4.797 4.837 6.94 8 2l3.163 4.94L16 4.798 13.581 13z"></path>
+    <path fillRule="evenodd" 
+    clipRule="evenodd" 
+    d="M2 8L8 9L12 3L16 9L22 8L18 19H6L2 8Z">
+    </path>
   </svg>
 );
 

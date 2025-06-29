@@ -38,7 +38,7 @@ export default function NewsMenu() {
   };
 
   return (
-    <li className="relative h-full">
+    <div className="relative h-full">
       <div
         ref={buttonRef}
         className={`relative z-[1001] font-weight-500 text-[1rem] leading-[1.5rem] flex items-center gap-0.5 text-[#DADADA] no-underline cursor-pointer px-4 h-full whitespace-nowrap hover:text-[#ffffff] hover:bg-[#141519] 
@@ -82,7 +82,7 @@ export default function NewsMenu() {
           </div>
         </>
       )}
-    </li>
+    </div>
   );
 } 
 

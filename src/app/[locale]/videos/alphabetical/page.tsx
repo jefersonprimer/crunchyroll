@@ -127,7 +127,7 @@ const AnimeList = () => {
                 <title id="sort-svg">{t('sort.title')}</title>
                 <path d="M9 18a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h6zM21 4a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h18zm-6 7a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h12z"></path>
               </svg>
-              <span className="cursor-pointer text-sm font-bold text-[#A0A0A0] hover:text-white">
+              <span className="cursor-pointer text-sm font-bold text-[#A0A0A0] hover:text-white uppercase">
                 {t('filters.alphabetical')}
               </span>
             </div>
@@ -166,7 +166,7 @@ const AnimeList = () => {
                 <title id="filter-svg">{t('filter.title')}</title>
                 <path fillRule="evenodd" d="M9 5c1.103 0 2 .897 2 2s-.897 2-2 2-2-.897-2-2 .897-2 2-2M3 8a1 1 0 0 1 0-2h2.142c.447-1.72 2-3 3.858-3s3.411 1.28 3.858 3H21a1 1 0 0 1 0 2h-8.142c-.447 1.72-2 3-3.858 3S5.589 9.72 5.142 8H3zm12 11c1.103 0 2-.897 2-2s-.897-2-2-2-2 .897-2 2 .897 2 2 2zm6-3a1 1 0 0 1 0 2h-2.142c-.447 1.72-2 3-3.858 3s-3.411-1.28-3.858-3H3a1 1 0 0 1 0-2h8.142c.447-1.72 2-3 3.858-3s3.411 1.28 3.858 3H21z"></path>
               </svg>
-              <span className={`cursor-pointer text-sm font-bold text-[#A0A0A0] hover:text-white ${activeDropdown === 'audio' ? 'text-white' : ''}`}>
+              <span className={`cursor-pointer text-sm font-bold text-[#A0A0A0] hover:text-white uppercase ${activeDropdown === 'audio' ? 'text-white' : ''}`}>
                 {t('filters.filter')}
               </span>
             </div>

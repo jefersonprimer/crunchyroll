@@ -91,7 +91,8 @@ html {
 
 .anime-carousel-lancamentos {
   position: relative;
-  margin-top: -36.5vh;
+  /* margin-top: -36.5vh; */
+  margin-top: -35.5vh;
   z-index: 2;
   backdrop-filter: blur(2px);
 }
@@ -158,3 +159,4 @@ html {
   color: #ff640a;
   text-decoration: none;
 }
+

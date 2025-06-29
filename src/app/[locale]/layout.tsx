@@ -5,7 +5,7 @@ import { NextIntlClientProvider } from "next-intl";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
-const locales = ["en", "pt-br", "es"];
+const locales = ["en", "pt-br"];
 
 export default function LocaleLayout({
   children,
