@@ -1,0 +1,116 @@
+enum SeasonEnum {
+  WINTER
+  SPRING
+  SUMMER
+  FALL
+}
+
+type AnimeSeason {
+  id: ID!
+  animeId: ID!
+  seasonNumber: Int!
+  seasonName: String
+  status: String
+  totalEpisodes: Int
+  firstEpisodeDate: String
+  lastEpisodeDate: String
+  season: SeasonEnum
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Anime {
+  id: ID!
+  slug: String!
+  name: String!
+  releaseYear: String
+  releaseDate: String
+  image: String
+  imageDesktop: String
+  synopsis: String
+  rating: Int
+  score: Float
+  genre: [String!]
+  airingDay: String
+  totalEpisodes: Int
+  currentSeason: Int
+  seasonNames: JSON
+  seasonYears: JSON
+  audioType: String
+  logoAnime: String
+  thumbnailImage: String
+  audioLanguages: [String!]!
+  subtitles: [String!]!
+  contentAdvisory: String
+  based: JSON
+  seasons: [AnimeSeason!]!
+
+  isPopular: Boolean!
+  isSeasonPopular: Boolean!
+  isReleasing: Boolean!
+  isNewRelease: Boolean!
+  hasNextSeason: Boolean!
+  hasThumbnail: Boolean!
+  isMovie: Boolean!
+
+  createdAt: String!
+  updatedAt: String!
+  episodes: [Episode!]!
+}
+
+type EpisodeSubtitle {
+  episodeId: ID!
+  language: String!
+  subtitleUrl: String!
+}
+
+type EpisodeThumbnail {
+  episodeId: ID!
+  previewSpriteUrl: String
+  mainThumbnailUrl: String
+}
+
+type Episode {
+  id: ID!
+  animeId: ID!
+  seasonId: ID!
+  season: Int!
+  title: String!
+  slug: String!
+  duration: String
+  synopsis: String
+  image: String
+  videoUrl: String
+  releaseDate: String
+  isLancamento: Boolean!
+  createdAt: String!
+  updatedAt: String!
+  likes_count: Int!
+  dislikes_count: Int!
+  subtitles: [EpisodeSubtitle!]!
+  thumbnail: EpisodeThumbnail
+}
+
+type AnimeVote {
+  id: ID!
+  anime_id: ID!
+  user_id: ID!
+  score: Int!
+  created_at: String!
+  updated_at: String!
+}
+
+type Query {
+  animes: [Anime!]!
+  animeBySlug(slug: String!): Anime
+  episodesByAnime(animeId: ID!): [Episode!]!
+  latestReleases: [Anime!]!
+  popularAnimes: [Anime!]!
+  releasingAnimes: [Anime!]!
+  seasonPopularAnimes: [Anime!]!
+  nextSeasonAnimes: [Anime!]!
+  hasThumbnail: [Anime!]!
+  movie: [Anime!]!
+  getAllAnimeNames: [String!]!
+  userAnimeVote(animeId: ID!, userId: ID!): AnimeVote
+}
