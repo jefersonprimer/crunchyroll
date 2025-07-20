@@ -14,7 +14,6 @@ import HeroSection from "./components/HeroSection";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import { useTranslations } from "next-intl";
-import PageLoading from "@/app/components/loading/PageLoading";
 
 const Page = () => {
   const t = useTranslations('Series');
@@ -24,7 +23,7 @@ const Page = () => {
   const [recommendations, setRecommendations] = useState<Anime[]>([]);
   const [expandedSynopsis, setExpandedSynopsis] = useState(false);
 
-  const { data, loading, error } = useQuery(GET_ANIMES);
+  const { data, loading, error, refetch } = useQuery(GET_ANIMES);
 
   useEffect(() => {
     if (slug && data?.animes) {
@@ -52,10 +51,6 @@ const Page = () => {
     setExpandedSynopsis(!expandedSynopsis);
   };
 
-  if (loading) {
-    return <PageLoading/>;
-  }
-
   if (error) {
     return (
       <div>
@@ -81,16 +76,18 @@ const Page = () => {
         anime={anime}
         expandedSynopsis={expandedSynopsis}
         toggleSynopsis={toggleSynopsis}
+        refetchAnime={refetch}
       />
+      
       <PremiumUpsell />
-      <div className="px-10">
-        <EpisodesSection anime={anime} />
-      </div>
-      <div className="py-6 w-[1351px] mx-auto">
-        <div className="w-full flex justify-center">
-          <h2 className="text-2xl text-white text-center">{t('recommendationsTitle')}</h2>
+      
+      <EpisodesSection anime={anime} />
+     
+      <div className="py-6 w-full lg:w-[1351px] mx-auto justify-center items-center">
+        <div className="w-full flex lg:w-[1223px] mx-auto my-2">
+          <h2 className="text-2xl text-white">{t('recommendationsTitle')}</h2>
         </div>
-        <div className="flex flex-col items-center justify-center text-center max-w-[1200px] mx-auto p-5">
+        <div className="flex flex-col items-center justify-center text-center mx-auto">
           <RecommendationCarousel animes={recommendations} />
         </div>
       </div>

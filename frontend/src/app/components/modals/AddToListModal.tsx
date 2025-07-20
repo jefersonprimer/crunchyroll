@@ -48,10 +48,10 @@ const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose, onAddTo
 
   const modalContent = (
     <div
-      className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-[1000] bg-black/50"
+      className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-[1000] bg-[#23252B]/60"
       onClick={handleOverlayClick}
     >
-      <div className="bg-[#23252B] p-5 max-w-lg w-[90%] relative">
+      <div className="relative bg-[#23252B] p-5 w-full h-auto max-w-[720px] max-h-[512px]">
         <button
           className="absolute top-2 right-2 bg-transparent border-none text-2xl cursor-pointer text-white"
           onClick={onClose}
@@ -69,23 +69,17 @@ const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose, onAddTo
             </path>
           </svg>
         </button>
-        <h3 className="text-xl text-center mt-5">{t('title')}</h3>
+        <h2 className="text-xl font-semibold text-center mt-5">{t('title')}</h2>
 
         <div className="mt-5 p-2 max-h-[300px] overflow-y-auto">
           <div className="flex flex-col gap-2">
-            <input
-              type="text"
-              value={newListName}
-              onChange={(e) => setNewListName(e.target.value)}
-              placeholder={t('newListName')}
-              className="text-white border-b border-gray-500 bg-transparent p-2 outline-none transition duration-300 focus:border-orange-500"
-            />
+       
 
-            <div className="flex justify-between items-center py-5 border-b border-gray-500">
-              <span>{lists.length}/10 {t('listCount')}</span>
+            <div className="flex justify-between items-center py-5 px-2 border-b-2 border-[#4A4E58]">
+              <span className="font-medium text-base text-[#a0a0a0]">{lists.length}/10 {t('listCount')}</span>
               <button
                 onClick={() => setIsCreateModalOpen(true)}
-                className="bg-transparent border-none cursor-pointer text-gray-500 hover:text-white"
+                className="bg-transparent border-none cursor-pointer font-bold text-sm text-[#a0a0a0] hover:text-white uppercase"
               >
                 {t('createNewList')}
               </button>
@@ -95,11 +89,11 @@ const AddToListModal: React.FC<AddToListModalProps> = ({ anime, onClose, onAddTo
           {lists.map((list) => (
             <div
               key={list.id}
-              className="flex justify-between p-2 border-b border-gray-500 hover:bg-[#141519]"
+              className="flex justify-between p-4 border-b-2 border-[#4A4E58] hover:bg-[#141519] cursor-pointer"
             >
               <div>
-                <p className="pb-2">{list.name}</p>
-                <span>{list.items.length} {t('items')}</span>
+                <p className="pb-2 font-semibold text-white text-base">{list.name}</p>
+                <span className="text-[#a0a0a0] text-sm">{list.items.length} {t('items')}</span>
               </div>
               <button
                 onClick={() =>

@@ -43,7 +43,6 @@ const FavoritesCarousel: React.FC<FavoritesCarouselProps> = ({ useOnScreen: useO
   }
 
   if (!canLoad) {
-    console.log('[FavoritesCarousel] Renderizando skeleton');
     return (
       <div ref={useOnScreenProp ? ref : undefined} className="items-center justify-center w-[1351px] h-auto min-h-[325.33px] bg-[#000000]">
         <div className="w-[1223px] h-[52px] my-0 mx-auto flex justify-between items-center bg-[#000000]">
@@ -77,14 +76,14 @@ const FavoritesCarousel: React.FC<FavoritesCarouselProps> = ({ useOnScreen: useO
   }
 
   return (
-    <div ref={useOnScreenProp ? ref : undefined} className="items-center justify-center w-[1351px] h-auto min-h-[325.33px] bg-[#000000]">
-      <div className="w-[1223px] h-[52px] my-0 mx-auto flex justify-between items-center bg-[#000000]">
-        <h2 className="text-[1.5rem] text-[#FFFFFF] mb-[8px]">Sua Lista</h2>
+    <div ref={useOnScreenProp ? ref : undefined} className="items-center justify-center w-auto lg:w-[1351px] h-auto lg:min-h-[325.33px] bg-[rgb(0,0,0)] px-2">
+      <div className="w-auto lg:w-[1223px] h-auto lg:h-[52px] my-0 lg:mx-auto flex justify-between items-center bg-[#000000] px-2 md:px-4 lg:px-0">
+        <h2 className="text-[1.5rem] text-[#FFFFFF] lg:mb-[8px]">Sua Lista</h2>
         <div className="flex items-center">
           <Link href={`/${locale}/watchlist`} className="flex items-center no-underline text-[#A0A0A0] font-bold hover:text-[#FFFFFF]">
-            <span>VER FILA</span>
+            <span className="hidden md:inline">VER FILA</span>
             <svg
-              className="w-5 h-5"
+              className="w-6 h-6"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               aria-labelledby="angle-svg"
@@ -99,7 +98,10 @@ const FavoritesCarousel: React.FC<FavoritesCarouselProps> = ({ useOnScreen: useO
         </div>
       </div>
 
-      <div className="w-[1233px] h-auto min-h-[273.33px] flex gap-[.75rem] pb-[10px] my-0 mx-auto">
+      <div
+        className="w-auto lg:w-[1233px] grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-0 m-0 lg:mx-auto"
+        ref={useOnScreenProp ? ref : undefined}
+      >
         {favorites.slice(-4).map((anime) => (
           <FavoritesCard
             key={anime.id}

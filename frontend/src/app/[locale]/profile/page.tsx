@@ -8,7 +8,7 @@ import Header from '@/app/components/layout/Header';
 import Footer from '@/app/components/layout/Footer';
 import { useAuth } from '@/app/[locale]/hooks/useAuth';
 import { useUpdateProfile } from '@/app/[locale]/hooks/useUpdateProfile';
-import PageLoading from '@/app/components/loading/PageLoading';
+import Loading from '../loading';
 
 interface UserProfile {
   id: string;
@@ -105,7 +105,7 @@ const Profile = () => {
   };
 
   if (isLoading) {
-    return <PageLoading/>;
+    return <Loading/>;
   }
 
   if (!userProfile) {

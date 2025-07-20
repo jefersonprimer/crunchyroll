@@ -15,13 +15,34 @@ interface EpisodesData {
   animes: Anime[];
 }
 
-const EpisodesPage = () => {
+// Função para obter o nome do dia da semana em português
+function getWeekdayName(date: Date) {
+  return date.toLocaleDateString('pt-BR', { weekday: 'long' });
+}
+
+// Função para formatar o nome do dia (capitalizar e ajustar hífen)
+function formatWeekdayName(date: Date) {
+  let name = date.toLocaleDateString('pt-BR', { weekday: 'long' });
+  name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  name = name.replace(/-([a-z])/g, (match, p1) => '-' + p1.toUpperCase());
+  return name;
+}
+
+const EpisodeTimeline = () => {
   const { data, loading, error } = useQuery<EpisodesData>(GET_ANIMES);
 
   // Pega todos os episódios de todos os animes
   const allEpisodes = data?.animes?.flatMap(anime => 
     anime.episodes.map(episode => ({ episode, anime }))
   ) || [];
+
+  // Definir datas para hoje, ontem e anteontem no escopo do componente
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+  const twoDaysAgo = new Date(today);
+  twoDaysAgo.setDate(today.getDate() - 2);
 
   // Função para agrupar os episódios
   const groupEpisodesByDate = (): EpisodesGrouped => {
@@ -117,7 +138,7 @@ const EpisodesPage = () => {
       <span>
         <a href="/simulcastcalendar" className="no-underline">
           <div className="flex justify-center items-center">
-            <h2 className="text-[#A0A0A0] text-sm hover:text-white">VER CALENDÁRIO DE LANÇAMENTOS</h2>
+            <h2 className="text-[#A0A0A0] text-sm font-bold hover:text-white">VER CALENDÁRIO DE LANÇAMENTOS</h2>
             <span>
               <svg 
                 className="fill-white w-6 h-6" 
@@ -140,7 +161,7 @@ const EpisodesPage = () => {
     {/* Seção de Episódios - Hoje */}
     {episodesGrouped.hoje.length > 0 ? (
       <div>
-        <h3 className="text-red-500">Hoje</h3>
+        <h3 className="text-xl font-semibold border-b-2 border-[#4A4E58] pb-4">Hoje</h3>
         <div className="grid grid-cols-3 gap-5 p-5">
           {episodesGrouped.hoje.map((episode) => (
             <EpisodeCard key={episode.id} episode={episode} anime={findAnimeForEpisode(episode)} />
@@ -149,7 +170,7 @@ const EpisodesPage = () => {
       </div>
     ) : (
       <div>
-        <h3>Hoje</h3>
+        <h3 className="text-xl font-semibold border-b-2 border-[#4A4E58] pb-2">Hoje</h3>
         <p>Nenhum episódio disponível.</p>
       </div>
     )}
@@ -157,7 +178,7 @@ const EpisodesPage = () => {
     {/* Seção de Episódios - Ontem */}
     {episodesGrouped.ontem.length > 0 ? (
       <div>
-        <h3 className="text-red-500">Ontem</h3>
+        <h3 className="text-xl font-semibold border-b-2 border-[#4A4E58] pb-2">Ontem</h3>
         <div className="grid grid-cols-3 gap-5 p-5">
           {episodesGrouped.ontem.map((episode) => (
             <EpisodeCard key={episode.id} episode={episode} anime={findAnimeForEpisode(episode)} />
@@ -166,7 +187,7 @@ const EpisodesPage = () => {
       </div>
     ) : (
       <div>
-        <h3>Ontem</h3>
+        <h3 className="text-xl font-semibold border-b-2 border-[#4A4E58] pb-2">Ontem</h3>
         <p>Nenhum episódio disponível.</p>
       </div>
     )}
@@ -174,7 +195,7 @@ const EpisodesPage = () => {
     {/* Seção de Episódios - Anteontem */}
     {episodesGrouped.anteontem.length > 0 ? (
       <div>
-        <h3 className="text-red-500">Anteontem</h3>
+        <h3  className="text-xl font-semibold border-b-2 border-[#4A4E58] pb-2">{formatWeekdayName(twoDaysAgo)}</h3>
         <div className="grid grid-cols-3 gap-5 p-5">
           {episodesGrouped.anteontem.map((episode) => (
             <EpisodeCard key={episode.id} episode={episode} anime={findAnimeForEpisode(episode)} />
@@ -183,31 +204,14 @@ const EpisodesPage = () => {
       </div>
     ) : (
       <div>
-        <h3>Anteontem</h3>
-        <p>Nenhum episódio disponível.</p>
-      </div>
-    )}
-  
-    {/* Seção de Episódios - Próximos */}
-    {episodesGrouped.proximos.length > 0 ? (
-      <div>
-        <h3 className="text-red-500">Próximos Lançamentos</h3>
-        <div className="grid grid-cols-3 gap-5 p-5">
-          {episodesGrouped.proximos.map((episode) => (
-            <EpisodeCard key={episode.id} episode={episode} anime={findAnimeForEpisode(episode)} />
-          ))}
-        </div>
-      </div>
-    ) : (
-      <div>
-        <h3>Próximos Lançamentos</h3>
+        <h3 className="text-xl font-semibold border-b-2 border-[#4A4E58] pb-2">{formatWeekdayName(twoDaysAgo)}</h3>
         <p>Nenhum episódio disponível.</p>
       </div>
     )}
   
     {/* Botão para carregar mais episódios */}
     <div className="text-center mt-5">
-      <button className="w-full bg-[#213944] text-white border-none py-2.5 px-5 text-base cursor-pointer hover:bg-[#005bb5]">
+      <button className="w-full bg-[#213944] text-white border-none py-2.5 px-5 text-base cursor-pointer opacity-90 hover:opacity-100">
         <span className="text-white">VER MAIS</span>
       </button>
     </div>
@@ -215,6 +219,6 @@ const EpisodesPage = () => {
   );
 };
 
-export default EpisodesPage;
+export default EpisodeTimeline;
 
 

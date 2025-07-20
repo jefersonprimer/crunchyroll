@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Post } from "../../../[locale]/news/types/posts";
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 
 // Função para formatar a data no formato "Mar 17, 2025"
@@ -91,13 +92,15 @@ const PostCard: React.FC<PostCardProps> = ({ post, hideImage = false, loading = 
   }
 
   return (
-    <div className="w-[264px] h-auto min-h-[256px] p-2 hover:bg-[#23252B]">
+    <div className="w-auto lg:w-[264px] h-auto min-h-[256px] p-2 hover:bg-[#23252B]">
       <Link href={getPostUrl(post)} className="block">
         {!hideImage && (
-          <img
+          <Image
             src={post.cover_image}
             alt={post.title}
-            className="w-[264px] h-[148px] mb-4"
+            width={264}
+            height={148}
+            className="mb-4"
           />
         )}
         

@@ -3,11 +3,10 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useLists } from '../../contexts/ListsContext';
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { FavoritesProvider } from '../../contexts/FavoritesContext';
 import Header from '@/app/components/layout/Header';
 import Footer from '@/app/components/layout/Footer';
 import Link from 'next/link';
-import AnimeCard from '../components/AnimeCard';
+import AnimeCard from './components/AnimeCard';
 import { Anime } from '@/types/anime';
 import { useTranslations } from 'next-intl';
 import { useQuery } from '@apollo/client';
@@ -96,7 +95,7 @@ export default function Page() {
       <div>
         <Header />
         <div>
-          <div className="flex flex-col max-w-[1050px] mx-auto py-5">
+          <div className="flex flex-col max-w-[1050px]  w-full  mx-auto py-5">
             <div className="flex flex-col items-start mb-5 w-full no-underline">
               <Link href={`/${locale}/crunchylists`}>
                 <div>

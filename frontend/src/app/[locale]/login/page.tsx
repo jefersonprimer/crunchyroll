@@ -23,7 +23,7 @@ const Login = () => {
     setError('');
     const result = await login(email, password);
     if (result.success) {
-      router.push(`/${locale}/profile`);
+      router.push(`/`);
     } else {
       setError(result.error);
     }

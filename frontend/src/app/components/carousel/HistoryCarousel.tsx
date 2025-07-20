@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useHistory } from '@/app/[locale]/contexts/HistoryContext';
-import { EpisodeCard } from '../cards/EpisodioCard';
+import { EpisodeCard } from '../cards/EpisodeCard';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useOnScreen } from '@/app/[locale]/hooks/useOnScreen';
@@ -42,15 +42,17 @@ const HistoryCarousel: React.FC<HistoryCarouselProps> = ({ useOnScreen: useOnScr
 
   if (!canLoad) {
     return (
-      <div ref={useOnScreenProp ? ref : undefined} className="p-0 m-0 mx-auto text-left flex flex-col w-[1351px] min-h-[301.33px]">
-        <div className="flex justify-between items-center bg-black p-0 m-0 mx-auto w-[1223px] h-[52px]">
+      <div ref={useOnScreenProp ? ref : undefined} className="p-0 m-0 mx-auto text-left flex flex-col w-auto lg:w-[1351px] h-auto lg:min-h-[301.33px]">
+        <div className="flex justify-between items-center bg-black p-0 m-0 mx-auto w-auto lg:w-[1223px]  h-auto lg:h-[52px]">
           <h2 className="text-[1.75rem] font-bold text-white">Continue Assistindo</h2>
         </div>
-        <div className="w-[1233px] flex items-start justify-start gap-[20px] p-0 m-0 mx-auto">
+        <div
+          className="w-auto lg:w-[1233px] grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[20px] p-0 m-0 mx-auto"
+        >
           {[...Array(4)].map((_, idx) => (
             <div
               key={idx}
-              className="card relative flex-none w-[300.25px] h-[273.33px] overflow-visible cursor-pointer text-left opacity-70 animate-pulse"
+              className="card relative flex-none w-full h-[273.33px] overflow-visible cursor-pointer text-left opacity-70 animate-pulse"
               style={{ display: 'flex', flexDirection: 'column', padding: '10px' }}
             >
               <div style={{ width: '100%', height: '160px', position: 'relative', marginBottom: 8 }}>
@@ -72,15 +74,15 @@ const HistoryCarousel: React.FC<HistoryCarouselProps> = ({ useOnScreen: useOnScr
   }
 
   return (
-    <div ref={useOnScreenProp ? ref : undefined} className="p-0 m-0 mx-auto text-left flex flex-col w-[1351px] min-h-[301.33px]">
-      <div className="flex justify-between items-center bg-black p-0 m-0 mx-auto w-[1223px] h-[52px]">
+    <div ref={useOnScreenProp ? ref : undefined} className="p-0 m-0 lg:mx-auto text-left flex flex-col w-auto lg:w-[1351px] h-auto lg:min-h-[301.33px]">
+      <div className="flex justify-between lg:items-center bg-black p-0 m-0 lg:mx-auto w-auto lg:w-[1223px] h-auto lg:h-[52px] px-4 md:px-0 ">
         <h2 className="text-[1.75rem] font-bold text-white">Continue Assistindo</h2>
         <div className="flex items-center">
           <Link
             href={`/${locale}/history`}
             className="flex items-center text-[#A0A0A0] font-bold transition-colors duration-200 hover:text-white"
           >
-            <span>VER HISTÓRICO</span>
+            <span className="hidden md:inline">VER HISTÓRICO</span>
             <svg
               className="w-6 h-6 fill-current"
               xmlns="http://www.w3.org/2000/svg"
@@ -96,9 +98,9 @@ const HistoryCarousel: React.FC<HistoryCarouselProps> = ({ useOnScreen: useOnScr
         </div>
       </div>
 
-      <div className="w-[1233px] flex items-start justify-start gap-[20px] p-0 m-0 mx-auto">
+      <div className="w-auto lg:w-[1233px] grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-2 lg:gap-4 p-0 px-4 md:px-0 m-0 lg:mx-auto">
         {watchedEpisodes.slice(-4).map(({ episode, anime }) => (
-          <div key={episode.id}>
+          <div key={episode.id} className="w-full">
             <EpisodeCard episode={episode} anime={anime} />
           </div>
         ))}

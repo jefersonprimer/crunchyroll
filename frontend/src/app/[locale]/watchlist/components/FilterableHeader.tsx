@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useCallback, useId } from 'react';
 import { useFilters } from '../../contexts/FilterContext';
 import { useTranslations } from 'next-intl';
@@ -65,13 +67,13 @@ const FilterableHeader: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-wrap justify-between gap-4 w-full max-w-[1050px] mb-2 px-2 mx-auto">
-      <div className="flex items-center justify-between flex-wrap">
-        <h2 className="text-[#FFFFFF] text-[1.25rem] font-weight-700">{t('sortOptions.mostRecentUpdate')}</h2>
+    <div className="flex justify-between items-center gap-4 min-w-[445px] w-auto max-w-[1050px] h-[44px] mb-2 mx-auto">
+      <div className="flex-1 w-full">
+        <h2 className="text-[#FFFFFF] text-[1.25rem] font-semibold truncate">{t('sortOptions.mostRecentUpdate')}</h2>
       </div>
-      <div className="flex gap-4 flex-wrap">
+      <div className="flex gap-2">
         <div className='text-[#A0A0A0] hover:text-[#FFF] hover:bg-[#23252B]'>
-          <div className="relative min-w-[150px]">
+          <div className="relative">
             <div className="dropdown">
               <div
                 role="button"
@@ -99,7 +101,7 @@ const FilterableHeader: React.FC = () => {
                 >
                   <path d="M9 18a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h6zM21 4a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h18zm-6 7a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h12z" />
                 </svg>
-                <span className="text-sm font-medium">
+                <span className="hidden sm:inline text-sm font-medium uppercase">
                   {t('buttons.sort')}
                 </span>
               </div>
@@ -171,7 +173,7 @@ const FilterableHeader: React.FC = () => {
         </div>
         
         <div className='text-[#A0A0A0] hover:text-[#FFF] hover:bg-[#23252B]'>
-          <div className="relative min-w-[150px]">
+          <div className="relative">
             <div className="dropdown">
               <div
                 role="button"
@@ -202,13 +204,13 @@ const FilterableHeader: React.FC = () => {
                     d="M9 5c1.103 0 2 .897 2 2s-.897 2-2 2-2-.897-2-2 .897-2 2-2M3 8a1 1 0 0 1 0-2h2.142c.447-1.72 2-3 3.858-3s3.411 1.28 3.858 3H21a1 1 0 0 1 0 2h-8.142c-.447 1.72-2 3-3.858 3S5.589 9.72 5.142 8H3zm12 11c1.103 0 2-.897 2-2s-.897-2-2-2-2 .897-2 2 .897 2 2 2zm6-3a1 1 0 0 1 0 2h-2.142c-.447 1.72-2 3-3.858 3s-3.411-1.28-3.858-3H3a1 1 0 0 1 0-2h8.142c.447-1.72 2-3 3.858-3s3.411 1.28 3.858 3H21z"
                   />
                 </svg>
-                <span className="text-sm font-medium">{t('buttons.filter')}</span>
+                <span className="hidden sm:inline text-sm font-medium uppercase">{t('buttons.filter')}</span>
               </div>
               
               {isDropdownOpen('filter') && (
                 <div
                   id={filterDropdownId}
-                  className="absolute top-full right-0 min-w-[180px] max-w-[90vw] max-h-[70vh] overflow-y-auto bg-[#23252B] shadow-lg z-50 transition-all duration-200 opacity-100 scale-100"
+                  className="absolute top-full right-0 w-[200px] overflow-y-auto bg-[#23252B] shadow-lg z-50 transition-all duration-200 opacity-100 scale-100"
                   role="menu"
                   aria-label={t('buttons.filter')}
                 >

@@ -17,13 +17,13 @@ import { useHistory } from "@/app/[locale]/contexts/HistoryContext";
 
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
-import PageLoading from "@/app/components/loading/PageLoading";
+import Loading from "@/app/[locale]/loading";
 
 const EpisodePage: FC = () => {
   const t = useTranslations('Watch');
   const params = useParams();
   const { publicCode, slug } = params;
-  const { data, loading, error } = useQuery(GET_ANIMES);
+  const { data, loading, error, refetch } = useQuery(GET_ANIMES);
   const [expandedSynopsis, setExpandedSynopsis] = useState(false);
   const [showEpisodesModal, setShowEpisodesModal] = useState(false);
   const { addToHistory } = useHistory();
@@ -44,12 +44,9 @@ const EpisodePage: FC = () => {
     }
   }, [currentEpisode, anime, addToHistory]);
 
-  if (!publicCode || !slug || loading) {
-    return <PageLoading />;
-  }
 
   if (!anime) {
-    return <div>Anime não encontrado.</div>;
+    return <Loading/>;
   }
 
   if (!currentEpisode) {
@@ -67,13 +64,13 @@ const EpisodePage: FC = () => {
         title={`${t('watch')} ${anime.name} - ${currentEpisode.title}`}
         description={`${t('watch')} ${anime.name}: ${anime.synopsis?.substring(0, 160) || ''}...`}
       />
-      <div className="w-[1351px]">
+      <div className="w-[1351px] pb-10">
         <EpisodeVideoPlayer episode={currentEpisode} />
       </div>
       <div className="w-[1100px] mb-[60px] box-border">
         <div className="flex w-full gap-8">
           <div className="flex-[2] min-w-0"> 
-            <EpisodeHeader anime={anime} episode={currentEpisode} />
+            <EpisodeHeader anime={anime} episode={currentEpisode} refetchEpisode={refetch} />
             <EpisodeSynopsis
               episode={currentEpisode}
               anime={anime}

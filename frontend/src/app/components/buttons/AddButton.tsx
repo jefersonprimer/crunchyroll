@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import TooltipPortal from '../TooltipPortal';
+import TooltipPortal from '../utils/TooltipPortal';
 
 interface AddButtonProps {
   onClick: () => void;

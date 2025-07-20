@@ -2,12 +2,30 @@ import Link from "next/link"
 
 export default function HeaderSkeleton() {
   return (
-    <header className="fixed top-0 left-0 w-full h-[60px] bg-[#23252B] 
-    shadow-md flex items-center justify-between  z-[999]">
+    <header className="sticky top-0 w-auto h-[60px] bg-[#23252B] z-[999]">
       <div className="flex justify-between w-full items-center bg-[#23252B]">
+        {/* Hamburger: visível até 1023px, sempre à esquerda */}
+        <button
+          className="flex items-center justify-center w-[60px] h-[60px] border-none cursor-pointer hover:bg-[#141519] lg:hidden"
+        >
+          <div className="flex items-center justify-center w-[34px] h-[24px]">
+          <svg
+            className="w-[24px] h-[24px] ml-0 cursor-pointer"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            aria-labelledby="menu-svg"
+            aria-hidden="true"
+            role="img"
+          >
+            <title id="menu-svg">Menu</title>
+            <path d="M21 4a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h18zm0 7a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h18zm0 7a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h18z"></path>
+          </svg>
+          </div>
+        </button>
         {/* Logo Skeleton */}
-        <div className="flex items-center ">
-          <div className="w-[180px] h-[60px] overflow-hidden flex items-center justify-center">
+        <div className="flex items-center">
+          {/* Logo normal: aparece a partir de 568px */}
+          <div className="w-[180px] h-[60px] overflow-hidden items-center justify-center hidden sm:flex">
             <Link href="/" className="w-full h-full flex items-center justify-center px-4">
               <svg 
                 className="w-[140px] h-[60px]"
@@ -22,10 +40,26 @@ export default function HeaderSkeleton() {
               </svg>
             </Link>
           </div>
+          {/* Logo mobile: só até 567px */}
+          <div className="flex items-center w-[60px] h-[60px] sm:hidden">
+            <Link href="/" className="flex items-center justify-center w-[60px] h-[60px]">
+              <svg
+                className="w-[24px] h-[60px] transition-[fill] duration-300 ease-in-out"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 48 48"
+                data-t="crunchyroll-logo-only-svg"
+                aria-hidden="true"
+                role="img"
+                >
+                  <path d="M5.818 26.871c.01-11.65 9.466-21.086 21.117-21.073 11.153.01 20.275 8.678 21.022 19.638.028-.467.043-.94.043-1.413C48.014 10.77 37.28.013 24.024 0 10.768-.014.014 10.721 0 23.976-.014 37.23 10.721 47.987 23.976 48c.548 0 1.092-.018 1.63-.054-11.051-.676-19.8-9.856-19.788-21.076Zm32.568.312a8.2 8.2 0 0 1-8.19-8.208 8.204 8.204 0 0 1 5.424-7.71 17.923 17.923 0 0 0-8.375-2.073c-9.95-.01-18.022 8.047-18.032 17.995-.01 9.95 8.047 18.022 17.995 18.033 9.948.01 18.022-8.047 18.032-17.997 0-1.127-.103-2.23-.301-3.301a8.187 8.187 0 0 1-6.554 3.261h.001Z">
+                  </path>
+              </svg>
+            </Link>
+          </div>
         </div>
 
-        <div className="flex items-center ml-0 text-white">
-          {/* Navigation Links Skeleton */}
+        {/* Navigation Links Skeleton: só acima de 1023px */}
+        <div className="flex items-center ml-0 text-white max-lg:hidden">
           <ul className="flex list-none p-0 m-0">
             <li className="relative">
               <div className="w-[80px] h-[20px] bg-[#141519] animate-pulse mx-4" />
@@ -48,15 +82,19 @@ export default function HeaderSkeleton() {
         {/* Icons Skeleton */}
         <div className="flex items-center ml-auto text-white">
           <div className="flex items-center">
+            {/* Search skeleton: sempre visível */}
             <div className="p-[18px]">
               <div className="w-[24px] h-[24px] bg-[#141519] rounded-full animate-pulse" />
             </div>
-            <div className="p-[18px]">
+            {/* Bookmark skeleton: só ≥568px */}
+            <div className="p-[18px] hidden sm:block">
               <div className="w-[24px] h-[24px] bg-[#141519] rounded-full animate-pulse mx-3" />
             </div>
+            {/* Login skeleton: sempre visível */}
             <div className="flex">
               <div className="w-[34px] h-[34px] bg-[#141519] rounded-full animate-pulse " />
-              <svg className="w-[24px] h-[24px]  rounded-full animate-pulse mt-1 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-t="dropdown-svg" aria-labelledby="dropdown-svg" aria-hidden="true" role="img"><path d="M7 10h10l-5 5z"></path></svg>
+              {/* Dropdown skeleton: só ≥568px */}
+              <svg className="w-[24px] h-[24px] rounded-full animate-pulse mt-1 mx-1 hidden sm:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-t="dropdown-svg" aria-labelledby="dropdown-svg" aria-hidden="true" role="img"><path d="M7 10h10l-5 5z"></path></svg>
             </div>
           </div>
         </div>

@@ -2,8 +2,8 @@ import Image from "next/image";
 
 const PremiumUpsell = () => {
   return (
-    <div className="w-[1351px] h-[108px]">
-      <div className="w-[1234px] h-[108px] relative mx-auto bg-gray-900 overflow-hidden flex items-center justify-between px-6">
+    <div className="w-full lg:w-[1351px]  h-full lg:h-[108px]">
+      <div className="w-full lg:w-[1234px] h-full lg:h-[108px] relative mx-auto bg-[#0A7372] overflow-hidden flex items-center justify-between px-6">
           {/* Background */}
         <Image
           className="absolute inset-0 w-full h-full object-cover"

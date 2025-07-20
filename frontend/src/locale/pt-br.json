@@ -1,11 +1,11 @@
 {
     "seasons": {
-        "singular": "temporada",
-        "plural": "temporadas"
+        "singular": "Temporada",
+        "plural": "Temporadas"
     },
     "episodes": {
-        "singular": "episódio",
-        "plural": "episódios"
+        "singular": "Episódio",
+        "plural": "Episódios"
     },
     "audioTypes": {
         "subtitled": "Legendado",
@@ -30,7 +30,7 @@
         "share": "Compartilhar"
     },
     "EpisodePlayButton": {
-        "watch_episode": "Começar a Assistir"
+        "watch_episode": "Começar a Assistir T1 E1"
     },
     "carousels": {
         "animeOfTheDay": {
@@ -65,12 +65,12 @@
         }
     },
     "Crunchylist": {
-        "title": "Minhas listas",
+        "title": "Crie e Gerencie Crunchylistas | Crunchyroll",
+        "description": "Crie e Gerencie Crunchylistas | Crunchyroll",
+        "mylists": "Minhas Listas",
         "queue": "fila",
         "crunchylists": "crunchylists",
-        "history": "histórico"
-    },
-    "CrunchylistComponent": {
+        "history": "histórico",
         "createNewList": "criar nova lista",
         "listsCount": "{count}/10 listas",
         "noLists": "Nenhuma lista criada ainda.",
@@ -125,11 +125,11 @@
         "close": "Fechar"
     },
     "navigation": {
-        "new": "Novos",
+        "new": "Novidades",
         "popular": "Populares",
-        "simulcasts": "Simulcasts",
+        "simulcasts": "Simulcast",
         "categories": "Categorias",
-        "exploreAll": "Explorar Todos (A-Z)",
+        "exploreAll": "Explorar Tudo (A-Z)",
         "releaseCalendar": "Calendário de Lançamentos",
         "videosAndShows": "Vídeos e Programas",
         "genres": "gêneros",
@@ -193,9 +193,11 @@
         "copyright": "© Crunchyroll, LLC"
     },
     "History": {
+        "title": "Histórico de Animes Recentes | Crunchyroll",
+        "description": "Gerencie sua Crunchylistas | Crunchyroll",
         "historyHeaderTitle": "Mais Recentes",
         "clearHistory": "limpar histórico",
-        "title": "Minhas listas",
+        "mylists": "Minhas Listas",
         "queue": "fila",
         "crunchylists": "crunchylists",
         "history": "histórico"
@@ -310,8 +312,8 @@
             "notAvailable": "Não disponível"
         },
         "buttons": {
-            "showMore": "Mostrar mais",
-            "showLess": "Mostrar menos"
+            "showMore": "mais detalhes",
+            "showLess": "menos detalhes"
         },
         "audioTypes": {
             "sub": "Legendado",
@@ -515,11 +517,12 @@
             "mostPopular": "Mais Populares",
             "mostRecent": "Mais Recentes",
             "alphabeticalOrder": "Ordem Alfabética",
-            "filter": "FILTRAR",
+            "filter": "filtrar",
             "language": "Idioma",
             "all": "Todos",
             "subtitled": "Legendado",
-            "dubbed": "Dublado"
+            "dubbed": "Dublado",
+            "subtitled_dubbed": "Leg | Dub"
         },
         "noResults": "Nenhum anime encontrado com a letra \"{letter}\"",
         "actions": {
@@ -603,15 +606,13 @@
         }
     },
     "WatchlistPage": {
-        "title": "Crie sua lista personalizada | Crunchyroll",
-        "description": "Crie sua lista personalizada | Crunchyroll"
-    },
-    "Watchlist": {
-        "title": "Minhas listas",
+        "title": "Faça a Curadoria da sua Lista Customizada | Crunchyroll",
+        "description": "Faça a Curadoria da sua Lista Customizada",
+        "mylists": "Minhas Listas",
         "queue": "fila",
         "crunchylists": "crunchylists",
         "history": "histórico",
-        "emptyMessage": "Sua fila merece mais amor. <br /> Vamos enchê-la com animes incríveis.",
+        "emptyMessage": "Sua fila merece mais amor. Vamos enchê-la com animes incríveis.",
         "backToHome": "voltar para o início"
     },
     "AnimeCardWatchlist": {
@@ -657,5 +658,9 @@
             "sort": "ordenar",
             "filter": "filtrar"
         }
+    },
+    "root": {
+        "title": "Crunchyroll - Assista a Animes, Jogue Games e Compre Online",
+        "description": "criado por primerdev"
     }
 }

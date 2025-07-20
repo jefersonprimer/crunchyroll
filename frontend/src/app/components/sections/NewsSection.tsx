@@ -10,67 +10,22 @@ import { useOnScreen } from "@/app/[locale]/hooks/useOnScreen";
 import React, { useMemo } from "react";
 import { useTranslations } from "next-intl";
 
-
 const PostCardOnScreen = ({ post }: { post: Post }) => {
   const { ref, isIntersecting } = useOnScreen({ threshold: 0.1 });
-  const [showText, setShowText] = React.useState(false);
-  const [showImage, setShowImage] = React.useState(false);
-
-  React.useEffect(() => {
-    let textTimeout: NodeJS.Timeout;
-    let imageTimeout: NodeJS.Timeout;
-    if (isIntersecting) {
-      textTimeout = setTimeout(() => setShowText(true), 500);
-      imageTimeout = setTimeout(() => setShowImage(true), 1000);
-    }
-    return () => {
-      clearTimeout(textTimeout);
-      clearTimeout(imageTimeout);
-    };
-  }, [isIntersecting]);
-
-  const loading = !(showText && showImage);
 
   return (
     <div ref={ref}>
-      <PostCard
-        post={post}
-        loading={loading}
-        skeletonText={!showText}
-        skeletonImage={!showImage}
-      />
+      <PostCard post={post} loading={!isIntersecting} />
     </div>
   );
 };
 
 const NewsCardOnScreen = ({ post }: { post: Post }) => {
   const { ref, isIntersecting } = useOnScreen({ threshold: 0.1 });
-  const [showText, setShowText] = React.useState(false);
-  const [showImage, setShowImage] = React.useState(false);
-
-  React.useEffect(() => {
-    let textTimeout: NodeJS.Timeout;
-    let imageTimeout: NodeJS.Timeout;
-    if (isIntersecting) {
-      textTimeout = setTimeout(() => setShowText(true), 500);
-      imageTimeout = setTimeout(() => setShowImage(true), 1000);
-    }
-    return () => {
-      clearTimeout(textTimeout);
-      clearTimeout(imageTimeout);
-    };
-  }, [isIntersecting]);
-
-  const loading = !(showText && showImage);
 
   return (
     <div ref={ref}>
-      <NewsCard
-        post={post}
-        loading={loading}
-        skeletonText={!showText}
-        skeletonImage={!showImage}
-      />
+      <NewsCard post={post} loading={!isIntersecting} />
     </div>
   );
 };
@@ -162,7 +117,7 @@ const NewsSection = () => {
                 <h1 className="text-2xl font-bold text-white">{t('title')}</h1>
               </div>
               <div className="flex items-center gap-1 text-[#A0A0A0] hover:text-[#FFFFFF]">
-                <Link href="/news" className=" font-weight-900 text-[0.875rem]">{t('link')}</Link>
+                <Link href="/news" className=" font-bold text-sm uppercase">{t('link')}</Link>
                 <span>
                 <svg
                 className="w-6 h-6"
@@ -177,15 +132,17 @@ const NewsSection = () => {
                 </span>
               </div>
             </div>
-          <div className="grid grid-cols-[263px_850px] gap-8">
+          <div className="flex flex-col gap-8 lg:grid lg:grid-cols-[263px_850px]">
             {/* Announcements Column */}
             <div >
               <h4 className="text-[1rem] font-weigth-500 text-[#FFFFFF] px-2">
                 Principais
               </h4>
-              <div className="grid grid-cols-1 gap-1">
+              <div className="flex gap-1 md:grid md:grid-cols-1">
                 {announcements.map((post: Post) => (
-                  <PostCardOnScreen key={post.id} post={post} />
+                  <div className="w-1/2 md:w-full" key={post.id}>
+                    <PostCardOnScreen post={post} />
+                  </div>
                 ))}
               </div>
             </div>
@@ -209,5 +166,3 @@ const NewsSection = () => {
 };
 
 export default NewsSection;
-
-

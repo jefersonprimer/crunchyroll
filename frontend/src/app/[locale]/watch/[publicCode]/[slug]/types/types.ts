@@ -11,12 +11,13 @@ export interface Episode {
   title: string;
   synopsis: string;
   duration: number;
-  thumbnail: string;
   videoUrl: string;
   createdAt: string;
   updatedAt: string;
   releaseDate: string;
   image: string;
+  likes_count: number; // Novo campo
+  dislikes_count: number; // Novo campo
   versions?: {
     id: string;
     languageType: string;
@@ -27,6 +28,14 @@ export interface Episode {
     name: string;
     slug: string;
   };
+  subtitles?: {
+    language: string;
+    subtitleUrl: string;
+  }[];
+  thumbnail?: {
+    previewSpriteUrl?: string;
+    mainThumbnailUrl?: string;
+  } | string;
 }
 
 export interface Anime {
@@ -37,8 +46,8 @@ export interface Anime {
   audioType?: string;
   audioLanguages?: string[];
   subtitles?: string;
-  imagePoster?: string;
-  imageCardCompact?: string;
+  imagePoster: string;
+  imageCardCompact: string;
   imageBannerDesktop?: string;
   imageBannerMobile?: string;
   imageLogo?: string;

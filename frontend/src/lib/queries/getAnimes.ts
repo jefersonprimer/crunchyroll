@@ -56,6 +56,16 @@ export const GET_ANIMES = gql`
           languageType
           videoUrl
         }
+        subtitles{
+          language
+          subtitleUrl
+        }
+        thumbnail{
+          previewSpriteUrl
+          mainThumbnailUrl
+        }
+        likes_count
+        dislikes_count
       }
       createdAt
       updatedAt
@@ -86,6 +96,16 @@ export const GET_EPISODES = gql`
         languageType
         videoUrl
       }
+      subtitles{
+        language
+        subtitleUrl
+      }
+      thumbnail{
+        previewSpriteUrl
+        mainThumbnailUrl
+      }
+      likes_count
+      dislikes_count
     }
   }
 `;

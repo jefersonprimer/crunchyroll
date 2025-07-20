@@ -44,13 +44,12 @@ const genreMapping: Record<string, { en: string; pt: string }> = {
 };
 
 interface GenrePageProps {
-  params: Promise<{ genre: string }>;
+  params: { genre: string };
 }
 
 const GenrePage: React.FC<GenrePageProps> = ({ params }) => {
   const t = useTranslations('genre');
-  const resolvedParams = React.use(params);
-  const genre = resolvedParams.genre;
+  const genre = params.genre;
   const genreInfo = genreMapping[genre];
 
   // Query para animes populares

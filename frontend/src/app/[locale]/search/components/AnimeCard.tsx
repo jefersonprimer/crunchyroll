@@ -6,6 +6,7 @@ import { useFavorites } from '@/app/[locale]/contexts/FavoritesContext';
 import PlayButton from '@/app/components/buttons/PlayButton';
 import BookmarkButton from '@/app/components/buttons/BookmarkButton';
 import AddButton from '@/app/components/buttons/AddButton';
+import Link from 'next/link';
 
 interface AnimeCardProps {
   anime: Anime;
@@ -30,7 +31,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime }) => {
   };
 
   return (
-    <li className="group list-none w-full transition-transform duration-300 ease-in-out relative hover:scale-105">
+    <div className="cursor-pointer group list-none w-full transition-transform duration-300 ease-in-out relative">
       <div className="no-underline text-inherit block relative">
         <div>
             <div className="relative w-full h-[280px] overflow-hidden">
@@ -44,7 +45,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime }) => {
                   }}
                 />
               {isFavorited && (
-                <div className="absolute top-0 right-0 z-30 w-0 h-0 border-solid border-r-[36px] border-r-black border-b-[36px] border-b-transparent flex items-start justify-end p-0 text-[#FF640A] opacity-100 transition-opacity duration-300 ease-in-out hover:opacity-0">
+                <div className="absolute top-0 right-0 z-2 w-0 h-0 border-solid border-r-[36px] border-r-black border-b-[36px] border-b-transparent flex items-start justify-end p-0 text-[#FF640A] opacity-100 transition-opacity duration-300 ease-in-out hover:opacity-0">
                   <svg
                     className="w-4 mr-[-35px] mt-[2px] fill-[#FF640A]"
                     xmlns="http://www.w3.org/2000/svg"
@@ -58,32 +59,35 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime }) => {
                 </div>
               )}
               <div className="absolute top-0 left-0 w-full h-full bg-[#141519] p-2 opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100 flex flex-col gap-0.5 overflow-y-auto z-20">
-                <h3 className="text-white text-2xl font-bold m-0">{anime.name}</h3>
-                <div className="flex items-center gap-2.5">
+                <h2 className="text-white text-base font-semibold m-0">{anime.name}</h2>
+                <div className="flex items-center gap-2.5 my-2">
                   <MaturityRating rating={Number(anime.rating) || 0} size={4} />
-                  <span className="text-[#FF640A] flex items-center gap-1">
+                  <span className="text-[#dadada] font-semibold text-sm flex items-center gap-1">
                     {anime.score}
                     <svg
-                      className="w-5 h-4 fill-[#f1f1f1]"
+                      className="w-4 h-4"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       data-t="star-svg"
                       aria-labelledby="star-svg"
                       aria-hidden="false"
                       role="img"
+                      fill="currentColor"
                     >
                       <title id="star-svg">Avaliação</title>
                       <path d="M15.266 8.352L11.988 1.723 8.73 8.352 1.431 9.397 6.71 14.528 5.465 21.849 11.999 18.39 18.544 21.85 17.285 14.528 22.57 9.398z" />
                     </svg>
                   </span>
                 </div>
-                <p className="text-[#ccc] m-0 text-sm">
-                  Temporada: {anime.seasons?.[0]?.seasonNumber ?? "N/A"}
-                </p>
-                <p className="text-[#ccc] m-0 text-sm">
-                  Episódios: {anime.totalEpisodes ?? "N/A"}
-                </p>
-                <p className="text-[#ccc] m-0 text-sm overflow-hidden text-ellipsis line-clamp-5 w-[260px]">
+                <span>
+                  <p className="text-[#ccc] text-sm">
+                    Temporada: {anime.seasons?.[0]?.seasonNumber ?? "N/A"}
+                  </p>
+                  <p className="text-[#ccc] m-0 text-sm">
+                    Episódios: {anime.totalEpisodes ?? "N/A"}
+                  </p>
+                </span>
+                <p className="text-[#ccc] my-2 text-sm overflow-hidden text-ellipsis line-clamp-5 w-[340px]">
                   {anime.synopsis}
                 </p>
                 <div className="absolute bottom-2.5 left-2.5 flex gap-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -103,7 +107,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime }) => {
             </div> 
         </div>
       </div>
-    </li>
+    </div>
   );
 };
 

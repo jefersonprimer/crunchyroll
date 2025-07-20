@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    restart: always
+
+  backend-blog:
+    build: ./backend-blog
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./backend-blog:/app
+    restart: always
+
+  backend-user:
+    build: ./backend-user
+    ports:
+      - "8002:8000"
+    volumes:
+      - ./backend-user:/app
+    restart: always
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    restart: always
+
+  cms:
+    build: ./frontend-blog  # ou outro nome/pasta onde está o Vite/Vue
+    ports:
+      - "3001:5173"
+    volumes:
+      - ./frontend-blog:/app
+    restart: always

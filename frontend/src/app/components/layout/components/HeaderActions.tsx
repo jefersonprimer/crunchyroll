@@ -29,15 +29,15 @@ export default function HeaderActions({
       <div className="flex items-center gap-0">
         <div className="relative">
           <button className="bg-none border-none p-0 cursor-pointer">
-            <div className="flex items-center justify-center w-[120px] h-[60px] transition-colors duration-200 relative hover:bg-[#141519] group">
-              <div className="flex items-center justify-center w-[120px] h-[60px] gap-[8px]">
+            <div className="flex items-center justify-center w-[60px] sm:w-[120px] md:w-[60px] xl:w-[120px] h-[60px] transition-colors duration-200 relative hover:bg-[#141519] group">
+              <div className="flex items-center justify-center   w-[60px] sm:w-[120px] md:w-[60px] xl:w-[120px] h-[60px] gap-[8px]">
                 <PremiumIcon />
-                <div className="flex flex-col items-start justify-center text-left">
-                  <span className="text-[10px] text-[#ffb300]">{t("freeTrial")}</span>
-                  <span className="text-[10px] text-[#DADADA]">{t("premium")}</span>
+                <div className="hidden sm:flex md:hidden xl:flex flex-col items-start justify-center text-left">
+                  <span className="text-[10px] text-[#ffb300] uppercase">{t("freeTrial")}</span>
+                  <span className="text-[10px] text-[#DADADA] uppercase">{t("premium")}</span>
                 </div>
               </div>
-              <div className="opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <div className="hidden sm:flex opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <PremiumPopup />
               </div>
             </div>
@@ -53,7 +53,7 @@ export default function HeaderActions({
             </Link>
           </button>
         </div>
-        <div className="relative">
+        <div className="hidden sm:block relative">
           <button className="bg-none border-none p-0 cursor-pointer text-[#dadada] hover:text-[#FFFFFF]">
             <Link href={`/${locale}/watchlist`} className="flex items-center justify-center w-[60px] h-[60px] transition-colors duration-200 hover:bg-[#141519] active:bg-[#141519]">
               <div className="flex items-center justify-center w-[36px] h-[36px] cursor-pointer">

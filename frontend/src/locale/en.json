@@ -65,12 +65,12 @@
         }
     },
     "Crunchylist": {
-        "title": "My lists",
+        "title": "Crie e Gerencie Crunchylistas | Crunchyroll",
+        "description": "Crie e Gerencie Crunchylistas | Crunchyroll",
+        "mylists": "My lists",
         "queue": "queue",
         "crunchylists": "crunchylists",
-        "history": "history"
-    },
-    "CrunchylistComponent": {
+        "history": "history",
         "createNewList": "create new list",
         "listsCount": "{count}/10 lists",
         "noLists": "No lists created yet.",
@@ -192,9 +192,11 @@
         "copyright": "© Crunchyroll, LLC"
     },
     "History": {
+        "title": "Histórico de Animes Recentes | Crunchyroll",
+        "description": "Gerencie sua Crunchylistas | Crunchyroll",
         "historyHeaderTitle": "Most Recent",
         "clearHistory": "clear history",
-        "title": "My lists",
+        "mylists": "My lists",
         "queue": "queue",
         "crunchylists": "crunchylists",
         "history": "history"
@@ -603,10 +605,8 @@
     },
     "WatchlistPage": {
         "title": "Curate Your Custom List | Crunchyroll",
-        "description": "Curate your custom list | Crunchyroll"
-    },
-    "Watchlist": {
-        "title": "My lists",
+        "description": "Curate your custom list | Crunchyroll",
+        "mylists": "My lists",
         "queue": "queue",
         "crunchylists": "crunchylists",
         "history": "history",
@@ -656,5 +656,9 @@
             "sort": "sort",
             "filter": "filter"
         }
+    },
+    "root": {
+        "title": "Crunchyroll - Watch Anime, Play Games and Shop Online",
+        "description": "created by primerdev"
     }
 }

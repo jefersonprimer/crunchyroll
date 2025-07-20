@@ -38,10 +38,10 @@ export default function NewsMenu() {
   };
 
   return (
-    <li className="relative h-full">
+    <div className="relative h-full">
       <div
         ref={buttonRef}
-        className={`font-weight-500 text-[1rem] leading-[1.5rem] flex items-center gap-0.5 text-[#DADADA] no-underline cursor-pointer px-4 h-full whitespace-nowrap hover:text-[#ffffff] hover:bg-[#141519] 
+        className={`relative z-[1001] font-medium text-[16px] leading-[1.5rem] flex items-center gap-0.5 text-[#DADADA] no-underline cursor-pointer px-[16px] h-full whitespace-nowrap hover:text-[#ffffff] hover:bg-[#141519] 
           ${activeDropdown === "news" ? "text-white bg-[#141519] [&_.dropdownIcon]:fill-[#f47521]" : ""}`}
         onClick={handleButtonClick}
       >
@@ -49,33 +49,40 @@ export default function NewsMenu() {
         <DropdownIcon />
       </div>
       {activeDropdown === "news" && (
-        <div className="absolute top-full left-0 bg-[#141519] py-[0.8rem] px-0 w-[300px] z-[1000]" ref={dropdownRef}>
-          <div>
-            <Link 
-              href="/news" 
-              className="block text-[#F8F8EA] text-[0.875rem] font-weight-500 leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8]"
-              onClick={() => setActiveDropdown(null)}
-            >
-              {t('allNews')}
-            </Link>
-            <Link 
-              href="/news/awards" 
-              className="block text-[#F8F8EA] text-[0.875rem] font-weight-500 leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8]" 
-              onClick={() => setActiveDropdown(null)}
-            >
-              {t('animeAwards')}
-            </Link>
-            <Link 
-              href="/news/events" 
-              className="block text-[#F8F8EA] text-[0.875rem] font-weight-500 leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8]" 
-              onClick={() => setActiveDropdown(null)}
-            >
-              {t('experiencesAndEvents')}
-            </Link>
+        <>
+          {/* Overlay escurecido atrás do dropdown */}
+          <div
+            className="fixed inset-0 bg-[#23252B]/60 z-[999]"
+            onClick={() => setActiveDropdown(null)}
+          />
+          <div className="absolute top-full left-0 bg-[#141519] py-[0.8rem] px-0 w-[300px] z-[1000]" ref={dropdownRef}>
+            <div>
+              <Link 
+                href="/news" 
+                className="block text-[#F8F8EA] text-[0.875rem] font-weight-500 leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8]"
+                onClick={() => setActiveDropdown(null)}
+              >
+                {t('allNews')}
+              </Link>
+              <Link 
+                href="/news/awards" 
+                className="block text-[#F8F8EA] text-[0.875rem] font-weight-500 leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8]" 
+                onClick={() => setActiveDropdown(null)}
+              >
+                {t('animeAwards')}
+              </Link>
+              <Link 
+                href="/news/events" 
+                className="block text-[#F8F8EA] text-[0.875rem] font-weight-500 leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8]" 
+                onClick={() => setActiveDropdown(null)}
+              >
+                {t('experiencesAndEvents')}
+              </Link>
+            </div>
           </div>
-        </div>
+        </>
       )}
-    </li>
+    </div>
   );
 } 
 

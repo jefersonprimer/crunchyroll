@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
-import TooltipPortal from '../TooltipPortal';
+import TooltipPortal from '../utils/TooltipPortal';
 
 interface PlayButtonProps {
   firstEpisode?: {

@@ -6,7 +6,8 @@ export default function PremiumPopup() {
   const t = useTranslations("premiumPopup");
 
   return (
-    <div className="absolute top-[calc(100%+15px)] left-1/2 -translate-x-1/2 z-[9999] bg-black text-white px-[15px] py-[10px] w-[360px] h-[166px]  shadow-md ercUpsellPopup">    
+    <div className="absolute top-[calc(100%+15px)] left-1/2 -translate-x-1/2 z-[9999] bg-black text-white px-[15px] py-[10px] w-[360px] h-[166px] shadow-md">
+      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-black" />
       <a
         tabIndex={0}
         href="https://www.crunchyroll.com/pt-br/premium?referrer=newweb_header_modal&amp;return_url=https%3A%2F%2Fwww.crunchyroll.com%2Fpt-br%2Fcrunchylists#plans"

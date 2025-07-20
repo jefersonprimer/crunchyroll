@@ -1,12 +1,7 @@
 "use client";
 
-import { useParams } from "next/navigation";
-import React, { memo, useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
-import Header from "../components/layout/Header";
-import PageLoading from "../components/loading/PageLoading";
 import AnimeCarouselFullScreen from "../components/carousel/AnimeCarouselFullScreen";
-import AnimeCarouselLancamentos from "../components/carousel/AnimeCarouselLancamentos";
+import AnimeCarouselReleases from "../components/carousel/AnimeCarouselReleases";
 import SpacedSection from "../components/layout/SpacedSection";
 import OutdoorCard from "../components/outdoors/OutdoorCard";
 import HistoryCarousel from "../components/carousel/HistoryCarousel";
@@ -17,84 +12,55 @@ import AnimeCarouselDub from "../components/carousel/AnimeCarouselDub";
 import Outdoor from "../components/outdoors/Outdoor";
 import FavoritesCarousel from "../components/carousel/FavoritesCarousel";
 import NewsSection from "../components/sections/NewsSection";
-import Episodios from "../components/cards/Episodios";
+import EpisodeTimeline from "../components/sections/EpisodeTimeline";
 import Footer from "../components/layout/Footer";
+import YuzuSection from "../components/layout/YuzuSection";
+import CookieBanner from "../components/modals/CookieBanner";
+import Header from "../components/layout/Header";
+import TermsUpdateBanner from "../components/modals/TermsUpdateBanner";
 
 
 const HomePage = () => {
-  const params = useParams();
-  const locale = params.locale as string;
-  const t = useTranslations("fallback_recommendation");
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate loading time for demonstration
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
-    return (
-      <>
-        <Header />
-        <div style={{ minHeight: '759.94px', width: '100%' }} />
-        <PageLoading />
-      </>
-    );
-  }
 
   return (
     <>
       <Header />
+      <TermsUpdateBanner />
       <AnimeCarouselFullScreen />
-      <AnimeCarouselLancamentos className="relative z-[2]  backdrop-blur-sm" />
-
+      <AnimeCarouselReleases/>
       <HistoryCarousel />
-
+      
       <SpacedSection>
-        <div className="flex justify-center items-center text-center flex-col">
-          <OutdoorCard
-            link="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
-            imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
-          />
-        </div>
+        <OutdoorCard
+          link="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
+          imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=1350/CurationAssets/Dekin%20no%20Mogura%20The%20Earthbound%20Mole/SEASON%201/MARKETING%20BANNER/DekinNoMoguraTheEarthboundMole-S1C1-KV1-(Character)-Banner-2100x700-PT.png"
+        />
       </SpacedSection>
 
       <SpacedSection>
         <AnimeCarouselByDay />
       </SpacedSection>
 
-      <SpacedSection className="relative z-[2] backdrop-blur-sm">
+      <SpacedSection>
         <AnimeCarouselPopularSeason />
       </SpacedSection>
 
-      <SpacedSection className="relative z-[2] backdrop-blur-sm">
+      <SpacedSection>
         <AnimeCarouselPopular />
       </SpacedSection>
-
-      {/* <SpacedSection>
-        <AnimeCarouselNextSeason />
-      </SpacedSection> */}
 
       <SpacedSection>
         <AnimeCarouselDub />
       </SpacedSection>
 
-      {/* <SpacedSection>
-        <MovieCarousel />
-      </SpacedSection> */}
-
       <SpacedSection>
         <Outdoor
-          imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
-          audiotype="Dub | Leg"
-          description="Milhares de anos após um misterioso fenômeno transformar a humanidade inteira em pedra, desperta um garoto extraordinariamente inteligente e motivado pela ciência - Senku Ishigami. Diante de um mundo de pedra e do colapso generalizado da civilização, Senku decide usar sua..."
+          imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=600/catalog/crunchyroll/a249096c7812deb8c3c2c907173f3774.jpg"
+          audiotype="Leg | Dub"
+          description="Embarque em uma jornada com One Piece. A épica série de anime criada pelo renomado Eiichiro Oda é um fenômeno, cativando corações de fãs de várias gerações ao longo de seus 25 anos de existência. Esta aventura em alto-mar é..."
           buttonLink="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
           addToQueueLink="#"
-          title="The Apothecary Diaries"
+          title="One Piece"
         />
       </SpacedSection>
 
@@ -103,49 +69,25 @@ const HomePage = () => {
       </SpacedSection>
 
       <SpacedSection>
-        <Episodios />
+        <EpisodeTimeline />
       </SpacedSection>
 
-      <SpacedSection>
+      {/* <SpacedSection>
         <NewsSection />
-      </SpacedSection>
+      </SpacedSection> */}
 
       <SpacedSection>
-        <div className="flex justify-center items-center text-center flex-col">
-          <OutdoorCard
-            link="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
-            imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
-          />
-        </div>
+        <OutdoorCard
+          link="https://www.crunchyroll.com/pt-br/series/G9VHN9QXQ/unnamed-memory"
+          imageUrl="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/CurationAssets/Anyway%20I'm%20Falling%20in%20Love%20with%20You/SEASON%201/MARKETING%20BANNER/AnywayImFallinginLoveWithYou-S1-KV1-Banner-2100x700-PT.png"
+        />
       </SpacedSection>
 
-      <div className="flex justify-center items-center py-[50px] px-[80px] pb-[80px]">
-        <div className="text-center">
-          <img
-            className="max-w-full h-auto"
-            src="https://www.crunchyroll.com/build/assets/img/home/yuzu.png"
-            srcSet="https://www.crunchyroll.com/build/assets/img/home/yuzu@2x.png 2x"
-            alt="Yuzu."
-          />
-          <h3 className="pb-[40px]">
-            {t('title')} <br />
-            {t('subtitle')}
-          </h3>
-          <a
-            className="mt-[20px] no-underline"
-            data-t="view-all-btn"
-            href={`/${locale}/videos/popular`}
-          >
-            <span className="py-[10px] px-[20px] border-2 border-solid border-[#ff640a] text-[#ff640a] no-underline">
-              {t('button')}
-            </span>
-          </a>
-        </div>
-      </div>
+      <YuzuSection />
       <Footer />
+      <CookieBanner />
     </>
   );
 };
 
 export default HomePage;
-

@@ -24,8 +24,8 @@ export interface Anime {
   audioType?: AudioType;
   audioLanguages?: string[] | string;
   subtitles?: string;
-  imagePoster?: string;
-  imageCardCompact?: string;
+  imagePoster: string;
+  imageCardCompact: string;
   imageBannerDesktop?: string;
   imageBannerMobile?: string;
   imageLogo?: string;

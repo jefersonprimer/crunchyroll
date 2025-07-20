@@ -8,6 +8,16 @@ export const GET_EPISODES = gql`
         title
         videoUrl
         slug
+        subtitles{
+          language
+          subtitleUrl
+        }
+        thumbnail{
+          previewSpriteUrl
+          mainThumbnailUrl
+        }
+        likes_count
+        dislikes_count
       }
     }
   }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Post } from "../../../[locale]/news/types/posts";
 import React from "react";
 import { useTranslations } from "next-intl";
@@ -12,7 +13,7 @@ interface NewsCardProps {
 
 const NewsCardSkeleton: React.FC<{ skeletonText?: boolean; skeletonImage?: boolean }> = ({ skeletonText = true, skeletonImage = true }) => {
   return (
-    <div className="flex gap-4 p-2 w-[850px] animate-pulse">
+    <div className="flex gap-4 p-2 lg:w-[850px] animate-pulse">
       <div>
         {skeletonImage ? (
           <div className="w-[138px] h-[78px] bg-[#141519]" />
@@ -85,16 +86,18 @@ const NewsCard: React.FC<NewsCardProps> = ({ post, loading = false, skeletonText
 
   return (
     <Link href={getPostUrl(post)}>
-      <div className="flex gap-4 hover:bg-[#23252B] p-2 transition-colors duration-200 w-[850px]">
-        <div className="">
-          <img
+      <div className="flex gap-4 hover:bg-[#23252B] p-2 transition-colors duration-200 lg:w-[850px]">
+        <div className="w-[138px]">
+          <Image
             src={post.cover_image}
             alt={post.title}
-            className="w-[138px] h-[78px] object-cover"
+            width={138}
+            height={78}
+            className="object-cover"
           />
         </div>
-        <div className="">
-          <h3 className="font-weigth-500 text-[1rem] text-[#FFFFFF] transition-colors duration-200 line-clamp-1">
+        <div className="w-auto lg:w-[712px] h-[78px]">
+          <h3 className="font-weigth-500 text-[1rem] text-[#FFFFFF] transition-colors duration-200 line-clamp-3">
             {post.title}
           </h3>
           <small className="text-[#A0A0A0] line-clamp-2 text-[.75rem]">{formatDate(post.created_at)}</small>

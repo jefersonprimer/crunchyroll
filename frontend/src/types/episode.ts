@@ -23,6 +23,18 @@ export interface AnimeInfo {
   slug: string;
 }
 
+export interface EpisodeSubtitle {
+  episodeId: string;
+  language: string;
+  subtitleUrl: string;
+}
+
+export interface EpisodeThumbnail {
+  episodeId: string;
+  previewSpriteUrl?: string;
+  mainThumbnailUrl?: string;
+}
+
 export interface Episode {
   id: string;
   publicCode: string;
@@ -41,6 +53,10 @@ export interface Episode {
   updatedAt: string;
   releaseDate: string;
   image: string;
+  likes_count: number; // Novo campo
+  dislikes_count: number; // Novo campo
   versions?: EpisodeVersion[];
   anime?: AnimeInfo;
+  subtitles?: EpisodeSubtitle[];
+  thumbnailInfo?: EpisodeThumbnail;
 }

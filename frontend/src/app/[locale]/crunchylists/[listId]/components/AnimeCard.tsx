@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Anime } from '../../../../types/anime';
+import { Anime } from '../../../../../types/anime';
 import MaturityRating from '@/app/components/elements/MaturityRating';
 import { useFavorites } from '@/app/[locale]/contexts/FavoritesContext';
 import { useTranslations } from 'next-intl';
 import BookmarkButton from '@/app/components/buttons/BookmarkButton';
 import PlayButton from '@/app/components/buttons/PlayButton';
+import { useQuery } from '@apollo/client';
+import { GET_ANIMES } from '@/lib/queries/getAnimes';
 
 interface AnimeCardProps {
   anime: Anime;
@@ -15,9 +17,27 @@ interface AnimeCardProps {
 const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
   const t = useTranslations('AnimeCardCrunchylist');
   const [isHovered, setIsHovered] = useState(false);
-  const firstEpisode = anime.episodes?.[0];
   const { favorites, addFavorite, removeFavorite } = useFavorites();
   const isFavorited = favorites.some((fav: Anime) => fav.id === anime.id);
+
+  // Busca os animes completos
+  const { loading, data } = useQuery(GET_ANIMES);
+  const [firstEpisode, setFirstEpisode] = useState<any | null>(null);
+
+  React.useEffect(() => {
+    if (!loading && data?.animes) {
+      const currentAnime = data.animes.find((a: Anime) => a.id === anime.id);
+      if (currentAnime?.episodes && currentAnime.episodes.length > 0) {
+        const firstEp = currentAnime.episodes[0];
+        setFirstEpisode({
+          id: firstEp.id,
+          slug: firstEp.slug,
+          videoUrl: firstEp.videoUrl,
+          publicCode: firstEp.publicCode
+        });
+      }
+    }
+  }, [data, loading, anime.id]);
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -45,16 +65,11 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
     >
       <div className="relative w-[240px] h-[140px] mr-4 overflow-hidden group">
         <Image 
-          src={anime.imageCardCompact || 'https://via.placeholder.com/300x400?text=No+Image'} 
+          src={anime.imageCardCompact} 
           alt={anime.name} 
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+          className="w-full h-full object-cover"
           width={240}
           height={140}
-          onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-            console.error('Error loading image:', e);
-            const target = e.currentTarget;
-            target.src = 'https://via.placeholder.com/300x400?text=No+Image';
-          }}
         />
         <div className={`absolute top-0 left-0 p-1 transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'}`}> 
           <MaturityRating rating={Number(anime.rating)} size={4} />

@@ -24,7 +24,7 @@ const AccountModal: React.FC<AccountModalProps> = ({ isOpen, onClose, userProfil
       onClick={onClose}
     >
       <div 
-        className="absolute top-[60px] right-[15px] bg-[#141519] py-2 min-w-[350px] animate-[slideDown_0.2s_ease-out]" 
+        className="absolute top-[60px] right-[15px] bg-[#141519] py-2 min-w-[350px] animate-[slideDown_0.2s_ease-out]  h-screen z-[1100] overflow-y-auto" 
         onClick={e => e.stopPropagation()}
       >
         {userProfile && (
@@ -50,14 +50,14 @@ const AccountModal: React.FC<AccountModalProps> = ({ isOpen, onClose, userProfil
             </div>
           </Link>
         )}
-        <div className="mx-0 py-4 border-b-2 border-[#23252B] w-full box-border">
+        <div className="mx-0 p-4 border-b-2 border-[#23252B] w-full box-border">
           <a 
             tabIndex={0} 
             className="block bg-[#FAB818] text-black no-underline py-2.5 px-4 font-medium transition-colors duration-200 text-center hover:bg-[#e0a616]" 
             data-t="upsell-btn" 
             href="https://www.crunchyroll.com/premium?referrer=newweb_organic_acct_menu&return_url=https%3A%2F%2Fwww.crunchyroll.com%2Fpt-br%2F#plans"
           >
-            <span className="flex items-center justify-center gap-2 text-sm">
+            <span className="flex items-center justify-center gap-2 text-sm uppercase font-extrabold">
               <svg 
                 className="w-6 h-6 fill-current" 
                 xmlns="http://www.w3.org/2000/svg" 

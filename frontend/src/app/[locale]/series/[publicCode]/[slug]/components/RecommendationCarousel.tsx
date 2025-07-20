@@ -80,7 +80,7 @@ const RecommendationCarousel: React.FC<RecommendationCarouselProps> = ({ animes,
   }, []);
 
   return (
-    <div className="flex items-center justify-center w-screen m-0 pb-[60px] relative overflow-hidden">
+    <div className="flex items-center justify-center w-screen pb-[60px] relative overflow-hidden">
     {shouldShowArrows && canScrollLeft && (
       <button
         onClick={scrollLeft}
@@ -104,7 +104,7 @@ const RecommendationCarousel: React.FC<RecommendationCarouselProps> = ({ animes,
     )}
   
     <div 
-      className="w-full max-w-[1800px] items-start flex overflow-x-hidden scroll-smooth px-[60px] mx-auto justify-start"
+      className="w-full items-start flex overflow-x-hidden scroll-smooth px-[60px] mx-auto justify-start"
       ref={containerRef}
     >
       {loading ? (

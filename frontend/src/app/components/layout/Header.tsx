@@ -46,15 +46,12 @@ export default function Header() {
   }
 
   return (
-    <header className="bg-[#23252B] p-0 sticky top-0 z-[1000] w-screen left-0 right-0">
-      <div className="w-full m-0 px-4 gap-0 flex items-center">
-        <div
-          className="flex items-center no-underline w-[172px] h-[60px]"
-          style={{ display: isMobileView ? "none" : "block" }}
-        >
-          <Link href={`/${locale}`} >
+    <header className="sticky top-0 w-auto bg-[#23252B] z-[1000]">
+      <div className="w-auto flex items-center">
+        <div className="items-center no-underline w-[172px] h-[60px] hidden lg:flex">
+          <Link href={`/${locale}`} className="flex items-center no-underline w-[172px] h-[60px] px-4.5">
             <svg 
-              className="w-[136px] h-[60px] text-[#f47521] hover:text-[#FFFFFF] transition-[fill] duration-300 ease-in-out"
+              className="w-[136px] h-[60px] text-[#ff640a] hover:text-[#FFFFFF] transition-[fill] duration-300 ease-in-out"
               xmlns="http://www.w3.org/2000/svg" 
               viewBox="0 0 303 52" 
               data-t="crunchyroll-horizontal-svg" 
@@ -68,12 +65,13 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="flex flex-1 justify-start -ml-5">
-          {isMobileView ? (
+        <div className="flex flex-1 justify-start ">
+          <div className="mobile-menu flex lg:hidden">
             <MobileMenu />
-          ) : (
+          </div>
+          <div className="hidden sm:flex">
             <NavigationMenu />
-          )}
+          </div>
         </div>
 
         <HeaderActions

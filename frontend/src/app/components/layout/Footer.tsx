@@ -2,19 +2,20 @@
 
 import React from 'react';
 import { useTranslations } from 'next-intl';
+import CookieSettingsButton from '../modals/CookieSettingsButton';
 
 const Footer = () => {
   const t = useTranslations('footer');
 
   return (
     <footer 
-      className="flex flex-col gap-5 py-5 px-5 bg-gradient-to-b from-black to-[#1C3039] text-white items-center pb-9 font-roboto text-sm font-normal w-[1351px]">
+      className="flex flex-col gap-5 py-5 px-5 bg-gradient-to-b from-black to-[#1C3039] text-white items-center pb-9 font-roboto text-sm font-normal w-full lg:max-w-[1351px] mx-auto">
       {/* Colunas superiores */}
-      <div className="w-[1050px] flex flex-wrap gap-20 border-b border-[#323D46]">
+      <div className="w-full max-w-[1050px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 lg:gap-20 border-b border-[#323D46]">
         {/* Seção de Navegação */}
-        <div>
-          <h4 className="text-lg mb-2.5">{t('navigation')}</h4>
-          <ul className="list-none p-0">
+        <div className="flex flex-row items-center justify-center sm:flex-col sm:items-start sm:justify-normal w-full sm:w-auto mb-4 sm:mb-0">
+          <h4 className="text-lg min-w-max mr-6 sm:mr-0 flex-shrink-0 flex items-center pt-1 text-center sm:text-left sm:mb-2.5">{t('navigation')}</h4>
+          <ul className="list-none p-0 flex flex-col gap-0 items-start sm:items-start">
             <li className="my-2"><a href="/series-populares" className="text-[#A0A0A0] no-underline hover:text-white hover:underline">{t('popular_series')}</a></li>
             <li className="my-2"><a href="/simulcasts" className="text-[#A0A0A0] no-underline hover:text-white hover:underline">{t('simulcasts')}</a></li>
             <li className="my-2"><a href="/calendario-lancamentos" className="text-[#A0A0A0] no-underline hover:text-white hover:underline">{t('release_calendar')}</a></li>
@@ -24,9 +25,9 @@ const Footer = () => {
         </div>
         
         {/* Seção de Contato */}
-        <div>
-          <h4 className="text-lg mb-2.5">{t('contact_us')}</h4>
-          <ul className="list-none p-0">
+        <div className="flex flex-row items-center justify-center sm:flex-col sm:items-start sm:justify-normal w-full sm:w-auto mb-4 sm:mb-0">
+          <h4 className="text-lg min-w-max mr-6 sm:mr-0 flex-shrink-0 flex items-center pt-1 text-center sm:text-left sm:mb-2.5">{t('contact_us')}</h4>
+          <ul className="list-none p-0 flex flex-col gap-0 items-start sm:items-start">
             <li className="my-2">
               <a href="https://youtube.com" target="_blank" className="text-[#A0A0A0] no-underline hover:text-white hover:underline">
                 <span className="inline-flex items-center gap-1">
@@ -135,9 +136,9 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div>
-          <h4 className="text-lg mb-2.5">{t('crunchyroll')}</h4>
-          <ul className="list-none p-0">
+        <div className="flex flex-row items-center justify-center sm:flex-col sm:items-start sm:justify-normal w-full sm:w-auto mb-4 sm:mb-0">
+          <h4 className="text-lg min-w-max mr-6 sm:mr-0 flex-shrink-0 flex items-center pt-1 text-center sm:text-left sm:mb-2.5">{t('crunchyroll')}</h4>
+          <ul className="list-none p-0 flex flex-col gap-0 items-start sm:items-start">
             <li className="my-2">
               <a href="#" className="no-underline">
                 <span className="inline-flex items-center gap-1">
@@ -162,7 +163,11 @@ const Footer = () => {
             <li className="my-2"><a href="#" className="text-[#A0A0A0] no-underline hover:text-white hover:underline">{t('help_center')}</a></li>
             <li className="my-2"><a href="#" className="text-[#A0A0A0] no-underline hover:text-white hover:underline">{t('terms_of_use')}</a></li>
             <li className="my-2"><a href="#" className="text-[#A0A0A0] no-underline hover:text-white hover:underline">{t('privacy_policy')}</a></li>
-            <li className="my-2"><a href="#" className="text-[#A0A0A0] no-underline hover:text-white hover:underline">{t('cookie_consent_tool')}</a></li>
+            <li className="my-2">
+              <CookieSettingsButton className="text-[#A0A0A0] no-underline hover:text-white hover:underline">
+                {t('cookie_consent_tool')}
+              </CookieSettingsButton>
+            </li>
             <li className="my-2"><a href="#" className="text-[#A0A0A0] no-underline hover:text-white hover:underline">{t('press_requests')}</a></li>
             <li className="my-2"><a href="#" className="text-[#A0A0A0] no-underline hover:text-white hover:underline">{t('download_app')}</a></li>
             <li className="my-2"><a href="#" className="text-[#A0A0A0] no-underline hover:text-white hover:underline">{t('redeem_code')}</a></li>
@@ -170,9 +175,10 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div>
-          <h4 className="text-lg mb-2.5">{t('account')}</h4>
-          <ul className="list-none p-0">
+        {/* Coluna Conta (Account) - escondida em telas menores que md */}
+        <div className="hidden md:flex flex-row items-center justify-center md:flex-col md:items-start md:justify-normal w-full md:w-auto">
+          <h4 className="text-lg min-w-max mr-6 md:mr-0 flex-shrink-0 flex items-center md:items-start pt-1 md:pt-0 text-center md:text-left md:mb-0">{t('account')}</h4>
+          <ul className="list-none p-0 flex flex-col gap-0 items-start md:items-start">
             <li className="my-2"><a href="#" className="text-[#A0A0A0] no-underline hover:text-white hover:underline">{t('switch_profile')}</a></li>
             <li className="my-2"><a href="#" className="text-[#A0A0A0] no-underline hover:text-white hover:underline">{t('queue')}</a></li>
             <li className="my-2"><a href="#" className="text-[#A0A0A0] no-underline hover:text-white hover:underline">{t('crunchylists')}</a></li>
@@ -184,15 +190,15 @@ const Footer = () => {
       </div>
 
       {/* Parte inferior */}
-      <div className="w-[1050px] flex justify-between items-center py-3">
-        <div className="flex items-center justify-center">
+      <div className="w-full max-w-[1050px] flex flex-col lg:flex-row justify-center lg:justify-between items-center py-3 gap-3 lg:gap-0 text-center">
+        <div className="flex flex-col lg:flex-row items-center justify-center">
           <img
             className="w-[158px] h-3"
             src="https://www.crunchyroll.com/build/assets/img/footer/sony_pictures_logo.png"
             alt="Sony Pictures Logo"
           />
-          <span className="w-px h-5 bg-[#A0A0A0] mx-2.5 inline-block align-middle"></span>
-          <p className="text-[#A0A0A0]">{t('copyright')}</p>
+          <span className="hidden lg:inline-block w-px h-5 bg-[#A0A0A0] mx-2.5 align-middle"></span>
+          <p className="text-[#A0A0A0] mt-2 lg:mt-0">{t('copyright')}</p>
         </div>
         <div role="button" className="text-sm text-white cursor-pointer flex items-center justify-center bg-transparent border-none">
           <span className="text-[#A0A0A0] flex items-center justify-center">

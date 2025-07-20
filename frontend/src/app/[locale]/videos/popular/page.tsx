@@ -10,7 +10,6 @@ import { GET_POPULAR_ANIMES } from "@/lib/queries/getPopularAnimes";
 import Footer from "@/app/components/layout/Footer";
 import Header from "@/app/components/layout/Header";
 import { useDropdown } from "@/app/[locale]/hooks/useDropdown";
-import PageLoading from "@/app/components/loading/PageLoading";
 import { ClientMetadata } from "@/app/components/metadata/ClientMetadata";
 
 type AudioFilter = "subtitled_dubbed" | "subtitled" | "dubbed";
@@ -58,7 +57,6 @@ export default function PopularPage() {
     router.push("/videos/alphabetical");
   };
 
-  if (loading) return <PageLoading/>;
   if (error) return <div>{error.message}</div>;
 
   return (

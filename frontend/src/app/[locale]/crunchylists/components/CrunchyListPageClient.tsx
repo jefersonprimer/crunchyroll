@@ -1,55 +1,19 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import TabsNavigation from '@/app/components/layout/TabsNavigation';
-import { useLists } from '../contexts/ListsContext';
-import AddToListModal from '../../components/modals/AddToListModal';
-import { Anime } from '@/types/anime';
-import RenameModal from './components/RenameModal';
-import CreateModal from '../crunchylists/[listId]/components/CreateModal';
-import DeleteModal from './[listId]/components/DeleteModal';
-
-interface List {
-  id: string;
-  name: string;
-  items: Anime[];
-  updatedAt: string;
-}
+import { useLists } from '../../contexts/ListsContext';
+import RenameModal from '../[listId]/components/RenameModal';
+import CreateModal from '../[listId]/components/CreateModal';
+import DeleteModal from '../[listId]/components/DeleteModal';
 
 const CrunchyListPageClient = () => {
-  const tTabs = useTranslations('Crunchylist');
-  const t = useTranslations('CrunchylistComponent');
+  const t = useTranslations('Crunchylist');
   const router = useRouter();
-  const pathname = usePathname();
-
-  // Tabs logic
-  let selectedTab = 'crunchylists';
-  if (pathname.includes('watchlist')) selectedTab = 'fila';
-  else if (pathname.includes('history')) selectedTab = 'historico';
-
-  const handleTabClick = (tab: string) => {
-    switch (tab) {
-      case 'fila':
-        router.push('/watchlist');
-        break;
-      case 'historico':
-        router.push('/history');
-        break;
-      case 'crunchylists':
-        router.push('/crunchylists');
-        break;
-      default:
-        break;
-    }
-  };
 
   // CrunchyList logic
-  const { lists, addItemToList, removeItemFromList, removeList, updateListName, createList } = useLists();
-  const [showModal, setShowModal] = useState(false);
-  const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
-  const [expandedList, setExpandedList] = useState<string | null>(null);
+  const { lists, removeList, updateListName, createList } = useLists();
   const [editingListId, setEditingListId] = useState<string | null>(null);
   const [newListName, setNewListName] = useState('');
   const [visibleMenu, setVisibleMenu] = useState<string | null>(null);
@@ -60,10 +24,6 @@ const CrunchyListPageClient = () => {
 
   const handleNavigateToList = (listId: string) => {
     router.push(`/crunchylists/${listId}`);
-  };
-
-  const handleRemoveItem = (listId: string, itemId: string) => {
-    removeItemFromList(listId, itemId);
   };
 
   const handleDeleteList = (listId: string) => {
@@ -103,10 +63,6 @@ const CrunchyListPageClient = () => {
     }
   };
 
-  const handleAddToList = (listId: string, anime: Anime) => {
-    addItemToList(listId, anime);
-  };
-
   const openDeleteModal = (listId: string) => {
     setListToDelete(listId);
     setDeleteModalOpen(true);
@@ -126,18 +82,8 @@ const CrunchyListPageClient = () => {
 
   return (
     <div>
-      <TabsNavigation
-        selectedTab={selectedTab}
-        onTabChange={handleTabClick}
-        labels={{
-          fila: tTabs('queue'),
-          crunchylists: tTabs('crunchylists'),
-          historico: tTabs('history'),
-          'Minhas Listas': tTabs('title')
-        }}
-      >
-        <div className="w-full max-w-5xl mx-auto ">
-          <div className="flex flex-col sm:flex-row sm:items-center mb-4 w-full">
+        <div className="w-full max-w-[445px] lg:max-w-[1055px] mx-auto ">
+          <div className="flex flex-col sm:flex-row sm:items-center mb-4 w-full px-2 lg:px-0">
             <button
               onClick={handleCreateList}
               className="uppercase text-sm mr-4 px-4 py-2 border border-[#FF640A] text-[#FF640A] bg-black cursor-pointer disabled:opacity-50"
@@ -149,12 +95,34 @@ const CrunchyListPageClient = () => {
             <span className="text-[#A0A0A0] text-base">{t('listsCount', { count: lists.length })}</span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-6">
+          <div className="w-full h-auto grid grid-cols-1 md:grid-cols-2 gap-4 items-start justify-center">
             {lists.length === 0 ? (
-              <p>{t('noLists')}</p>
+              <div className="w-full md:max-w-[1050px] mx-auto border border-dashed border-gray-400 p-8 flex flex-col items-center">
+                <div className="flex flex-col items-center">
+                  <img
+                    src="https://www.crunchyroll.com/build/assets/img/empty_list_state/empty-cr-list.png"
+                    srcSet="https://www.crunchyroll.com/build/assets/img/empty_list_state/empty-cr-list@2x.png 2x, https://www.crunchyroll.com/build/assets/img/empty_list_state/empty-cr-list@3x.png 3x"
+                    alt="Empty Crunchylist"
+                    className="w-41.5 h-53 mb-4"
+                  />
+                </div>
+                <h4 className="text-[#dadada] mb-[1rem] leading-[1.5] text-center">
+                  Você ainda não tem nenhuma Crunchylista.<br />Vamos criar uma!
+                </h4>
+                <div>
+                  <button
+                    tabIndex={0}
+                    className="inline-block py-2 px-4 bg-[#FF640A] opacity-90 hover:opacity-100 cursor-pointer"
+                    data-t="create-list-btn"
+                    onClick={handleCreateList}
+                  >
+                    <span className="text-black font-semibold text-sm uppercase">Criar Nova Lista</span>
+                  </button>
+                </div>
+              </div>
             ) : (
               lists.map((list) => (
-                <div key={list.id} className="p-5 bg-[#141519] hover:bg-[#23252B] relative w-full max-w-xl mx-auto">
+                <div key={list.id} className="p-5 bg-[#141519] hover:bg-[#23252B] relative w-full max-w-full sm:max-w-xl mx-auto">
                   <div>
                     <h3
                       className="text-xl m-0 cursor-pointer"
@@ -173,31 +141,6 @@ const CrunchyListPageClient = () => {
                       - {t('updatedAt')} {formatDate(list.updatedAt)}
                     </p>
                   </div>
-                  {expandedList === list.id && (
-                    <div className="mt-4">
-                      {list.items.length === 0 ? (
-                        <p>{t('noItems')}</p>
-                      ) : (
-                        list.items.map((anime) => (
-                          <div key={anime.id} className="flex items-center gap-2 mb-2">
-                            <img
-                              src={anime.imageCardCompact}
-                              alt={anime.name}
-                              className="w-12 h-12 object-cover"
-                            />
-                            <span>{anime.name}</span>
-                            <button
-                              className="bg-[#ff4d4d] text-white border-none py-1 px-2 hover:bg-[#e63939]"
-                              onClick={() => handleRemoveItem(list.id, anime.id)}
-                              aria-label={t('remove')}
-                            >
-                              {t('remove')}
-                            </button>
-                          </div>
-                        ))
-                      )}
-                    </div>
-                  )}
                   <div className="absolute top-4 right-4">
                     <button
                       className="border-none text-2xl cursor-pointer text-[#A0A0A0] hover:text-white"
@@ -211,7 +154,7 @@ const CrunchyListPageClient = () => {
                       </svg>
                     </button>
                     {visibleMenu === list.id && (
-                      <div className="w-48 absolute top-8 right-0 bg-[#23252B] z-10 py-2 flex flex-col shadow-lg rounded">
+                      <div className="w-48 absolute top-8 right-0 bg-[#23252B] z-10 py-2 flex flex-col shadow-lg ">
                         <button
                           onClick={() => {
                             handleRenameList(list.id, list.name);
@@ -240,20 +183,13 @@ const CrunchyListPageClient = () => {
             )}
           </div>
           {/* Modal para Renomear Lista */}
-          {editingListId && (
-            <RenameModal
-              currentName={newListName}
-              onSave={handleSaveNewName}
-              onClose={() => setEditingListId(null)}
-            />
-          )}
-          {showModal && selectedAnime && (
-            <AddToListModal
-              anime={selectedAnime}
-              onClose={() => setShowModal(false)}
-              onAddToList={handleAddToList}
-            />
-          )}
+          <RenameModal
+            isOpen={!!editingListId}
+            onClose={() => setEditingListId(null)}
+            onRename={() => handleSaveNewName(newListName)}
+            newListName={newListName}
+            onNameChange={setNewListName}
+          />
           <CreateModal
             isOpen={isCreateModalOpen}
             onClose={() => setIsCreateModalOpen(false)}
@@ -269,7 +205,6 @@ const CrunchyListPageClient = () => {
             onDelete={confirmDeleteList}
           />
         </div>
-      </TabsNavigation>
     </div>
   );
 };
