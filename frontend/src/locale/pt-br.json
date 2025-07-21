@@ -492,6 +492,9 @@
     "popular": {
         "title": "Animes Mais Populares",
         "subtitle": "Lançamentos Populares",
+        "titlePage": "Animes Mais Populares",
+        "subtitlePage": "Animes em Alta",
+        "mostPopular": "mais populares",
         "filters": {
             "sort": {
                 "label": "Ordenar",

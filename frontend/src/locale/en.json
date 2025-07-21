@@ -489,6 +489,9 @@
     "popular": {
         "title": "Most Popular Anime",
         "subtitle": "Popular Releases",
+        "titlePage": "Most Popular Anime",
+        "subtitlePage": "Trending Anime",
+        "latestReleases": "most popular",
         "filters": {
             "sort": {
                 "label": "Sort",
