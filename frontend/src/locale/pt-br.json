@@ -527,7 +527,16 @@
             "all": "Todos",
             "subtitled": "Legendado",
             "dubbed": "Dublado",
-            "subtitled_dubbed": "Leg | Dub"
+            "subtitled_dubbed": "Leg | Dub",
+            "audio": {
+                "label": "Filtrar",
+                "language": "Idioma",
+                "options": {
+                    "all": "Todos",
+                    "subtitled": "Legendado",
+                    "dubbed": "Dublado"
+                }
+            }
         },
         "noResults": "Nenhum anime encontrado com a letra \"{letter}\"",
         "actions": {
