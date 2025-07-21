@@ -464,9 +464,11 @@
         }
     },
     "newReleases": {
-        "title": "Animes Recentemente Adicionados",
-        "subtitle": "Últimos Lançamentos",
-        "latestReleases": "Últimos",
+        "title": "Animes e Filmes Recém-Lançados - Crunchyroll",
+        "subtitle": "Animes e Filmes Recém-Lançados",
+        "titlePage": "Animes Recentemente Adicionados",
+        "subtitlePage": "Últimos Lançamentos",
+        "latestReleases": "mais recentes",
         "filters": {
             "sort": {
                 "label": "Ordenar",

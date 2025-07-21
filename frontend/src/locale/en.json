@@ -463,21 +463,21 @@
         }
     },
     "newReleases": {
-        "title": "Newly Added Anime",
-        "subtitle": "Latest Releases",
-        "latestReleases": "Latest",
+        "titlePage": "New Releases",
+        "subtitlePage": "Check out the latest anime releases!",
+        "latestReleases": "Latest Releases",
         "filters": {
             "sort": {
                 "label": "Sort",
                 "options": {
                     "mostPopular": "Most Popular",
-                    "newest": "Latest",
-                    "alphabetical": "Alphabetical Order"
+                    "newest": "Newest",
+                    "alphabetical": "Alphabetical"
                 }
             },
             "audio": {
-                "label": "Filter",
-                "language": "Language",
+                "label": "Audio",
+                "language": "Audio Language",
                 "options": {
                     "all": "All",
                     "subtitled": "Subtitled",
