@@ -453,7 +453,9 @@
     },
     "simulcasts": {
         "season": {
-            "title": "Simulcasts da Temporada",
+            "title": "Crunchyroll - Confira Animes Em Simulcast",
+            "description": "Confira Animes em Simulcast",
+            "titlePage": "Simulcasts da Temporada",
             "noAnimesFound": "Nenhum anime encontrado para esta temporada",
             "seasons": {
                 "spring": "Primavera",
