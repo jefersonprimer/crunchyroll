@@ -567,7 +567,7 @@
         "error": "An error occurred: {error}",
         "genreNotFound": "Genre \"{genre}\" not found.",
         "genrePopularPage": {
-            "title": "All {genre} Anime",
+            "title": "{genre} / Trending",
             "loading": "Loading...",
             "error": "An error occurred: {error}",
             "genreNotFound": "Genre \"{genre}\" not found."
@@ -663,5 +663,23 @@
     "root": {
         "title": "Crunchyroll - Watch Anime, Play Games and Shop Online",
         "description": "created by primerdev"
+    },
+    "genres": {
+        "action": "Action",
+        "adventure": "Adventure",
+        "comedy": "Comedy",
+        "drama": "Drama",
+        "fantasy": "Fantasy",
+        "music": "Music",
+        "romance": "Romance",
+        "sciFi": "Sci-Fi",
+        "seinen": "Seinen",
+        "shoujo": "Shoujo",
+        "shounen": "Shounen",
+        "sliceOfLife": "Slice of Life",
+        "sports": "Sports",
+        "supernatural": "Supernatural",
+        "thriller": "Thriller",
+        "games": "Games"
     }
 }

@@ -516,7 +516,9 @@
         }
     },
     "alphabetical": {
-        "title": "Ordem Alfabética",
+        "title": "Lista de Anime e Filmes - Crunchyroll",
+        "description": "Lista de Anime e Filmes",
+        "titlePage": "Ordem Alfabética",
         "filters": {
             "alphabetical": "ordem alfabética",
             "mostPopular": "Mais Populares",
@@ -574,19 +576,21 @@
         },
         "title": "Animes de {genre}",
         "popular": "Populares",
-        "newReleases": "Novos Lançamentos",
-        "viewAll": "ver tudo",
+        "newReleases": "Novidades",
+        "viewAll": "ver todos",
         "loading": "Carregando...",
         "error": "Ocorreu um erro: {error}",
         "genreNotFound": "Gênero \"{genre}\" não encontrado.",
         "genrePopularPage": {
-            "title": "Todos os Animes de {genre}",
+            "title": "Animes e Séries de {genre} - Em Alta - Crunchyroll",
+            "titlePage": "{genre} / Em Alta",
             "loading": "Carregando...",
             "error": "Ocorreu um erro: {error}",
             "genreNotFound": "Gênero \"{genre}\" não encontrado."
         },
         "genreNewPage": {
-            "title": "Todos os Animes de {genre}",
+            "title": "Animes e Séries de {genre} - Novidades - Crunchyroll",
+            "titlePage": "{genre} / Novidades",
             "loading": "Carregando...",
             "error": "Ocorreu um erro: {error}",
             "genreNotFound": "Gênero \"{genre}\" não encontrado."
@@ -676,5 +680,23 @@
     "root": {
         "title": "Crunchyroll - Assista a Animes, Jogue Games e Compre Online",
         "description": "criado por primerdev"
+    },
+    "genres": {
+        "action": "Ação",
+        "adventure": "Aventura",
+        "comedy": "Comédia",
+        "drama": "Drama",
+        "fantasy": "Fantasia",
+        "music": "Música",
+        "romance": "Romance",
+        "sciFi": "Ficção Científica",
+        "seinen": "Seinen",
+        "shoujo": "Shoujo",
+        "shounen": "Shounen",
+        "sliceOfLife": "Slice of Life",
+        "sports": "Esportes",
+        "supernatural": "Sobrenatural",
+        "thriller": "Suspense",
+        "games": "Jogos"
     }
 }

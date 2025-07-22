@@ -23,7 +23,7 @@ const AlphabeticalClient = ({ animes, messages, audioFilter, activeLetter, onLet
       {/* Header com título e filtros */}
       <div className="w-[1050px] h-[44px] my-0 mx-auto flex justify-between items-center mb-8 relative">
         <h1 className="m-0 p-0 text-[1.6rem] font-medium font-lato text-left">
-          {messages?.title}
+          {messages?.titlePage}
         </h1>
         <div className="flex items-center">
           <SortDropdown />
