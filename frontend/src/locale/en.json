@@ -685,5 +685,9 @@
     "gamesPage": {
         "title": "Crunchyroll Games: Play Free-to-Play and Game Vault Anime-Inspired Games",
         "description": "Discover and play a variety of anime-inspired games for free or in the Game Vault. Enjoy exclusive Crunchyroll titles and more!"
+    },
+    "simulcastcalendar": {
+        "title": "Simulcast Calendar - Crunchyroll",
+        "description": "Check the schedule for all simulcast anime releases on Crunchyroll."
     }
 }

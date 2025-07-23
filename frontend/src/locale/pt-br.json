@@ -344,6 +344,10 @@
             "episodeCount": "{count} Episódios"
         }
     },
+    "simulcastcalendar": {
+        "title": "Calendário de Simulcasts - Crunchyroll",
+        "description": "Confira o calendário de lançamentos de animes simulcast na Crunchyroll."
+    },
     "AnimeHoverModal": {
         "buttons": {
             "watch": "Assistir",
