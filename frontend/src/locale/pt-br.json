@@ -700,5 +700,9 @@
         "supernatural": "Sobrenatural",
         "thriller": "Suspense",
         "games": "Jogos"
+    },
+    "gamesPage": {
+        "title": "Crunchyroll Games: Jogue Games de Anime Grátis e do Game Vault",
+        "description": "Descubra e jogue uma variedade de jogos inspirados em animes gratuitamente ou no Game Vault. Aproveite títulos exclusivos da Crunchyroll e muito mais!"
     }
 }
