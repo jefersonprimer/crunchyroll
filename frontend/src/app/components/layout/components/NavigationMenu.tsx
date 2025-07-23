@@ -32,7 +32,7 @@ export default function NavigationMenu() {
       `/${locale}/store`,
       `/${locale}/videos/alphabetical`,
       `/${locale}/simulcastcalendar`,
-      `/${locale}/series`
+      `/${locale}/music`
     ];
     
     // Se é uma rota exata, usar comparação direta
@@ -123,7 +123,7 @@ export default function NavigationMenu() {
                   <div className="w-px py-[6px] px-0 flex-[0.5] border-r border-[#23252B] last:pt-[16px]">
                     <Link href={`/${locale}/videos/alphabetical`} className={`block text-[0.875rem] font-medium leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8] ${isLinkActive(`/${locale}/videos/alphabetical`) ? 'text-[#ff640a]' : 'text-[#F8F8EA]'}`} onClick={() => setActiveDropdown(null)}>{t('exploreAll')}</Link>
                     <Link href={`/${locale}/simulcastcalendar`} className={`block text-[0.875rem] font-medium leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8] ${isLinkActive(`/${locale}/simulcastcalendar`) ? 'text-[#ff640a]' : 'text-[#F8F8EA]'}`} onClick={() => setActiveDropdown(null)}>{t('releaseCalendar')}</Link>
-                    <Link href={`/${locale}/series`} className={`block text-[0.875rem] font-medium leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8] ${isLinkActive(`/${locale}/series`) ? 'text-[#ff640a]' : 'text-[#F8F8EA]'}`} onClick={() => setActiveDropdown(null)}>{t('videosAndShows')}</Link>
+                    <Link href={`/${locale}/music`} className={`block text-[0.875rem] font-medium leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8] ${isLinkActive(`/${locale}/music`) ? 'text-[#ff640a]' : 'text-[#F8F8EA]'}`} onClick={() => setActiveDropdown(null)}>{t('videosAndShows')}</Link>
                   </div>
                   <div className="w-px py-[6px] px-0 flex-[1.4] last:pt-[16px]">
                     <small className="text-[#a0a0a0] text-[.75rem] font-weight-600 leading-[1rem] mb-2 px-[1rem] py-[0.8125rem] uppercase">{t('genres')}</small>
