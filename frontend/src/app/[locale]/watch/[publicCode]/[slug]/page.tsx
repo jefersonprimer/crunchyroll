@@ -67,7 +67,7 @@ const EpisodePage: FC = () => {
       <div className="w-[1351px] pb-10">
         <EpisodeVideoPlayer episode={currentEpisode} />
       </div>
-      <div className="w-[1100px] mb-[60px] box-border">
+      <div className="w-[1050px] mb-[60px] box-border">
         <div className="flex w-full gap-8">
           <div className="flex-[2] min-w-0"> 
             <EpisodeHeader anime={anime} episode={currentEpisode} refetchEpisode={refetch} />
