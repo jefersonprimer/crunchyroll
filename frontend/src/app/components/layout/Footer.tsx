@@ -3,6 +3,7 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import CookieSettingsButton from '../modals/CookieSettingsButton';
+import LanguageDropdown from './LanguageDropdown';
 
 const Footer = () => {
   const t = useTranslations('footer');
@@ -200,17 +201,7 @@ const Footer = () => {
           <span className="hidden lg:inline-block w-px h-5 bg-[#A0A0A0] mx-2.5 align-middle"></span>
           <p className="text-[#A0A0A0] mt-2 lg:mt-0">{t('copyright')}</p>
         </div>
-        <div role="button" className="text-sm text-white cursor-pointer flex items-center justify-center bg-transparent border-none">
-          <span className="text-[#A0A0A0] flex items-center justify-center">
-            <span>
-              <svg className="w-6 h-6 fill-[#A0A0A0]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-t="dropdown-svg" aria-labelledby="dropdown-svg" aria-hidden="true" role="img">
-                <title id="dropdown-svg">Menu dropdown</title>
-                <path d="M7 10h10l-5 5z"></path>
-              </svg>
-            </span>
-            PORTUGUÊS (BRASIL)
-          </span>
-        </div>
+        <LanguageDropdown />
       </div>
     </footer>
   );

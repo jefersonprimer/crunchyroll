@@ -4,8 +4,8 @@ import type { NextRequest } from 'next/server';
 import createIntlMiddleware from 'next-intl/middleware';
 
 // Defina seus locales e o locale padrão
-const locales = ['en', 'pt-br', 'es'];
-const defaultLocale = 'en';
+const locales = ['en', 'pt-br'];
+const defaultLocale = 'pt-br';
 
 // Crie o middleware de internacionalização com seus locales
 const intlMiddleware = createIntlMiddleware({
@@ -43,7 +43,7 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/',
-    '/(es|en|pt-br)/:path*',
+    '/(en|pt-br)/:path*',
     '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)',
   ],
 };
