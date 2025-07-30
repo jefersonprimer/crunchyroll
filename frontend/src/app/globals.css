@@ -138,3 +138,29 @@ body, html {
   padding-right: 0 !important;
 }
 
+/* Estilos para placeholders */
+::placeholder {
+  color: #FFFFFF !important;
+  opacity: 1 !important;
+}
+
+::-webkit-input-placeholder {
+  color: #FFFFFF !important;
+  opacity: 1 !important;
+}
+
+::-moz-placeholder {
+  color: #FFFFFF !important;
+  opacity: 1 !important;
+}
+
+:-ms-input-placeholder {
+  color: #FFFFFF !important;
+  opacity: 1 !important;
+}
+
+:-moz-placeholder {
+  color: #FFFFFF !important;
+  opacity: 1 !important;
+}
+

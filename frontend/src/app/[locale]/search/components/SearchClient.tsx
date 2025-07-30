@@ -3,15 +3,12 @@
 import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import Head from 'next/head';
 import { useQuery } from '@apollo/client';
 import { GET_ANIMES } from '@/lib/queries/getAnimes';
-import AnimeCard from './components/AnimeCard';
-import AnimeCardSkeleton from './components/AnimeCardSkeleton';
 import { Anime } from '@/types/anime';
-import Header from '../../components/layout/Header';
-import Footer from '../../components/layout/Footer';
-import Loading from '../loading';
+import AnimeCard from './AnimeCard';
+import AnimeCardSkeleton from './AnimeCardSkeleton';
+import Loading from '../../loading';
 
 export default function Search() {
   const t = useTranslations('Search');
@@ -58,21 +55,7 @@ export default function Search() {
   }
 
   return (
-    <div>
-    <Header />
-    <div className="flex flex-col items-center h-auto bg-black mx-auto">
-      <Head>
-        <title>{searchTerm ? t('searchTitle', { searchTerm }) : t('defaultTitle')}</title>
-        <meta
-          name="description"
-          content={
-            searchTerm
-              ? t('searchDescription', { searchTerm })
-              : t('defaultDescription')
-          }
-        />
-      </Head>
-  
+    <div className="flex flex-col items-center h-auto bg-black mx-auto"> 
       <div className="flex flex-col items-center justify-start w-full p-5 mb-8 bg-[#141519] h-[114px]">
         <div className="relative w-[70%] flex items-center h-auto">
           <input
@@ -136,7 +119,5 @@ export default function Search() {
         )}
       </div>
     </div>
-    <Footer />
-  </div>
   );
 }

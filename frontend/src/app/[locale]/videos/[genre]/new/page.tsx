@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default async function GenreNewPage(props: { params: { locale: string; genre: string }, searchParams: { lang?: string } }) {
+export default async function GenreNewPage(props: { params: Promise<{ locale: string; genre: string }>, searchParams: Promise<{ lang?: string }> }) {
   const params = await props.params;
   const searchParams = await props.searchParams;
   const { genre } = params;

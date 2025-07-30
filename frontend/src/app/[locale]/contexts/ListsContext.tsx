@@ -12,6 +12,7 @@ interface List {
 
 interface ListsContextType {
   lists: List[];
+  isLoading: boolean;
   createList: (name: string) => void;
   addItemToList: (listId: string, anime: Anime) => void;
   removeItemFromList: (listId: string, animeId: string) => void;
@@ -27,6 +28,7 @@ interface ListsProviderProps {
 
 export const ListsProvider: React.FC<ListsProviderProps> = ({ children }) => {
   const [lists, setLists] = useState<List[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Carregar listas do localStorage quando o componente for montado
   useEffect(() => {
@@ -34,6 +36,7 @@ export const ListsProvider: React.FC<ListsProviderProps> = ({ children }) => {
     if (storedLists) {
       setLists(JSON.parse(storedLists));
     }
+    setIsLoading(false);
   }, []);
 
   // Salvar listas no localStorage sempre que a lista mudar
@@ -131,7 +134,7 @@ export const ListsProvider: React.FC<ListsProviderProps> = ({ children }) => {
   };
 
   return (
-    <ListsContext.Provider value={{ lists, createList, addItemToList, removeItemFromList, removeList, updateListName }}>
+    <ListsContext.Provider value={{ lists, isLoading, createList, addItemToList, removeItemFromList, removeList, updateListName }}>
       {children}
     </ListsContext.Provider>
   );

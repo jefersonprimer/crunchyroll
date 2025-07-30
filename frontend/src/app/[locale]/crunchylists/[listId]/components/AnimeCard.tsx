@@ -6,6 +6,7 @@ import { useFavorites } from '@/app/[locale]/contexts/FavoritesContext';
 import { useTranslations } from 'next-intl';
 import BookmarkButton from '@/app/components/buttons/BookmarkButton';
 import PlayButton from '@/app/components/buttons/PlayButton';
+import RemoveButton from '@/app/components/buttons/RemoveButton';
 import { useQuery } from '@apollo/client';
 import { GET_ANIMES } from '@/lib/queries/getAnimes';
 
@@ -59,7 +60,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
 
   return (
     <div
-      className="flex items-center p-4 border-b border-[#2a2a2a] relative min-h-[120px] cursor-pointer hover:bg-[#23252B] overflow-hidden transition-all duration-200"
+      className="flex items-center p-4 border-b-2 border-[#4A4E58] relative min-h-[120px] cursor-pointer hover:bg-[#23252B] overflow-hidden transition-all duration-200"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -102,7 +103,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
           </>
         )}
         {isHovered && (
-          <div className="w-full bg-[#23252B] p-0 m-0">
+          <div className="w-full p-0 m-0">
             <h3 className="text-[1rem] font-medium mb-2">{anime.name}</h3>
             <div className="mb-2">
               <div className="flex items-center gap-2">
@@ -138,21 +139,10 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onRemove }) => {
       </div>
       {isHovered && (
         <div className="ml-1 mt-6 transition-opacity duration-200 opacity-100">
-          <button
+          <RemoveButton
             onClick={() => onRemove(anime.id)}
-            className="bg-none border-none cursor-pointer p-2"
-            aria-label="Remover anime"
-            title="Remover anime"
-          >
-            <svg 
-              className="w-5 h-5 text-[#999] hover:text-white transition-colors duration-200" 
-              xmlns="http://www.w3.org/2000/svg" 
-              viewBox="0 0 24 24"
-              fill='currentColor'
-              >
-              <path d="M13 2h-2a1 1 0 0 0-1 1v1H4a1 1 0 0 0 0 2h1v15a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6h1a1 1 0 1 0 0-2h-6V3a1 1 0 0 0-1-1m-1 2v2h5v14H7V6h5V4zm-2 5a1 1 0 0 0-1 1v6a1 1 0 1 0 2 0v-6a1 1 0 0 0-1-1zm4 0a1 1 0 0 0-1 1v6a1 1 0 1 0 2 0v-6a1 1 0 0 0-1-1z"/>
-            </svg>
-          </button>
+            className="p-2"
+          />
         </div>
       )}
     </div>

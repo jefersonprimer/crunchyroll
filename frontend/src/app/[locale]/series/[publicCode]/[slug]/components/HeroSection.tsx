@@ -109,7 +109,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     }`}>
       <div
         ref={heroImageRef}
-        className="relative w-full h-[548px] bg-cover bg-center flex my-0 mx-auto items-center justify-center before:content-[''] before:absolute before:inset-0 before:bg-inherit before:bg-cover before:bg-center before:blur-[150px] before:z-[-1] after:content-[''] after:absolute after:inset-0 after:bg-gradient-to-b after:from-[rgba(0,0,0,0.05)] after:via-[rgba(0,0,0,0.5)] after:to-[rgba(0,0,0,0.9)] after:z-0"
+        className="relative w-full h-[548px] bg-cover bg-center flex my-0 mx-auto items-center justify-center before:content-[''] 
+        before:absolute before:inset-0 before:bg-inherit before:bg-cover before:bg-center before:blur-[150px] before:z-[-1] after:content-['']
+        after:absolute after:inset-0 after:bg-gradient-to-b after:from-[rgba(0,0,0,0.05)] after:via-[rgba(0,0,0,0.5)] after:to-[rgba(0,0,0,0.9)] after:z-0"
       >
         
    

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
+import LanguageDropdown from './LanguageDropdown';
 
 const MinimalFooter: React.FC = () => {
   const t = useTranslations('MinimalFooter');
@@ -63,23 +64,11 @@ const MinimalFooter: React.FC = () => {
                 role="button"
                 aria-label="App Language"
                 tabIndex={0}
-                className="flex items-center space-x-2 px-4 py-2 cursor-pointer hover:bg-gray-700 transition-colors"
                 aria-haspopup="listbox"
                 aria-expanded="false"
                 aria-controls="fa177e39-897a-44a4-92e6-080ef17f072d"
               >
-                <svg
-                  className="w-6 h-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  data-t="dropdown-svg"
-                  aria-labelledby="dropdown-svg"
-                  aria-hidden="true"
-                  role="img"
-                >
-                   <path d="M7 10h10l-5 5z" fill="#A0A0A0" />
-                </svg>
-                <span className="text-sm font-medium text-[#A0A0A0]">{t('language')}</span>
+                <span className="text-sm font-medium text-[#A0A0A0]"><LanguageDropdown /></span>
               </div>
             </div>
           </div>

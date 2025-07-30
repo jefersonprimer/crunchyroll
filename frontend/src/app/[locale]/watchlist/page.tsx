@@ -20,7 +20,7 @@ const WatchlistPage = async (props: { params: Promise<{ locale: string }> }) => 
   const t = await getTranslations({ locale });
 
   return (
-    <div>
+    <>
       <Header/>
         <div className="my-[60px]">
           <div className="flex justify-center items-center w-full h-full">
@@ -28,7 +28,7 @@ const WatchlistPage = async (props: { params: Promise<{ locale: string }> }) => 
               <div className="flex flex-col items-center w-full">
                 <div className="text-center w-full md:max-w-6xl h-[152px]">
                   <div className="text-center w-auto h-[62px]">
-                    <h1 className="text-2xl mb-6 gap-2 flex items-center justify-center">
+                    <h1 className="text-3xl mb-6 gap-2 flex items-center justify-center">
                       <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-t="watchlist-svg" aria-labelledby="watchlist-svg" aria-hidden="true" role="img">
                         <path fill="#FFF" d="M17 18.113l-3.256-2.326A2.989 2.989 0 0 0 12 15.228c-.629 0-1.232.194-1.744.559L7 18.113V4h10v14.113zM18 2H6a1 1 0 0 0-1 1v17.056c0 .209.065.412.187.581a.994.994 0 0 0 1.394.233l4.838-3.455a1 1 0 0 1 1.162 0l4.838 3.455A1 1 0 0 0 19 20.056V3a1 1 0 0 0-1-1z"></path>
                       </svg>
@@ -72,7 +72,7 @@ const WatchlistPage = async (props: { params: Promise<{ locale: string }> }) => 
           </div>
         </div>
       <Footer/>
-    </div>
+    </>
   );
 };
 

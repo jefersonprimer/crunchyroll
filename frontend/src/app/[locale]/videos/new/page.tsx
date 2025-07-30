@@ -16,7 +16,7 @@ async function getMessages(currentLocale: string) {
   }
 }
 
-export async function generateMetadata({ params }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const messages = await getMessages(locale);
   return {
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   };
 }
 
-export default async function NewReleasesPage({ params, searchParams }: { params: { locale: string }, searchParams: { lang?: string } }) {
+export default async function NewReleasesPage({ params, searchParams }: { params: Promise<{ locale: string }>, searchParams: Promise<{ lang?: string }> }) {
   const { data } = await client.query({ query: GET_LATEST_RELEASES });
   const animes = data?.latestReleases || [];
 

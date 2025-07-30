@@ -69,7 +69,7 @@
         "description": "Crie e Gerencie Crunchylistas | Crunchyroll",
         "mylists": "Minhas Listas",
         "queue": "fila",
-        "crunchylists": "crunchylists",
+        "crunchylists": "crunchylistas",
         "history": "histórico",
         "createNewList": "criar nova lista",
         "listsCount": "{count}/10 listas",
@@ -98,11 +98,11 @@
     },
     "ListDetails": {
         "backToLists": "volta para crunchyLists",
-        "searchPlaceholder": "Buscar anime...",
-        "itemsCount": "{count} de 100 itens",
+        "searchPlaceholder": "+ Adicionar Série",
+        "itemsCount": "{count}/100 itens",
         "settings": "configurações",
-        "editListName": "Editar nome da lista",
-        "deleteList": "Excluir Lista",
+        "editListName": "Renomear Crunchylista",
+        "deleteList": "Deletar Crunchylista",
         "noAnimeFound": "Nenhum anime encontrado.",
         "renameTitle": "Renomear Crunchylist",
         "listName": "Nome da lista",
@@ -283,7 +283,7 @@
     },
     "Search": {
         "searchPlaceholder": "Buscar...",
-        "searchResults": "Resultados da Busca",
+        "searchResults": "Melhores Resultados",
         "noResults": "Nenhum anime encontrado.",
         "loading": "Carregando resultados...",
         "clearSearch": "Limpar busca",
@@ -327,8 +327,8 @@
         "sort": {
             "newest": "mais novo",
             "oldest": "mais antigo",
-            "newestLabel": "Mais novo",
-            "oldestLabel": "Mais antigo"
+            "newestLabel": "Mais Novo",
+            "oldestLabel": "Mais Antigo"
         },
         "options": {
             "label": "opções",
@@ -637,7 +637,7 @@
         "crunchylists": "crunchylists",
         "history": "histórico",
         "emptyMessage": "Sua fila merece mais amor. Vamos enchê-la com animes incríveis.",
-        "backToHome": "voltar para o início"
+        "backToHome": "voltar para a tela inicial"
     },
     "AnimeCardWatchlist": {
         "audioTypes": {

@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import NewsMenu from "./NewsMenu";
 import { useRef, useEffect } from "react";
 import { useDropdown } from "@/app/[locale]/contexts/DropdownContext";
 import { DropdownIcon } from "./icons/HeaderIcons";
@@ -80,31 +79,31 @@ export default function NavigationMenu() {
   return (
     <div className="flex items-center m-0 p-0 gap-0 h-[60px]">
       <div className="items-center m-0 p-0 gap-0 h-[60px] hidden lg:flex">
-        <Link href={`/${locale}/videos/new`} className="relative h-full flex lg:hidden xl:flex justify-center items-center px-[16px] hover:text-[#ffffff] hover:bg-[#141519]">
+        <Link href={`/${locale}/videos/new`} className="relative h-full flex lg:hidden xl:flex justify-center items-center px-[16px] text-[#DADADA] hover:text-white hover:bg-[#141519]">
           <span
-            className="font-medium text-[1rem] leading-[1.5rem] text-[#DADADA] no-underline cursor-pointer whitespace-nowrap">
+            className="font-medium text-[1rem] leading-[1.5rem] no-underline cursor-pointer whitespace-nowrap">
             {t('new')}
           </span>
         </Link>
-        <Link href={`/${locale}/videos/popular`} className="relative h-full flex justify-center items-center px-[16px] hover:text-[#ffffff] hover:bg-[#141519] flex">
+        <Link href={`/${locale}/videos/popular`} className="relative h-full flex justify-center items-center px-[16px] text-[#DADADA] hover:text-white hover:bg-[#141519]">
           <span
-            className="font-medium text-[1rem] leading-[1.5rem] text-[#DADADA] no-underline cursor-pointer whitespace-nowrap">
+            className="font-medium text-[1rem] leading-[1.5rem] no-underline cursor-pointer whitespace-nowrap">
             {t('popular')}
           </span>
         </Link>
-        <Link href={`/${locale}/simulcasts/seasons/spring-2025`} className="relative h-full flex lg:hidden xl:flex justify-center items-center px-[16px] hover:text-[#ffffff] hover:bg-[#141519]">
+        <Link href={`/${locale}/simulcasts/seasons/spring-2025`} className="relative h-full flex lg:hidden xl:flex justify-center items-center px-[16px] text-[#DADADA] hover:text-white hover:bg-[#141519]">
           <span
-            className="font-medium text-[1rem] leading-[1.5rem] text-[#DADADA] no-underline cursor-pointer whitespace-nowrap">
+            className="font-medium text-[1rem] leading-[1.5rem] no-underline cursor-pointer whitespace-nowrap">
             {t('simulcasts')}
           </span>
         </Link>
       </div>
 
-      <div className="items-center m-0 p-0 gap-0 h-[60px] flex">
-        <div className="relative h-full flex justify-center items-center hidden lg:flex">
+      <div className="flex items-center h-full">
+        <div className="relative h-full justify-center items-center hidden lg:flex">
           <div
             ref={buttonRef}
-            className={`font-lato relative z-[1001] font-medium  text-[16px] leading-[1.5rem] flex items-center  text-[#DADADA] no-underline cursor-pointer px-[16px] h-full whitespace-nowrap hover:text-[#ffffff] hover:bg-[#141519]
+            className={`relative flex items-center z-[1001] font-medium text-base leading-[1.5rem] text-[#DADADA] no-underline cursor-pointer px-[16px] h-full whitespace-nowrap hover:text-[#ffffff] hover:bg-[#141519]
               ${activeDropdown === "categorias" ? "text-white bg-[#141519] [&_.dropdownIcon]:fill-[#f47521]" : ""}`}
             onClick={handleButtonClick}
           >
@@ -113,9 +112,9 @@ export default function NavigationMenu() {
           </div>
           {activeDropdown === "categorias" && (
             <>
-              {/* Overlay escurecido atrás do dropdown */}
+              
               <div
-                className="fixed inset-0 bg-[#23252B]/60 z-[999]"
+                className="fixed top-[60px] left-0 right-0 bottom-0 bg-[#23252B]/60 z-[999]"
                 onClick={() => setActiveDropdown(null)}
               />
               <div className="absolute top-full left-0 bg-[#141519] py-[0.8rem] px-0 w-[862px] h-[286px] z-[1000]" ref={dropdownRef}>
@@ -151,10 +150,10 @@ export default function NavigationMenu() {
           )}
         <div className="w-[1px] h-[20px] bg-[#4A4E58] my-0 mx-[4px]" />
         </div>
-        <div className="flex items-center m-0 p-0 gap-0 h-[60px] hidden lg:flex">
-          <Link href={`/${locale}/games`} className="relative h-full flex justify-center items-center px-[16px] hover:text-[#ffffff] hover:bg-[#141519]">
+        <div className="items-center m-0 p-0 gap-0 h-[60px] hidden lg:flex">
+          <Link href={`/${locale}/games`} className="relative h-full flex justify-center items-center px-[16px] text-[#DADADA] hover:text-white hover:bg-[#141519]">
             <span
-              className="font-medium text-[1rem] leading-[1.5rem] text-[#DADADA] no-underline cursor-pointer whitespace-nowrap">
+              className="font-medium text-[1rem] leading-[1.5rem] no-underline cursor-pointer whitespace-nowrap">
               {t('games')}
             </span>
           </Link>
@@ -164,7 +163,50 @@ export default function NavigationMenu() {
               {t('store')}
             </span>
           </Link> */}
-          <NewsMenu />
+          <div className="relative h-full">
+            <div
+              className={`relative z-[1001] font-medium text-[16px] leading-[1.5rem] flex items-center gap-0.5 text-[#DADADA] no-underline cursor-pointer px-[16px] h-full whitespace-nowrap hover:text-[#ffffff] hover:bg-[#141519] 
+                ${activeDropdown === "news" ? "text-white bg-[#141519] [&_.dropdownIcon]:fill-[#f47521]" : ""}`}
+              onClick={() => setActiveDropdown(activeDropdown === "news" ? null : "news")}
+            >
+              {t('news')}
+              <DropdownIcon />
+            </div>
+            {activeDropdown === "news" && (
+              <>
+                {/* Overlay escurecido atrás do dropdown */}
+                <div
+                  className="fixed top-[60px] left-0 right-0 bottom-0 bg-[#23252B]/60 z-[999]"
+                  onClick={() => setActiveDropdown(null)}
+                />
+                <div className="absolute top-full left-0 bg-[#141519] py-[0.8rem] px-0 w-[300px] z-[1000]">
+                  <div>
+                    <Link 
+                      href="/news" 
+                      className="block text-[#F8F8EA] text-[0.875rem] font-weight-500 leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8]"
+                      onClick={() => setActiveDropdown(null)}
+                    >
+                      {t('allNews')}
+                    </Link>
+                    <Link 
+                      href="/news/awards" 
+                      className="block text-[#F8F8EA] text-[0.875rem] font-weight-500 leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8]" 
+                      onClick={() => setActiveDropdown(null)}
+                    >
+                      {t('animeAwards')}
+                    </Link>
+                    <Link 
+                      href="/news/events" 
+                      className="block text-[#F8F8EA] text-[0.875rem] font-weight-500 leading-[1.125rem] no-underline px-[1rem] py-[.75rem] hover:bg-[#23252b] hover:text-[#f8f8f8]" 
+                      onClick={() => setActiveDropdown(null)}
+                    >
+                      {t('experiencesAndEvents')}
+                    </Link>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>
