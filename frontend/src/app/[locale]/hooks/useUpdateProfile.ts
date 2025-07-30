@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 export function useUpdateProfile() {
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const t = useTranslations('profile.errors');
 
   const updateProfile = async (formData: {
     display_name: string;
@@ -22,12 +24,12 @@ export function useUpdateProfile() {
         body: JSON.stringify(formData)
       });
       if (!response.ok) {
-        throw new Error('Erro ao atualizar perfil');
+        throw new Error(t('updateProfile'));
       }
       const updatedProfile = await response.json();
       return updatedProfile;
     } catch (err: any) {
-      setError(err.message || 'Erro desconhecido');
+      setError(err.message || t('unknownError'));
       throw err;
     } finally {
       setIsSaving(false);

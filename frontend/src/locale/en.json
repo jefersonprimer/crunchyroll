@@ -689,5 +689,27 @@
     "simulcastcalendar": {
         "title": "Simulcast Calendar - Crunchyroll",
         "description": "Check the schedule for all simulcast anime releases on Crunchyroll."
+    },
+    "profile": {
+        "title": "Edit Profile",
+        "profileName": "Profile Name",
+        "profileNameDescription": "This is displayed within your home and can be changed at any time.",
+        "username": "Username (Optional)",
+        "usernameDescription": "Create a username to be ready for future experiences that will share your love for anime! Choose one you love, you can't change it later!",
+        "updateBackgroundImage": "Update Background Image",
+        "change": "Change",
+        "save": "Save",
+        "saving": "Saving...",
+        "cancel": "Cancel",
+        "editProfile": "Edit Profile",
+        "editProfileMessage": "Are you sure you want to edit your profile?",
+        "errors": {
+            "updateProfile": "Error updating profile",
+            "unknownError": "Unknown error"
+        }
+    },
+    "confirmationModal": {
+        "confirm": "Confirm",
+        "cancel": "Cancel"
     }
 }

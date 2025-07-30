@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 
 interface ConfirmationModalProps {
   isOpen: boolean;
@@ -17,6 +18,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   title,
   message
 }) => {
+  const t = useTranslations('confirmationModal');
   if (!isOpen) return null;
 
   return (
@@ -29,13 +31,13 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
             onClick={onConfirm} 
             className="px-4 py-2 bg-[#f47521] text-white rounded border-none cursor-pointer font-medium transition-colors duration-200 hover:bg-[#e06a1b]"
           >
-            Confirm
+            {t('confirm')}
           </button>
           <button 
             onClick={onClose} 
             className="px-4 py-2 bg-[#333] text-white rounded border-none cursor-pointer font-medium transition-colors duration-200 hover:bg-[#444]"
           >
-            Cancel
+            {t('cancel')}
           </button>
         </div>
       </div>

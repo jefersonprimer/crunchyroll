@@ -708,5 +708,27 @@
     "gamesPage": {
         "title": "Crunchyroll Games: Jogue Games de Anime Grátis e do Game Vault",
         "description": "Descubra e jogue uma variedade de jogos inspirados em animes gratuitamente ou no Game Vault. Aproveite títulos exclusivos da Crunchyroll e muito mais!"
+    },
+    "profile": {
+        "title": "Editar Perfil",
+        "profileName": "Nome do Perfil",
+        "profileNameDescription": "Este é visualizado dentro da sua casa e pode ser alterado a qualquer tempo.",
+        "username": "Nome de usuário (Opcional)",
+        "usernameDescription": "Crie um nome de usuário para estar pronto para experiências futuras que vão compartilhar o seu amor por anime! Escolha um que ama, você não pode mudar depois!",
+        "updateBackgroundImage": "Atualizar Imagem de Plano de Fundo",
+        "change": "Alterar",
+        "save": "Salvar",
+        "saving": "Salvando...",
+        "cancel": "Cancelar",
+        "editProfile": "Editar Perfil",
+        "editProfileMessage": "Tem certeza que deseja editar seu perfil?",
+        "errors": {
+            "updateProfile": "Erro ao atualizar perfil",
+            "unknownError": "Erro desconhecido"
+        }
+    },
+    "confirmationModal": {
+        "confirm": "Confirmar",
+        "cancel": "Cancelar"
     }
 }
