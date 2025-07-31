@@ -77,6 +77,9 @@ const ProfileClient = () => {
       });
       setIsEditing(false);
       setHasChanges(false);
+      
+      // Force auth state refresh to update header
+      await checkAuthState();
     } catch (error) {
     }
   };

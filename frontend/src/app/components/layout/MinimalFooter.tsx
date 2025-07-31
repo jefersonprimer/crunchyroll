@@ -6,7 +6,7 @@ const MinimalFooter: React.FC = () => {
   const t = useTranslations('MinimalFooter');
 
   return (
-    <div className="w-full bg-[#000000] text-white py-8">
+    <div className="w-full bg-transparent text-white py-8 relative z-10">
       <div className="max-w-[1050px] mx-auto px-4">
         {/* Links row - centered */}
         <div className="flex justify-center mb-8 border-b-1 pb-6 border-[#4A4E58]">

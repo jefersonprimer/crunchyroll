@@ -3,8 +3,8 @@ import React from 'react';
 
 const HeaderLogin: React.FC = () => {
   return (
-    <header>
-      <div className="w-full h-[72px] bg-gradient-to-b from-transparent to-[#2d303a33] bg-black shadow-lg flex items-center justify-center">
+    <header className="relative z-10">
+      <div className="w-full h-[72px] bg-gradient-to-b from-transparent to-[#2d303a33] shadow-lg flex items-center justify-center">
         <div className="sticky top-0 z-50">
           <div className="flex items-center">
             <Link

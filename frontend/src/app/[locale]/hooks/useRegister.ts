@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useMultipleAccountsContext } from '@/app/[locale]/contexts/MultipleAccountsContext';
 
 const useRegister = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { addAccount } = useMultipleAccountsContext();
 
   const register = async (formData: {
     email: string;
@@ -22,6 +24,10 @@ const useRegister = () => {
       });
       const data = await response.json();
       if (response.ok) {
+        // Adicionar conta ao sistema de múltiplas contas
+        addAccount(data.user, data.token);
+        
+        // Manter compatibilidade com sistema existente
         document.cookie = `token=${data.token}; path=/; max-age=86400; SameSite=Lax`;
         window.dispatchEvent(new Event('auth-state-changed'));
         return { success: true, data };

@@ -31,6 +31,7 @@ const AccountModal: React.FC<AccountModalProps> = ({ isOpen, onClose, userProfil
           <Link href="/profile">
             <div className="flex items-center gap-3 px-4 py-2.5 relative cursor-pointer hover:bg-[#23252B]">
               <img
+                key={userProfile.profile_image_url}
                 src={userProfile.profile_image_url || '/default-avatar.jpg'}
                 alt="Profile"
                 className="w-[54px] h-[54px] rounded-full object-cover"
@@ -75,7 +76,7 @@ const AccountModal: React.FC<AccountModalProps> = ({ isOpen, onClose, userProfil
         </div>
         <div className="flex flex-col gap-2">
           <div className="mx-0 pb-1.5 border-b-2 border-[#23252B] w-full box-border">
-            <Link href="/profile" className="flex items-center gap-3 py-3 px-4 text-white no-underline border-none bg-transparent w-full text-left cursor-pointer transition-colors duration-200 hover:bg-[rgba(255,255,255,0.1)]">
+            <Link href={`/${locale}/profile-selection`} className="flex items-center gap-3 py-3 px-4 text-white no-underline border-none bg-transparent w-full text-left cursor-pointer transition-colors duration-200 hover:bg-[rgba(255,255,255,0.1)]">
               <svg className="w-6 h-6 fill-current opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-t="switch-svg" aria-labelledby="switch-svg" aria-hidden="true" role="img"><path fillRule="evenodd" clipRule="evenodd" d="M17.278 10.95a1 1 0 0 0 1.414 1.414l4.327-4.327a.996.996 0 0 0 .002-1.416l-4.329-4.328a1 1 0 1 0-1.414 1.414L19.9 6.328H9.656a1 1 0 0 0 0 2h10.242l-2.62 2.622ZM7.036 13.707a1 1 0 1 0-1.415-1.414L1.293 16.62a.996.996 0 0 0-.208 1.113.994.994 0 0 0 .215.309l4.321 4.321a1 1 0 0 0 1.415-1.414l-2.622-2.621h9.243a1 1 0 1 0 0-2H4.414l2.622-2.622Z"></path></svg>
               <span className="text-sm">{t('switchProfile')}</span>
             </Link>
@@ -166,8 +167,7 @@ const AccountModal: React.FC<AccountModalProps> = ({ isOpen, onClose, userProfil
             className="flex items-center gap-3 py-3 px-4 text-white no-underline border-none bg-transparent w-full text-left cursor-pointer transition-colors duration-200 hover:bg-[rgba(255,255,255,0.1)]"
             onClick={() => {
               try {
-                // Remove token from both localStorage and cookies
-                localStorage.removeItem('token');
+                // Remove token from cookies only (consistent with useAuth)
                 document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
                 
                 // Clear any remaining auth state

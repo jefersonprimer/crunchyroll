@@ -711,5 +711,23 @@
     "confirmationModal": {
         "confirm": "Confirm",
         "cancel": "Cancel"
+    },
+    "profileSelection": {
+        "title": "Who's watching?",
+        "subtitle": "Choose a profile to continue",
+        "addProfile": "Add Profile",
+        "manageProfiles": "Manage Profiles",
+        "switchAccount": "Switch Account",
+        "addNewAccount": "Add New Account",
+        "removeAccount": "Remove Account",
+        "lastLogin": "Last login: {date}",
+        "noProfiles": "No profiles found",
+        "loginToAddProfile": "Login to add profiles",
+        "loading": "Loading profiles...",
+        "error": "Error loading profiles",
+        "confirmRemove": "Are you sure you want to remove this account?",
+        "confirmRemoveDescription": "This action cannot be undone.",
+        "remove": "Remove",
+        "cancel": "Cancel"
     }
 }

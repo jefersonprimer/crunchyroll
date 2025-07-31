@@ -6,6 +6,7 @@ import { SearchIcon, WatchlistIcon, UserIcon, PremiumIcon, DropdownIcon } from "
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import PremiumPopup from "./PremiumPopup";
+import { useState, useEffect } from "react";
 
 interface HeaderActionsProps {
   userProfile: UserProfile | null;
@@ -23,6 +24,14 @@ export default function HeaderActions({
   const params = useParams();
   const locale = params.locale as string;
   const t = useTranslations("header");
+  const [imageKey, setImageKey] = useState(0);
+
+  // Force image reload when profile image URL changes
+  useEffect(() => {
+    if (userProfile?.profile_image_url) {
+      setImageKey(prev => prev + 1);
+    }
+  }, [userProfile?.profile_image_url]);
 
   return (
     <div className="flex-none">
@@ -70,6 +79,7 @@ export default function HeaderActions({
             {userProfile?.profile_image_url ? (
               <div className="w-[120px] flex items-center justify-center gap-[4px]">
                 <img
+                  key={imageKey}
                   src={userProfile.profile_image_url}
                   alt="Profile"
                   className="w-[36px] h-[36px] rounded-full object-cover aspect-square block"

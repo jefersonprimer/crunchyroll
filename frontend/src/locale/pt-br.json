@@ -730,5 +730,24 @@
     "confirmationModal": {
         "confirm": "Confirmar",
         "cancel": "Cancelar"
+    },
+    "profileSelection": {
+        "title": "Quem está assistindo?",
+        "subtitle": "Escolha um perfil para continuar",
+        "titlePage": "Quem vai partir em uma aventura?",
+        "addProfile": "Adicionar Perfil",
+        "manageProfiles": "Gerenciar Perfis",
+        "switchAccount": "Trocar Conta",
+        "addNewAccount": "Adicionar Nova Conta",
+        "removeAccount": "Remover Conta",
+        "lastLogin": "Último login: {date}",
+        "noProfiles": "Nenhum perfil encontrado",
+        "loginToAddProfile": "Faça login para adicionar perfis",
+        "loading": "Carregando perfis...",
+        "error": "Erro ao carregar perfis",
+        "confirmRemove": "Tem certeza que deseja remover esta conta?",
+        "confirmRemoveDescription": "Esta ação não pode ser desfeita.",
+        "remove": "Remover",
+        "cancel": "Cancelar"
     }
 }
