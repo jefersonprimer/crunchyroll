@@ -1,6 +1,5 @@
 "use client";
 
-import "../../globals.css";
 import { useQuery } from "@apollo/client";
 import { GET_HAS_THUMBNAIL } from "../../../lib/queries/getHasThumbnail";
 import { GET_EPISODES } from "../../../lib/queries/getEpisodes";
@@ -9,14 +8,14 @@ import { useState, useEffect } from "react";
 import { useTranslations } from 'next-intl';
 import { useFavorites } from "../../[locale]/contexts/FavoritesContext";
 
-import EpisodePlayButton from '../buttons/EpisodePlayButton';
-import BookmarkButton from '../buttons/BookmarkButton';
-import MaturityRating from "../elements/MaturityRating";
-
-import Link from "next/link";
-
 import { Anime } from "@/types/anime";
 import { Episode } from "@/types/episode";
+
+import MaturityRating from "../elements/MaturityRating";
+import EpisodePlayButton from '../buttons/EpisodePlayButton';
+import BookmarkButton from '../buttons/BookmarkButton';
+import Link from "next/link";
+
 
 const AnimeCarouselFullScreen = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -24,7 +23,6 @@ const AnimeCarouselFullScreen = () => {
   const [touchEndX, setTouchEndX] = useState<number | null>(null);
   const [firstEpisode, setFirstEpisode] = useState<Episode | null>(null);
   const { favorites, addFavorite, removeFavorite } = useFavorites();
-
   const t = useTranslations();
 
   const { 
@@ -77,7 +75,6 @@ const AnimeCarouselFullScreen = () => {
     setCurrentIndex(index);
   };
 
-  // Touch events
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStartX(e.touches[0].clientX);
   };
@@ -97,7 +94,6 @@ const AnimeCarouselFullScreen = () => {
       prevPage();
     }
 
-    // Reset touch values
     setTouchStartX(null);
     setTouchEndX(null);
   };
@@ -116,11 +112,8 @@ const AnimeCarouselFullScreen = () => {
       <div
         className="flex justify-center items-center relative w-full h-screen bg-black overflow-hidden mx-auto md:aspect-[16/9] md:h-auto"
       >
-        {/* Imagem de fundo skeleton responsiva */}
         <div className="w-full h-full absolute top-0 left-0 bg-[#111214] animate-pulse z-[1] md:block" />
-        {/* Wrapper centralizado das arrows e conteúdo */}
         <div className="flex items-end md:items-center md:mt-[-100px] lg:mt-0 my-0 mx-auto relative w-full h-full min-h-screen flex-col lg:max-w-[1351px] lg:max-h-[432px]">
-          {/* Arrow esquerda skeleton responsiva */}
           <div className="absolute left-0 top-0 h-full lg:max-h-[372px] w-auto lg:w-[64px] flex-col justify-center items-center z-[3] hidden sm:flex">
             <button
               className="w-auto md:w-8 lg:w-16 h-full animate-pulse flex items-center justify-center opacity-100 border-none p-0"
@@ -142,21 +135,19 @@ const AnimeCarouselFullScreen = () => {
               </svg>
             </button>
           </div>
-          {/* Conteúdo central skeleton responsivo */}
+
           <div className="w-full lg:mx-auto lg:w-[1223px] text-white z-[2] lg:h-[432px] absolute left-0 right-0 bottom-0 md:relative md:flex md:flex-col md:py-6 md:items-start md:justify-center md:h-full sm:py-4 px-8 md:px-[60px] xl:px-0">
             <div className="flex flex-col items-center justify-center h-full w-full md:items-start md:justify-center lg:h-[432px] ">
               <div className="lg:max-w-[387.66px] lg:min-h-[360px] lg:h-full w-full h-auto flex flex-col items-center md:items-start">
                 <div className="flex justify-center items-center overflow-hidden w-full max-w-[180px] md:min-w-[181.41px] md:max-w-[221px] md:min-h-[88.28px] md:max-h-[118.2px] lg:w-[283.25px] lg:h-[151.06px]">
-                  {/* Skeleton da logo responsivo, sempre visível */}
                   <div className="w-full h-[88px] md:h-full bg-[#1F2025] animate-pulse" />
                 </div>
-                {/* Texto e botões skeleton responsivo */}
-                {/* MOBILE SKELETON (até sm) */}
+
                 <div className="w-full flex flex-col items-center text-center mt-2 sm:hidden">
                   <div className="w-[70%] h-[18px] bg-[#1C1D23] animate-pulse mb-2" />
                   <div className="w-[90%] h-[24px] bg-[#1C1D23] animate-pulse" />
                 </div>
-                {/* DESKTOP SKELETON (md para cima) */}
+
                 <div className='lg:max-w-[387.66px] lg:max-h-[216.94px] w-full h-auto mt-2 flex-col items-center text-center md:items-start md:text-left hidden sm:flex'>
                   <div className="flex flex-col">
                     <div className='flex items-center mb-3 mt-4'>
@@ -190,7 +181,7 @@ const AnimeCarouselFullScreen = () => {
               </div>
             </div>
           </div>
-          {/* Arrow direita skeleton responsiva */}
+
           <div className="absolute right-0 top-0 h-full lg:max-h-[372px] w-auto lg:w-[64px] flex-col justify-center items-center z-[3] hidden sm:flex">
             <button
               className="w-auto md:w-8 lg:w-16 h-full animate-pulse flex items-center justify-center opacity-100 border-none p-0"
@@ -231,26 +222,24 @@ const AnimeCarouselFullScreen = () => {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Mobile (até md) */}
+
       <img
         className="w-full h-full block absolute top-0 left-0 bg-cover bg-center bg-no-repeat z-[1] md:hidden"
         src={currentAnime.imagePoster}
         alt="Background mobile"
       />
-      {/* Desktop (md para cima) */}
+      
       <img
         className="w-full h-full absolute top-0 left-0 bg-cover bg-center bg-no-repeat z-[1] md:block hidden"
         src={currentAnime.imageThumbnail}
         alt="Background desktop"
       />
-      {/* Overlay gradiente bottom */}
+
       <div
         className="absolute bottom-0 left-0 w-full h-1/2 pointer-events-none z-[2] [background:linear-gradient(180deg,#0000_40%,rgba(0,0,0,.749)_65%,#000_90%)]"
       />
 
-      {/* Wrapper centralizado das arrows e conteúdo */}
       <div className="flex items-end md:items-center md:mt-[-100px] lg:mt-0 my-0 mx-auto relative w-full h-full min-h-screen flex-col lg:max-w-[1351px] lg:max-h-[432px]">
-        {/* Arrow esquerda */}
         <div className="absolute left-0 top-0 h-full  lg:max-h-[372px] w-auto lg:w-[64px] flex flex-col justify-center items-center z-[3]">
           <button
             className='cursor-pointer w-auto md:w-8 lg:w-16 h-full p-0 flex items-center justify-center z-[3]'
@@ -271,7 +260,6 @@ const AnimeCarouselFullScreen = () => {
           </button>
         </div>
 
-        {/* Conteúdo central */}
         <div className="
           w-full lg:mx-auto lg:w-[1223px] text-white z-[2] lg:h-[432px]
           absolute left-0 right-0 bottom-14.5 sm:bottom-0
@@ -300,7 +288,7 @@ const AnimeCarouselFullScreen = () => {
                   />
                 </Link>
               </div>
-              {/* Texto e botões */}
+              
               <div className='lg:max-w-[387.66px] lg:max-h-[216.94px] w-full h-auto mt-2 flex flex-col items-center text-center md:items-start md:text-left'>
                 <div className="flex flex-col">
                   <div className='flex items-center mb-2'>
