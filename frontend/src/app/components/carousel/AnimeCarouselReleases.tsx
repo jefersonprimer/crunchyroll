@@ -27,8 +27,7 @@ const AnimeCarouselReleases: React.FC<AnimeCarouselReleasesProps> = ({
       <div>
         {loading ? (
           <div className="w-[1223px] flex flex-col items-start justify-center mx-auto max-md:w-full max-md:px-5">
-            <div className="h-8 w-[40%] mb-2 bg-[#141519] bg-[length:200%_100%] animate-[loading_1.5s_infinite]" />
-            <div className="h-5 w-[40%] mb-4 bg-[#141519] bg-[length:200%_100%] animate-[loading_1.5s_infinite]" />
+            <div className="h-6 w-[40%] mb-2 bg-[#141519] bg-[length:200%_100%] animate-[loading_1.5s_infinite]" />
           </div>
         ) : (
           <div className="w-auto lg:w-[1223px] flex flex-col items-start justify-center my-0 lg:mx-auto px-4 lg:px-0">

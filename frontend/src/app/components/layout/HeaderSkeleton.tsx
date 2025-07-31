@@ -62,19 +62,19 @@ export default function HeaderSkeleton() {
         <div className="flex items-center ml-0 text-white max-lg:hidden">
           <ul className="flex list-none p-0 m-0">
             <li className="relative">
-              <div className="w-[80px] h-[20px] bg-[#141519] animate-pulse mx-4" />
+              <div className="w-[80px] h-[16px] bg-[#141519] animate-pulse mx-4" />
             </li>
             <li className="relative">
-              <div className="w-[60px] h-[20px] bg-[#141519] animate-pulse mx-4" />
+              <div className="w-[60px] h-[16px] bg-[#141519] animate-pulse mx-4" />
             </li>
             <li className="relative">
-              <div className="w-[60px] h-[20px] bg-[#141519] animate-pulse mx-4" />
+              <div className="w-[60px] h-[16px] bg-[#141519] animate-pulse mx-4" />
             </li>
             <li className="relative">
-              <div className="w-[60px] h-[20px] bg-[#141519] animate-pulse mx-4" />
+              <div className="w-[60px] h-[16px] bg-[#141519] animate-pulse mx-4" />
             </li>
             <li className="relative">
-              <div className="w-[80px] h-[20px] bg-[#141519] animate-pulse mx-4" />
+              <div className="w-[80px] h-[16px] bg-[#141519] animate-pulse mx-4" />
             </li>
           </ul>
         </div>
