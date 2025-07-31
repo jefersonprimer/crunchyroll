@@ -27,20 +27,17 @@ const AnimeCarouselFullScreen = () => {
 
   const t = useTranslations();
 
-  // Fetch animes with thumbnails
   const { 
     data: animesData, 
     loading: animesLoading, 
     error: animesError 
   } = useQuery(GET_HAS_THUMBNAIL);
 
-  // Fetch episodes
   const { 
     data: episodesData, 
     loading: episodesLoading 
   } = useQuery(GET_EPISODES);
 
-  // Get the thumbnailAnimes from the query result
   const thumbnailAnimes = animesData?.hasThumbnail || [];
   const episodes = episodesData?.episodes || [];
 
@@ -95,9 +92,9 @@ const AnimeCarouselFullScreen = () => {
     const touchDistance = touchStartX - touchEndX;
 
     if (touchDistance > 50) {
-      nextPage(); // Swipe left
+      nextPage();
     } else if (touchDistance < -50) {
-      prevPage(); // Swipe right
+      prevPage();
     }
 
     // Reset touch values
@@ -162,9 +159,8 @@ const AnimeCarouselFullScreen = () => {
                 {/* DESKTOP SKELETON (md para cima) */}
                 <div className='lg:max-w-[387.66px] lg:max-h-[216.94px] w-full h-auto mt-2 flex-col items-center text-center md:items-start md:text-left hidden sm:flex'>
                   <div className="flex flex-col">
-                    <div className='flex items-center mb-2'>
-                      <div className="w-[40px] h-[20px] bg-[#1C1D23] animate-pulse mr-2" />
-                      <div className="w-[60px] h-[20px] bg-[#1C1D23] animate-pulse" />
+                    <div className='flex items-center mb-3 mt-4'>
+                      <div className="w-[260px] h-[25px] bg-[#1C1D23] animate-pulse" />
                     </div>
                     <div className="lg:w-[380px] lg:max-h-[96px] h-auto text-[#DADADA] text-base leading-6 overflow-hidden text-ellipsis [webkitLineClamp:4] [webkitBoxOrient:vertical] hidden lg:block">
                       <div className="w-full h-[20px] mb-2 bg-[#1C1D23] animate-pulse" />
@@ -177,14 +173,20 @@ const AnimeCarouselFullScreen = () => {
                   </div>
                 </div>
               </div>
-              {/* Indicadores skeleton responsivo */}
+
               <div className="flex justify-center gap-[10px] mt-10 lg:mt-0">
-                {Array.from({ length: 5 }).map((_, idx) => (
-                  <div
-                    key={idx}
-                    className="border border-[#1C1D23] rounded-[5px] w-[20px] h-[8px] bg-[#1C1D23] animate-pulse"
-                  />
-                ))}
+                <div
+                  className="border border-[#1C1D23] rounded-[5px] w-[40px] h-[8px] bg-[#1C1D23] animate-pulse"
+                />
+                <div
+                  className="border border-[#1C1D23] rounded-[5px] w-[20px] h-[8px] bg-[#1C1D23] animate-pulse"
+                />
+                <div
+                  className="border border-[#1C1D23] rounded-[5px] w-[20px] h-[8px] bg-[#1C1D23] animate-pulse"
+                />
+                <div
+                  className="border border-[#1C1D23] rounded-[5px] w-[20px] h-[8px] bg-[#1C1D23] animate-pulse"
+                />
               </div>
             </div>
           </div>
