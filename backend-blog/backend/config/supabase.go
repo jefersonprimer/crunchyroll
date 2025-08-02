@@ -10,8 +10,8 @@ import (
 )
 
 var (
-	SupabaseURL = "https://exbocpqtxqkettrtcsqf.supabase.co"
-	SupabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4Ym9jcHF0eHFrZXR0cnRjc3FmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg2NzcyMjksImV4cCI6MjA2NDI1MzIyOX0.nxslq83eRboe9aY6QAjXrcPPJVoBvJzhoYZ-ssGxurY"
+	SupabaseURL = "https://ipcmmsuhlmttnqvlsefw.supabase.co"
+	SupabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlwY21tc3VobG10dG5xdmxzZWZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM3NjQxNzUsImV4cCI6MjA1OTM0MDE3NX0.-AHXXn_Dkrep8_Oig7teqd3PCgLdodEO5s8_cAT5VSc"
 )
 
 func MakeRequest(method, path string, body interface{}) (*http.Response, error) {
