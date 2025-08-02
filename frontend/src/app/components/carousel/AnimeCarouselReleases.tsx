@@ -21,8 +21,6 @@ const AnimeCarouselReleases: React.FC<AnimeCarouselReleasesProps> = ({
   }
 
   return (
-    
-    //estava: <div className="w-auto lg:w-[1351px] h-auto lg:h-[508.89px] text-left flex flex-col lg:items-center md:-mt-20 lg:-mt-40 xl:-mt-60 z-20 relative">
     <div className="w-auto lg:w-[1351px] h-auto lg:h-[508.89px] text-left flex flex-col lg:items-center md:-mt-20 lg:-mt-40 xl:-mt-60 z-20 relative">
       <div>
         {loading ? (
