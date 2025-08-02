@@ -32,6 +32,9 @@
     "EpisodePlayButton": {
         "watch_episode": "Start Watching"
     },
+    "EpisodeSearchCard": {
+        "play": "Play"
+    },
     "carousels": {
         "animeOfTheDay": {
             "title": "Today's Anime ({day})",
@@ -293,9 +296,32 @@
     },
     "AnimeCardSearch": {
         "audioTypes": {
-            "subtitled": "Legendado",
-            "dubbed": "Dublado",
-            "subtitled_dubbed": "Leg | Dub"
+            "subtitled": "Subtitled",
+            "dubbed": "Dubbed",
+            "subtitled_dubbed": "Sub | Dub"
+        },
+        "seasons": {
+            "singular": "Season",
+            "plural": "Seasons"
+        },
+        "episodes": {
+            "singular": "Episode",
+            "plural": "Episodes"
+        }
+    },
+    "RelatedAnimeCard": {
+        "seasons": {
+            "singular": "Season",
+            "plural": "Seasons"
+        },
+        "episodes": {
+            "singular": "Episode",
+            "plural": "Episodes"
+        },
+        "audioTypes": {
+            "subtitled": "Subtitled",
+            "dubbed": "Dubbed",
+            "subtitled_dubbed": "Sub | Dub"
         }
     },
     "Series": {

@@ -32,6 +32,13 @@
     "EpisodePlayButton": {
         "watch_episode": "Começar a Assistir T1 E1"
     },
+    "EpisodeSearchCard": {
+        "audioTypes": {
+            "subtitled": "Legendado",
+            "dubbed": "Dublado",
+            "subtitled_dubbed": "Leg | Dub"
+        }
+    },
     "carousels": {
         "animeOfTheDay": {
             "title": "Anime do Dia ({day})",
@@ -293,6 +300,29 @@
         "defaultDescription": "Busque seus animes favoritos no Bakashi TV, o melhor portal para fãs de anime!"
     },
     "AnimeCardSearch": {
+        "audioTypes": {
+            "subtitled": "Legendado",
+            "dubbed": "Dublado",
+            "subtitled_dubbed": "Leg | Dub"
+        },
+        "seasons": {
+            "singular": "Temporada",
+            "plural": "Temporadas"
+        },
+        "episodes": {
+            "singular": "Episódio",
+            "plural": "Episódios"
+        }
+    },
+    "RelatedAnimeCard": {
+        "seasons": {
+            "singular": "Temporada",
+            "plural": "Temporadas"
+        },
+        "episodes": {
+            "singular": "Episódio",
+            "plural": "Episódios"
+        },
         "audioTypes": {
             "subtitled": "Legendado",
             "dubbed": "Dublado",
