@@ -93,7 +93,7 @@ export default function Search() {
       <div className="grid gap-4 mt-5 w-full max-w-[1050px]">
         {searchTerm && !data?.animes ? (
           <>
-            <div className="bg-[#141519] h-7 w-48 mb-4"></div>
+            <div className="bg-[#141519] h-7 w-48 mb-4 animate-pulse"></div>
             <div className="grid grid-cols-1 gap-8 p-0 m-0 list-none lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
               {[...Array(6)].map((_, index) => (
                 <AnimeCardSkeleton key={index} />

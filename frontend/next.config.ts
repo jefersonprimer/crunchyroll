@@ -14,6 +14,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "www.crunchyroll.com",
       },
+      {
+        protocol: "https",
+        hostname: "static.crunchyroll.com",
+      },
     ],
   },
 };
