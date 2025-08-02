@@ -29,7 +29,7 @@ const MovieCarousel: React.FC<MovieCarouselProps> = ({
         </div>
       ) : (
         <div className="w-[1223px] flex flex-col items-start justify-center my-0 mx-auto">
-          <h2 className="text-[1.74rem] mb-[4px] text-[#FFFFFF] font-bold">
+          <h2 className="text-[1.375rem] sm:text-[1.75rem] lg:mb-[4px] text-white font-bold">
             {t('carousels.movies.title')}
           </h2>
           <p className="text-[0.97rem] mb-[4px] text-[#A0A0A0] font-medium">

@@ -333,7 +333,7 @@ export default function Search() {
             <>
               {searchTerm && !data?.animes ? (
                 <>
-                  <div className="bg-[#141519] h-7 w-48 mb-4"></div>
+                  <div className="bg-[#141519] h-7 w-48 mb-4 px-2 sm:px-0"></div>
                   <div className="grid grid-cols-1 gap-8 p-0 m-0 list-none lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mb-12">
                     {[...Array(6)].map((_, index) => (
                       <AnimeCardSkeleton key={index} />
@@ -342,7 +342,7 @@ export default function Search() {
                   
                   {/* Skeletons para resultados relacionados */}
                   <div className="mt-12">
-                    <div className="bg-[#141519] h-6 w-48 mb-6"></div>
+                    <div className="bg-[#141519] h-6 w-48 mb-6 px-2 sm:px-0"></div>
                     <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
                       {[...Array(6)].map((_, index) => (
                         <RelatedAnimeCardSkeleton key={index} />
@@ -352,7 +352,7 @@ export default function Search() {
 
                   {/* Skeletons para filmes */}
                   <div className="mt-12">
-                    <div className="bg-[#141519] h-6 w-48 mb-6"></div>
+                    <div className="bg-[#141519] h-6 w-48 mb-6 px-2 sm:px-0"></div>
                     <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
                       {[...Array(6)].map((_, index) => (
                         <RelatedAnimeCardSkeleton key={index} />
@@ -362,7 +362,7 @@ export default function Search() {
 
                   {/* Skeletons para episódios */}
                   <div className="mt-12">
-                    <div className="bg-[#141519] h-6 w-48 mb-6"></div>
+                    <div className="bg-[#141519] h-6 w-48 mb-6 px-2 sm:px-0"></div>
                     <div className="flex flex-col gap-3">
                       {[...Array(6)].map((_, index) => (
                         <EpisodeSearchCardSkeleton key={index} />
@@ -387,7 +387,10 @@ export default function Search() {
               ) : (
                 searchTerm && (
                   <>
-                    <h1 className="text-white text-xl font-semibold text-left w-full">{t('searchResults')}</h1>
+                  <h1 className="text-white text-xl font-semibold text-left w-full px-2 sm:px-0">
+                    {t('searchResults')}
+                  </h1>
+
                     <div className="grid grid-cols-1 gap-8 p-0 m-0 list-none lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mb-12">
                       {filteredAnimes.map((anime) => (
                         <AnimeCard
@@ -400,7 +403,7 @@ export default function Search() {
                     {/* Seção de resultados relacionados */}
                     {relatedAnimes.length > 0 && (
                       <div className="w-full">
-                        <h2 className="text-white text-lg font-semibold text-left w-full mb-2">
+                        <h2 className="text-white text-lg font-semibold text-left w-full mb-2 px-2 sm:px-0">
                           Séries
                         </h2>
                         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
@@ -429,7 +432,7 @@ export default function Search() {
                     {/* Seção de filmes */}
                     {filteredMovies.length > 0 && (
                       <div className="w-full mt-12">
-                        <h2 className="text-white text-lg font-semibold text-left w-full mb-2">
+                        <h2 className="text-white text-lg font-semibold text-left w-full mb-2 px-2 sm:px-0">
                           Filmes
                         </h2>
                         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
@@ -446,7 +449,7 @@ export default function Search() {
                     {/* Seção de episódios */}
                     {filteredEpisodes.length > 0 && (
                       <div className="w-full mt-12">
-                        <h2 className="text-white text-lg font-semibold text-left w-full mb-2">
+                        <h2 className="text-white text-lg font-semibold text-left w-full mb-2 px-2 sm:px-0">
                           Episódios
                         </h2>
                         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">

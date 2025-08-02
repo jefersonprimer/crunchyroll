@@ -236,7 +236,7 @@ const AnimeCarouselFullScreen = () => {
       />
 
       <div
-        className="absolute bottom-0 left-0 w-full h-1/2 pointer-events-none z-[2] [background:linear-gradient(180deg,#0000_40%,rgba(0,0,0,.749)_65%,#000_90%)]"
+        className="absolute bottom-0 left-0 w-full h-4/5 sm:h-1/2 pointer-events-none z-[2] [background:linear-gradient(180deg,#0000_40%,rgba(0,0,0,.749)_65%,#000_90%)]"
       />
 
       <div className="flex items-end md:items-center md:mt-[-100px] lg:mt-0 my-0 mx-auto relative w-full h-full min-h-screen flex-col lg:max-w-[1351px] lg:max-h-[432px]">
@@ -298,7 +298,7 @@ const AnimeCarouselFullScreen = () => {
                       before:absolute before:left-[4px] before:top-1/2 before:-translate-y-1/2 
                       before:mr-[8px] first:before:hidden">
                     </span>
-                    <p className="text-[0.9rem] text-[#A0A0A0] my-0 mx-0">
+                    <p className="text-sm text-[#A0A0A0] font-medium opacity-100">
                       {t(`audioTypes.${currentAnime.audioType}`)}
                     </p>
                   </div>

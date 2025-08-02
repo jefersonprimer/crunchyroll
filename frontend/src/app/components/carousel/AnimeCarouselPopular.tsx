@@ -29,10 +29,10 @@ const AnimeCarouselPopular: React.FC<AnimeCarouselPopularProps> = ({
         </div>
       ) : (
         <div className="w-full max-w-[1223px] flex flex-col items-start justify-center my-0 lg:mx-auto px-4 lg:px-0">
-          <h2 className="text-[1.74rem] lg:mb-[4px] text-[#FFFFFF] font-bold">
+          <h2 className="text-[1.375rem] sm:text-[1.75rem] lg:mb-[4px] text-white font-bold">
             {t('carousels.popular.title')}
           </h2>
-          <p className="text-[0.97rem] lg:mb-[4px] text-[#A0A0A0] font-medium">
+          <p className="text-sm sm:text-base lg:mb-[4px] text-[#A0A0A0] font-medium">
             {t('carousels.popular.subtitle')}
           </p>
         </div>
