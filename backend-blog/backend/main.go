@@ -8,10 +8,16 @@ import (
 	"backend-blog/backend/handlers"
 
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 	"github.com/rs/cors"
 )
 
 func main() {
+	// Carregar variáveis de ambiente do arquivo .env
+	if err := godotenv.Load(); err != nil {
+		log.Printf("Aviso: Não foi possível carregar o arquivo .env: %v", err)
+	}
+
 	// Inicializar Supabase
 	config.InitSupabase()
 

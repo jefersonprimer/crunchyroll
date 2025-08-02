@@ -7,12 +7,28 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 )
 
 var (
-	SupabaseURL = "https://ipcmmsuhlmttnqvlsefw.supabase.co"
-	SupabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlwY21tc3VobG10dG5xdmxzZWZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM3NjQxNzUsImV4cCI6MjA1OTM0MDE3NX0.-AHXXn_Dkrep8_Oig7teqd3PCgLdodEO5s8_cAT5VSc"
+	SupabaseURL string
+	SupabaseKey string
 )
+
+// mustGetEnv obtém variável de ambiente ou falha
+func mustGetEnv(key string) string {
+	value := os.Getenv(key)
+	if value == "" {
+		log.Fatalf("Variável de ambiente %s não definida", key)
+	}
+	return value
+}
+
+// InitSupabaseConfig inicializa as configurações do Supabase
+func InitSupabaseConfig() {
+	SupabaseURL = mustGetEnv("SUPABASE_URL")
+	SupabaseKey = mustGetEnv("SUPABASE_KEY")
+}
 
 func MakeRequest(method, path string, body interface{}) (*http.Response, error) {
 	url := SupabaseURL + "/rest/v1" + path
@@ -58,7 +74,7 @@ func MakeRequest(method, path string, body interface{}) (*http.Response, error) 
 
 	if resp.StatusCode >= 400 {
 		log.Printf("Supabase error response (Status %d): %s", resp.StatusCode, string(respBody))
-		return resp, fmt.Errorf("Supabase error: %s", string(respBody))
+		return resp, fmt.Errorf("supabase error: %s", string(respBody))
 	}
 
 	log.Printf("Response body: %s", string(respBody))
@@ -66,6 +82,9 @@ func MakeRequest(method, path string, body interface{}) (*http.Response, error) 
 }
 
 func InitSupabase() {
+	// Inicializa as configurações do Supabase
+	InitSupabaseConfig()
+
 	// Test the connection
 	resp, err := MakeRequest("GET", "/posts", nil)
 	if err != nil {
