@@ -69,7 +69,7 @@
         "description": "Crie e Gerencie Crunchylistas | Crunchyroll",
         "mylists": "Minhas Listas",
         "queue": "fila",
-        "crunchylists": "crunchylists",
+        "crunchylists": "crunchylistas",
         "history": "histórico",
         "createNewList": "criar nova lista",
         "listsCount": "{count}/10 listas",
@@ -98,11 +98,11 @@
     },
     "ListDetails": {
         "backToLists": "volta para crunchyLists",
-        "searchPlaceholder": "Buscar anime...",
-        "itemsCount": "{count} de 100 itens",
+        "searchPlaceholder": "+ Adicionar Série",
+        "itemsCount": "{count}/100 itens",
         "settings": "configurações",
-        "editListName": "Editar nome da lista",
-        "deleteList": "Excluir Lista",
+        "editListName": "Renomear Crunchylista",
+        "deleteList": "Deletar Crunchylista",
         "noAnimeFound": "Nenhum anime encontrado.",
         "renameTitle": "Renomear Crunchylist",
         "listName": "Nome da lista",
@@ -131,7 +131,7 @@
         "categories": "Categorias",
         "exploreAll": "Explorar Tudo (A-Z)",
         "releaseCalendar": "Calendário de Lançamentos",
-        "videosAndShows": "Vídeos e Programas",
+        "videosAndShows": "Videoclips & Shows",
         "genres": "gêneros",
         "action": "Ação",
         "adventure": "Aventura",
@@ -283,7 +283,7 @@
     },
     "Search": {
         "searchPlaceholder": "Buscar...",
-        "searchResults": "Resultados da Busca",
+        "searchResults": "Melhores Resultados",
         "noResults": "Nenhum anime encontrado.",
         "loading": "Carregando resultados...",
         "clearSearch": "Limpar busca",
@@ -327,8 +327,8 @@
         "sort": {
             "newest": "mais novo",
             "oldest": "mais antigo",
-            "newestLabel": "Mais novo",
-            "oldestLabel": "Mais antigo"
+            "newestLabel": "Mais Novo",
+            "oldestLabel": "Mais Antigo"
         },
         "options": {
             "label": "opções",
@@ -343,6 +343,10 @@
             "label": "Temporada",
             "episodeCount": "{count} Episódios"
         }
+    },
+    "simulcastcalendar": {
+        "title": "Calendário de Simulcasts - Crunchyroll",
+        "description": "Confira o calendário de lançamentos de animes simulcast na Crunchyroll."
     },
     "AnimeHoverModal": {
         "buttons": {
@@ -453,7 +457,9 @@
     },
     "simulcasts": {
         "season": {
-            "title": "Simulcasts da Temporada",
+            "title": "Crunchyroll - Confira Animes Em Simulcast",
+            "description": "Confira Animes em Simulcast",
+            "titlePage": "Simulcasts da Temporada",
             "noAnimesFound": "Nenhum anime encontrado para esta temporada",
             "seasons": {
                 "spring": "Primavera",
@@ -464,9 +470,11 @@
         }
     },
     "newReleases": {
-        "title": "Animes Recentemente Adicionados",
-        "subtitle": "Últimos Lançamentos",
-        "latestReleases": "Últimos",
+        "title": "Animes e Filmes Recém-Lançados - Crunchyroll",
+        "subtitle": "Animes e Filmes Recém-Lançados",
+        "titlePage": "Animes Recentemente Adicionados",
+        "subtitlePage": "Últimos Lançamentos",
+        "latestReleases": "mais recentes",
         "filters": {
             "sort": {
                 "label": "Ordenar",
@@ -490,6 +498,9 @@
     "popular": {
         "title": "Animes Mais Populares",
         "subtitle": "Lançamentos Populares",
+        "titlePage": "Animes Mais Populares",
+        "subtitlePage": "Animes em Alta",
+        "mostPopular": "mais populares",
         "filters": {
             "sort": {
                 "label": "Ordenar",
@@ -511,7 +522,9 @@
         }
     },
     "alphabetical": {
-        "title": "Ordem Alfabética",
+        "title": "Lista de Anime e Filmes - Crunchyroll",
+        "description": "Lista de Anime e Filmes",
+        "titlePage": "Ordem Alfabética",
         "filters": {
             "alphabetical": "ordem alfabética",
             "mostPopular": "Mais Populares",
@@ -522,7 +535,16 @@
             "all": "Todos",
             "subtitled": "Legendado",
             "dubbed": "Dublado",
-            "subtitled_dubbed": "Leg | Dub"
+            "subtitled_dubbed": "Leg | Dub",
+            "audio": {
+                "label": "Filtrar",
+                "language": "Idioma",
+                "options": {
+                    "all": "Todos",
+                    "subtitled": "Legendado",
+                    "dubbed": "Dublado"
+                }
+            }
         },
         "noResults": "Nenhum anime encontrado com a letra \"{letter}\"",
         "actions": {
@@ -560,19 +582,21 @@
         },
         "title": "Animes de {genre}",
         "popular": "Populares",
-        "newReleases": "Novos Lançamentos",
-        "viewAll": "ver tudo",
+        "newReleases": "Novidades",
+        "viewAll": "ver todos",
         "loading": "Carregando...",
         "error": "Ocorreu um erro: {error}",
         "genreNotFound": "Gênero \"{genre}\" não encontrado.",
         "genrePopularPage": {
-            "title": "Todos os Animes de {genre}",
+            "title": "Animes e Séries de {genre} - Em Alta - Crunchyroll",
+            "titlePage": "{genre} / Em Alta",
             "loading": "Carregando...",
             "error": "Ocorreu um erro: {error}",
             "genreNotFound": "Gênero \"{genre}\" não encontrado."
         },
         "genreNewPage": {
-            "title": "Todos os Animes de {genre}",
+            "title": "Animes e Séries de {genre} - Novidades - Crunchyroll",
+            "titlePage": "{genre} / Novidades",
             "loading": "Carregando...",
             "error": "Ocorreu um erro: {error}",
             "genreNotFound": "Gênero \"{genre}\" não encontrado."
@@ -613,7 +637,7 @@
         "crunchylists": "crunchylists",
         "history": "histórico",
         "emptyMessage": "Sua fila merece mais amor. Vamos enchê-la com animes incríveis.",
-        "backToHome": "voltar para o início"
+        "backToHome": "voltar para a tela inicial"
     },
     "AnimeCardWatchlist": {
         "audioTypes": {
@@ -662,5 +686,27 @@
     "root": {
         "title": "Crunchyroll - Assista a Animes, Jogue Games e Compre Online",
         "description": "criado por primerdev"
+    },
+    "genres": {
+        "action": "Ação",
+        "adventure": "Aventura",
+        "comedy": "Comédia",
+        "drama": "Drama",
+        "fantasy": "Fantasia",
+        "music": "Música",
+        "romance": "Romance",
+        "sciFi": "Ficção Científica",
+        "seinen": "Seinen",
+        "shoujo": "Shoujo",
+        "shounen": "Shounen",
+        "sliceOfLife": "Slice of Life",
+        "sports": "Esportes",
+        "supernatural": "Sobrenatural",
+        "thriller": "Suspense",
+        "games": "Jogos"
+    },
+    "gamesPage": {
+        "title": "Crunchyroll Games: Jogue Games de Anime Grátis e do Game Vault",
+        "description": "Descubra e jogue uma variedade de jogos inspirados em animes gratuitamente ou no Game Vault. Aproveite títulos exclusivos da Crunchyroll e muito mais!"
     }
 }

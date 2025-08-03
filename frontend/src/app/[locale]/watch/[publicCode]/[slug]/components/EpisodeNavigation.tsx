@@ -47,7 +47,7 @@ const EpisodeNavigation: React.FC<EpisodeNavigationProps> = ({
 
     return (
       <div className="overflow-hidden">
-        <h3 className="text-sm text-white font-bold m-1">{label}</h3>
+        <h3 className="text-sm text-white font-bold m-1 uppercase">{label}</h3>
         <Link
           href={`/${locale}/watch/${episode.publicCode}/${episode.slug}`}
           className="no-underline text-inherit"
@@ -124,7 +124,7 @@ const EpisodeNavigation: React.FC<EpisodeNavigationProps> = ({
             <path d="M21 10a1 1 0 011 1v9a1 1 0 01-1 1H3a1 1 0 01-1-1v-9a1 1 0 011-1h18zm-1 2H4v7h16v-7zm0-5a1 1 0 010 2H4a1 1 0 110-2h16zm-2-3a1 1 0 010 2H6a1 1 0 110-2h12z"></path>
           </svg>
         </span>
-        {t('seeMoreEpisodes')}
+        <span className="uppercase">{t('seeMoreEpisodes')}</span>
       </button>
     </div>
   );

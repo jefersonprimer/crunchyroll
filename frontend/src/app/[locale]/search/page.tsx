@@ -7,9 +7,11 @@ import Head from 'next/head';
 import { useQuery } from '@apollo/client';
 import { GET_ANIMES } from '@/lib/queries/getAnimes';
 import AnimeCard from './components/AnimeCard';
+import AnimeCardSkeleton from './components/AnimeCardSkeleton';
 import { Anime } from '@/types/anime';
 import Header from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
+import Loading from '../loading';
 
 export default function Search() {
   const t = useTranslations('Search');
@@ -50,10 +52,15 @@ export default function Search() {
     // This function is no longer needed since we update the URL in real-time
   };
 
+  // Show loading spinner while data is being fetched
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div>
     <Header />
-    <div className="flex flex-col items-center min-h-screen bg-black max-w-[1400px] mx-auto">
+    <div className="flex flex-col items-center h-auto bg-black mx-auto">
       <Head>
         <title>{searchTerm ? t('searchTitle', { searchTerm }) : t('defaultTitle')}</title>
         <meta
@@ -66,12 +73,12 @@ export default function Search() {
         />
       </Head>
   
-      <div className="flex flex-col items-center justify-start w-full p-5 mb-8 bg-[#141519]">
-        <div className="relative w-[70%] flex items-center">
+      <div className="flex flex-col items-center justify-start w-full p-5 mb-8 bg-[#141519] h-[114px]">
+        <div className="relative w-[70%] flex items-center h-auto">
           <input
             type="text"
             placeholder={t('searchPlaceholder')}
-            className="w-full p-4 pr-10 text-lg border-b-2 border-[#FF640A] text-white transition-all duration-300 ease-in-out bg-transparent focus:outline-none placeholder:text-white placeholder:opacity-50"
+            className="w-full py-2 px-0.5 pr-10 text-3xl border-b-2 border-[#59595B] focus:border-[#FF640A] text-white transition-all duration-300 ease-in-out bg-transparent focus:outline-none placeholder:text-[#A0A0A0] placeholder:text-3xl"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
@@ -84,7 +91,7 @@ export default function Search() {
               aria-label={t('clearSearch')}
             >
               <svg
-                className="w-5 h-5 fill-current"
+                className="w-6 h-6 fill-current"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 data-t="cross-svg"
@@ -100,15 +107,22 @@ export default function Search() {
         </div>
       </div>
   
-      <div className="grid gap-4 mt-5 w-full max-w-[90%] px-5 min-h-[200px]">
-        {searchTerm && loading ? (
-          <p className="text-center text-white text-xl mt-8">{t('loading')}</p>
-        ) : searchTerm && !loading && filteredAnimes.length === 0 ? (
+      <div className="grid gap-4 mt-5 w-full max-w-[1050px]">
+        {searchTerm && !data?.animes ? (
+          <>
+            <div className="bg-[#141519] h-7 w-48 mb-4"></div>
+            <div className="grid grid-cols-1 gap-8 p-0 m-0 list-none lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+              {[...Array(6)].map((_, index) => (
+                <AnimeCardSkeleton key={index} />
+              ))}
+            </div>
+          </>
+        ) : searchTerm && filteredAnimes.length === 0 ? (
           <p className="text-center text-white text-xl mt-8">{t('noResults')}</p>
         ) : (
           searchTerm && (
             <>
-              <h2 className="text-white text-2xl font-semibold mb-6 text-left w-full">{t('searchResults')}</h2>
+              <h1 className="text-white text-xl font-semibold text-left w-full">{t('searchResults')}</h1>
               <div className="grid grid-cols-1 gap-8 p-0 m-0 list-none lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
                 {filteredAnimes.map((anime) => (
                   <AnimeCard

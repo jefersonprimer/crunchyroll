@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 interface CreateModalProps {
@@ -21,12 +21,13 @@ const CreateModal: React.FC<CreateModalProps> = ({
   maxCharacters = 50,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isFocused, setIsFocused] = useState(false);
 
-  useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isOpen]);
+  // useEffect(() => {
+  //   if (isOpen && inputRef.current) {
+  //     inputRef.current.focus();
+  //   }
+  // }, [isOpen]);
 
   // Fechar com ESC
   useEffect(() => {
@@ -67,21 +68,18 @@ const CreateModal: React.FC<CreateModalProps> = ({
             </svg>
           </button>
         </div>
-        <div className="modal-content__wrapper--NV-Wa flex flex-col items-center justify-center h-full">
-          <h2 className="heading--nKNOf heading--is-xs--UyvXH heading--is-family-type-one--GqBzU modal__header--W7gLI text-[#FFFFFF] mb-[20px] font-weight-600 text-[1.375rem]" data-t="title">
+        <div className="flex flex-col items-center justify-center h-full">
+          <h2 className=" text-[#FFFFFF] mb-[20px] font-weight-600 text-[1.375rem]" data-t="title">
             Criar Crunchylista
           </h2>
-          <div className="modal__body--wA4Z6 mb-[40px] w-full flex flex-col items-center">
-            <div className="erc-create-custom-list-form w-full flex flex-col items-center">
-              <div className="modal-description w-full flex flex-col items-center">
-                <div className="text--gq6o- text--is-fixed-size--5i4oU text--is-xl---ywR- label--57-z9 label--is-dirty--oQgf4 basic-input--rrvny w-full max-w-[560px]" data-t="list-name-input">
-                  <label className="basic-input__label--hOfP- w-full">
-                    <div className="label__text-wrapper--9phMH">
-                      <span className="label__text--wmphn" data-t="create-list-label">Nome da Lista</span>
-                    </div>
+          <div className=" mb-[40px] w-full flex flex-col items-center">
+            <div className="w-full flex flex-col items-center">
+              <div className="w-full flex flex-col items-center">
+                <div className="w-full max-w-[560px] relative" data-t="list-name-input">
+                  <div className="relative">
                     <input
                       ref={inputRef}
-                      className="input--mOn64 basic-input__field--bPk55 w-full p-[10px] bg-[#23252B] text-white border-b border-b-[#59595B] outline-none focus:border-b-[#FF640A] focus:outline-none"
+                      className=" w-full text-base pt-[20px] pb-[6px] bg-[#23252B] text-white border-b-2 border-b-[#59595B] outline-none focus:border-b-[#FF640A] focus:outline-none"
                       placeholder=""
                       autoComplete="on"
                       aria-invalid="false"
@@ -90,31 +88,40 @@ const CreateModal: React.FC<CreateModalProps> = ({
                       name="list"
                       maxLength={maxCharacters}
                       onChange={e => onNameChange(e.target.value)}
+                      onFocus={() => setIsFocused(true)}
+                      onBlur={() => setIsFocused(false)}
                     />
-                  </label>
-                </div>
-                <div className="text--gq6o- text--is-semibold--AHOYN text--is-s--JP2oa character-counter--dBmhc input-counter self-end pr-2 pt-1" data-t="character-count">
-                  {characterCount}/{maxCharacters}
+                    <label 
+                      className={`absolute left-0 transition-all duration-200 pointer-events-none ${
+                        newListName || isFocused
+                          ? 'top-[2px] text-[12px] text-[#FF640A]'
+                          : 'bottom-2 text-[18px] text-[#A0A0A0]'
+                      }`}
+                      data-t="create-list-label"
+                    >
+                      Nome da Lista
+                    </label>
+                  </div>
                 </div>
               </div>
-              <div className="modal-buttons-group--E3Pc2 w-full flex justify-center mt-6">
-                <div className="buttons-group--LXd6Q buttons-group--is-type-one--5ZGbi flex gap-[10px]">
+              <div className=" w-full flex justify-center mt-10">
+                <div className=" flex gap-[10px]">
                   <button
                     tabIndex={0}
-                    className="button--xqVd0 button--is-type-one--3uIzT buttons-group__item--ThNEA py-[8px] px-[32px] cursor-pointer bg-[#FF640A] text-[#000000] font-bold"
+                    className=" py-[8px] px-[64px] cursor-pointer hover:opacity-100 opacity-90 bg-[#FF640A] text-[#000000] font-bold"
                     data-t="create-list-btn"
                     onClick={onCreate}
                     disabled={!newListName.trim()}
                   >
-                    <span className="call-to-action--PEidl call-to-action--is-m--RVdkI button__cta--LOqDH">Criar Lista</span>
+                    <span className="text-sm font-bold uppercase">Criar Lista</span>
                   </button>
                   <button
                     tabIndex={0}
-                    className="button--xqVd0 button--is-type-one-weak--KLvCX buttons-group__item--ThNEA py-[8px] px-[32px] cursor-pointer border-1 border-[#FF640A] text-[#FF640A] font-bold"
+                    className="py-[8px] px-[64px] cursor-pointer border-2 hover:opacity-100 opacity-90 border-[#FF640A] text-[#FF640A] font-bold"
                     data-t="cancel-btn"
                     onClick={onClose}
                   >
-                    <span className="call-to-action--PEidl call-to-action--is-m--RVdkI button__cta--LOqDH">Cancelar</span>
+                    <span className="text-sm font-bold uppercase">Cancelar</span>
                   </button>
                 </div>
               </div>

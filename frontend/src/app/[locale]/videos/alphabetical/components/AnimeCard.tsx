@@ -1,3 +1,4 @@
+
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -92,7 +93,7 @@ const AnimeCard = ({ anime }: AnimeCardProps) => {
           )}
 
           {hoveredCard === anime.id && (
-            <div className="absolute inset-0 p-0 flex flex-col gap-1 z-10 h-full w-full bg-[#23252B]">
+            <div className="absolute inset-0 p-0 flex flex-col gap-1 z-10 h-full w-full">
               <h3 className="text-xl font-semibold text-white m-0">{anime.name}</h3>
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-1.5">

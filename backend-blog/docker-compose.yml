@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./backend
+    ports:
+      - "8001:8080"  # Map host port 8001 to container port 8080
+    environment:
+      - PORT=8080
+    volumes:
+      - ./backend:/app
+      - go_mod:/go/pkg/mod
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  frontend:
+    build: 
+      context: ./frontend
+    ports:
+      - "3001:5173"  # Vite dev server port
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8001  # Adjust if your API has a different URL
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+volumes:
+  go_mod:
+
+networks:
+  app-network:
+    driver: bridge

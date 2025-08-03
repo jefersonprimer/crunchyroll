@@ -5,7 +5,6 @@ import { useHistory } from '../contexts/HistoryContext';
 import { EpisodeCard } from '@/app/[locale]/history/components/EpisodeCard';
 import { useTranslations } from 'next-intl';
 
-// Skeleton para simular o EpisodeCard durante o loading
 const SkeletonEpisodeCard = () => (
   <div className="relative w-64 h-auto min-h-[264px] overflow-hidden transition-all duration-300 ease-in-out box-border mx-auto flex justify-center items-center">
     <div className="relative w-[240px] h-auto min-h-[249px] overflow-hidden block box-border">
@@ -25,7 +24,6 @@ const HistoryPageClient = () => {
   const t = useTranslations('History');
   const { watchedEpisodes, clearHistory, loading } = useHistory();
 
-  // Função para limpar o histórico
   const onClear = () => {
     clearHistory();
   };

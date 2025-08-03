@@ -33,10 +33,21 @@ services:
       - ./frontend:/app
     restart: always
 
-  cms:
-    build: ./frontend-blog  # ou outro nome/pasta onde está o Vite/Vue
+  # CMS service commented out as frontend-blog directory doesn't exist
+  # Uncomment and update the path when the frontend-blog directory is created
+  # cms:
+  #   build: ./frontend-blog
+  #   ports:
+  #     - "3001:5173"
+  #   volumes:
+  #     - ./frontend-blog:/app
+  #   restart: always
+
+  transcoder:
+    build: ./transcoder
     ports:
-      - "3001:5173"
+      - "8080:8080"
     volumes:
-      - ./frontend-blog:/app
+      - ./transcoder/upload:/app/upload
+      - ./transcoder/output:/app/output
     restart: always
