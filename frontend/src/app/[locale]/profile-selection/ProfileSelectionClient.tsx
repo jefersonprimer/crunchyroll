@@ -14,11 +14,12 @@ interface ProfileSelectionClientProps {
 const ProfileSelectionClient: React.FC<ProfileSelectionClientProps> = ({ locale }) => {
   const t = useTranslations('profileSelection');
   const router = useRouter();
-  const { accounts, currentAccount, isLoading, switchAccount, removeAccount, logoutCurrentAccount } = useMultipleAccountsContext();
+  const { accounts, currentAccount, isLoading, switchAccount, removeAccount, logoutCurrentAccount, updateAccount } = useMultipleAccountsContext();
   const [showRemoveModal, setShowRemoveModal] = useState(false);
   const [accountToRemove, setAccountToRemove] = useState<StoredAccount | null>(null);
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [imageKey, setImageKey] = useState(0);
 
   // Handle initial load and account changes
   useEffect(() => {
@@ -49,6 +50,101 @@ const ProfileSelectionClient: React.FC<ProfileSelectionClientProps> = ({ locale 
       setBackgroundLoaded(true);
     }
   }, [currentAccount?.id, currentAccount?.background_image_url]);
+
+  // Listen for auth state changes to update account data
+  useEffect(() => {
+    const handleAuthStateChange = async () => {
+      // Recarregar dados da conta atual do backend
+      if (currentAccount?.token) {
+        try {
+          const response = await fetch('http://localhost:3000/api/profile', {
+            headers: {
+              'Authorization': `Bearer ${currentAccount.token}`
+            }
+          });
+
+          if (response.ok) {
+            const updatedProfile = await response.json();
+            
+            // Atualizar a conta atual com os novos dados
+            updateAccount(currentAccount.id, {
+              profile_image_url: updatedProfile.profile_image_url,
+              background_image_url: updatedProfile.background_image_url,
+              display_name: updatedProfile.display_name,
+            });
+
+            // Force image reload by incrementing imageKey
+            setImageKey(prev => prev + 1);
+          }
+        } catch (error) {
+          console.error('Error updating account data:', error);
+        }
+      }
+    };
+
+    window.addEventListener('auth-state-changed', handleAuthStateChange);
+    return () => {
+      window.removeEventListener('auth-state-changed', handleAuthStateChange);
+    };
+  }, [currentAccount?.id, currentAccount?.token, updateAccount]);
+
+  // Force image reload when profile image URL changes
+  useEffect(() => {
+    if (currentAccount?.profile_image_url) {
+      setImageKey(prev => prev + 1);
+    }
+  }, [currentAccount?.profile_image_url]);
+
+  // Check for profile updates when component mounts
+  useEffect(() => {
+    const checkProfileUpdates = async () => {
+      if (currentAccount?.token) {
+        try {
+          const response = await fetch('http://localhost:3000/api/profile', {
+            headers: {
+              'Authorization': `Bearer ${currentAccount.token}`
+            }
+          });
+
+          if (response.ok) {
+            const updatedProfile = await response.json();
+            
+            // Check if profile data has changed
+            if (
+              updatedProfile.profile_image_url !== currentAccount.profile_image_url ||
+              updatedProfile.background_image_url !== currentAccount.background_image_url ||
+              updatedProfile.display_name !== currentAccount.display_name
+            ) {
+              // Update account with new data
+              updateAccount(currentAccount.id, {
+                profile_image_url: updatedProfile.profile_image_url,
+                background_image_url: updatedProfile.background_image_url,
+                display_name: updatedProfile.display_name,
+              });
+
+              // Force image reload
+              setImageKey(prev => prev + 1);
+            }
+          }
+        } catch (error) {
+          console.error('Error checking profile updates:', error);
+        }
+      }
+    };
+
+    // Check for updates when component mounts
+    checkProfileUpdates();
+
+    // Check for updates when page gains focus
+    const handleFocus = () => {
+      checkProfileUpdates();
+    };
+
+    window.addEventListener('focus', handleFocus);
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, [currentAccount?.id, currentAccount?.token, updateAccount]);
 
   const formatDate = (dateString: string) => {
     try {
@@ -168,6 +264,7 @@ const ProfileSelectionClient: React.FC<ProfileSelectionClientProps> = ({ locale 
             <div className="w-6 h-6 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-white text-xs font-bold">
               {currentAccount.profile_image_url ? (
                 <img
+                  key={imageKey}
                   src={currentAccount.profile_image_url}
                   alt={currentAccount.display_name}
                   className="w-full h-full rounded-full object-cover"
@@ -198,6 +295,7 @@ const ProfileSelectionClient: React.FC<ProfileSelectionClientProps> = ({ locale 
               <div className="w-20 h-20 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-white text-2xl font-bold">
                 {account.profile_image_url ? (
                   <img
+                    key={`${account.id}-${imageKey}`}
                     src={account.profile_image_url}
                     alt={account.display_name}
                     className="w-full h-full rounded-full object-cover"
