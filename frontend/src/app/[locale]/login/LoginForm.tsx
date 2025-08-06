@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import useLogin from '../hooks/useLogin';
+import Spinner from '../../components/loading/Spinner';
 
 interface Props {
   locale: string;
@@ -44,6 +45,7 @@ const LoginForm = ({ locale }: Props) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            autoComplete="off"
             className="w-full text-white bg-transparent border-b-2 border-[#59595B] py-2 text-base outline-none transition-colors focus:border-[#ff640a] peer placeholder-transparent"
             placeholder=" "
           />
@@ -78,21 +80,27 @@ const LoginForm = ({ locale }: Props) => {
             {showPassword ? "OCULTAR" : "EXIBIR"}
           </button>
         </div>
-        <button
-          type="submit"
-          className={`w-full border border-[#A0A0A0] cursor-pointer text-sm rounded-full py-2.5 px-3 my-2.5 transition-all duration-300 ${
-            email && password
-              ? 'bg-[#FF640A] border-[#FF640A] hover:opacity-90'
-              : 'bg-transparent'
-          }`}
-          disabled={loading || !email || !password}
-        >
-          <span className={`font-bold transition-all duration-300 ${
-            email && password ? 'text-black' : 'text-[#A0A0A0]'
-          }`}>
-            {loading ? 'Entrando...' : 'LOGIN'}
-          </span>
-        </button>
+          <button
+            type="submit"
+            className={`w-full border border-[#A0A0A0] cursor-pointer text-sm rounded-full py-2.5 px-3 my-2.5 transition-all duration-300 ${
+              email && password
+                ? 'bg-[#FF640A] border-[#FF640A] hover:opacity-90'
+                : 'bg-transparent'
+            }`}
+            disabled={loading || !email || !password}
+          >
+            {loading ? (
+              <div className="flex justify-center items-center">
+                <Spinner size={16} border={2}/>
+              </div>
+            ) : (
+              <span className={`font-bold transition-all duration-300 ${
+                email && password ? 'text-black' : 'text-[#A0A0A0]'
+              }`}>
+                LOGIN
+              </span>
+            )}
+          </button>
       </form>
       <div className="flex items-center justify-center gap-2.5">
         <div>

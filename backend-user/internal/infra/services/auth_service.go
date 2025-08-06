@@ -1,6 +1,10 @@
 package services
 
 import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/hex"
+	"fmt"
 	"os"
 	"time"
 
@@ -10,12 +14,10 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// AuthService implementa a interface do serviço de autenticação
 type AuthService struct {
 	jwtSecret []byte
 }
 
-// NewAuthService cria uma nova instância do serviço de autenticação
 func NewAuthService() *AuthService {
 	jwtSecret := os.Getenv("JWT_SECRET")
 	if jwtSecret == "" {
@@ -27,23 +29,20 @@ func NewAuthService() *AuthService {
 	}
 }
 
-// HashPassword gera o hash de uma senha
 func (s *AuthService) HashPassword(password string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	return string(bytes), err
 }
 
-// ComparePassword compara uma senha com seu hash
 func (s *AuthService) ComparePassword(password, hash string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 }
 
-// GenerateToken gera um token JWT para um usuário
 func (s *AuthService) GenerateToken(user *entities.User) (string, error) {
 	claims := jwt.MapClaims{
 		"user_id": user.ID,
 		"email":   user.Email,
-		"exp":     time.Now().Add(time.Hour * 24 * 7).Unix(), // 7 dias
+		"exp":     time.Now().Add(time.Hour * 24 * 7).Unix(),
 		"iat":     time.Now().Unix(),
 	}
 
@@ -51,7 +50,6 @@ func (s *AuthService) GenerateToken(user *entities.User) (string, error) {
 	return token.SignedString(s.jwtSecret)
 }
 
-// ValidateToken valida um token JWT e retorna o ID do usuário
 func (s *AuthService) ValidateToken(tokenString string) (string, error) {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return s.jwtSecret, nil
@@ -72,20 +70,18 @@ func (s *AuthService) ValidateToken(tokenString string) (string, error) {
 	return "", jwt.ErrSignatureInvalid
 }
 
-// GenerateResetToken gera um token de reset de senha
 func (s *AuthService) GenerateResetToken(userID, email string) (string, error) {
 	claims := jwt.MapClaims{
 		"user_id": userID,
 		"email":   email,
 		"type":    "reset",
-		"exp":     time.Now().Add(24 * time.Hour).Unix(), // Token válido por 24 horas
+		"exp":     time.Now().Add(24 * time.Hour).Unix(),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString(s.jwtSecret)
 }
 
-// ValidateResetToken valida um token de reset e retorna o ID do usuário
 func (s *AuthService) ValidateResetToken(tokenString string) (string, error) {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return s.jwtSecret, nil
@@ -96,7 +92,6 @@ func (s *AuthService) ValidateResetToken(tokenString string) (string, error) {
 	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		// Verificar se é um token de reset
 		if tokenType, ok := claims["type"].(string); !ok || tokenType != "reset" {
 			return "", jwt.ErrSignatureInvalid
 		}
@@ -109,4 +104,30 @@ func (s *AuthService) ValidateResetToken(tokenString string) (string, error) {
 	}
 
 	return "", jwt.ErrSignatureInvalid
+}
+
+func (s *AuthService) ValidateResetCode(userID, email, code string) error {
+	expectedCode := s.generateExpectedCode(userID, email)
+
+	fmt.Printf("Validating reset code:\n")
+	fmt.Printf("  UserID: %s\n", userID)
+	fmt.Printf("  Email: %s\n", email)
+	fmt.Printf("  Provided code: %s\n", code)
+	fmt.Printf("  Expected code: %s\n", expectedCode)
+	fmt.Printf("  Codes match: %t\n", code == expectedCode)
+
+	if code != expectedCode {
+		return fmt.Errorf("código inválido")
+	}
+
+	return nil
+}
+
+func (s *AuthService) generateExpectedCode(userID, email string) string {
+	h := hmac.New(sha256.New, s.jwtSecret)
+	h.Write([]byte(userID + email + "reset"))
+	hash := h.Sum(nil)
+
+	hashHex := hex.EncodeToString(hash)
+	return hashHex[:6]
 }

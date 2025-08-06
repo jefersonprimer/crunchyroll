@@ -9,13 +9,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// AuthHandler gerencia as requisições de autenticação
 type AuthHandler struct {
 	registerUseCase *usecases.RegisterUserUseCase
 	loginUseCase    *usecases.LoginUserUseCase
 }
 
-// NewAuthHandler cria uma nova instância do handler
 func NewAuthHandler(
 	registerUseCase *usecases.RegisterUserUseCase,
 	loginUseCase *usecases.LoginUserUseCase,
@@ -26,7 +24,6 @@ func NewAuthHandler(
 	}
 }
 
-// Register lida com a requisição de registro
 func (h *AuthHandler) Register(c *gin.Context) {
 	var req dto.RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -43,7 +40,6 @@ func (h *AuthHandler) Register(c *gin.Context) {
 	c.JSON(http.StatusCreated, response)
 }
 
-// Login lida com a requisição de login
 func (h *AuthHandler) Login(c *gin.Context) {
 	var req dto.LoginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {

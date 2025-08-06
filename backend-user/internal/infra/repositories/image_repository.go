@@ -7,19 +7,16 @@ import (
 	"backend-user/internal/infra/supabase"
 )
 
-// ImageRepository implementa a interface do repositório de imagens
 type ImageRepository struct {
 	client *supabase.Client
 }
 
-// NewImageRepository cria uma nova instância do repositório
 func NewImageRepository(client *supabase.Client) *ImageRepository {
 	return &ImageRepository{
 		client: client,
 	}
 }
 
-// GetProfileImages retorna todas as imagens de perfil disponíveis
 func (r *ImageRepository) GetProfileImages() ([]*entities.ProfileImage, error) {
 	var images []*entities.ProfileImage
 
@@ -35,7 +32,6 @@ func (r *ImageRepository) GetProfileImages() ([]*entities.ProfileImage, error) {
 	return images, nil
 }
 
-// GetBackgroundImages retorna todas as imagens de fundo disponíveis
 func (r *ImageRepository) GetBackgroundImages() ([]*entities.BackgroundImage, error) {
 	var images []*entities.BackgroundImage
 

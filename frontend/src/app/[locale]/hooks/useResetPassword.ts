@@ -5,7 +5,7 @@ const useResetPassword = () => {
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
-  const resetPassword = async (token: string, password: string) => {
+  const resetPassword = async (email: string, code: string, password: string) => {
     setLoading(true);
     setError(null);
     setMessage(null);
@@ -15,19 +15,19 @@ const useResetPassword = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ token, password }),
+        body: JSON.stringify({ email, code, password }),
       });
       const data = await response.json();
       if (response.ok) {
         setMessage(data.message || 'Senha redefinida com sucesso!');
         return { success: true, data };
       } else {
-        setError(data.error || 'An error occurred');
-        return { success: false, error: data.error || 'An error occurred' };
+        setError(data.error || 'Ocorreu um erro');
+        return { success: false, error: data.error || 'Ocorreu um erro' };
       }
     } catch (err) {
-      setError('An error occurred. Please try again.');
-      return { success: false, error: 'An error occurred. Please try again.' };
+      setError('Ocorreu um erro. Verifique sua conexão e tente novamente.');
+      return { success: false, error: 'Ocorreu um erro. Verifique sua conexão e tente novamente.' };
     } finally {
       setLoading(false);
     }

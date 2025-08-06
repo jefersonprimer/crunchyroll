@@ -14,7 +14,8 @@ export default function ResetPasswordForm({ locale }: Props) {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const token = searchParams.get('token');
+  const email = searchParams.get('email');
+  const code = searchParams.get('code');
   const { resetPassword, loading, error, message } = useResetPassword();
 
   const [localError, setLocalError] = useState('');
@@ -24,16 +25,16 @@ export default function ResetPasswordForm({ locale }: Props) {
     setLocalError('');
 
     if (password !== confirmPassword) {
-      setLocalError('Passwords do not match');
+      setLocalError('As senhas não coincidem');
       return;
     }
 
-    if (!token) {
-      setLocalError('Invalid reset token');
+    if (!email || !code) {
+      setLocalError('Email ou código inválido');
       return;
     }
 
-    const result = await resetPassword(token, password);
+    const result = await resetPassword(email, code, password);
     if (result.success) {
       setTimeout(() => {
         router.push('/login');
@@ -41,9 +42,32 @@ export default function ResetPasswordForm({ locale }: Props) {
     }
   };
 
+  // Se não tiver email ou código, mostrar erro
+  if (!email || !code) {
+    return (
+      <div className="w-[416px] h-[396px]">
+        <h1 className="text-[2.5rem] mb-8 text-[#f47521] text-center">Redefinir Senha</h1>
+        <div className="bg-[#000000] p-8 w-full shadow-md">
+          <div className="text-[#ff4444] bg-[rgba(255,68,68,0.1)] p-2.5 rounded mb-4">
+            Link inválido. Por favor, solicite um novo código de redefinição.
+          </div>
+          <a
+            href="/forgot-password"
+            className="text-[#f47521] no-underline hover:underline"
+          >
+            Voltar para solicitar novo código
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-[416px] h-[396px]">
-        <h1 className="text-[2.5rem] mb-8 text-[#f47521] text-center">Reset Password</h1>
+        <h1 className="text-[2.5rem] mb-8 text-[#f47521] text-center">Redefinir Senha</h1>
+        <p className="text-[#A0A0A0] text-[1rem] text-center mb-4">
+          Redefinindo senha para: {email}
+        </p>
         <div className="bg-[#000000] p-8 w-full shadow-md">
         <div className="flex flex-col gap-6">
             <form onSubmit={handleSubmit}>
@@ -71,7 +95,7 @@ export default function ResetPasswordForm({ locale }: Props) {
                 htmlFor="password"
                 className="absolute left-0 top-3 text-[#888] text-base transition-all duration-300 pointer-events-none peer-focus:top-0 peer-focus:left-0 peer-focus:text-xs peer-focus:px-1 peer-focus:bg-[#2a2a2a] peer-focus:text-[#f47521] peer-[&:not(:placeholder-shown)]:top-0 peer-[&:not(:placeholder-shown)]:left-0 peer-[&:not(:placeholder-shown)]:text-xs peer-[&:not(:placeholder-shown)]:px-1 peer-[&:not(:placeholder-shown)]:bg-[#2a2a2a] peer-[&:not(:placeholder-shown)]:text-[#f47521]"
                 >
-                New Password
+                Nova Senha
                 </label>
                 <button
                 type="button"
@@ -93,9 +117,9 @@ export default function ResetPasswordForm({ locale }: Props) {
                 />
                 <label
                 htmlFor="confirmPassword"
-                className="absolute left-0 top-3 text-[#888] text-base transition-all duration-300 pointer-events-none peer-focus:top-0 peer-focus:left-0 peer-focus:text-xs peer-focus:px-1 peer-focus:bg-[#2a2a2a] peer-focus:text-[#f47521] peer-[&:not(:placeholder-shown)]:top-0 peer-[&:not(:placeholder-shown)]:left-0 peer-[&:not(:placeholder-shown)]:text-xs peer-[&:not(:placeholder-shown)]: peer-[&:not(:placeholder-shown)]:bg-[#2a2a2a] peer-[&:not(:placeholder-shown)]:text-[#f47521]"
+                className="absolute left-0 top-3 text-[#888] text-base transition-all duration-300 pointer-events-none peer-focus:top-0 peer-focus:left-0 peer-focus:text-xs peer-focus:px-1 peer-focus:bg-[#2a2a2a] peer-focus:text-[#f47521] peer-[&:not(:placeholder-shown)]:top-0 peer-[&:not(:placeholder-shown)]:left-0 peer-[&:not(:placeholder-shown)]:text-xs peer-[&:not(:placeholder-shown)]:px-1 peer-[&:not(:placeholder-shown)]:bg-[#2a2a2a] peer-[&:not(:placeholder-shown)]:text-[#f47521]"
                 >
-                Confirm New Password
+                Confirmar Nova Senha
                 </label>
             </div>
             <button
@@ -107,7 +131,7 @@ export default function ResetPasswordForm({ locale }: Props) {
                 }`}
                 disabled={loading || !password || !confirmPassword}
             >
-                <span>{loading ? 'RESETTING...' : 'RESET PASSWORD'}</span>
+                <span>{loading ? 'REDEFININDO...' : 'REDEFINIR SENHA'}</span>
             </button>
             </form>
         </div>

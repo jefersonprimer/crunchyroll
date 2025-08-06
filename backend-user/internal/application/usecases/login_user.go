@@ -9,13 +9,11 @@ import (
 	"backend-user/internal/domain/services"
 )
 
-// LoginUserUseCase implementa o caso de uso de login de usuário
 type LoginUserUseCase struct {
 	userRepo    repositories.UserRepository
 	authService services.AuthService
 }
 
-// NewLoginUserUseCase cria uma nova instância do use case
 func NewLoginUserUseCase(
 	userRepo repositories.UserRepository,
 	authService services.AuthService,
@@ -26,39 +24,33 @@ func NewLoginUserUseCase(
 	}
 }
 
-// Execute executa o caso de uso de login
 func (uc *LoginUserUseCase) Execute(req *dto.LoginRequest) (*dto.LoginResponse, error) {
-	// Buscar usuário pelo email
+
 	user, err := uc.userRepo.GetByEmail(req.Email)
 	if err != nil {
 		return nil, errors.New("invalid credentials")
 	}
 
-	// Verificar senha
 	if err := uc.authService.ComparePassword(req.Password, user.PasswordHash); err != nil {
 		return nil, errors.New("invalid credentials")
 	}
 
-	// Atualizar último login
 	user.UpdateLastLogin()
 	if err := uc.userRepo.Update(user); err != nil {
 		return nil, err
 	}
 
-	// Gerar token
 	token, err := uc.authService.GenerateToken(user)
 	if err != nil {
 		return nil, err
 	}
 
-	// Retornar resposta
 	return &dto.LoginResponse{
 		User:  uc.toUserResponse(user),
 		Token: token,
 	}, nil
 }
 
-// toUserResponse converte a entidade User para UserResponse
 func (uc *LoginUserUseCase) toUserResponse(user *entities.User) *dto.UserResponse {
 	return &dto.UserResponse{
 		ID:                 user.ID,

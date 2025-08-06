@@ -4,8 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	"backend-blog/backend/config"
-	"backend-blog/backend/handlers"
+	"backend-blog/backend/infra/config"
+	containerPkg "backend-blog/backend/infra/container"
+	"backend-blog/backend/presentation/middleware"
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
@@ -18,31 +19,42 @@ func main() {
 		log.Printf("Aviso: Não foi possível carregar o arquivo .env: %v", err)
 	}
 
-	// Inicializar Supabase
-	config.InitSupabase()
+	// Initialize dependency container
+	container := containerPkg.NewContainer()
 
 	// Configurar rotas
 	r := mux.NewRouter()
 
+	// Aplicar middlewares
+	r.Use(middleware.ErrorHandlerMiddleware)
+	r.Use(middleware.LoggingMiddleware)
+
 	// Rotas para posts
-	r.HandleFunc("/api/posts", handlers.GetPosts).Methods("GET")
-	r.HandleFunc("/api/posts", handlers.CreatePost).Methods("POST")
-	r.HandleFunc("/api/posts/{id}", handlers.GetPost).Methods("GET")
-	r.HandleFunc("/api/posts/{id}", handlers.UpdatePost).Methods("PATCH")
-	r.HandleFunc("/api/posts/{id}", handlers.DeletePost).Methods("DELETE")
-	r.HandleFunc("/api/posts/{category}/{year}/{month}/{day}/{slug}", handlers.GetPostBySlug).Methods("GET")
+	r.HandleFunc("/api/posts", container.PostHandler.GetPosts).Methods("GET")
+	r.HandleFunc("/api/posts", container.PostHandler.CreatePost).Methods("POST")
+	r.HandleFunc("/api/posts/{id}", container.PostHandler.GetPost).Methods("GET")
+	r.HandleFunc("/api/posts/{id}", container.PostHandler.UpdatePost).Methods("PATCH")
+	r.HandleFunc("/api/posts/{id}", container.PostHandler.DeletePost).Methods("DELETE")
+	r.HandleFunc("/api/posts/{category}/{year}/{month}/{day}/{slug}", container.PostHandler.GetPostBySlug).Methods("GET")
 
 	// Configurar CORS
-	c := cors.New(cors.Options{
+	corsOptions := cors.Options{
 		AllowedOrigins:   []string{"http://localhost:5173", "http://localhost:3001", "http://localhost:3000"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Content-Type", "Content-Length", "Accept-Encoding", "Authorization", "X-Requested-With"},
 		AllowCredentials: true,
-		Debug:            true,
-	})
+	}
+
+	// Habilitar debug apenas em desenvolvimento
+	if config.IsDevelopment() {
+		corsOptions.Debug = true
+	}
+
+	c := cors.New(corsOptions)
 
 	// Iniciar servidor
 	handler := c.Handler(r)
-	log.Println("Servidor rodando na porta 8080...")
-	log.Fatal(http.ListenAndServe(":8080", handler))
+	appConfig := config.GetAppConfig()
+	log.Printf("Servidor rodando na porta %s...", appConfig.Port)
+	log.Fatal(http.ListenAndServe(":"+appConfig.Port, handler))
 }

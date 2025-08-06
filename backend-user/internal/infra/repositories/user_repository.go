@@ -7,21 +7,17 @@ import (
 	"backend-user/internal/infra/supabase"
 )
 
-// UserRepository implementa a interface do repositório de usuários
 type UserRepository struct {
 	client *supabase.Client
 }
 
-// NewUserRepository cria uma nova instância do repositório
 func NewUserRepository(client *supabase.Client) *UserRepository {
 	return &UserRepository{
 		client: client,
 	}
 }
 
-// Create cria um novo usuário
 func (r *UserRepository) Create(user *entities.User) error {
-	// Converter para o formato do Supabase
 	userData := map[string]interface{}{
 		"email":         user.Email,
 		"username":      user.Username,
@@ -38,7 +34,6 @@ func (r *UserRepository) Create(user *entities.User) error {
 	return nil
 }
 
-// GetByID busca um usuário pelo ID
 func (r *UserRepository) GetByID(id string) (*entities.User, error) {
 	var user entities.User
 
@@ -54,7 +49,6 @@ func (r *UserRepository) GetByID(id string) (*entities.User, error) {
 	return &user, nil
 }
 
-// GetByEmail busca um usuário pelo email
 func (r *UserRepository) GetByEmail(email string) (*entities.User, error) {
 	var user entities.User
 
@@ -70,7 +64,6 @@ func (r *UserRepository) GetByEmail(email string) (*entities.User, error) {
 	return &user, nil
 }
 
-// GetByUsername busca um usuário pelo username
 func (r *UserRepository) GetByUsername(username string) (*entities.User, error) {
 	var user entities.User
 
@@ -86,7 +79,6 @@ func (r *UserRepository) GetByUsername(username string) (*entities.User, error) 
 	return &user, nil
 }
 
-// Update atualiza um usuário existente
 func (r *UserRepository) Update(user *entities.User) error {
 	userData := map[string]interface{}{
 		"display_name":         user.DisplayName,
@@ -100,13 +92,11 @@ func (r *UserRepository) Update(user *entities.User) error {
 	return err
 }
 
-// Delete remove um usuário
 func (r *UserRepository) Delete(id string) error {
 	_, _, err := r.client.From("users").Delete("", "").Eq("id", id).Execute()
 	return err
 }
 
-// ExistsByEmail verifica se existe um usuário com o email fornecido
 func (r *UserRepository) ExistsByEmail(email string) (bool, error) {
 	data, _, err := r.client.From("users").Select("id", "", false).Eq("email", email).Execute()
 	if err != nil {
@@ -116,7 +106,6 @@ func (r *UserRepository) ExistsByEmail(email string) (bool, error) {
 	return len(data) > 0, nil
 }
 
-// ExistsByUsername verifica se existe um usuário com o username fornecido
 func (r *UserRepository) ExistsByUsername(username string) (bool, error) {
 	data, _, err := r.client.From("users").Select("id", "", false).Eq("username", username).Execute()
 	if err != nil {

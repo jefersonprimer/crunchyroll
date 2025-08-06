@@ -9,7 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// ProfileHandler gerencia as requisições de perfil
 type ProfileHandler struct {
 	getProfileUseCase          *usecases.GetUserProfileUseCase
 	updateProfileUseCase       *usecases.UpdateUserProfileUseCase
@@ -17,7 +16,6 @@ type ProfileHandler struct {
 	getBackgroundImagesUseCase *usecases.GetBackgroundImagesUseCase
 }
 
-// NewProfileHandler cria uma nova instância do handler
 func NewProfileHandler(
 	getProfileUseCase *usecases.GetUserProfileUseCase,
 	updateProfileUseCase *usecases.UpdateUserProfileUseCase,
@@ -32,7 +30,6 @@ func NewProfileHandler(
 	}
 }
 
-// GetUserProfile lida com a requisição de obtenção de perfil
 func (h *ProfileHandler) GetUserProfile(c *gin.Context) {
 	userID, exists := c.Get("user_id")
 	if !exists {
@@ -49,7 +46,6 @@ func (h *ProfileHandler) GetUserProfile(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-// UpdateUserProfile lida com a requisição de atualização de perfil
 func (h *ProfileHandler) UpdateUserProfile(c *gin.Context) {
 	userID, exists := c.Get("user_id")
 	if !exists {
@@ -72,7 +68,6 @@ func (h *ProfileHandler) UpdateUserProfile(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-// GetProfileImages lida com a requisição de obtenção de imagens de perfil
 func (h *ProfileHandler) GetProfileImages(c *gin.Context) {
 	response, err := h.getProfileImagesUseCase.Execute()
 	if err != nil {
@@ -83,7 +78,6 @@ func (h *ProfileHandler) GetProfileImages(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-// GetBackgroundImages lida com a requisição de obtenção de imagens de fundo
 func (h *ProfileHandler) GetBackgroundImages(c *gin.Context) {
 	response, err := h.getBackgroundImagesUseCase.Execute()
 	if err != nil {

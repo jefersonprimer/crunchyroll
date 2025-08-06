@@ -8,31 +8,26 @@ import (
 	"backend-user/internal/domain/repositories"
 )
 
-// GetUserProfileUseCase implementa o caso de uso de obtenção de perfil
 type GetUserProfileUseCase struct {
 	userRepo repositories.UserRepository
 }
 
-// NewGetUserProfileUseCase cria uma nova instância do use case
 func NewGetUserProfileUseCase(userRepo repositories.UserRepository) *GetUserProfileUseCase {
 	return &GetUserProfileUseCase{
 		userRepo: userRepo,
 	}
 }
 
-// Execute executa o caso de uso de obtenção de perfil
 func (uc *GetUserProfileUseCase) Execute(userID string) (*dto.UserResponse, error) {
-	// Buscar usuário pelo ID
+
 	user, err := uc.userRepo.GetByID(userID)
 	if err != nil {
 		return nil, errors.New("user not found")
 	}
 
-	// Retornar resposta
 	return uc.toUserResponse(user), nil
 }
 
-// toUserResponse converte a entidade User para UserResponse
 func (uc *GetUserProfileUseCase) toUserResponse(user *entities.User) *dto.UserResponse {
 	return &dto.UserResponse{
 		ID:                 user.ID,

@@ -111,6 +111,24 @@ func (m *MockAuthService) ValidateToken(token string) (string, error) {
 	return "", errors.New("invalid token")
 }
 
+func (m *MockAuthService) GenerateResetToken(userID, email string) (string, error) {
+	return "reset_token_" + userID + "_" + email, nil
+}
+
+func (m *MockAuthService) ValidateResetToken(token string) (string, error) {
+	if len(token) > 11 && token[:11] == "reset_token_" {
+		return token[11:], nil
+	}
+	return "", errors.New("invalid reset token")
+}
+
+func (m *MockAuthService) ValidateResetCode(userID, email, code string) error {
+	if code == "valid_code" {
+		return nil
+	}
+	return errors.New("invalid reset code")
+}
+
 func TestRegisterUserUseCase_Execute(t *testing.T) {
 	tests := []struct {
 		name          string

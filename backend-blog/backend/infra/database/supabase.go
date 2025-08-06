@@ -1,4 +1,4 @@
-package config
+package database
 
 import (
 	"bytes"
@@ -15,7 +15,6 @@ var (
 	SupabaseKey string
 )
 
-// mustGetEnv obtém variável de ambiente ou falha
 func mustGetEnv(key string) string {
 	value := os.Getenv(key)
 	if value == "" {
@@ -24,7 +23,6 @@ func mustGetEnv(key string) string {
 	return value
 }
 
-// InitSupabaseConfig inicializa as configurações do Supabase
 func InitSupabaseConfig() {
 	SupabaseURL = mustGetEnv("SUPABASE_URL")
 	SupabaseKey = mustGetEnv("SUPABASE_KEY")
@@ -40,7 +38,6 @@ func MakeRequest(method, path string, body interface{}) (*http.Response, error) 
 		if err != nil {
 			return nil, err
 		}
-		log.Printf("Request body: %s", string(reqBody))
 	}
 
 	req, err := http.NewRequest(method, url, bytes.NewBuffer(reqBody))
@@ -53,39 +50,29 @@ func MakeRequest(method, path string, body interface{}) (*http.Response, error) 
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Prefer", "return=representation")
 
-	log.Printf("Making request to: %s", url)
-	log.Printf("Request headers: %v", req.Header)
-
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
 
-	// Read the response body
 	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Printf("Error reading response body: %v", err)
 		return resp, err
 	}
 
-	// Create a new reader with the body content
 	resp.Body = io.NopCloser(bytes.NewBuffer(respBody))
 
 	if resp.StatusCode >= 400 {
-		log.Printf("Supabase error response (Status %d): %s", resp.StatusCode, string(respBody))
 		return resp, fmt.Errorf("supabase error: %s", string(respBody))
 	}
 
-	log.Printf("Response body: %s", string(respBody))
 	return resp, nil
 }
 
 func InitSupabase() {
-	// Inicializa as configurações do Supabase
 	InitSupabaseConfig()
 
-	// Test the connection
 	resp, err := MakeRequest("GET", "/posts", nil)
 	if err != nil {
 		log.Fatal("Erro ao conectar ao Supabase:", err)

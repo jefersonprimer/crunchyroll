@@ -6,12 +6,10 @@ import (
 	supa "github.com/supabase-community/supabase-go"
 )
 
-// Client representa o cliente Supabase
 type Client struct {
 	*supa.Client
 }
 
-// NewClient cria uma nova instância do cliente Supabase
 func NewClient() (*Client, error) {
 	supabaseURL := os.Getenv("SUPABASE_URL")
 	supabaseKey := os.Getenv("SUPABASE_ANON_KEY")

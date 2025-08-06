@@ -5,13 +5,11 @@ import (
 	"backend-user/internal/domain/services"
 )
 
-// ResetPasswordUseCase implementa o caso de uso para resetar senha
 type ResetPasswordUseCase struct {
 	userRepo    repositories.UserRepository
 	authService services.AuthService
 }
 
-// NewResetPasswordUseCase cria uma nova instância do caso de uso
 func NewResetPasswordUseCase(
 	userRepo repositories.UserRepository,
 	authService services.AuthService,
@@ -22,27 +20,23 @@ func NewResetPasswordUseCase(
 	}
 }
 
-// Execute executa o caso de uso de reset de senha
-func (uc *ResetPasswordUseCase) Execute(token, newPassword string) error {
-	// Verificar token de reset
-	userID, err := uc.authService.ValidateResetToken(token)
+func (uc *ResetPasswordUseCase) Execute(email, code, newPassword string) error {
+
+	user, err := uc.userRepo.GetByEmail(email)
 	if err != nil {
 		return err
 	}
 
-	// Buscar usuário
-	user, err := uc.userRepo.GetByID(userID)
+	err = uc.authService.ValidateResetCode(user.ID, email, code)
 	if err != nil {
 		return err
 	}
 
-	// Gerar hash da nova senha
 	hashedPassword, err := uc.authService.HashPassword(newPassword)
 	if err != nil {
 		return err
 	}
 
-	// Atualizar senha do usuário
 	user.PasswordHash = hashedPassword
 	err = uc.userRepo.Update(user)
 	if err != nil {

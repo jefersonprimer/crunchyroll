@@ -9,13 +9,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// PasswordResetHandler gerencia as requisições relacionadas ao reset de senha
 type PasswordResetHandler struct {
 	requestPasswordResetUseCase *usecases.RequestPasswordResetUseCase
 	resetPasswordUseCase        *usecases.ResetPasswordUseCase
 }
 
-// NewPasswordResetHandler cria uma nova instância do handler
 func NewPasswordResetHandler(
 	requestPasswordResetUseCase *usecases.RequestPasswordResetUseCase,
 	resetPasswordUseCase *usecases.ResetPasswordUseCase,
@@ -26,7 +24,6 @@ func NewPasswordResetHandler(
 	}
 }
 
-// RequestPasswordReset processa a requisição de reset de senha
 func (h *PasswordResetHandler) RequestPasswordReset(c *gin.Context) {
 	var req dto.RequestPasswordResetRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -36,17 +33,15 @@ func (h *PasswordResetHandler) RequestPasswordReset(c *gin.Context) {
 
 	err := h.requestPasswordResetUseCase.Execute(req.Email)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error processing request"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao processar solicitação"})
 		return
 	}
 
-	// Por segurança, sempre retornamos a mesma mensagem
 	c.JSON(http.StatusOK, gin.H{
-		"message": "If your email is registered, you will receive a password reset link",
+		"message": "Se seu email estiver registrado, você receberá um código de redefinição",
 	})
 }
 
-// ResetPassword processa o reset de senha com token
 func (h *PasswordResetHandler) ResetPassword(c *gin.Context) {
 	var req dto.ResetPasswordRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -54,13 +49,13 @@ func (h *PasswordResetHandler) ResetPassword(c *gin.Context) {
 		return
 	}
 
-	err := h.resetPasswordUseCase.Execute(req.Token, req.Password)
+	err := h.resetPasswordUseCase.Execute(req.Email, req.Code, req.Password)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid or expired reset token"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Código inválido ou expirado"})
 		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"message": "Password successfully reset",
+		"message": "Senha redefinida com sucesso",
 	})
 }

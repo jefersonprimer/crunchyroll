@@ -73,7 +73,7 @@ create table background_images (
 
 5. Run the server:
 ```bash
-go run main.go
+go run cmd/main.go
 ```
 
 The server will start on the port specified in your `.env` file (default: 3000).
@@ -250,15 +250,27 @@ All endpoints may return the following error responses:
 ### Project Structure
 ```
 .
+├── cmd/
+│   └── main.go                    # Application entry point
 ├── internal/
-│   ├── auth/         # Authentication related code
-│   ├── database/     # Database connection and configuration
-│   ├── handlers/     # HTTP request handlers
-│   └── models/       # Data models
-├── main.go          # Application entry point
-├── go.mod           # Go module file
-├── go.sum           # Go module checksum
-└── .env            # Environment variables
+│   ├── application/               # Use Cases and DTOs
+│   │   ├── dto/                   # Data Transfer Objects
+│   │   └── usecases/              # Business use cases
+│   ├── domain/                    # Business logic and entities
+│   │   ├── entities/              # Domain entities
+│   │   ├── repositories/          # Repository interfaces
+│   │   └── services/              # Service interfaces
+│   ├── infra/                     # Infrastructure implementations
+│   │   ├── repositories/          # Repository implementations
+│   │   ├── services/              # Service implementations
+│   │   └── supabase/              # Supabase client
+│   ├── interfaces/                # Controllers and adapters
+│   │   ├── handlers/              # HTTP request handlers
+│   │   └── middleware/            # HTTP middlewares
+│   └── validation/                # Input validation
+├── go.mod                         # Go module file
+├── go.sum                         # Go module checksum
+└── .env                          # Environment variables
 ```
 
 ### Running Tests
