@@ -53,7 +53,7 @@ const EpisodeClient: FC = () => {
 
   return (
     <div className="flex flex-col items-center w-[1351px] mx-auto">
-      <div className="w-[1351px] pb-10">
+      <div className="w-[1351px] h-[500px] pb-10">
         <EpisodeVideoPlayer episode={currentEpisode} />
       </div>
       <div className="w-[1050px] mb-[60px] box-border">
